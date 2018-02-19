@@ -1,4 +1,7 @@
-<!-- 작성자 : 제민 -->
+<!-- 
+작성자 : 심제민
+ -->
+ 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
@@ -8,7 +11,7 @@
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 관리자 도서검색 -->
-<link href="css/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
+<link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
 </head>
 <script type="text/javascript">
 	$(function() {
