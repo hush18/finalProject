@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 
+작성자 : 심제민
+ -->
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
@@ -38,18 +42,16 @@
 			}
 		})
 
-		$("#writer_search").click(
-				function() {
-					window.open("adminWriterSearch.do", "",
-							"width=570, height=600");
-					return false;
-				})
-		$("#single_cal3").change(function () {
+		$("#writer_search").click(function() {
+			window.open("adminWriterSearch.do", "", "width=570, height=600");
+			return false;
+		})
+		$("#single_cal3").change(function() {
 			var date = $(this).val().split("/");
-			var y=date[2]+"-";
-			var m=date[0]+"-";
-			var d=date[1];
-			$(this).val(y+m+d);
+			var y = date[2] + "-";
+			var m = date[0] + "-";
+			var d = date[1];
+			$(this).val(y + m + d);
 		})
 	})
 </script>
