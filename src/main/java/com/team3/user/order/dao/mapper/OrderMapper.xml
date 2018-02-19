@@ -4,4 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.team3.user.order.dao.mapper">
+  	<select id="orderSearchCount" resultType="int">
+  		select count(*) from order_delivery where order_status between 0 and 5 
+  	</select>
+  	
+  	<select id="orderSearchList" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT * FROM order_delivery where order_status between 0 and 5 ORDER BY order_number desc) A) where rnum >=#{startRow} and rnum<=#{endRow};
+  		]]>
+  	</select>
   </mapper>

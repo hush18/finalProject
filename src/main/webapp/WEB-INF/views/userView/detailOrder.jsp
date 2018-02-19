@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="js/orderSearch.js"></script>
-<script type="text/javascript" src="js/sideCategory.js"></script>
-<link href="css/sideCategory.css" type="text/css" rel="stylesheet"/>
-<link href="css/orderSearch.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="js/user/orderSearch.js"></script>
+<script type="text/javascript" src="js/user/sideCategory.js"></script>
+<link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
+<link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
@@ -115,15 +115,15 @@
 				<div class="con_info1_hy">
 					<div class="info_head_hy">
 						<div>진행중 주문 건</div>
-						<div class="info_box_hy"><span><a href="ordering.jsp">1</a></span></div>
+						<div class="info_box_hy"><span><a href="ordering.do">1</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>배송중</div>
-						<div class="info_box_hy"><span><a href="delivery.jsp">1</a></span></div>
+						<div class="info_box_hy"><span><a href="delivery.do">1</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>환불/취소</div>
-						<div class="info_box_hy"><span><a href="cancel.jsp">1</a></span></div>
+						<div class="info_box_hy"><span><a href="cancel.do">1</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>

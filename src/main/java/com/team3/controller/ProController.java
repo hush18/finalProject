@@ -75,7 +75,11 @@ public class ProController {
 	@RequestMapping(value="/orderSearch.do", method=RequestMethod.GET)
 	public ModelAndView orderSearch(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("orderSearch.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.orderSearch(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/cancel.do", method=RequestMethod.GET)

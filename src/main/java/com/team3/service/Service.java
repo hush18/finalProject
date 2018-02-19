@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.team3.aop.LogAspect;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
+import com.team3.user.order.dao.OrderDao;
+import com.team3.user.order.dto.OrderDto;
 
 @Component
 public class Service implements ServiceInterface {
@@ -28,6 +30,7 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private MemberDao memberDao;
+	private OrderDao orderDao;
 
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
@@ -105,5 +108,39 @@ public class Service implements ServiceInterface {
 		}
 		
 		mav.setViewName("zipcode.empty");
+	}
+
+	@Override
+	public void orderSearch(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String orderSearch_pageNumber=request.getParameter("orderSearch_pageNumber");
+		if(request.getParameter("orderSearch_pageNumber")==null) {
+			orderSearch_pageNumber="1";
+		}
+		LogAspect.logger.info(LogAspect.logMsg + "orderSearch_pageNumber:" +orderSearch_pageNumber);
+		
+		int pageSize=10;
+		
+		int currentPage=Integer.parseInt(orderSearch_pageNumber);
+		int startRow=(currentPage-1)*pageSize-1;
+		int endRow=currentPage*pageSize;
+		
+		int count=orderDao.getOrderSearchCount();
+		LogAspect.logger.info(LogAspect.logMsg + "count:" + count);
+		
+		List<OrderDto> orderSearchList=null;
+		if(count >0) {
+			orderSearchList=orderDao.orderSearchList(startRow, endRow);
+			LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList);
+		}
+		
+		mav.addObject("orderSearch_pageNumber", orderSearch_pageNumber);
+		mav.addObject("pageSize", pageSize);
+		mav.addObject("count", count);
+		mav.addObject("orderSearchList", orderSearchList);
+		mav.setViewName("orderSearch.users");
+		
 	}
 }

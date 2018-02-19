@@ -6,10 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="js/orderSearch.js"></script>
-<script type="text/javascript" src="js/sideCategory.js"></script>
-<link href="css/sideCategory.css" type="text/css" rel="stylesheet"/>
-<link href="css/orderSearch.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="js/user/orderSearch.js"></script>
+<script type="text/javascript" src="js/user/sideCategory.js"></script>
+<link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
+<link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 	$(function(){
 		$(".recentOrder_hy").show();
@@ -146,15 +146,15 @@
 				<div class="con_info1_hy">
 					<div class="info_head_hy">
 						<div>진행중 주문 건</div>
-						<div class="info_box_hy"><span><a href="ordering.jsp">1</a></span></div>
+						<div class="info_box_hy"><span><a href="ordering.do">1</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>배송중</div>
-						<div class="info_box_hy"><span><a href="delivery.jsp">1</a></span></div>
+						<div class="info_box_hy"><span><a href="delivery.do">1</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>환불/취소</div>
-						<div class="info_box_hy"><span><a href="cancel.jsp">1</a></span></div>
+						<div class="info_box_hy"><span><a href="cancel.do">1</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
@@ -207,12 +207,38 @@
 					<div class="search_list_size_hy">주문금액</div>
 					<div class="search_list_size_hy">교환/환불</div>
 				</div>
-				<div class="recentOrder_hy">
+				
+				<c:if test="${count==0}">
+					<h3>고객님의 주문내역이 존재하지 않습니다</h3>
+				</c:if>
+				
+				<c:if test="${count>0 }">
+					<div class="recentOrder_hy">
+						<div class="list_hy">
+							<c:forEach var="orderSearchList" items="${orderSearchList}">
+								<div class="search_list_con_hy table_jm">
+									<div><a href="detailOrder.do">${orderSearchList.isbn }</a></div>
+									<div><a href="detailOrder.do">언어의 온도 외 1개</a></div>
+									<div>${orderSearchList.order_account }권</div><!-- search_list_size_hy -->
+									<div class="">${orderSearchList.order_date }</div>
+									<div class="">2018.01.25</div>
+									<div class="">${orderSearchList.order_status }</div>
+									<div class=""><strong>${orderSearchList.total_priv }원</strong></div>
+									<div class=""><button class="block_btn_hy">환불</button><button class="block_btn_hy">취소</button></div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</c:if>
+				
+				
+				
+				<!-- <div class="recentOrder_hy">
 					<div class="list_hy">
 						<div class="search_list_con_hy table_jm">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div><!-- search_list_size_hy -->
+							<div><a href="detailOrder.do">B0635_20180115174023</a></div>
+							<div><a href="detailOrder.do">언어의 온도 외 1개</a></div>
+							<div>2권</div>search_list_size_hy
 							<div class="">2018.01.24</div>
 							<div class="">2018.01.25</div>
 							<div class="">배송중</div>
@@ -485,7 +511,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="page_count_hy">
 				<a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a><a href="">[다음]</a>
 			</div>
