@@ -14,7 +14,7 @@
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
 <!--FaqInsert css -->
-<link href="css/adminFaqEdit.css" rel="stylesheet">
+<link href="css/admin/adminFaqEdit.css" rel="stylesheet">
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -116,4 +116,4 @@
 <script src="vendors/moment/min/moment.min.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- FAQ Insert Script -->
-<script src="js/faqInsert.js"></script>
+<script src="js/admin/faqInsert.js"></script>

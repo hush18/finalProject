@@ -2,7 +2,7 @@
 <head>
 <script type="text/javascript" src="jquery_ui/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
-<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/user/header.js"></script>
 
 <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
 <link rel="stylesheet" href="css/user/header.css">

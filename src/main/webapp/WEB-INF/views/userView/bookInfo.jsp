@@ -1,3 +1,4 @@
+<!-- 작성자 : 제민 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,11 +8,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="css/bookLayout.css" type="text/css" rel="stylesheet" />
+<link href="css/user/bookLayout.css" type="text/css" rel="stylesheet" />
 <!-- 제민(영역 스타일 및 사이드 카테고리) -->
-<link href="css/bookInfo.css" type="text/css" rel="stylesheet" />
+<link href="css/user/bookInfo.css" type="text/css" rel="stylesheet" />
 <!-- 제민(책정보 스타일) -->
-<script type="text/javascript" src="js/bookScript.js"></script>
+<script type="text/javascript" src="js/user/bookScript.js"></script>
 <!-- 스크립트(수량Up&Down) -->
 <style type="text/css">
 	.star_rating {font-size:0; letter-spacing:-4px;}
