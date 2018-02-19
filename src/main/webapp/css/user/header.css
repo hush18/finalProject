@@ -1,0 +1,302 @@
+@charset "UTF-8";
+/* 초기화 통일 */
+body {
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+	overflow: scroll;
+}
+
+.widthline {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+.h2-hr {
+	color: #5cb38b;
+	border-bottom: 1px solid #9c9c9c;
+	padding-bottom: 10px;
+}
+
+@font-face {
+	font-family: 'godo';
+	src: url(../fonts/godo.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'NanumSquareRoundR';
+	src: url(../fonts/NanumSquareRoundR.ttf) format('truetype');
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: godo;
+}
+
+ul, li, a, p, button {
+	font-family: NanumSquareRoundR;
+}
+
+/* header */
+.logo-N-search-iy {
+	height: 100px;
+}
+
+.hr-iy {
+	margin: 0 0 30px 0;
+	border: 0;
+	height: 1px;
+	color: #5cb38b;
+	background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+	background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+	background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+	background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+	background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+
+.header-content-iy {
+	display: inline-block;
+	height: fit-content;
+}
+
+.mainMenu-iy-fixed {
+	background-color: #fff;
+	width: 1000px;
+	line-height: 30px;
+	position: fixed;
+	top: 0px;
+	z-index: 999;
+}
+
+.leftMenu-iy, .rightMenu-iy, .topMenu-iy {
+	display: inline-block;
+	padding: 10px 10px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #fff;
+}
+
+.leftMenu-iy ul li, .rightMenu-iy ul li, .topMenu-iy ul li {
+	float: left;
+	list-style-type: none;
+}
+
+.leftMenu-iy a, .rightMenu-iy a {
+	height: 16px;
+	color: #000;
+	font-size: 12px;
+	padding: 0 10px 0 10px;
+	text-decoration: none;
+}
+
+.leftMenu-iy a:hover, .rightMenu-iy a:hover {
+	font-weight: bold;
+	color: #5cb38b;
+	/* 	border-bottom: 3px solid #5cb38b; */
+}
+
+.leftMenu-iy ul ul, .rightMenu-iy ul ul {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+}
+
+.leftMenu-iy ul li:hover ul, .rightMenu-iy ul li:hover ul {
+	display: block;
+}
+
+.leftMenu-iy ul ul li, .rightMenu-iy ul ul li, .topMenu-iy ul ul li {
+	float: none;
+	margin: 10px;
+}
+
+.rightMenu-iy {
+	float: right;
+}
+
+.topMenu-iy {
+	width: 100%;
+}
+
+.ul-iy {
+	padding: 0;
+	margin: 0;
+	z-index: 999;
+}
+
+.logo-iy {
+	/* 	margin: 20px 0 20px 20px; */
+	float: left;
+}
+
+.logo-iy>img {
+	cursor: pointer;
+}
+
+/* 검색창 */
+.search-form-iy {
+	position: relative;
+	width: 300px;
+	margin: 0 auto;
+}
+
+.H-search {
+	display: inline-block;
+	background: #fff;
+	margin: 29px 10px 29px 700px;
+}
+
+.H-search form {
+	background: #5cb38b;
+}
+
+.H-search input, .H-search button {
+	border: none;
+	outline: none;
+	background: transparent;
+}
+
+.H-search input {
+	width: 100%;
+	height: 42px;
+	padding: 0 0 0 15px;
+	color: #fff;
+}
+
+.H-search button {
+	height: 42px;
+	width: 42px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+}
+
+.H-search button:before {
+	content: "\f002";
+	font-family: FontAwesome;
+	font-size: 16px;
+	color: #fff;
+}
+
+::-webkit-input-placeholder {
+	color: #fff;
+}
+/* Firefox 4-18 */
+:-moz-placeholder {
+	color: #fff;
+}
+/* Firefox 19+ */
+::-moz-placeholder {
+	color: #fff;
+}
+/* IE10+ */
+:-ms-input-placeholder {
+	color: #fff;
+}
+/* Scroll Banner */
+.ss_fixed {
+	position: fixed !important;
+	top: 130px !important;
+}
+
+#serviceWrap {
+	position: absolute;
+	left: 50%;
+	top: 310px; /*요기가 스크롤배너 위치설정*/
+	margin-left: 510px;
+	z-index: 10;
+	width: 100px;
+	height: 300px;
+	color: #9c9c9c;
+	font-size: 12px;
+}
+
+#serviceWrap label {
+	font-size: 1.17em;
+	color: #3C7B5e;
+}
+
+.recommend_sc {
+	border: 1px solid #9c9c9c;
+}
+
+#image {
+	margin: 1px 4px;
+	cursor: pointer;
+}
+
+.nearest_sc {
+	margin-top: 5px;
+	border: 1px solid #9c9c9c;
+}
+
+.wishList_sc, .buy_sc {
+	margin-top: 5px;
+	width: 100px;
+}
+
+.wishList_sc, .buy_sc {
+	float: right;
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width: 100px;
+	height: 30px;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	margin-top: 7px;
+	margin-left: 5px;
+}
+
+.wishList_sc:hover, .buy_sc:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.wishList_sc:before, .wishList_sc:after, .buy_sc:before, .buy_sc:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.wishList_sc:after, .buy_sc:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.wishList_sc:hover:before, .wishList_sc:hover:after, .buy_sc:hover:before,
+	.buy_sc:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+/* 전체메뉴 */
+.all-mainMenu-iy {
+	display: none;
+	position: absolute;
+	width: 958px;
+	height: auto;
+	border: 1px solid #3C7B5e;
+	background: #FFF;
+	z-index: 400;
+	padding: 10px 30px;
+}
+
+.all-mainMenu-iy div {
+	width: 20%;
+	float: left
+}

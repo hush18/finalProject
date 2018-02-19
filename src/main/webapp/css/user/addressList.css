@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+body{
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.widthline_yk{
+	margin: 0 auto;
+	width: 500px;
+}
+
+.address_content >div{
+	display: inline-block;
+	text-align: center;
+}
+
+.address_list>div>div{
+	display: inline-block;
+	text-align: center;
+}
+
+.address_list>div>div:nth-child(1){
+	width: 6%;
+}
+
+.address_list>div>div:nth-child(2){
+	width: 20%;
+}
+
+.address_list>div>div:nth-child(3){
+	width: 35%;
+}
+
+.address_list>div>div:nth-child(4){
+	width: 35%;
+}
+
+.address_list{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.address_list >div{
+	margin-bottom: 10px;	
+}
+
+
+.sub_yk{
+	height: 40px;
+	margin-bottom: 10px;
+	background-color: #5cb38b;
+}
+
+.sub_yk span{
+	color: #fff;
+	line-height: 40px;
+	font-size: 1.17em;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.address_content{
+	background-color: #fff;
+	font-size: 12px;
+	width: 100%;
+	height: 25px;
+	color: #000;
+	line-height: 25px;
+}
+.add_addressList{
+	margin-bottom: 20px;
+}
+.add_addressList >div>div{
+	display: inline-block;
+	text-align: center;
+}
+
+.add_addressList>div>div:nth-child(1){
+	margin-left: 55px;
+}
+
+.add_addressList>div>div:nth-child(2){
+	
+}
+
+.add_addressList>div>div:nth-child(3){
+	
+}
+
+
+
+
+
+
+

@@ -1,0 +1,290 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.widthline {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+.boss_ej {
+	width: 100%;
+	border: 0px solid black;
+}
+
+.category_ej a:hover {
+	font-weight: bold;
+	color: #5cb38b;
+}
+
+.url_ej {
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #9C9C9C;
+	font-size: 12px;
+	padding-top: 15px;
+	margin-bottom: 5px;
+}
+
+.content_ej{
+	border: 0px solid #9C9C9C;
+	display: grid;
+	width: 80%;
+	float: right;
+	margin-left: 20px;
+}
+
+.search_choice_ej{
+	float: left;
+    margin: 20px 5px 0 45px;
+    border-color: #5CB38B;
+}
+
+.search_sub_ej{
+	float: left;
+    margin: 20px 5px 0 0;
+}
+
+.category_ej a{
+	color: #9C9C9C;
+	text-decoration: none;
+}
+
+.search_ej{
+	width: 70%;
+	height: 70px;
+	border: 2px solid #5CB38B;
+	margin-left: 120px;
+	border-radius: 40px 10px;
+	margin-top: 10px;
+}
+
+.search_ej input, .search_ej select{
+	padding: 5px;
+	color: #9C9C9C;
+	outline-color: #5CB38B;
+	border-radius: 3px;
+	border: 1px solid #9c9c9c;
+	font-size: 12px;
+}
+
+.FAQ_TOP_ej{
+	border: 0px solid black;
+	width: 70%;
+	margin-left: 120px;
+}
+
+.FAQ_TOP_1_ej {
+	border: 0px solid black;
+	width: 100%;
+	overflow: hidden;
+}
+
+.FAQ_TOP_1_ej h3 {
+	float: left;
+	color: #3C7B5e;
+	padding: 0px 10px 0px 8px;
+	background-image: url("../images/CustomerService/minus3.png");
+	background-repeat: no-repeat;
+	background-position: 63px 1px;
+}
+
+.FAQ_TOP_1_ej p {
+	float: left;
+	height: 28px;
+	padding: 3px 0 0 10px;
+	font-size: 12px;
+	color: #9C9C9C;
+}
+
+.h2_hr_ej {
+	color: #5cb38b;
+	border-bottom: 1px solid #9c9c9c;
+	padding-bottom: 10px;
+}
+
+.btn-all {
+	float: right;
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width: 10%;
+	height: 30px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+.btn-all:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn-all:before, .btn-all:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn-all:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn-all:hover:before, .btn-all:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.btn_ej{
+	height: 21px;
+	padding: 0 0.5em;
+	padding-top:5px;
+	margin-left:5px;
+	text-decoration: none;
+	border-radius: 3px;
+	font-size: 12px;
+	width: auto;
+}
+
+.consulting_ej{
+	width: 100%;
+	font-size: 12px;
+	overflow: hidden;
+	background-color: #F8F8F8;
+	color:#9c9c9c;
+	outline-color: #5cb38b;
+}
+
+.consulting_boss1_ej{
+	border-bottom: 1px solid #9c9c9c;
+	width: 100%;
+	height: 50px;
+}
+
+.consulting_sub1_ej{
+	float:left;
+	width: 20%;
+	text-align: center;
+	color: #000;
+	font-weight: bold;
+	height: 50px;
+	line-height: 48px;
+}
+
+.consulting_sub2_ej{
+	overflow: hidden;
+	height: 50px;
+	line-height: 26px;
+}
+
+.consulting_sub2_ej div:nth-child(-n+3) {
+    margin-right: 30px;
+	float: left;
+}
+
+.consulting_sub2_ej div:nth-child(n+5) {
+    margin-right: 30px;
+	float: left;
+}
+
+.consulting_boss2_ej{
+	border-bottom: 1px solid #9c9c9c;
+	height: 200px;
+}
+
+.consulting_sub2_2_ej, .consulting_sub2_1_ej{
+	overflow: hidden;
+	height: 50px;
+	line-height: 50px;
+}
+
+.consulting_sub2_2_ej input[type=text]{
+	margin-left: 10px;
+	outline-color: #5cb38b;
+	color:#000;
+}
+
+.consulting_sub3_ej input[type=text]{
+	outline-color: #5cb38b;
+	color:#000;
+	margin-top: 15px;
+}
+
+.consulting_sub2_1_ej div:nth-child(-n+3) {
+	margin-right: 30px;
+	float: left;
+}
+
+.consulting_sub3_ej{
+	overflow: hidden;
+	height: 50px;
+	line-height: 50px;
+}
+
+.consulting_sub4_ej{
+	float:left;
+	width: 20%;
+	text-align: center;
+	color: #000;
+	font-weight: bold;
+	height: 200px;
+	line-height: 200px;
+}
+
+.consulting_sub5_ej textarea{
+	margin-top: 22px;
+	outline-color: #5cb38b;
+	color:#000;
+	resize:none;
+}
+
+.consulting_btn_ej{
+	height: 50px;
+    width: 100%;
+}
+
+.consulting_btn_ej > div{
+    line-height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.consulting_abtn2_ej{
+	background: #5cb38b;
+    color: #fff;
+    height: 21px;
+    padding: 5px 0.5em;
+    cursor: pointer;
+    font-size: 12px;	
+    border-radius: 3px;
+}
+
+.consulting_abtn1_ej{
+	background: #5cb38b;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 0.5em;
+    border-radius: 3px;	
+}
+
+.consulting_abtn1_ej:hover, .consulting_abtn2_ej:hover{
+	font-weight: bold;
+}

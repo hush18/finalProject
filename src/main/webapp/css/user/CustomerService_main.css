@@ -1,0 +1,257 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.widthline {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+.boss_ej {
+	width: 100%;
+	border: 0px solid black;
+}
+
+.boss_ej a:hover {
+	font-weight: bold;
+	color: #5cb38b;
+}
+
+.url_ej {
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #9C9C9C;
+	font-size: 12px;
+	padding-top: 15px;
+	margin-bottom: 5px;
+}
+
+.content_ej{
+	border: 0px solid #9C9C9C;
+	display: grid;
+	width: 80%;
+	float: right;
+	margin-left: 20px;
+}
+
+.search_choice_ej{
+	float: left;
+    margin: 20px 5px 0 45px;
+    border-color: #5CB38B;
+}
+
+.search_sub_ej{
+	float: left;
+    margin: 20px 5px 0 0;
+}
+
+.category_ej a{
+	color: #9C9C9C;
+	text-decoration: none;
+}
+
+.search_ej{
+	width: 70%;
+	height: 70px;
+	border: 2px solid #5CB38B;
+	margin-left: 120px;
+	border-radius: 40px 10px;
+	margin-top: 10px;
+}
+
+.search_ej input, .search_ej select{
+	padding: 5px;
+	color: #9C9C9C;
+	outline-color: #5CB38B;
+	border-radius: 3px;
+	border: 1px solid #9c9c9c;
+	font-size: 12px;
+}
+
+.FAQ_TOP_ej{
+	border: 0px solid black;
+	width: 70%;
+	margin-left: 120px;
+}
+
+.FAQ_TOP_1_ej{
+	border: 0px solid black;
+	width: 100%;
+ 	overflow: hidden;
+}
+
+.FAQ_TOP_1_ej h3{
+	float: left;
+	color: #3C7B5e;
+    padding: 0px 10px 0px 8px;
+    background-image: url("../images/CustomerService/minus3.png");
+    background-repeat: no-repeat;
+    background-position: 104px 1px;
+}
+
+.FAQ_TOP_1_ej p{
+	float: left;
+    height: 28px;
+    padding: 8px 0 0 10px;	
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
+.h2_hr_ej {
+	color: #5cb38b;
+	border-bottom: 1px solid #9c9c9c;
+	padding-bottom: 10px;
+}
+
+.mainlist_ej{
+	padding-left: 15px;
+}
+
+.mainlist_ej div:nth-child(odd){
+	margin-top: 10px;
+	margin-bottom: 10px;
+    padding: 0px 0 8px 28px;
+    overflow: hidden;
+    border-bottom: 1px solid #9c9c9c;
+    
+}
+
+.mainlist_ej span{
+	color: #000;
+	font-size: 12px;
+}
+
+.mainlist_ej span:hover{
+	font-weight: bold;
+	cursor: pointer;
+	color: #5cb38b;
+}
+
+.mainlist_ej .number1_ej{
+	background-image: url("../images/CustomerService/one.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number2_ej{
+	background-image: url("../images/CustomerService/two.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number3_ej{
+	background-image: url("../images/CustomerService/three.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number4_ej{
+	background-image: url("../images/CustomerService/four.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number5_ej{
+	background-image: url("../images/CustomerService/five.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number6_ej{
+	background-image: url("../images/CustomerService/six.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number7_ej{
+	background-image: url("../images/CustomerService/seven.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number8_ej{
+	background-image: url("../images/CustomerService/eight.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number9_ej{
+	background-image: url("../images/CustomerService/nine.png");
+	background-repeat: no-repeat;
+}
+
+.mainlist_ej .number10_ej{
+	background-image: url("../images/CustomerService/ten.png");
+	background-repeat: no-repeat;
+}
+
+.top_content_ej{
+	border-top: 1px solid #9C9C9C;
+	border-bottom: 1px solid #9C9C9C;
+	padding: 3px 0px 0px 60px;
+	background: #F8F8F8 url("../images/CustomerService/arrow.png");
+	background-repeat: no-repeat;
+	background-position: 35px 15px;
+	margin-top: -11px;
+}
+
+.top_content_ej img{
+	margin: 10px 0px 0px 35px;
+}
+
+.top_content_ej p{
+	color: #000;
+	font-size: 12px;
+}
+
+.btn-all {
+	float: right;
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width: 10%;
+	height: 30px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+.btn-all:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn-all:before, .btn-all:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn-all:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn-all:hover:before, .btn-all:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.btn_ej{
+	height: 21px;
+	padding: 0 0.5em;
+	padding-top:5px;
+	margin-left:5px;
+	text-decoration: none;
+	border-radius: 3px;
+	font-size: 12px;
+	width: auto;
+}

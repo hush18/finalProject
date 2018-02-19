@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.control-label{
+	width: 100px !important;
+}
+.button_area_writer{
+	width: auto;
+	margin-left: 200px;
+}
+.button_area_writer *{
+	overflow: hidden;
+}
+
+.button_area_writer > div{
+	display: inline-block;
+}

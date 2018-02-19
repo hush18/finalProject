@@ -1,0 +1,15 @@
+.gnb_menu .cate_total_wrap{position:absolute;top:40px;left:0;width:958px;height:730px;border:1px solid #bfbfbf;background:#FFF;z-index:400}
+.gnb_menu .cate_total_wrap .ct_01{float:left;border-right:1px solid #f2f2f2;width:374px;height:704px;padding:16px 0 0 20px}
+.gnb_menu .cate_total_wrap .ct_02{float:left;width:120px;height:704px;padding:16px 0 0 20px}
+.gnb_menu .cate_total_wrap .ct_03{float:left;border-left:1px solid #f2f2f2;width:120px;padding:16px 0 0 20px}
+.gnb_menu .cate_total_wrap .ct_04{float:left;border-left:1px solid #f2f2f2;width:120px;padding:16px 0 0 20px}
+.gnb_menu .cate_total_wrap .ct_05{float:left;border-left:1px solid #f2f2f2;width:120px;padding:16px 0 0 20px}
+.gnb_menu .cate_total_wrap h4{margin:0 0 12px 0}
+.gnb_menu .cate_total_wrap h4 a{display:inline-block;color:#333;font:bolder 14px 돋움;padding-right:18px;background:url(/images/common/2014/sp_common.gif) no-repeat right -273px}
+.gnb_menu .cate_total_wrap .h4_gap{clear:both;margin-top:10px}
+.gnb_menu .cate_total_wrap .cate_list{float:left;width:120px;margin-bottom:18px}
+.gnb_menu .cate_total_wrap li{height:12px;margin-bottom:7px;*margin-bottom:4px}
+.gnb_menu .cate_total_wrap li a{display:block;height:11px;color:#666;font:normal 11px 돋움}
+.gnb_menu .cate_total_wrap li a em{font-style:normal;color:#4cafc7}
+.gnb_menu .cate_total_wrap .aw_cate, .gnb_menu .cate_wrap .aw_cate{position:absolute;width:11px;height:7px;background:url(/images/common/2014/sp_common.gif) no-repeat 0 -252px;top:-7px}
+.gnb_menu .cate_total_wrap .aw_cate{left:30px} 
