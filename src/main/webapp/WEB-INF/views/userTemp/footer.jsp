@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" href="css/footer.css">
 
-<script src="js/fadeInOut.js"></script>
+<script src="js/user/fadeInOut.js"></script>
 <script type="text/javascript" src="js/scrollBanner.js"></script>
 </head>
 <div class="footer-pre">

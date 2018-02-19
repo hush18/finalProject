@@ -7,8 +7,8 @@
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 관리자 도서검색 -->
-<link href="css/adminContents_BookInsert.css" type="text/css" rel="stylesheet">
-<link href="css/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
+<link href="css/admin/adminContents_BookInsert.css" type="text/css" rel="stylesheet">
+<link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
 	$(function() {
 		$("#upload_image_jm").click(function() {

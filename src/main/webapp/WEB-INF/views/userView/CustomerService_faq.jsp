@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<!-- 
+작성자 : 최은지
+ -->
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,12 +10,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>고객센터 회원</title>
-<link href="css/CustomerService_faq.css" rel="stylesheet"
+<link href="css/user/CustomerService_faq.css" rel="stylesheet"
 	type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script src="js/CustomerService.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/sideCategory.js"></script>
-<link type="text/css" rel="stylesheet" href="css/sideCategory.css" />
+<script src="js/user/CustomerService.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/user/sideCategory.js"></script>
+<link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
 </head>
 <body>
 	<div class="widthline">
