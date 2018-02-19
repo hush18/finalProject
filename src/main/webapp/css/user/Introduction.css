@@ -8,9 +8,17 @@ body{
 	margin: 0;
 	padding: 0;
 }
-.widthline{
+.widthline_yk{
 	margin: 0 auto;
 	width: 1000px;
+}
+.path_sc{
+    width: 1000px;
+    height: 30px;
+    border-bottom: 1px solid #9C9C9C;
+    font-size: 12px;
+    padding-top: 15px;
+    margin-bottom: 15px;
 }
 .h2-hr {
 	color: #5cb38b;
