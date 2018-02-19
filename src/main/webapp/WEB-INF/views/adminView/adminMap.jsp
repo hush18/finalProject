@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<!-- 
+작성자 : 김용기
+ -->
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 영업점관리</title>

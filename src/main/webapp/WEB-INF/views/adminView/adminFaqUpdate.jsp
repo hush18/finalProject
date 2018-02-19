@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<!-- 
+작성자 : 최은지
+ -->
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
@@ -13,7 +17,7 @@
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 <!--FaqInsert css -->
-<link href="css/adminFaqEdit.css" rel="stylesheet">
+<link href="css/admin/adminFaqEdit.css" rel="stylesheet">
 </head>
 	<div class="container body">
 		<div class="main_container">

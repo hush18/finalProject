@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>우편번호</title>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/zipcode.js"></script>
+<script type="text/javascript" src="js/user/jquery.js"></script>
+<script type="text/javascript" src="js/user/zipcode.js"></script>
 </head>
 <body>
 	<div align="center">

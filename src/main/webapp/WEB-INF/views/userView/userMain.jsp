@@ -3,10 +3,10 @@
 <title>㈜산책</title>
 <!-- Swiper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.js"></script>
-<link rel="stylesheet" href="css/slider.css">
-<link rel="stylesheet" href="css/iyStyle.css">
+<link rel="stylesheet" href="css/user/slider.css">
+<link rel="stylesheet" href="css/user/iyStyle.css">
 
-<script type="text/javascript" src="js/newsfeedParsing.js"></script>
+<script type="text/javascript" src="js/user/newsfeedParsing.js"></script>
 
 <!-- jQuery Cookie 라이브러리 (팝업창 관련)-->
 <script type="text/javascript" src="jquery_cookie/jquery.cookie.js"></script>

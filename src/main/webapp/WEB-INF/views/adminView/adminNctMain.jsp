@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 
+작성자 : 최은지
+ -->
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <title>㈜산책 공지사항관리</title>
@@ -12,7 +16,7 @@
 <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
 
 <!-- FAQ css -->
-<link href="css/adminCstMain.css" rel="stylesheet">
+<link href="css/admin/adminCstMain.css" rel="stylesheet">
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -210,4 +214,4 @@
 <script src="vendors/moment/min/moment.min.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- FAQ Scripts -->
-<script src="js/ntcMain.js"></script>
+<script src="js/admin/ntcMain.js"></script>
