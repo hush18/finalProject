@@ -14,7 +14,7 @@
 	rel="stylesheet">
 
 <!--FaqInsert css -->
-<link href="css/admin/adminFaqEdit.css" rel="stylesheet">
+<link href="css/adminFaqEdit.css" rel="stylesheet">
 </head>
 	<div class="container body">
 		<div class="main_container">

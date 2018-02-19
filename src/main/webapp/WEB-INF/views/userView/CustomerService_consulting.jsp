@@ -1,7 +1,3 @@
-<!-- 
-작성자 : 최은지
- -->
- 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>1:1 상담하기</title>
-<link href="css/user/CustomerService_consulting.css" rel="stylesheet" type="text/css" />
+<link href="css/CustomerService_consulting.css" rel="stylesheet" type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script src="js/user/CustomerService_consulting.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/user/sideCategory.js"></script>
-<link type = "text/css" rel="stylesheet" href="css/user/sideCategory.css"/>
+<script src="js/CustomerService_consulting.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/sideCategory.js"></script>
+<link type = "text/css" rel="stylesheet" href="css/sideCategory.css"/>
 </head>
 <body>
 <div class="widthline">

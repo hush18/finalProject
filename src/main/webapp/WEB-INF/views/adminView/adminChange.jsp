@@ -9,7 +9,7 @@
 <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-<link href="css/admin/adminOrderSearch.css" type="text/css" rel="stylesheet">
+<link href="css/adminOrderSearch.css" type="text/css" rel="stylesheet">
 </head>
 	<div class="container body">
 		<div class="main_container">

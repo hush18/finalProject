@@ -5,7 +5,7 @@
 <script type="text/javascript" src="js/header.js"></script>
 
 <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
-<link rel="stylesheet" href="css/user/header.css">
+<link rel="stylesheet" href="css/header.css">
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <script>

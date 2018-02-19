@@ -1,14 +1,10 @@
-<!-- 
-작성자 : 맹인영
- -->
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <title>㈜산책</title>
 <!-- Swiper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.js"></script>
-<link rel="stylesheet" href="css/user/slider.css">
-<link rel="stylesheet" href="css/user/iyStyle.css">
+<link rel="stylesheet" href="css/slider.css">
+<link rel="stylesheet" href="css/iyStyle.css">
 
 <script type="text/javascript" src="js/newsfeedParsing.js"></script>
 

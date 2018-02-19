@@ -12,7 +12,7 @@
 <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
 
 <!-- FAQ css -->
-<link href="css/admin/adminCstMain.css" rel="stylesheet">
+<link href="css/adminCstMain.css" rel="stylesheet">
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -210,4 +210,4 @@
 <script src="vendors/moment/min/moment.min.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- FAQ Scripts -->
-<script src="js/admin/ntcMain.js"></script>
+<script src="js/ntcMain.js"></script>
