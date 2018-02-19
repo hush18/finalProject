@@ -4,7 +4,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title">
+						<a href="userMain.do" class="site_title">
 						<img src="images/adminTemplate/logo_temp.png" alt="..." width="50px" style="display: inline-block;">
 						<span>㈜산책</span>
 						</a>
