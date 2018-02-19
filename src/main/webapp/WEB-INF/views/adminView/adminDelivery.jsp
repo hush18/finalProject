@@ -1,3 +1,7 @@
+<!-- 
+작성자 : 신호용
+ -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
@@ -9,7 +13,7 @@
 <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-<link href="css/adminDelivery.css" rel="stylesheet">
+<link href="css/admin/adminDelivery.css" rel="stylesheet">
 </head>
 	<div class="container body">
 		<div class="main_container">

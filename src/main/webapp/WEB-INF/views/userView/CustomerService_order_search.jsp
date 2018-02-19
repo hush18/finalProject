@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>주문 조회</title>
-<link href="css/CustomerService_order_search.css" rel="stylesheet"
+<link href="css/user/CustomerService_order_search.css" rel="stylesheet"
 	type="text/css" />
 </head>
 <body>

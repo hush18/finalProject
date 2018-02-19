@@ -5,10 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
 <!-- Custom style -->
-<link rel="stylesheet" href="css/account.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="css/user/account.css" media="screen" title="no title" charset="utf-8">
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/account.js"></script>
-<script type="text/javascript" src="js/zipcode.js"></script>
+<script type="text/javascript" src="js/user/account.js"></script>
+<script type="text/javascript" src="js/user/zipcode.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
