@@ -242,11 +242,11 @@ public class ProController {
 	
 	@RequestMapping(value="adminWriterSearch.do", method=RequestMethod.GET)
 	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminWriterSearch.admin");
+		return new ModelAndView("adminWriterSearch.adminEmpty");
 	}
 	@RequestMapping(value="adminWriterInsert.do", method=RequestMethod.GET)
 	public ModelAndView adminWriterInsert(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminWriterInsert.admin");
+		return new ModelAndView("adminWriterInsert.adminEmpty");
 	}
 	
 	@RequestMapping(value="adminMemberManage.do", method=RequestMethod.GET)

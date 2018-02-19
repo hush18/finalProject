@@ -25,6 +25,19 @@
 		<put-attribute name="adminContent" value="/WEB-INF/views/adminView/{1}/{2}/{3}.jsp"/>
 	</definition>
 	
+	<!-- 관리자 자식 템플릿 -->
+	<definition name="adminEmpty" template="/WEB-INF/views/adminTemp/adminEmpty.jsp">
+		<put-attribute name="adminContent" value=""/>
+	</definition>
+	
+	<definition name="*.adminEmpty" extends="adminEmpty">
+		<put-attribute name="adminContent" value="/WEB-INF/views/adminView/{1}.jsp"/>
+	</definition>
+	
+	<definition name="*/*.adminEmpty" extends="adminEmpty">
+		<put-attribute name="adminContent" value="/WEB-INF/views/adminView/{1}/{2}.jsp"/>
+	</definition>
+	
 	<!-- 사용자 템플릿 -->
 	<definition name="userLayout" template="/WEB-INF/views/userTemp/layout.jsp">
 		<put-attribute name="userHeader" value="/WEB-INF/views/userTemp/header.jsp"/>
