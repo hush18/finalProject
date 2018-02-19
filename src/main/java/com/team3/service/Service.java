@@ -106,4 +106,9 @@ public class Service implements ServiceInterface {
 		
 		mav.setViewName("zipcode.empty");
 	}
+
+	@Override
+	public void nearestList(ModelAndView mav) {
+		
+	}
 }
