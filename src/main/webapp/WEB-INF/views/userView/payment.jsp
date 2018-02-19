@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/payment.css">
-<link rel="stylesheet" href="css/btn_yk.css">
-<script type="text/javascript" src="js/payment.js"></script>
+<link rel="stylesheet" href="css/user/payment.css">
+<link rel="stylesheet" href="css/user/btn_yk.css">
+<script type="text/javascript" src="js/user/payment.js"></script>
 </head>
 <body>
 	<div class="widthline">

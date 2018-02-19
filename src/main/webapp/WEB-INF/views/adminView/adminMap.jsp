@@ -1,4 +1,4 @@
-<!-- 
+﻿<!-- 
 작성자 : 김용기
  -->
  
@@ -15,7 +15,7 @@
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 용기CSS -->
 <link href="css/admin/adminBtn_yk.css" rel="stylesheet">
-<script type="text/javascript" src="js/function_yk.js"></script>
+<script type="text/javascript" src="js/admin/function_yk.js"></script>
 <script type="text/javascript">
 	$(document).ready(
 			function() {
