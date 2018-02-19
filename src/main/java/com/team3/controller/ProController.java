@@ -32,8 +32,13 @@ public class ProController {
 	
 	@RequestMapping(value="/nearestList.do", method=RequestMethod.GET)
 	public ModelAndView nearestList(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		
-		return new ModelAndView("nearestList.users");
+		mav.addObject("req", request);
+		service.nearestList(mav);
+		
+		return mav;
+//		return new ModelAndView("nearestList.users");
 	}
 	
 	@RequestMapping(value="/loginMember.do", method=RequestMethod.GET)
