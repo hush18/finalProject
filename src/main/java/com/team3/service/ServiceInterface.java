@@ -11,5 +11,4 @@ public interface ServiceInterface {
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
 	public void createAccountOk(ModelAndView mav);
-	
 }

@@ -1,6 +1,10 @@
 package com.team3.service;
 
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,9 +93,40 @@ public class Service implements ServiceInterface {
 		
 		String id=request.getParameter("id");
 		String password=request.getParameter("password");
-		LogAspect.logger.info("로그인시작:"+id+"\t"+password);
+		LogAspect.logger.info(LogAspect.logMsg+"로그인시작:"+id+"\t"+password);
 		
-		/*MemberDto memberDto=memberDao.*/
+		Map<String, Object> hmap=new HashMap<String, Object>();
+		hmap.put("id", id);
+		hmap.put("password", password);
+		
+		//마지막 로그인날짜 비교하기(휴면계정)
+		Date last_login=memberDao.memberSelect(hmap);
+		int check=0;
+		MemberDto memberDto=null;
+		if (last_login != null) {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date now = sdf.parse(sdf.format(new Date().getTime()));
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(last_login);
+				cal.add(Calendar.YEAR, 1);
+				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+
+				if (now.compareTo(loginYear) < 0) {
+					memberDto = memberDao.memberLoginOK(hmap);
+					LogAspect.logger.info(LogAspect.logMsg + "로그인확인:" + memberDto.toString());
+
+				} else {
+					check = memberDao.memberDiap(hmap);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		mav.addObject("check", check);
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("loginMemberOK.users");
 	}
 
 	@Override
