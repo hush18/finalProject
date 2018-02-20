@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>아이디찾기</title>
-<link href="css/findId.css" type="text/css" rel="stylesheet" />
+<link href="css/user/findId.css" type="text/css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function() {

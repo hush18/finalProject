@@ -1,6 +1,7 @@
 package com.team3.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
@@ -100,10 +102,27 @@ public class Service implements ServiceInterface {
 		String dong=request.getParameter("dong");
 		
 		if(dong!=null) {
-//			List<ZipcodeDto> zipList=memberDao.zipcodeDto(dong);
-//			mav.addObject("zipcodeList", zipList);
+//			LogAspect.logger.info(LogAspect.logMsg+dong);
+			
+			List<ZipcodeDto> zipList=memberDao.zipcodeDto(dong);
+//			LogAspect.logger.info(LogAspect.logMsg+zipList.size());
+			mav.addObject("zipcodeList", zipList);
 		}
 		
 		mav.setViewName("zipcode.empty");
+	}
+
+	@Override
+	public void createAccountOk(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		MemberDto memberDto=(MemberDto) map.get("memberDto");
+		
+//		LogAspect.logger.info(LogAspect.logMsg + "맴버 디티오 : " + memberDto);
+		int check = memberDao.insertAccount(memberDto);
+		LogAspect.logger.info(LogAspect.logMsg + "인서트 체크 값 : " + check);
+		
+		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
+//		mav.setViewName("userMain.users");
 	}
 }
