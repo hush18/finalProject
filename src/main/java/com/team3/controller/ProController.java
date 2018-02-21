@@ -23,6 +23,7 @@ public class ProController {
 	private ServiceInterface service;
 
 	// 여기부터 사용자
+	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
 	public ModelAndView scroll(ModelAndView mav) {
 		service.scrollBanner(mav);
 		return mav;
@@ -51,7 +52,7 @@ public class ProController {
 		mav.addObject("request", request);
 		mav.addObject("response",response);
 		service.wishListUp(mav);
-		return mav;
+		return scroll(mav);
 	}
 	
 	//위시리스트에서 리스트 삭제
@@ -60,7 +61,7 @@ public class ProController {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
 		service.wishListDel(mav);
-		return mav;
+		return scroll(mav);
 	}
 	
 	//위시리스트로 Insert
@@ -72,7 +73,7 @@ public class ProController {
 		
 		service.wishListInsert(mav);
 		
-		return mav;
+		return scroll(mav);
 	}
 	
 	//최근본상품 리스트 출력
@@ -83,7 +84,7 @@ public class ProController {
 		
 		service.nearestList(mav);
 		
-		return mav;
+		return scroll(mav);
 //		return new ModelAndView("nearestList.users");
 	}
 	
@@ -95,7 +96,7 @@ public class ProController {
 		
 		service.nearestUp(mav);
 //		service.nearestInsert(mav);
-		return mav;
+		return scroll(mav);
 	}
 	
 	//최근본상품에서 리스트 삭제
@@ -104,7 +105,7 @@ public class ProController {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
 		service.nearestDel(mav);
-		return mav;
+		return scroll(mav);
 	}
 	
 	
