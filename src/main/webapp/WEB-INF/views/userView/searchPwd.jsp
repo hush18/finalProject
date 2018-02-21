@@ -7,9 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>㈜산책 비밀번호 찾기 이메일 인증</title>
 <c:set var="root" value="${pageContext.request.contextPath }"/>
-<link type="text/css" rel="stylesheet" href="css/searchPwd.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"
-	type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="css/user/searchPwd.css">
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	function getQuerystring(paramName) {
 

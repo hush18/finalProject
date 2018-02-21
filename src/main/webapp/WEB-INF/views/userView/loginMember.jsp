@@ -10,8 +10,8 @@
 
 <c:set var="root" value="${pageContext.request.contextPath }"/>
 
-<link href="css/loginMember.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="js/loginMember.js"></script>
+<link href="css/user/loginMember.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/user/loginMember.js"></script>
 </head>
 <body>
 	<div class="widthline">

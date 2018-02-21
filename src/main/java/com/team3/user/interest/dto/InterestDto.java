@@ -14,7 +14,6 @@ public class InterestDto {
 	private String publisher;
 	private String image_path;
 	
-	
 	public String getImage_path() {
 		return image_path;
 	}

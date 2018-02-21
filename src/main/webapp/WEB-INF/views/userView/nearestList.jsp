@@ -41,7 +41,7 @@
 			$('.checkBook_sc:checked').each(function(i){
 				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
 			});
-// 			location.href="nearestUp.do?isbn=" + str;
+			location.href="nearestUp.do?isbn=" + str;
 		});
 		$(".delete_sc").click(function(){
 			var str="";

@@ -16,4 +16,8 @@ public interface ServiceInterface {
 	public void wishList(ModelAndView mav);
 	public void wishListUp(ModelAndView mav);
 	public void wishListDel(ModelAndView mav);
+	public void createAccountOk(ModelAndView mav);
+	public void wishListInsert(ModelAndView mav);
+	public void nearestInsert(ModelAndView mav);
+	public void scrollBanner(ModelAndView mav);
 }

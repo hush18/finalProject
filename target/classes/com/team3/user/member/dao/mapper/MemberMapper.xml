@@ -2,6 +2,33 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.team3.user.member.dao.mapper">
-  </mapper>
+
+<mapper namespace="com.team3.user.member.dao.mapper">
+	<select id="memberZipcode" parameterType="String" resultType="com.team3.user.member.dto.ZipcodeDto">
+		<![CDATA[ select * from zipcode where dong=#{dong} ]]>
+	</select>
+	
+	<insert id="createAccount" parameterType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[
+ 			INSERT INTO MEMBER(member_number, ID, PASSWORD, NAME, email, diap, last_login, member_zipcode, member_address, member_detail_address) VALUES(member_member_number_seq.nextval, #{id}, #{password}, #{name}, #{email}, '1', sysdate, #{member_zipcode}, #{member_address}, #{member_detail_address})
+ 		]]>
+	</insert>
+	
+	<select id="memberSelect" parameterType="java.util.Map" resultType="java.util.Date">
+		select last_login from member where id=#{id} and password=#{password}
+	</select>
+	
+	<update id="lastLoginUp" parameterType="java.util.Map">
+		update member set last_login=#{last_login} where id=#{id} and password=#{password}
+	</update>
+	
+	<select id="memberLogin" parameterType="java.util.Map" resultType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[
+			select * from member where id=#{id} and password=#{password}
+		]]>
+	</select>
+	
+	<update id="memberDiap" parameterType="java.util.Map">
+		<![CDATA[ update member set diap='0' where id=#{id} and password=#{password} ]]>
+	</update>
+</mapper>
