@@ -3,6 +3,7 @@ package com.team3.service;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team3.aop.LogAspect;
+import com.team3.user.interest.dao.InterestDao;
+import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
 
@@ -28,6 +31,9 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private InterestDao interestDao;
 
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
@@ -109,6 +115,104 @@ public class Service implements ServiceInterface {
 
 	@Override
 	public void nearestList(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id="user123";
+		List<InterestDto> interestList=interestDao.nearestSelect(id);
+		int count=interestList.size();
+		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
+		LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
+		mav.addObject("interestList", interestList);
+		mav.addObject("count", count);
+		mav.addObject("id", id);
+		mav.setViewName("nearestList.users");
+	}
+
+	@Override
+	public void nearestUp(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.nearestUp(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("nearestUp.users");
+	}
+
+	@Override
+	public void nearestDel(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.nearestDel(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("nearestDel.users");
 		
 	}
+
+	@Override
+	public void wishList(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id="user123";
+		List<InterestDto> interestList=interestDao.wishListSelect(id);
+		int count=interestList.size();
+		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
+		LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
+		mav.addObject("interestList", interestList);
+		mav.addObject("count", count);
+		mav.addObject("id", id);
+		mav.setViewName("wishList.users");
+		
+	}
+	@Override
+	public void wishListUp(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.wishListUp(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("wishListUp.users");
+	}
+	@Override
+	public void wishListDel(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.wishListDel(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("wishListDel.users");
+		
+	}
+	
+	
 }

@@ -11,4 +11,9 @@ public interface ServiceInterface {
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
 	public void nearestList(ModelAndView mav);
+	public void nearestUp(ModelAndView mav);
+	public void nearestDel(ModelAndView mav);
+	public void wishList(ModelAndView mav);
+	public void wishListUp(ModelAndView mav);
+	public void wishListDel(ModelAndView mav);
 }

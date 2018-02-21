@@ -3,6 +3,7 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,6 +32,22 @@
 		},
 		function(){
 			$(this).css("color","#9c9c9c");
+		});
+		$(".cart_sc").click(function(){
+			var str="";
+			//str+=$(".checkBook_sc").prop("checked").parent().val();
+			$('.checkBook_sc:checked').each(function(i){
+				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
+			});
+			location.href="wishListUp.do?isbn=" + str;
+		});
+		$(".delete_sc").click(function(){
+			var str="";
+			//str+=$(".checkBook_sc").prop("checked").parent().val();
+			$('.checkBook_sc:checked').each(function(i){
+				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
+			});
+			location.href="wishListDel.do?isbn=" + str;
 		});
 	});
 	
@@ -156,139 +173,21 @@
 			</div>
 			<div class="list_sc">
 				<div class="book_sc">
-				
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
+					<c:forEach var="interestDto" items="${interestList }">
+						<div class="book_chdiv_sc">
+							<div class="inputCh_sc">
+								<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
+								<input type="hidden" name="isbn" value="${interestDto.isbn}"/>
+							</div>
+							<img id="image" src="${interestDto.image_path }" width="150px" height="230px"/>
+							<div class="bookCon_sc">
+								<div class="bookCon_title_sc">${interestDto.title }</div>
+								<div class="bookCon_name_sc">${interestDto.name }</div>
+								<div class="bookCon_publisher_sc">${interestDto.publisher }</div>
+							</div>
 						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
-					<div class="book_chdiv_sc">
-						<div class="inputCh_sc">
-							<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
-						</div>
-						<img id="image" src="./images/4088478.jpg" width="150px" height="230px"/>
-						<div class="bookCon_sc">
-							책제목<br/>
-							저자<br/>
-							출판사
-						</div>
-					</div>
+					</c:forEach>
+					
 				</div>
 			</div>
 		</div>

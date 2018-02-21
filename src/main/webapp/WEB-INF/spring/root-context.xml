@@ -21,6 +21,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<list>
+				<value>classpath:com/team3/user/interest/dao/mapper/InterestMapper.xml</value>
 			</list>
 		</property>
 	</bean>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team3.aop.LogAspect;
 import com.team3.service.ServiceInterface;
 
 
@@ -26,19 +27,64 @@ public class ProController {
 	
 	@RequestMapping(value="/wishList.do", method=RequestMethod.GET)
 	public ModelAndView wishList(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
-		return new ModelAndView("wishList.users");
+		service.wishList(mav);
+		
+		return mav;
 	}
+	
+	@RequestMapping(value="/wishListUp.do", method=RequestMethod.GET)
+	public ModelAndView wishListUp(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.wishListUp(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value="/wishListDel.do", method=RequestMethod.GET)
+	public ModelAndView wishListDel(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.wishListDel(mav);
+		return mav;
+	}
+	
+//	@RequestMapping(value="/wishListInsert.do", method=RequestMethod.GET)
+//	public ModelAndView wishListInsert(HttpServletRequest request,HttpServletResponse response) {
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("req", request);
+//		
+//		service.wishListInsert(mav);
+//		
+//		return mav;
+//	}
 	
 	@RequestMapping(value="/nearestList.do", method=RequestMethod.GET)
 	public ModelAndView nearestList(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
-		mav.addObject("req", request);
 		service.nearestList(mav);
 		
 		return mav;
 //		return new ModelAndView("nearestList.users");
+	}
+	@RequestMapping(value="/nearestUp.do", method=RequestMethod.GET)
+	public ModelAndView nearestUp(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.nearestUp(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value="/nearestDel.do", method=RequestMethod.GET)
+	public ModelAndView nearestDel(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.nearestDel(mav);
+		return mav;
 	}
 	
 	@RequestMapping(value="/loginMember.do", method=RequestMethod.GET)
