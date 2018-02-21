@@ -151,14 +151,26 @@ public class ProController {
 	
 	@RequestMapping(value="/bookList.do", method=RequestMethod.GET)
 	public ModelAndView bookList(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		
-		return new ModelAndView("bookList.users");
+		mav.addObject("request", request);
+		
+		service.bookList(mav);
+		
+		mav.setViewName("bookList.users");
+		return mav;
 	}
 	
 	@RequestMapping(value="/bookInfo.do", method=RequestMethod.GET)
 	public ModelAndView bookInfo(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		
-		return new ModelAndView("bookInfo.users");
+		mav.addObject("request", request);
+		
+		service.bookInfo(mav);
+		
+		mav.setViewName("bookInfo.users");
+		return mav;
 	}
 		
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
@@ -226,8 +238,12 @@ public class ProController {
 	
 
 	@RequestMapping(value="adminBookSearch.do", method=RequestMethod.GET)
-	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminBookSearch.admin");
+	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminBookSearch(mav);
+		mav.setViewName("adminBookSearch.admin");
+		return mav;
 	}
 	
 	@RequestMapping(value="adminBookInsert.do", method=RequestMethod.GET)
@@ -236,8 +252,12 @@ public class ProController {
 	}
 	
 	@RequestMapping(value="adminBookInfo.do", method=RequestMethod.GET)
-	public ModelAndView adminBookInfo(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminBookInfo.admin");
+	public ModelAndView adminBookInfo(HttpServletRequest request, HttpServletResponse response) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminBookInfo(mav);
+		mav.setViewName("adminBookInfo.admin");
+		return mav;
 	}
 	
 	@RequestMapping(value="adminWriterSearch.do", method=RequestMethod.GET)

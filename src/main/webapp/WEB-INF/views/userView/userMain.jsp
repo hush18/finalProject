@@ -9,7 +9,7 @@
 <script type="text/javascript" src="js/user/newsfeedParsing.js"></script>
 
 <!-- jQuery Cookie 라이브러리 (팝업창 관련)-->
-<script type="text/javascript" src="jquery_cookie/jquery.cookie.js"></script>
+<!-- <script type="text/javascript" src="jquery_cookie/jquery.cookie.js"></script> -->
 <script type="text/javascript">
 	function openMsgBox() {
 		var eventCookie = $.cookie("event_condo");

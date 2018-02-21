@@ -11,4 +11,10 @@ public interface ServiceInterface {
 	public void memberLoginOK(ModelAndView mav);
 
 	public void zipcode(ModelAndView mav);
+	
+	public void bookList(ModelAndView mav);
+	public void bookInfo(ModelAndView mav);
+	
+	public void adminBookSearch(ModelAndView mav);
+	public void adminBookInfo(ModelAndView mav);
 }

@@ -22,9 +22,9 @@ public class LogAspect {
 			logger.info(logMsg+joinPoint.getTarget().getClass().getName()+"\t"+joinPoint.getSignature().getName());
 			obj=joinPoint.proceed();
 		}catch (Throwable e) {
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			logger.severe(logMsg+e.getMessage());
 			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return obj;
 	}
