@@ -9,12 +9,11 @@
 <body>
 	<div class="login-check">
 		<h1>Login Check</h1>
-		<form method="post">
-			<input type="text" placeholder="Username" required="required" />
-			<input type="password" placeholder="Password" required="required" />
-			<button type="submit" class="btn btn-primary btn-block btn-large">탈퇴</button>
+		<form action="deleteAccount.do" method="post">
+			<input id="id" name="id" type="text" placeholder="ID" required="required" />
+			<input id="password" name="password" type="password" placeholder="Password" required="required" />
+			<button id="confirm" type="submit" class="btn btn-primary btn-block btn-large">탈퇴</button>
 		</form>
 	</div>
-
 </body>
 </html>

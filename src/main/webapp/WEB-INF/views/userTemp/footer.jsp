@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <link rel="stylesheet" href="css/user/footer.css">
 
@@ -64,8 +65,12 @@
 		<div class="bookReco_sc">오늘부터 내인생, 내가 결정합니다.</div>
 	</div>
 	<div class="nearest_sc">
-		<label>최근본상품</label>
-		<div class="bookReco_sc">최근본상품이 없습니다.</div>
+		<label><a href="nearestList.do">최근본상품</a></label>
+<!-- 		<div class="bookReco_sc">최근본상품이 없습니다.</div> -->
+		<c:forEach end="1" var="interestDto" items="${scrollList }">
+			<img id="image" src="${interestDto.image_path}" width="90px" height="110px" />
+			<div class="bookReco_sc">${interestDto.title}</div>
+		</c:forEach>
 	</div>
 	<button class="wishList_sc" onclick="javascript:location.href='wishList.do'">위시리스트 ></button>
 	<button class="buy_sc" onclick="javascript:location.href='buyList.do'">구매내역 ></button>

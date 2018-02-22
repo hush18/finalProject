@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <title>㈜산책</title>
 <!-- Swiper JS -->
@@ -23,7 +24,6 @@
 </script>
 </head>
 <body onload="forNews()">
-<a href="myPage.do">마이페이지(로그인 처리 후 옮길 예정)</a>
 	<div class="widthline">
 		<!-- Swiper -->
 		<div class="event-swiper-iy">

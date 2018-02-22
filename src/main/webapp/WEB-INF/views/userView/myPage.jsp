@@ -62,19 +62,19 @@
 				<div class="info-box-iy">
 					<p>
 						<strong>이름</strong>
-						맹인영
+						${memberDto.name}
 					</p>
 				</div>
 				<div class="info-box-iy">
 					<p>
 						<strong>아이디</strong>
-						맹인영
+						${memberDto.id}
 					</p>
 				</div>
 				<div class="info-box-iy">
 					<p>
 						<strong>주소</strong>
-						맹인영
+						${memberDto.member_address} ${memberDto.member_detail_address}
 					</p>
 				</div>
 				<div class="info-box-iy">

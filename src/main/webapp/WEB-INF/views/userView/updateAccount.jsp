@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<h2 class="h2-hr" style="margin-left: 20px;">회원정보수정</h2>
-		<form action="createAccount.do" method="post" onsubmit="">
+		<form action="updateAccount.do" method="post" onsubmit="">
 			<div class="col-iy">
 				<label id="icon" for="name">
 					<i class="fa fa-user fa-lg"></i>
@@ -65,7 +65,7 @@
 			</div>
 			<div class="btn-iy">
 				<button id="reset" class="button" style="margin-left: 30px;">수정취소</button>
-				<button id="confirm" class="button">정보수정</button>
+				<button id="confirmUpdate" class="button">정보수정</button>
 			</div>
 		</form>
 	</div>

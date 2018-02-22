@@ -106,3 +106,17 @@ body {
 	width: 100%;
 	transition: 800ms ease all;
 }
+
+.box_id_mh{ 
+	width: 658px; height: 226px; margin-top: 20px;
+	border: 2px solid #9c9c9c; margin-left: 25px;
+}
+
+.box_id_mh > div{
+	margin-top: 100px;
+	text-align: center; font-size: 12px;
+}
+
+.box_id_mh strong{
+	font-size: 1.17em;
+}
