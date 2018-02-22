@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -31,6 +32,18 @@ public class Service implements ServiceInterface {
 	@Autowired
 	private MemberDao memberDao;
 
+	@Override
+	public void updateAccount(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		HttpSession session = req.getSession();
+		MemberDto memberDto = memberDao.updateAccount(session);
+		
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("updateAccount.users");
+	}
+	
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
 		String url = "http://rss.donga.com/book.xml";

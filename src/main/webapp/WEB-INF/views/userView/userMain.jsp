@@ -23,6 +23,7 @@
 </script>
 </head>
 <body onload="forNews()">
+<a href="myPage.do">마이페이지(로그인 처리 후 옮길 예정)</a>
 	<div class="widthline">
 		<!-- Swiper -->
 		<div class="event-swiper-iy">

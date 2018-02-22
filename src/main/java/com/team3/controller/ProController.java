@@ -27,6 +27,34 @@ public class ProController {
 
 		return new ModelAndView("userMain.users");
 	}
+	
+	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
+	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) {
+
+		return new ModelAndView("myPage.users");
+	}
+	
+	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
+	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
+
+		return new ModelAndView("userPointView.users");
+	}
+	
+	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
+	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.updateAccount(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.GET)
+	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response) {
+
+		return new ModelAndView("deleteAccount.empty");
+	}
 
 	@RequestMapping(value = "/wishList.do", method = RequestMethod.GET)
 	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response) {
@@ -243,7 +271,6 @@ public class ProController {
 		return mav;
 	}
 
-	
 	
 	
 	

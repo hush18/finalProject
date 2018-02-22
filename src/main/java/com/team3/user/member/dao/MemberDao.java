@@ -2,10 +2,13 @@ package com.team3.user.member.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.team3.user.member.dto.MemberDto;
 import com.team3.user.member.dto.ZipcodeDto;
 
 public interface MemberDao {
 	public int insertAccount(MemberDto memberDto);
 	public List<ZipcodeDto> zipcodeDto(String dong);
+	public MemberDto updateAccount(HttpSession session);
 }

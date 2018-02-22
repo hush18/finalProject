@@ -13,4 +13,8 @@
  			INSERT INTO MEMBER(member_number, ID, PASSWORD, NAME, email, diap, last_login, member_zipcode, member_address, member_detail_address) VALUES(member_member_number_seq.nextval, #{id}, #{password}, #{name}, #{email}, '1', sysdate, #{member_zipcode}, #{member_address}, #{member_detail_address})
  		]]>
 	</insert>
+	
+	<select id="getAccountInfo" parameterType="String" resultType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[ select * from member where id=#{id} ]]>
+	</select>
 </mapper>
