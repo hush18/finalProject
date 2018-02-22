@@ -3,12 +3,15 @@ package com.team3.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team3.admin.map.dto.MapDto;
+import com.team3.aop.LogAspect;
 import com.team3.service.ServiceInterface;
 
 
@@ -255,8 +258,10 @@ public class ProController {
 	}
 	
 	@RequestMapping(value="adminMap.do", method=RequestMethod.GET)
-	public ModelAndView adminMap(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminMap.admin");
+	public ModelAndView adminMap(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		service.readMap(mav);
+		return mav;
 	}
 	
 	@RequestMapping(value="adminChange.do", method=RequestMethod.GET)
@@ -313,4 +318,35 @@ public class ProController {
 	public ModelAndView adminNctUpdate(HttpServletRequest request, HttpServletResponse response) {		
 		return new ModelAndView("adminNctUpdate.admin");
 	}
+	
+	@RequestMapping(value="adminMapOk.do",method=RequestMethod.POST)
+	public ModelAndView adminMapInsert(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) throws Exception {		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		mav.addObject("mapDto",mapDto);
+		
+		service.createMap(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value="adminMapUpdate.do",method=RequestMethod.POST)
+	public ModelAndView adminMapUpdate(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		mav.addObject("mapDto",mapDto);
+		
+		service.updateMap(mav);
+		return null;
+	}
+	
+	@RequestMapping(value="adminMapDelete.do",method=RequestMethod.POST)
+	public ModelAndView adminMapDelete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		
+		service.deleteMap(mav);
+		
+		return null;
+	}
+	
 }

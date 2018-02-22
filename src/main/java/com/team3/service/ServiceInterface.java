@@ -9,6 +9,9 @@ public interface ServiceInterface {
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response);
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
-
 	public void zipcode(ModelAndView mav);
+	public void createMap(ModelAndView  mav);
+	public void readMap(ModelAndView mav);
+	public void updateMap(ModelAndView mav);
+	public void deleteMap(ModelAndView mav);
 }
