@@ -221,8 +221,11 @@ public class ProController {
 
 	@RequestMapping(value = "/searchPwdOK.do", method = RequestMethod.GET)
 	public ModelAndView pwd(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 
-		return new ModelAndView("searchPwdOK.empty");
+		mav.addObject("request", request);
+		service.searchPwdOK(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/memberLoginOK.do", method = RequestMethod.POST)
@@ -241,6 +244,20 @@ public class ProController {
 		service.zipcode(mav);
 
 		return mav;
+	}
+	
+	@RequestMapping(value="/findIdOK.do", method=RequestMethod.POST)
+	public ModelAndView findIdOK(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.findIdOK(mav);
+
+		return mav;
+	}
+	
+	@RequestMapping(value = "logoutMember.do", method = RequestMethod.GET)
+	public ModelAndView logoutMember(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("logoutMember.empty");
 	}
 
 	

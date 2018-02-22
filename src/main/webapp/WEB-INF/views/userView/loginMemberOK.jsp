@@ -11,15 +11,15 @@
 	<c:if test="${check==0 && memberDto!=null }">
 		<!-- 세션 설정 -->
 		<c:set var="id" value="${memberDto.id }" scope="session"/>
-		<c:set var="id" value="${memberDto.name }" scope="session"/>
-		<c:set var="id" value="${memberDto.email }" scope="session"/>
+		<c:set var="name" value="${memberDto.name }" scope="session"/>
+		<c:set var="email" value="${memberDto.email }" scope="session"/>
 		
 		<script type="text/javascript">
 			$(location).attr("href", "userMain.do");
 		</script>
 	</c:if>
 	
-	<c:if test="${memberDto==null }">
+	<c:if test="${memberDto==null || check>0 }">
 		<script type="text/javascript">
 			alert("아이디 또는 비밀번호가 일치하지 않습니다. 아이디와 비밀번호를 확인하신 후, 다시 입력해 주세요.");
 			$(location).attr("href", "loginMember.do");

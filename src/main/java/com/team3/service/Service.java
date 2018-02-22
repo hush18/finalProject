@@ -63,23 +63,34 @@ public class Service implements ServiceInterface {
 	public void searchPwd(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		int authNum = (int)(Math.random() * 999999) + 100000;
+		int authNum = 0;
 		
-		
+		String id=req.getParameter("id");
+		String name=req.getParameter("name");
 		String email = req.getParameter("email") + "@" + req.getParameter("emailAddress");
-//		System.out.println(email);
+		LogAspect.logger.info(LogAspect.logMsg+id+"\t"+name+"\t"+email);
 		
-		// 메일 내용을 작성한다
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setFrom("miy003@naver.com");
-		msg.setTo(email);
-		msg.setSubject("㈜산책 이메일 인증번호");
-		msg.setText("귀하의 이메일 인증번호는 " + authNum + "입니다.");
-		 
-		try {
-		    mailSender.send(msg);
-		} catch (Throwable e) {
-			e.printStackTrace();
+		MemberDto memberDto=memberDao.memberSelect(id);
+		/*LogAspect.logger.info(LogAspect.logMsg+memberDto.toString());*/
+		
+		if (memberDto != null) {
+			if (email.equals(memberDto.getEmail()) && name.equals(memberDto.getName())) {
+				// 메일 내용을 작성한다
+				authNum = (int) (Math.random() * 999999) + 100000;
+				System.out.println(authNum);
+
+				SimpleMailMessage msg = new SimpleMailMessage();
+				msg.setFrom("miy003@naver.com");
+				msg.setTo(email);
+				msg.setSubject("㈜산책 이메일 인증번호");
+				msg.setText("귀하의 이메일 인증번호는 " + authNum + "입니다.");
+
+				try {
+					mailSender.send(msg);
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		mav.addObject("authNum", authNum);
@@ -100,7 +111,7 @@ public class Service implements ServiceInterface {
 		hmap.put("password", password);
 		
 		//마지막 로그인날짜 비교하기(휴면계정)
-		Date last_login=memberDao.memberSelect(hmap);
+		Date last_login=memberDao.memberDate(hmap);
 		int check=0;
 		MemberDto memberDto=null;
 		if (last_login != null) {
@@ -110,8 +121,9 @@ public class Service implements ServiceInterface {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(last_login);
-				cal.add(Calendar.YEAR, 1);
+				cal.add(Calendar.DATE, 1);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+				System.out.println(loginYear);
 
 				if (now.compareTo(loginYear) < 0) {
 					memberDto = memberDao.memberLoginOK(hmap);
@@ -120,6 +132,7 @@ public class Service implements ServiceInterface {
 				} else {
 					check = memberDao.memberDiap(hmap);
 				}
+				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -159,5 +172,34 @@ public class Service implements ServiceInterface {
 		
 		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
 //		mav.setViewName("userMain.users");
+	}
+	
+	@Override
+	public void findIdOK(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String name=request.getParameter("name");
+		String email=request.getParameter("email")+"@"+request.getParameter("email_address");
+		LogAspect.logger.info(LogAspect.logMsg + "아이디찾기 : " + name+"\t"+email);
+		
+		String id=memberDao.findId(name, email);
+		LogAspect.logger.info(LogAspect.logMsg + "아이디찾기 : " + id);
+		
+		mav.addObject("id", id);
+		mav.setViewName("findIdOK.empty");
+	}
+	
+	@Override
+	public void searchPwdOK(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id=request.getParameter("id");
+		String password=memberDao.findPwd(id);
+		LogAspect.logger.info(LogAspect.logMsg + password);
+		
+		mav.addObject("password", password);
+		mav.setViewName("searchPwdOK.empty");
 	}
 }

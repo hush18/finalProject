@@ -32,8 +32,8 @@ public class MemberDaoImp implements MemberDao {
 	}
 	
 	@Override
-	public Date memberSelect(Map<String, Object> hmap) {
-		return sqlSession.selectOne("memberSelect", hmap);
+	public Date memberDate(Map<String, Object> hmap) {
+		return sqlSession.selectOne("memberDate", hmap);
 	}
 
 	@Override
@@ -41,7 +41,6 @@ public class MemberDaoImp implements MemberDao {
 	public MemberDto memberLoginOK(Map<String, Object> hmap) {
 		Date last_login=new Date();
 		hmap.put("last_login", last_login);
-		
 		sqlSession.update("lastLoginUp", hmap);
 		return sqlSession.selectOne("memberLogin", hmap);
 	}
@@ -49,5 +48,24 @@ public class MemberDaoImp implements MemberDao {
 	@Override
 	public int memberDiap(Map<String, Object> hmap) {
 		return sqlSession.update("memberDiap", hmap);
+	}
+	
+	@Override
+	public String findId(String name, String email) {
+		Map<String, String> hmap=new HashMap<String, String>();
+		hmap.put("name", name);
+		hmap.put("email", email);
+		
+		return sqlSession.selectOne("findId", hmap);
+	}
+	
+	@Override
+	public String findPwd(String id) {
+		return sqlSession.selectOne("findPwd", id);
+	}
+	
+	@Override
+	public MemberDto memberSelect(String id) {
+		return sqlSession.selectOne("memberSelect", id);
 	}
 }
