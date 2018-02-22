@@ -2,6 +2,7 @@ package com.team3.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,23 +23,92 @@ public class ProController {
 	private ServiceInterface service;
 
 	// 여기부터 사용자
+	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
+	public ModelAndView scroll(ModelAndView mav) {
+		service.scrollBanner(mav);
+		return mav;
+	}
+	
 	@RequestMapping(value = "/userMain.do", method = RequestMethod.GET)
 	public ModelAndView userMain(HttpServletRequest request, HttpServletResponse response) {
 
 		return new ModelAndView("userMain.users");
 	}
-
-	@RequestMapping(value = "/wishList.do", method = RequestMethod.GET)
-	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("wishList.users");
+	// 위시리스트 출력
+	@RequestMapping(value="/wishList.do", method=RequestMethod.GET)
+	public ModelAndView wishList(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.wishList(mav);
+		
+		return scroll(mav);
 	}
-
-	@RequestMapping(value = "/nearestList.do", method = RequestMethod.GET)
-	public ModelAndView nearestList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("nearestList.users");
+	
+	//위시리스트에서 장바구니 이동
+	@RequestMapping(value="/wishListUp.do", method=RequestMethod.GET)
+	public ModelAndView wishListUp(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response",response);
+		service.wishListUp(mav);
+		return scroll(mav);
 	}
+	
+	//위시리스트에서 리스트 삭제
+	@RequestMapping(value="/wishListDel.do", method=RequestMethod.GET)
+	public ModelAndView wishListDel(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.wishListDel(mav);
+		return scroll(mav);
+	}
+	
+	//위시리스트로 Insert
+	@RequestMapping(value="/wishListInsert.do", method=RequestMethod.GET)
+	public ModelAndView wishListInsert(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		//String id=request.getSession("id");
+		mav.addObject("req", request);
+		
+		service.wishListInsert(mav);
+		
+		return scroll(mav);
+	}
+	
+	//최근본상품 리스트 출력
+	@RequestMapping(value="/nearestList.do", method=RequestMethod.GET)
+	public ModelAndView nearestList(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.nearestList(mav);
+		
+		return scroll(mav);
+//		return new ModelAndView("nearestList.users");
+	}
+	
+	//최근본상품에서 장바구니로 이동
+	@RequestMapping(value="/nearestUp.do", method=RequestMethod.GET)
+	public ModelAndView nearestUp(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.nearestUp(mav);
+//		service.nearestInsert(mav);
+		return scroll(mav);
+	}
+	
+	//최근본상품에서 리스트 삭제
+	@RequestMapping(value="/nearestDel.do", method=RequestMethod.GET)
+	public ModelAndView nearestDel(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.nearestDel(mav);
+		return scroll(mav);
+	}
+	
+	
 
 	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
 	public ModelAndView loginMember(HttpServletRequest request, HttpServletResponse response) {

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -23,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.aop.LogAspect;
+import com.team3.user.interest.dao.InterestDao;
+import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
 
@@ -34,6 +37,9 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private InterestDao interestDao;
 
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
@@ -160,7 +166,127 @@ public class Service implements ServiceInterface {
 		mav.setViewName("zipcode.empty");
 	}
 
+	//최근본상품 리스트 출력
 	@Override
+	public void nearestList(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		List<InterestDto> interestList=interestDao.nearestSelect(id);
+		int count=interestList.size();
+		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
+		LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
+		mav.addObject("interestList", interestList);
+		mav.addObject("count", count);
+		mav.addObject("id", id);
+		mav.setViewName("nearestList.users");
+	}
+
+	//최근본상품에서 장바구니로 이동
+	@Override
+	public void nearestUp(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.nearestUp(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("nearestUp.users");
+	}
+
+	//최근본상품에서 리스트 삭제
+	@Override
+	public void nearestDel(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.nearestDel(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("nearestDel.users");
+		
+	}
+
+	// 위시리스트 출력
+	@Override
+	public void wishList(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		List<InterestDto> interestList=interestDao.wishListSelect(id);
+		int count=interestList.size();
+		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
+		LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
+		mav.addObject("interestList", interestList);
+		mav.addObject("count", count);
+		mav.addObject("id", id);
+		mav.setViewName("wishList.users");
+		
+	}
+	
+	//위시리스트에서 장바구니 이동
+	@Override
+	public void wishListUp(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.wishListUp(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		
+		mav.addObject("check",check);
+		mav.setViewName("wishListUp.users");
+	}
+	
+	//위시리스트에서 리스트 삭제
+	@Override
+	public void wishListDel(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.wishListDel(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		mav.addObject("check",check);
+		mav.setViewName("wishListDel.users");
+		
+	}
 	public void createAccountOk(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
@@ -173,6 +299,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
 //		mav.setViewName("userMain.users");
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public void findIdOK(ModelAndView mav) {
@@ -201,5 +328,58 @@ public class Service implements ServiceInterface {
 		
 		mav.addObject("password", password);
 		mav.setViewName("searchPwdOK.empty");
+=======
+
+	//위시리스트로 Insert
+	@Override
+	public void wishListInsert(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		String isbn=request.getParameter("isbn");
+		String[] strArr=isbn.split("/");
+		for(int i=0;i<strArr.length;i++) {
+			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+			strArr[i]+="/";
+		}
+		int check=interestDao.wishListInsert(id, strArr);
+		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
+		
+		mav.addObject("check",check);
+		mav.setViewName("wishListInsert.users");
+		
+	}
+
+	//최근본상품 Insert
+	@Override
+	public void nearestInsert(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String isbn=request.getParameter("isbn");
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		String id="user123";
+		int check=interestDao.nearestInsert(id, isbn);
+		LogAspect.logger.info(LogAspect.logMsg + "인서트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + check);
+	}
+
+	@Override
+	public void scrollBanner(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id="user123";
+//		HttpSession session = request.getSession();		//세션받기 ID
+//		String id=(String) session.getAttribute("id");
+		List<InterestDto> scrollList=interestDao.scrollSelect(id);
+		LogAspect.logger.info(LogAspect.logMsg + "여기까진 넘어오나요" + scrollList.toString());
+		int scrollCount=scrollList.size();
+		if(scrollList.size() > 2) scrollCount=2;
+		LogAspect.logger.info(LogAspect.logMsg + "scrollCount: " + scrollCount);
+		LogAspect.logger.info(LogAspect.logMsg + scrollList.toString());
+		mav.addObject("scrollList", scrollList);
+>>>>>>> 7b918c40bf4e8d69d380a2fe34c3756ed3c5e83b
 	}
 }
