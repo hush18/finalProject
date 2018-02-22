@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>휴면계정해지</title>
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<link href="css/diap.css" type="text/css" rel="stylesheet" />
+<link href="css/user/diap.css" type="text/css" rel="stylesheet" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script type="text/javascript" src="js/loginMember.js"></script>
+<script type="text/javascript" src="js/user/loginMember.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".diap_text_mh").find("input:eq(0)").blur(function() {

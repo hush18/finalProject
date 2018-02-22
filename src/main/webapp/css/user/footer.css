@@ -105,27 +105,27 @@ p.adam {
 }
 
 .footer-div.two ul li a.fb {
-	background: url('../images/social2.png') no-repeat 0px 4px;
+	background: url('../../images/social2.png') no-repeat 0px 4px;
 	padding: 10px 0 12px 52px;
 }
 
 .footer-div.two ul li a.fb1 {
-	background: url('../images/social1.png') no-repeat 0px 4px;
+	background: url('../../images/social1.png') no-repeat 0px 4px;
 	padding: 10px 0 12px 52px;
 }
 
 .footer-div.two ul li a.fb2 {
-	background: url('../images/social3.png') no-repeat 0px 4px;
+	background: url('../../images/social3.png') no-repeat 0px 4px;
 	padding: 10px 0 12px 52px;
 }
 
 .footer-div.two ul li a.fb3 {
-	background: url('../images/social4.png') no-repeat 0px 4px;
+	background: url('../../images/social4.png') no-repeat 0px 4px;
 	padding: 10px 0 12px 52px;
 }
 
 .footer-div.two ul li a.fb4 {
-	background: url('../images/social5.png') no-repeat 0px 4px;
+	background: url('../../images/social5.png') no-repeat 0px 4px;
 	padding: 10px 0 12px 52px;
 }
 
@@ -142,17 +142,17 @@ p.adam {
 }
 
 .footer-div.three ul li:nth-child(1) {
-	background: url('../images/icon2.png') no-repeat 0px 6px;
+	background: url('../../images/icon2.png') no-repeat 0px 6px;
 	padding-left: 38px;
 }
 
 .footer-div.three ul li:nth-child(2) {
-	background: url('../images/icon3.png') no-repeat 0px 6px;
+	background: url('../../images/icon3.png') no-repeat 0px 6px;
 	padding-left: 38px;
 }
 
 .footer-div.three ul li a {
-	background: url('../images/icon1.png') no-repeat 0px 6px;
+	background: url('../../images/icon1.png') no-repeat 0px 6px;
 	padding-left: 38px;
 	display: block;
 	color: #908F8F;
@@ -189,23 +189,23 @@ p.adam {
 }
 
 .footer-div.two ul li a.fb:hover {
-	background: url('../images/social3hover.png') no-repeat 0px 4px;
+	background: url('../../images/social3hover.png') no-repeat 0px 4px;
 }
 
 .footer-div.two ul li a.fb1:hover {
-	background: url('../images/social2hover.png') no-repeat 0px 4px;
+	background: url('../../images/social2hover.png') no-repeat 0px 4px;
 }
 
 .footer-div.two ul li a.fb2:hover {
-	background: url('../images/social4hover.png') no-repeat 0px 4px;
+	background: url('../../images/social4hover.png') no-repeat 0px 4px;
 }
 
 .footer-div.two ul li a.fb3:hover {
-	background: url('../images/social5hover.png') no-repeat 0px 4px;
+	background: url('../../images/social5hover.png') no-repeat 0px 4px;
 }
 
 .footer-div.two ul li a.fb4:hover {
-	background: url('../images/social1hover.png') no-repeat 0px 4px;
+	background: url('../../images/social1hover.png') no-repeat 0px 4px;
 }
 
 .footer-div.two ul li a:hover, .copy-right ul li a:hover, .footer-div.three ul li a:hover
@@ -235,6 +235,9 @@ p.adam {
 	font-size: 1.17em;
 	color: #3C7B5e;
 }
+#serviceWrap label a{
+	color:#3C7B5e;
+}
 
 .recommend_sc {
 	border: 1px solid #9c9c9c;
@@ -247,6 +250,8 @@ p.adam {
 }
 
 .nearest_sc {
+	
+	background-color:white;
 	margin-top: 5px;
 	border: 1px solid #9c9c9c;
 	text-align: center;

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <script type="text/javascript" src="jquery_ui/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
@@ -41,7 +42,14 @@
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
 				<li>
-					<a href="loginMember.do">로그인</a>
+					<c:if test="${id==null }">
+						<a href="loginMember.do">로그인</a>
+					</c:if>
+					
+					<c:if test="${id!=null }">
+						<a href="">${id } 님</a>
+						<a href="logoutMember.do">로그아웃</a>
+					</c:if>
 				</li>
 				<li>
 					<a href="createAccount.do">회원가입</a>

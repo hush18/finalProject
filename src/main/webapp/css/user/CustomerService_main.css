@@ -91,7 +91,7 @@ body {
 	float: left;
 	color: #3C7B5e;
     padding: 0px 10px 0px 8px;
-    background-image: url("../images/CustomerService/minus3.png");
+    background-image: url("../../images/CustomerService/minus3.png");
     background-repeat: no-repeat;
     background-position: 104px 1px;
 }
@@ -135,52 +135,52 @@ body {
 }
 
 .mainlist_ej .number1_ej{
-	background-image: url("../images/CustomerService/one.png");
+	background-image: url("../../images/CustomerService/one.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number2_ej{
-	background-image: url("../images/CustomerService/two.png");
+	background-image: url("../../images/CustomerService/two.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number3_ej{
-	background-image: url("../images/CustomerService/three.png");
+	background-image: url("../../images/CustomerService/three.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number4_ej{
-	background-image: url("../images/CustomerService/four.png");
+	background-image: url("../../images/CustomerService/four.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number5_ej{
-	background-image: url("../images/CustomerService/five.png");
+	background-image: url("../../images/CustomerService/five.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number6_ej{
-	background-image: url("../images/CustomerService/six.png");
+	background-image: url("../../images/CustomerService/six.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number7_ej{
-	background-image: url("../images/CustomerService/seven.png");
+	background-image: url("../../images/CustomerService/seven.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number8_ej{
-	background-image: url("../images/CustomerService/eight.png");
+	background-image: url("../../images/CustomerService/eight.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number9_ej{
-	background-image: url("../images/CustomerService/nine.png");
+	background-image: url("../../images/CustomerService/nine.png");
 	background-repeat: no-repeat;
 }
 
 .mainlist_ej .number10_ej{
-	background-image: url("../images/CustomerService/ten.png");
+	background-image: url("../../images/CustomerService/ten.png");
 	background-repeat: no-repeat;
 }
 
@@ -188,7 +188,7 @@ body {
 	border-top: 1px solid #9C9C9C;
 	border-bottom: 1px solid #9C9C9C;
 	padding: 3px 0px 0px 60px;
-	background: #F8F8F8 url("../images/CustomerService/arrow.png");
+	background: #F8F8F8 url("../../images/CustomerService/arrow.png");
 	background-repeat: no-repeat;
 	background-position: 35px 15px;
 	margin-top: -11px;
