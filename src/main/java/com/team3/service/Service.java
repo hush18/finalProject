@@ -56,7 +56,59 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private MapDao mapDao;
-	
+
+	@Override
+	public void myPage(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		MemberDto memberDto = memberDao.updateAccount(session);
+		
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("myPage.users");
+	}
+
+	@Override
+	public void updateAccount(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		MemberDto memberDto = memberDao.updateAccount(session);
+		
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("updateAccount.users");
+	}
+
+	@Override
+	public void updateAccountOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		MemberDto memberDto = (MemberDto) map.get("memberDto");
+		
+//		System.out.println(memberDto);
+		int check = memberDao.updateAccountOk(memberDto);
+		
+		mav.addObject("check", check);
+		mav.setViewName("updateAccountOk.users");
+	}
+
+	@Override
+	public void deleteAccount(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		MemberDto memberDto = (MemberDto) map.get("memberDto");
+		
+		int check = memberDao.deleteAccount(memberDto);
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("id");
+		session.removeAttribute("password");
+		
+		mav.addObject("check", check);
+		mav.setViewName("deleteAccountOk.users");
+	}
+
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
 		String url = "http://rss.donga.com/book.xml";
@@ -173,8 +225,8 @@ public class Service implements ServiceInterface {
 		String dong = request.getParameter("dong");
 
 		if (dong != null) {
-			// List<ZipcodeDto> zipList=memberDao.zipcodeDto(dong);
-			// mav.addObject("zipcodeList", zipList);
+			 List<ZipcodeDto> zipList=memberDao.zipcodeDto(dong);
+			 mav.addObject("zipcodeList", zipList);
 		}
 		mav.setViewName("zipcode.empty");
 	}
@@ -462,7 +514,6 @@ public class Service implements ServiceInterface {
 		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
 		// mav.setViewName("userMain.users");
 	}
-
 	@Override
 	public void findIdOK(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();

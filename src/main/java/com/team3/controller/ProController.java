@@ -36,6 +36,59 @@ public class ProController {
 
 		return new ModelAndView("userMain.users");
 	}
+	
+	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
+	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.myPage(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
+	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
+
+		return new ModelAndView("userPointView.users");
+	}
+	
+	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
+	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.updateAccount(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.POST)
+	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberDto", memberDto);
+		service.updateAccountOk(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.GET)
+	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response) {
+
+		return new ModelAndView("deleteAccount.empty");
+	}
+	
+	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
+	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberDto", memberDto);
+		mav.addObject("request", request);
+		service.deleteAccount(mav);
+		
+		return mav;
+	}
+
 	// 위시리스트 출력
 	@RequestMapping(value="/wishList.do", method=RequestMethod.GET)
 	public ModelAndView wishList(HttpServletRequest request,HttpServletResponse response) {
@@ -334,7 +387,6 @@ public class ProController {
 	public ModelAndView logoutMember(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("logoutMember.empty");
 	}
-
 	// 여기부터 관리자 ================================================================================================================================================
 	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)
 	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {

@@ -24,7 +24,6 @@
 </script>
 </head>
 <body onload="forNews()">
-
 	<div class="widthline">
 		<!-- Swiper -->
 		<div class="event-swiper-iy">

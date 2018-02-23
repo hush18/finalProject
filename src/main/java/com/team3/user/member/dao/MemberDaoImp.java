@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +34,22 @@ public class MemberDaoImp implements MemberDao {
 	}
 	
 	@Override
+	public MemberDto updateAccount(HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		
+		return sqlSession.selectOne("getAccountInfo", id);
+	}
+	
+	@Override
+	public int updateAccountOk(MemberDto memberDto) {
+		return sqlSession.update("setAccountInfo", memberDto);
+	}
+
+	@Override
+	public int deleteAccount(MemberDto memberDto) {
+		return sqlSession.delete("deleteAccount", memberDto);
+	}
+
 	public Date memberDate(Map<String, Object> hmap) {
 		return sqlSession.selectOne("memberDate", hmap);
 	}
