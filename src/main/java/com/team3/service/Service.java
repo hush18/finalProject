@@ -23,6 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team3.user.member.dto.ZipcodeDto;
+import com.team3.admin.sales.dao.SalesDao;
+import com.team3.admin.sales.dto.SalesDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
@@ -40,6 +42,9 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private InterestDao interestDao;
+	
+	@Autowired
+	private SalesDao salesDao;
 
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
@@ -337,5 +342,16 @@ public class Service implements ServiceInterface {
 		LogAspect.logger.info(LogAspect.logMsg + "scrollCount: " + scrollCount);
 		LogAspect.logger.info(LogAspect.logMsg + scrollList.toString());
 		mav.addObject("scrollList", scrollList);
+	}
+
+	@Override
+	public void adminSales(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		List<SalesDto> salesList=salesDao.salesSelect();
+		LogAspect.logger.info(LogAspect.logMsg + salesList.toString());
+		mav.addObject("salesList", salesList);
+		mav.setViewName("adminSales.admin");
 	}
 }

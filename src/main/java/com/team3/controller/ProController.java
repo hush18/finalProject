@@ -374,7 +374,13 @@ public class ProController {
 
 	@RequestMapping(value = "adminSales.do", method = RequestMethod.GET)
 	public ModelAndView adminSales(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminSales.admin");
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response",response);
+		service.adminSales(mav);
+		return mav;
+		
 	}
 
 	@RequestMapping(value = "adminCstMain.do", method = RequestMethod.GET)
