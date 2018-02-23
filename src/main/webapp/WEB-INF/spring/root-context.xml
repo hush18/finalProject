@@ -52,4 +52,10 @@
 			</props>
 		</property>
 	</bean>
+	
+	<!-- naverLogin Bean -->
+	<bean id="naverLoginBO" class="com.team3.user.oauth.bo.NaverLoginBO" />
+	
+	<!-- facebookLogin Bean -->
+	<bean id="facebookLoginBO" class="com.team3.user.oauth.bo.FacebookLoginBO" />
 </beans>
