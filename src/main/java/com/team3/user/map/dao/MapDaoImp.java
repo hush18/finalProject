@@ -1,5 +1,13 @@
 package com.team3.user.map.dao;
 
-public class MapDaoImp implements MapDao {
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+public class MapDaoImp implements MapDao {
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	
 }

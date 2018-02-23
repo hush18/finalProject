@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <script type="text/javascript" src="jquery_ui/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
@@ -22,7 +23,7 @@
 <script type="text/javascript">
 	$(function() {
 		var jbOffset = $('.mainMenu-iy').offset();
-		
+
 		$(window).scroll(function() {
 			if ($(document).scrollTop() > jbOffset.top) {
 				$('.mainMenu-iy').addClass('mainMenu-iy-fixed');
@@ -40,13 +41,26 @@
 	<div class="topMenu-iy">
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
-				<li>
-					<a href="loginMember.do">로그인</a>
-				</li>
-				<li>
-					<a href="createAccount.do">회원가입</a>
+				<c:if test="${id==null }">
+					<li>
+						<a href="loginMember.do">로그인</a>
+					</li>
+					<li>
+						<a href="createAccount.do">회원가입</a>
+					</li>
+				</c:if>
+
+				<c:if test="${id!=null }">
+					<li>
+						<a href="myPage.do">${id } 님</a>
+					</li>
+					<li>
+						<a href="logoutMember.do">로그아웃</a>
+					</li>
+				</c:if>
 				<li>
 					<a href="cart.do">장바구니</a>
+				</li>
 			</ul>
 		</div>
 		<div class="rightMenu-iy">
@@ -136,7 +150,7 @@
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
 				<li id="all-main-iy">
-					<a href="bookList.do" style="position: relative;">전체</a>
+					<a href="bookList.do?path=전체&category_path=전체" style="position: relative;">전체</a>
 					<div class="all-mainMenu-iy">
 						<div>
 							<h3 class="h2-hr">소설</h3>

@@ -23,6 +23,9 @@
 			<list>
 				<value>classpath:com/team3/user/book/dao/mapper/BookMapper.xml</value>
 				<value>classpath:com/team3/admin/book/dao/mapper/AdminBookMapper.xml</value>
+				<value>classpath:com/team3/admin/map/dao/mapper/mapMapper.xml</value>
+				<value>classpath:com/team3/user/interest/dao/mapper/InterestMapper.xml</value>
+				<value>classpath:com/team3/user/member/dao/mapper/MemberMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -52,4 +55,10 @@
 			</props>
 		</property>
 	</bean>
+	
+	<!-- naverLogin Bean -->
+	<bean id="naverLoginBO" class="com.team3.user.oauth.bo.NaverLoginBO" />
+	
+	<!-- facebookLogin Bean -->
+	<bean id="facebookLoginBO" class="com.team3.user.oauth.bo.FacebookLoginBO" />
 </beans>

@@ -6,10 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="js/orderSearch.js"></script>
-<script type="text/javascript" src="js/sideCategory.js"></script>
-<link href="css/sideCategory.css" type="text/css" rel="stylesheet"/>
-<link href="css/orderSearch.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="js/user/orderSearch.js"></script>
+<script type="text/javascript" src="js/user/sideCategory.js"></script>
+<link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
+<link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 	$(function(){
 		$(".recentOrder_hy").show();

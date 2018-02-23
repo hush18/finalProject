@@ -25,7 +25,8 @@
 	<resources mapping="/jquery_ui/**" location="/jquery_ui/" />
 	<resources mapping="/jquery_cookie/**" location="/jquery_cookie/" />
 	<resources mapping="/vendors/**" location="/vendors/" />
-
+	<!-- 영업점 이미지 -->
+	<resources mapping="/adminImg/**" location="/adminImg/"/>
 	<!-- tiles -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
@@ -35,7 +36,6 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-
 
 	<beans:bean id="tilseViewResolver"
 		class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
@@ -53,7 +53,7 @@
 	<!-- 파일업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="defaultEncoding" value="utf-8"/>
-		<beans:property name="maxUploadSize" value="1024000"/>
+		<beans:property name="maxUploadSize" value="1076367642"/>
 	</beans:bean>
 
 	<!-- AOP -->

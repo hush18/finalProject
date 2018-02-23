@@ -23,12 +23,12 @@ body {
 
 @font-face {
 	font-family: 'godo';
-	src: url(../fonts/godo.ttf) format('truetype');
+	src: url(../../fonts/godo.ttf) format('truetype');
 }
 
 @font-face {
 	font-family: 'NanumSquareRoundR';
-	src: url(../fonts/NanumSquareRoundR.ttf) format('truetype');
+	src: url(../../fonts/NanumSquareRoundR.ttf) format('truetype');
 }
 
 h1, h2, h3, h4, h5 {

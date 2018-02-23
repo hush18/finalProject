@@ -118,8 +118,8 @@
 	
 	function wishList(isbn) {
 		var quantity = $("input[id='"+isbn+"']").val();
-		
-		$(location).attr("href", "wishList.do?isbn="+isbn);
+		alert(isbn);
+		$(location).attr("href", "wishListInsert.do?isbn="+isbn);
 	}
 	
 	function wishListAll() {
@@ -142,7 +142,7 @@
 		}
 		//alert(isbnList);
 		
-		$(location).attr("href", "wishList.do?isbnList="+isbnList);
+		$(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
 	}
 	
 	function cartAll() {
