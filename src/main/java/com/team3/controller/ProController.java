@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.team3.admin.map.dto.MapDto;
 import com.team3.aop.LogAspect;
 import com.team3.service.ServiceInterface;
 import com.team3.user.member.dto.MemberDto;
@@ -336,8 +337,11 @@ public class ProController {
 
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("Map.users");
+		ModelAndView mav= new ModelAndView();
+		
+		service.userMapRead(mav);
+		
+		return mav;
 	}
 
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
@@ -440,8 +444,10 @@ public class ProController {
 		return new ModelAndView("logoutMember.empty");
 	}
 
-	// 여기부터 관리자
-	// ================================================================================================================================================
+	
+	
+	
+	// 여기부터 관리자 ================================================================================================================================================
 	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)
 	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminBookSearch.admin");
@@ -471,10 +477,12 @@ public class ProController {
 	public ModelAndView adminMemberManage(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminMemberManage.admin");
 	}
-
-	@RequestMapping(value = "adminMap.do", method = RequestMethod.GET)
+	
+	@RequestMapping(value="adminMap.do", method=RequestMethod.GET)
 	public ModelAndView adminMap(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminMap.admin");
+		ModelAndView mav=new ModelAndView();
+		service.readMap(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "adminChange.do", method = RequestMethod.GET)
@@ -531,4 +539,35 @@ public class ProController {
 	public ModelAndView adminNctUpdate(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminNctUpdate.admin");
 	}
+	
+	@RequestMapping(value="adminMapOk.do",method=RequestMethod.POST)
+	public ModelAndView adminMapInsert(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) throws Exception {		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		mav.addObject("mapDto",mapDto);
+		
+		service.createMap(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value="adminMapUpdate.do",method=RequestMethod.POST)
+	public ModelAndView adminMapUpdate(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		mav.addObject("mapDto",mapDto);
+		
+		service.updateMap(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value="adminMapDelete.do",method=RequestMethod.POST)
+	public ModelAndView adminMapDelete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		
+		service.deleteMap(mav);
+		
+		return mav;
+	}
+	
 }

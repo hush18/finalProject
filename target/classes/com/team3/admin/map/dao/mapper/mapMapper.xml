@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.team3.admin.map.dao.mapper">
+  	<insert id="mapInsert" parameterType="com.team3.admin.map.dto.MapDto">
+  		<![CDATA[
+	  		insert into store values(#{store_name},#{lat},#{lng},#{phone_fax},#{address},#{business_hours},#{directions},#{store_explanation},#{img_path})
+  		]]>
+  	</insert>
+  	
+  	<select id="mapRead" resultType="com.team3.admin.map.dto.MapDto">
+  		select * from store
+  	</select>
+  	
+  	<delete id="mapDelete" parameterType="String">
+  		delete from store where store_name=#{store_name}
+  	</delete>
+  	
+  	<update id="mapUpdate" parameterType="com.team3.admin.map.dto.MapDto">
+  		update store set 
+  		store_name=#{store_name},
+  		lat=#{lat},
+  		lng=#{lng},
+  		phone_fax=#{phone_fax},
+  		address=#{address},
+  		business_hours=#{business_hours},
+  		directions=#{directions},
+  		store_explanation=#{store_explanation},
+  		img_path=#{img_path}
+  		where store_name=#{store_name}
+  	</update>
+  </mapper>
+  
+  
+  
+  
