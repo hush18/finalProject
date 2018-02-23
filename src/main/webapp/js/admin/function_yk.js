@@ -1,7 +1,7 @@
 /**
  * 
  */
-
+var id="";
 $(function() {
 	
 	//영업점추가버튼 클릭메소드
@@ -13,7 +13,7 @@ $(function() {
 	
 	//영업점이름 버튼 클릭시 출력
 	$(".btn-group_yk>button ").click(function () {
-		var id=$(this).text();
+		id=$(this).text();
 		
 		$("#"+$(this).text()).toggle();
 		$(".admin_map_yk").not("#"+$(this).text()).css("display","none");
@@ -51,13 +51,14 @@ $(function() {
 		
 		$("div[class='admin_map_yk'][id='"+id+"'] button[id='updateOk "+id+"']").click(function() {
 			var check=confirm("수정하시겠습니까?");
-			if(check) $("form[name='"+id+"']").submit();
+			if(check) $("form[name='update"+id+"']").submit();
 		});
 		
 		$("div[id='"+id+"'] button[id='deleteOk']").click(function() {
 			var check=confirm("정말 삭제하시겠습니까?");
-			if(check)$("form[name='"+id+"']").submit();
+			if(check)$("form[name='delete"+id+"']").submit();
 		});
+		
 	});
 	
 	$("#cancel_map").click(function(){
@@ -68,24 +69,36 @@ $(function() {
 		$(".create_map_yk form").submit();
 	});
 	
-});
-
-/*$
-(document).ready(function() {
-	var fileTarget = $('.filebox .upload-hidden');
-
-	fileTarget.on('change', function() {
-		if (window.FileReader) {
-			var filename = '';
-			for (var i = 0; i < $(this)[0].files.length; i++) {
-				filename += $(this)[0].files[i].name + ", ";
+	//파일 선택
+	$("#add_file_div>#click_btn").click(function() {
+		$("#add_file_div input").on('change',function() {
+			if (window.FileReader) {
+				var filename = '';
+				for (var i = 0; i < $(this)[0].files.length; i++) {
+					filename += $(this)[0].files[i].name + ", ";
+				}
+			} else {
+				var filename = $(this).val().split('/').pop().split('\\').pop();
 			}
-		} else {
-			var filename = $(this).val().split('/').pop().split('\\').pop();
-		}
-		$(this).siblings('.upload-name').val(filename);
+			$(this).siblings('.upload-name').val(filename);
+		});
+	});
+	
+	$("div[class='filebox bs3-primary'] label").click(function() {
+		$("div[class='filebox bs3-primary'] input").on('change',function() {
+			if (window.FileReader) {
+				var filename = '';
+				for (var i = 0; i < $(this)[0].files.length; i++) {
+					filename += $(this)[0].files[i].name + ", ";
+				}
+			} else {
+				var filename = $(this).val().split('/').pop().split('\\').pop();
+			}
+			$(this).siblings('.upload-name').val(filename);
+		});
+	});
 });
-});*/
+
 
 /*
 $(function() {

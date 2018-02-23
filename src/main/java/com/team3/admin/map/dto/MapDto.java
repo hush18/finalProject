@@ -1,9 +1,5 @@
 package com.team3.admin.map.dto;
 
-import java.io.File;
-
-import org.springframework.web.multipart.MultipartFile;
-
 public class MapDto {
 	private String store_name;
 	private String lat;

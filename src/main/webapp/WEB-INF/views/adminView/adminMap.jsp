@@ -4,7 +4,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 영업점관리</title>
@@ -21,23 +21,6 @@
 <!-- 용기CSS -->
 <link href="css/admin/adminBtn_yk.css" rel="stylesheet">
 <script type="text/javascript" src="js/admin/function_yk.js"></script>
-<script type="text/javascript">
-$(function() {
-	var fileTarget = $('.filebox .upload-hidden');
-	
-	fileTarget.on('change',function() {
-		if (window.FileReader) {
-			var filename = '';
-			for (var i = 0; i < $(this)[0].files.length; i++) {
-				filename += $(this)[0].files[i].name + ", ";
-			}
-		} else {
-			var filename = $(this).val().split('/').pop().split('\\').pop();
-		}
-		$(this).siblings('.upload-name').val(filename);
-	});
-})
-</script>
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -81,7 +64,8 @@ $(function() {
 								<div class="x_panel">
 									<!-- 영업점 생성 -->
 									<div class="create_map_yk" style="display: none;">
-										<form action="adminMapOk.do" method="post" enctype="multipart/form-data" id="createMapForm">
+										<form action="adminMapOk.do" method="post"
+											enctype="multipart/form-data" id="createMapForm">
 											<div>
 												<label class="control-label col-md-2 col-sm-2 col-xs-12">매장명</label>
 												<div class="col-md-9 col-sm-9 col-xs-12">
@@ -150,11 +134,11 @@ $(function() {
 													경로</label>
 												<div class="col-md-9 col-sm-9 col-xs-12">
 													<!-- 여기부터 -->
-													<div class="filebox bs3-primary">
-														<input  class="upload-name" value="파일선택"
-															disabled="disabled">
-														<input name="map_img_file" type="file" id="ex_filename" class="upload-hidden" multiple="multiple">
-														<label for="ex_filename">업로드</label>
+													<div class="filebox bs3-primary" id="add_file_div">
+														<input style="width: 560px;" class="upload-name" value="파일선택"
+															disabled="disabled"> <input name="map_img_file"
+															type="file" id="ex_filename_add" class="upload-hidden"
+															multiple="multiple"> <label id="click_btn" for="ex_filename_add">업로드</label>
 													</div>
 													<!-- 여기까지 -->
 												</div>
@@ -170,155 +154,169 @@ $(function() {
 
 									<!-- 영업점 관리 -->
 									<c:forEach var="mapDto" items="${mapList}">
-									<div id="${mapDto.store_name }" class="admin_map_yk" style="display: none;">
-										<form action="adminMapUpdate.do" method="post" name="${mapDto.store_name }" enctype="multipart/form-data">
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">매장명</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="store_name" class="form-control" value="${mapDto.store_name }"
-														disabled="disabled" style="width: 704px;">
+										<div id="${mapDto.store_name }" class="admin_map_yk"
+											style="display: none;">
+											<form action="adminMapUpdate.do" method="post"
+												name="update${mapDto.store_name }" id="update"
+												enctype="multipart/form-data">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">매장명</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="text" name="store_name" class="form-control"
+															value="${mapDto.store_name }" disabled="disabled"
+															style="width: 704px;">
+													</div>
 												</div>
-											</div>
 
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">위도/경도</label>
-												<div class="col-md-9 col-sm-9 col-xs-12"
-													style="width: 740px;">
-													<input type="text" name="lat" class="form-control"
-														value="${mapDto.lat }" disabled="disabled"
-														style="width: 350px; display: inline-block;"> <input
-														type="text" name="lng" class="form-control" value="${mapDto.lng }"
-														disabled="disabled"
-														style="width: 350px; display: inline-block;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">위도/경도</label>
+													<div class="col-md-9 col-sm-9 col-xs-12"
+														style="width: 740px;">
+														<input type="text" name="lat" class="form-control"
+															value="${mapDto.lat }" disabled="disabled"
+															style="width: 350px; display: inline-block;"> <input
+															type="text" name="lng" class="form-control"
+															value="${mapDto.lng }" disabled="disabled"
+															style="width: 350px; display: inline-block;">
+													</div>
 												</div>
-											</div>
 
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">전화번호/FAX</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="phone_fax" class="form-control"
-														value="${mapDto.phone_fax }"
-														disabled="disabled" style="width: 704px;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">전화번호/FAX</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="text" name="phone_fax" class="form-control"
+															value="${mapDto.phone_fax }" disabled="disabled"
+															style="width: 704px;">
+													</div>
 												</div>
-											</div>
 
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">주소</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="address" class="form-control"
-														value="${mapDto.address }" disabled="disabled"
-														style="width: 704px;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">주소</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="text" name="address" class="form-control"
+															value="${mapDto.address }" disabled="disabled"
+															style="width: 704px;">
+													</div>
 												</div>
-											</div>
 
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">영업시간</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="business_hours" class="form-control"
-														value="${mapDto.business_hours }" disabled="disabled"
-														style="width: 704px;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">영업시간</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="text" name="business_hours"
+															class="form-control" value="${mapDto.business_hours }"
+															disabled="disabled" style="width: 704px;">
+													</div>
 												</div>
-											</div>
 
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">찾아오는길</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<textarea name="directions" class="form-control" rows="7"
-														placeholder="찾아오는 길" disabled="disabled"
-														style="width: 704px;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">찾아오는길</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<textarea name="directions" class="form-control" rows="7"
+															placeholder="찾아오는 길" disabled="disabled"
+															style="width: 704px;">
 ${mapDto.directions }
 														</textarea>
+													</div>
 												</div>
-											</div>
 
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">매장
-													설명</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<textarea name="store_explanation" class="form-control" rows="9"
-														placeholder="매장 설명" disabled="disabled"
-														style="width: 704px;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">매장
+														설명</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<textarea name="store_explanation" class="form-control"
+															rows="9" placeholder="매장 설명" disabled="disabled"
+															style="width: 704px;">
 ${mapDto.store_explanation }
 														</textarea>
-												</div>
-											</div>
-
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">파일
-													경로</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-
-													<!-- 여기부터 -->
-													<div class="filebox bs3-primary">
-														<input  class="upload-name" value="파일선택"
-															disabled="disabled"> <label for="ex_filename">업로드</label>
-														<input name="map_img_file" type="file" id="ex_filename" class="upload-hidden" multiple="multiple">
-														<input name="hidden_path" type="hidden" value="${mapDto.img_path }">
 													</div>
-														
-													<!-- 여기까지 -->
 												</div>
-											</div>
-											
-											<div id="updel_btn_group"
-												style="text-align: center; margin-top: 10px;"
-												class="col-md-12 col-sm-9 col-xs-12">
-												<button id="update ${mapDto.store_name}" type="button" class="btn_yk">수정</button>
-												<button id="delete ${mapDto.store_name}" type="button" class="btn_yk">삭제</button>
-											</div>
 
-											<div id="update_btn"
-												style="text-align: center; display: none; margin-top: 10px;"
-												class="col-md-12 col-sm-9 col-xs-12">
-												<button id="updateOk ${mapDto.store_name}" type="button" class="btn_yk">수정</button>
-												<button id="calcel_map" type="button" class="btn_yk">취소</button>
-											</div>
-										</form>
-									</div>
-									
-									<!-- 삭제 : 관리자가 입력 -->
-									<form action="adminMapDelete.do" name="${mapDto.store_name}" method="post">
-										<div id="${mapDto.store_name}" class="admin_input_yk" style="display: none;">
-											<input type="hidden" name="store_name" value="${mapDto.store_name}">
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">아이디</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="id" class="form-control"
-														placeholder="관리자 아이디" style="width: 704px;">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">파일
+														경로</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+
+														<!-- 여기부터 -->
+														<div id="add_file_id_${mapDto.store_name }" class="filebox bs3-primary" >
+															<input class="upload-name" style="width: 560px;" value="파일선택" disabled="disabled"> 
+															<label class="click_${mapDto.store_name }" for="ex_filename_${mapDto.store_name }">업로드</label> 
+															<input name="map_img_file" type="file" id="ex_filename_${mapDto.store_name }" class="upload-hidden" multiple="multiple"> 
+															<input name="img_path" type="hidden" value="${mapDto.img_path }">
+														</div>
+
+														<!-- 여기까지 -->
+													</div>
 												</div>
-											</div>
-	
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">비밀번호</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="password" class="form-control"
-														placeholder="관리자 비밀번호" style="width: 704px;">
+
+												<div id="updel_btn_group"
+													style="text-align: center; margin-top: 10px;"
+													class="col-md-12 col-sm-9 col-xs-12">
+													<button id="update ${mapDto.store_name}" type="button"
+														class="btn_yk">수정</button>
+													<button id="delete ${mapDto.store_name}" type="button"
+														class="btn_yk">삭제</button>
 												</div>
-											</div>
-	
-											<div>
-												<label class="control-label col-md-2 col-sm-2 col-xs-12">관리자
-													이름</label>
-												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" name="name" class="form-control"
-														placeholder="관리자 이름" style="width: 704px;">
+
+												<div id="update_btn"
+													style="text-align: center; display: none; margin-top: 10px;"
+													class="col-md-12 col-sm-9 col-xs-12">
+													<button id="updateOk ${mapDto.store_name}" type="button"
+														class="btn_yk">수정</button>
+													<button id="calcel_map" type="button" class="btn_yk">취소</button>
 												</div>
-											</div>
-	
-											<div id="delete_btn"
-												style="text-align: center; margin-top: 10px;"
-												class="col-md-12 col-sm-9 col-xs-12">
-												<button id="deleteOk" type="button" class="btn_yk">삭제</button>
-												<button id="calcel_delete" type="button" class="btn_yk">취소</button>
-											</div>
+											</form>
 										</div>
-									</form>
-									<!-- 삭제  -->
+
+										<!-- 삭제 : 관리자가 입력 -->
+										<form action="adminMapDelete.do" id="delete"
+											name="delete${mapDto.store_name}" method="post">
+											<!-- 이미지경로 -->
+
+											<div id="${mapDto.store_name}" class="admin_input_yk"
+												style="display: none;">
+												<input type="hidden" name="store_name"
+													value="${mapDto.store_name}">
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">아이디</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="text" name="id" class="form-control"
+															placeholder="관리자 아이디" style="width: 704px;">
+													</div>
+												</div>
+
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">비밀번호</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="password" name="password"
+															class="form-control" placeholder="관리자 비밀번호"
+															style="width: 704px;">
+													</div>
+												</div>
+
+												<div>
+													<label class="control-label col-md-2 col-sm-2 col-xs-12">관리자
+														이름</label>
+													<div class="col-md-9 col-sm-9 col-xs-12">
+														<input type="text" name="name" class="form-control"
+															placeholder="관리자 이름" style="width: 704px;">
+													</div>
+												</div>
+
+												<div id="delete_btn"
+													style="text-align: center; margin-top: 10px;"
+													class="col-md-12 col-sm-9 col-xs-12">
+													<button id="deleteOk" type="button" class="btn_yk">삭제</button>
+													<button id="calcel_delete" type="button" class="btn_yk">취소</button>
+												</div>
+											</div>
+											<input name="hidden_path" type="hidden"
+												value="${mapDto.img_path }">
+										</form>
+										<!-- 삭제  -->
 									</c:forEach>
 									<!-- 영업점 관리 -->
-									<!-- 영업점 출력 js -->
-									
-									
+
+
 								</div>
 
 							</div>

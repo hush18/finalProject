@@ -14,7 +14,25 @@
   		select * from store
   	</select>
   	
-  	<delete id="mapDelete" parameterType="java.util.HashMap">
-  		
+  	<delete id="mapDelete" parameterType="String">
+  		delete from store where store_name=#{store_name}
   	</delete>
+  	
+  	<update id="mapUpdate" parameterType="com.team3.admin.map.dto.MapDto">
+  		update store set 
+  		store_name=#{store_name},
+  		lat=#{lat},
+  		lng=#{lng},
+  		phone_fax=#{phone_fax},
+  		address=#{address},
+  		business_hours=#{business_hours},
+  		directions=#{directions},
+  		store_explanation=#{store_explanation},
+  		img_path=#{img_path}
+  		where store_name=#{store_name}
+  	</update>
   </mapper>
+  
+  
+  
+  

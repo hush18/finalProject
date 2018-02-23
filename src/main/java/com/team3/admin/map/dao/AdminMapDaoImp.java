@@ -2,12 +2,14 @@ package com.team3.admin.map.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.team3.admin.map.dto.MapDto;
+import com.team3.user.member.dto.MemberDto;
 
 @Component
 public class AdminMapDaoImp implements AdminMapDao {
@@ -31,7 +33,17 @@ public class AdminMapDaoImp implements AdminMapDao {
 	}
 	
 	@Override
-	public int mapDelete(HashMap<String, String> stringMap) {
-		return sqlSessionTemplate.delete("mapDelete",stringMap);
+	public MemberDto getMemberInfo(Map<String, String> infoMap) {
+		return sqlSessionTemplate.selectOne("com.team3.user.member.dao.mapper.memberLogin",infoMap);
+	}
+	
+	@Override
+	public int mapDelete(String store_name) {
+		return sqlSessionTemplate.delete("mapDelete",store_name);
+	}
+	
+	@Override
+	public int mapUpdate(MapDto mapDto) {
+		return sqlSessionTemplate.update("mapUpdate",mapDto);
 	}
 }

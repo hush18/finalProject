@@ -25,7 +25,8 @@
 	<resources mapping="/jquery_ui/**" location="/jquery_ui/" />
 	<resources mapping="/jquery_cookie/**" location="/jquery_cookie/" />
 	<resources mapping="/vendors/**" location="/vendors/" />
-
+	<!-- 영업점 이미지 -->
+	<resources mapping="/adminImg/**" location="/adminImg/"/>
 	<!-- tiles -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">

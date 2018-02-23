@@ -35,6 +35,7 @@ import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
+import com.team3.user.map.dao.MapDao;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
 
@@ -52,7 +53,10 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private AdminMapDao adminMapDao;
-
+	
+	@Autowired
+	private MapDao mapDao;
+	
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
 		String url = "http://rss.donga.com/book.xml";
@@ -140,7 +144,7 @@ public class Service implements ServiceInterface {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 1);
+				cal.add(Calendar.DATE, 7);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 				System.out.println(loginYear);
 
@@ -205,7 +209,7 @@ public class Service implements ServiceInterface {
 						.replace("WEB-INF/classes/com/team3/service/", "src/main/webapp");
 				File path = new File(realPath + "/adminImg");
 				path.mkdir();
-
+				
 				if (path.exists() && path.isDirectory()) {
 					File file = new File(path, fileName);
 					try {
@@ -228,8 +232,6 @@ public class Service implements ServiceInterface {
 	@Override
 	public void readMap(ModelAndView mav) {
 		List<MapDto> mapList = adminMapDao.mapRead();
-		// LogAspect.logger.info(LogAspect.logMsg+mapList.size());
-		// LogAspect.logger.info(LogAspect.logMsg+mapList.get(0).toString());
 
 		mav.addObject("mapList", mapList);
 		mav.setViewName("adminMap.admin");
@@ -238,24 +240,28 @@ public class Service implements ServiceInterface {
 	@Override
 	public void updateMap(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
-
 		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
 		MapDto mapDto = (MapDto) map.get("mapDto");
 		
+		String[] oldPathList=mapDto.getImg_path().split(",");
 		List<MultipartFile> fileList = request.getFiles("map_img_file");
 		
-		LogAspect.logger.info(LogAspect.logMsg+fileList.get(0).getSize());
+		mapDto.setImg_path(null);
+		//여기가 파일사이즈출력하는거
+		addfile(fileList, mapDto);
+		int check=0;
 		
-//		addfile(fileList, mapDto);
+		check=adminMapDao.mapUpdate(mapDto);
+		LogAspect.logger.info(LogAspect.logMsg +check);
+		if(check>0) {
+			deleteFile(oldPathList);
+		}
 		
-//		String[] oldPathList=request.getParameter("hidden_path").split(",");
-		
-//		deleteFile(fileList, mapDto, oldPathList);
-		
-		
+		mav.addObject("check",check);
+		mav.setViewName("adminMapUpdate.admin");
 	}
-
-	public void deleteFile(List<MultipartFile> fileList, MapDto mapDto,String[] oldPathList) {
+	
+	/*public void deleteFile(MapDto mapDto,String[] oldPathList) {
 		String realPath = Service.class.getResource("").getPath()
 				.replace("apache-tomcat-8.0.47/wtpwebapps", "workspace")
 				.replace("WEB-INF/classes/com/team3/service/", "src/main/webapp");
@@ -264,29 +270,62 @@ public class Service implements ServiceInterface {
 			File file=new File(realPath+ "/adminImg",oldPathList[i]);
 			file.delete();
 		}
+	}*/
+	
+	//파일삭제 메소드
+	public void deleteFile(String[] oldPathList) {
+		String realPath = Service.class.getResource("").getPath()
+				.replace("apache-tomcat-8.0.47/wtpwebapps", "workspace")
+				.replace("WEB-INF/classes/com/team3/service/", "src/main/webapp");
+		
+		for(int i=0;i<oldPathList.length;i++) {
+			File file=new File(realPath+ "/adminImg",oldPathList[i]);
+			if(file.delete()) {
+				LogAspect.logger.info(LogAspect.logMsg +oldPathList[i]+"파일삭제 완료");
+			}
+		}
 	}
 
 	@Override
 	public void deleteMap(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
+		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String store_name = request.getParameter("store_name");
-
-		HashMap<String, String> stringMap = new HashMap<String, String>();
-		stringMap.put("id", id);
-		stringMap.put("password", password);
-		stringMap.put("name", name);
-		stringMap.put("store_name", store_name);
-
-		LogAspect.logger.info(LogAspect.logMsg + stringMap.get("id"));
-		LogAspect.logger.info(LogAspect.logMsg + stringMap.get("password"));
-		LogAspect.logger.info(LogAspect.logMsg + stringMap.get("name"));
-		LogAspect.logger.info(LogAspect.logMsg + stringMap.get("store_name"));
-		// int check=adminMapDao.mapDelete(stringMap);
+		
+//		HashMap<String, String> infoMap = new HashMap<String, String>();
+		Map<String, String>infoMap=new HashMap<String, String>();
+		infoMap.put("id", id);
+		infoMap.put("password", password);
+		infoMap.put("name", name);
+		infoMap.put("store_name", store_name);
+		LogAspect.logger.info(LogAspect.logMsg +infoMap.toString());
+		MemberDto memberDto=adminMapDao.getMemberInfo(infoMap);
+		
+		String[] oldPathList=request.getParameter("hidden_path").split(",");
+		int check=0;
+		//아이디 비번이 일치할때
+		if(memberDto!=null) {
+			//아이디가 관리자일때 삭제
+			if(Integer.parseInt(memberDto.getMember_number())>0
+					&&Integer.parseInt(memberDto.getMember_number())<100
+					&&memberDto.getName().equals(infoMap.get("name"))) {
+				LogAspect.logger.info(LogAspect.logMsg +"앙삭제띠");
+				check=adminMapDao.mapDelete(infoMap.get("store_name"));
+			}else {
+				LogAspect.logger.info(LogAspect.logMsg +"이름이 틀려서 삭제실패띠");
+			}
+		}else {
+			LogAspect.logger.info(LogAspect.logMsg +"아이디 비밀번호 불일치");
+		}
+		if(check>0) {
+			deleteFile(oldPathList);
+		}
+		mav.addObject("check",check);
+		mav.setViewName("adminMapDelete.admin");
 	}
 
 	// 최근본상품 리스트 출력
@@ -503,4 +542,18 @@ public class Service implements ServiceInterface {
 		LogAspect.logger.info(LogAspect.logMsg + scrollList.toString());
 		mav.addObject("scrollList", scrollList);
 	}
+	
+	@Override
+	public void userMapRead(ModelAndView mav) {
+		List<MapDto> mapList=adminMapDao.mapRead();
+		
+		LogAspect.logger.info(LogAspect.logMsg + mapList.size());
+		for (int i = 0; i < mapList.size(); i++) {
+			mapList.get(i).setDirections(mapList.get(i).getDirections().replace("\r\n", "<br>"));
+			mapList.get(i).setStore_explanation(mapList.get(i).getStore_explanation().replace("\r\n", "<br>"));
+		}
+		mav.addObject("mapList", mapList);
+		mav.setViewName("Map.users");
+	}
+	
 }

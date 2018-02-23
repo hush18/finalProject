@@ -26,4 +26,5 @@ public interface ServiceInterface {
 	public void wishListInsert(ModelAndView mav);
 	public void nearestInsert(ModelAndView mav);
 	public void scrollBanner(ModelAndView mav);
+	public void userMapRead(ModelAndView mav);
 }

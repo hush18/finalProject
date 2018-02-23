@@ -228,8 +228,11 @@ public class ProController {
 
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("Map.users");
+		ModelAndView mav= new ModelAndView();
+		
+		service.userMapRead(mav);
+		
+		return mav;
 	}
 
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
@@ -368,7 +371,6 @@ public class ProController {
 		ModelAndView mav=new ModelAndView();
 		service.readMap(mav);
 		return mav;
-
 	}
 
 	@RequestMapping(value = "adminChange.do", method = RequestMethod.GET)
@@ -443,7 +445,7 @@ public class ProController {
 		mav.addObject("mapDto",mapDto);
 		
 		service.updateMap(mav);
-		return null;
+		return mav;
 	}
 	
 	@RequestMapping(value="adminMapDelete.do",method=RequestMethod.POST)
@@ -453,7 +455,7 @@ public class ProController {
 		
 		service.deleteMap(mav);
 		
-		return null;
+		return mav;
 	}
 	
 }
