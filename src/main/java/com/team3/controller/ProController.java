@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team3.service.ServiceInterface;
+import com.team3.user.book.dto.BookDto;
+import com.team3.user.book.dto.WriterDto;
 
 
 @Controller
@@ -260,9 +262,23 @@ public class ProController {
 		return mav;
 	}
 	
+	@RequestMapping(value="adminBookUpdate.do", method=RequestMethod.POST)
+	public ModelAndView adminBookUpdate(HttpServletRequest request, HttpServletResponse response,BookDto bookDto) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("bookDto", bookDto);
+		service.adminBookUpdate(mav);
+		mav.setViewName("adminBookUpdateOk.admin");
+		return mav;
+	}
+	
 	@RequestMapping(value="adminWriterSearch.do", method=RequestMethod.GET)
 	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminWriterSearch.adminEmpty");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminWriterSearch(mav);
+		mav.setViewName("adminWriterSearch.adminEmpty");
+		return mav;
 	}
 	@RequestMapping(value="adminWriterInsert.do", method=RequestMethod.GET)
 	public ModelAndView adminWriterInsert(HttpServletRequest request, HttpServletResponse response) {		

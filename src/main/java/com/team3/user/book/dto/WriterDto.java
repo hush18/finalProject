@@ -7,7 +7,14 @@ public class WriterDto {
 	private String debut_year;
 	private String writer_introduction;
 	private String writer_bookList;
+	private String title;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public long getWriter_number() {
 		return writer_number;
 	}
@@ -44,11 +51,11 @@ public class WriterDto {
 	public void setWriter_bookList(String writer_bookList) {
 		this.writer_bookList = writer_bookList;
 	}
-	
 	@Override
 	public String toString() {
 		return "WriterDto [writer_number=" + writer_number + ", name=" + name + ", nationality=" + nationality
 				+ ", debut_year=" + debut_year + ", writer_introduction=" + writer_introduction + ", writer_bookList="
-				+ writer_bookList + "]";
+				+ writer_bookList + ", title=" + title + "]";
 	}
+	
 }

@@ -92,7 +92,7 @@
 		<div class="centent_jm"
 			style="position: relative; background-color: white; box-sizing: border-box;">
 			<!-- 왼쪽 카테고리 메뉴영역 -->
-			<div class="centent_route_jm">홈 > <a href="bookList.do">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
+			<div class="centent_route_jm">홈 > <a href="bookList.do?path=전체&category_path=전체">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
 						> <a href="bookList.do?path=${pathList}&category_path=${category_path}">${pathList}</a>
 						<c:set var="pathValue" value="${pathList}"/>
 					</c:forTokens></div>

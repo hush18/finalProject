@@ -17,4 +17,6 @@ public interface ServiceInterface {
 	
 	public void adminBookSearch(ModelAndView mav);
 	public void adminBookInfo(ModelAndView mav);
+	public void adminWriterSearch(ModelAndView mav);
+	public void adminBookUpdate(ModelAndView mav);
 }

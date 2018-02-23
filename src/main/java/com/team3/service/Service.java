@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -127,21 +128,21 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
-		String category_path = request.getParameter("category_path");
+String category_path = request.getParameter("category_path");
 		
 		String path = request.getParameter("path");
 		
 		String category_number = null;
+		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+category_path);
 		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+path);
-		if(path==null) {
-			path = "전체";
-			category_number = "J11";
-			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
-		} else {
-			category_number = bookDao.getCategoryNumber(","+path.trim());
-			
-			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
+		
+		category_number = bookDao.getCategoryNumber(","+path.trim());
+		if(category_number==null) {
+			category_number = bookDao.getCategoryNumber(category_path.trim());
 		}
+		
+		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
+		
 		category_path=path;
 		
 		CategoryDto categoryDto = bookDao.getCategoryPath(category_number);
@@ -224,16 +225,20 @@ public class Service implements ServiceInterface {
 		String path = request.getParameter("path");
 		
 		String category_number = null;
+		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+category_path);
 		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+path);
-		if(path==null) {
-			path = "전체";
-			category_number = "J11";
-			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
-		} else {
-			category_number = bookDao.getCategoryNumber(","+path.trim());
-			
-			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
+		
+		category_number = bookDao.getCategoryNumber(","+path.trim());
+		if(category_number==null) {
+			category_number = bookDao.getCategoryNumber(category_path.trim());
 		}
+		
+		if(request.getParameter("category_number")!=null) {
+			category_number = request.getParameter("category_number");
+		}
+		
+		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
+		
 		category_path=path;
 		
 		CategoryDto categoryDto = bookDao.getCategoryPath(category_number);
@@ -300,44 +305,100 @@ public class Service implements ServiceInterface {
 		String isbn = request.getParameter("isbn");
 		
 		BookDto bookDto = adminBook.adminBookInfo(isbn);
-		CategoryDto categoryDto = adminBook.adminBookInfoCategory(bookDto.getCategory_number());
 		
-		String[] category1 = {"문학"};//adminBook.adminBookCategogy1().split(","); 현재는 일부 카테고리만 사용하기때문에
+		WriterDto writerDto = adminBook.getWriter(isbn);
 		
-		HashMap<String, HashMap<String, HashMap<String, String[]>>> categoryMap = new HashMap<String, HashMap<String, HashMap<String, String[]>>>();
+		List<CategoryDto> categoryList = adminBook.adminBookCategogyList();
 		
-		for(int i=0; i<category1.length;i++) {
-			HashMap<String, HashMap<String, String[]>> categoryMap_1 = new HashMap<String, HashMap<String, String[]>>();
-			
-			String key = category1[i];
-			String[] category2 = adminBook.adminBookCategogy2(key).split(",");
-			for(int x=0; x<category2.length;x++) {
-				HashMap<String, String[]> categoryMap_2 = new HashMap<String, String[]>();
-				
-				String xkey = category2[x];
-				String[] category3 = adminBook.adminBookCategogy2(xkey).split(",");
-				for(int y=0; y<category3.length;y++) {
-					
-					String ykey = category3[y];
-					String[] category4 = adminBook.adminBookCategogy2(ykey).split(",");
-					
-					categoryMap_2.put(ykey, category4);
-				}
-				
-				categoryMap_1.put(xkey, categoryMap_2);
-			}
-			
-			categoryMap.put(key, categoryMap_1);
-		}
+		String imagePath = request.getRealPath("/").split("apache")[0]+"workspace\\finalProject\\src\\main\\webapp\\images\\books";
+		LogAspect.logger.info(LogAspect.logMsg+"프로젝트 경로 : "+imagePath);
 		
 		
 		String[] date = bookDto.getWrite_date().split("\\.");
 		LogAspect.logger.info(LogAspect.logMsg+"날짜확인 : "+bookDto.getWrite_date()+", "+date.length);
 		bookDto.setWrite_date(date[1]+"/"+date[2]+"/"+date[0]);
 		
-		mav.addObject("categoryMap", categoryMap);
-		mav.addObject("category1", category1);
+		if(writerDto!=null) {
+			LogAspect.logger.info(LogAspect.logMsg+"저자확인 : "+writerDto.toString());
+			
+			bookDto.setName(writerDto.getName());
+			bookDto.setWriter_number(writerDto.getWriter_number());
+		}
+		
+		mav.addObject("categoryList", categoryList);
 		mav.addObject("bookDto", bookDto);
+	}
+	
+	@Override
+	public void adminBookUpdate(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		MultipartHttpServletRequest request=(MultipartHttpServletRequest) map.get("request");
+		
+		String imagePath = request.getRealPath("/").split("apache")[0]+"workspace\\finalProject\\src\\main\\webapp\\images\\books";
+		LogAspect.logger.info(LogAspect.logMsg+"프로젝트 이미지폴더 경로 : "+imagePath);
+		
+		MultipartFile upImage = request.getFile("image");
+		
+		String fileName = Long.toString(System.currentTimeMillis())+"_"+upImage.getOriginalFilename();
+		long fileSize = upImage.getSize();
+		LogAspect.logger.info(LogAspect.logMsg+"파일명 : "+fileName+", 파일크기 : "+fileSize);
+		
+		
+		BookDto bookDto = (BookDto)map.get("bookDto");
+		
+		LogAspect.logger.info(LogAspect.logMsg+"책 수정정보 : ");
+		
+		LogAspect.logger.info(LogAspect.logMsg+"책 수정정보 : "+bookDto.toString());
+		
+		int check;
+		if(fileSize!=0) {
+			check = adminBook.adminBookUpdateFile(bookDto);
+		}else {
+			check = adminBook.adminBookUpdate(bookDto);
+		}
+		
+		if(check!=0) {
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("isbn", bookDto.getIsbn());
+			hashMap.put("writer_number", bookDto.getWriter_number());
+			adminBook.writerListUpdate(hashMap);
+		}
+		
+		mav.addObject("check", check);
+		mav.addObject("isbn", bookDto.getIsbn());
+		
+	}
+	
+	@Override
+	public void adminWriterSearch(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String name = request.getParameter("name");
+		List<WriterDto> writerList = null;
+		LogAspect.logger.info(LogAspect.logMsg+"저자 검색 : "+name);
+		if(name!=null) {
+			writerList = adminBook.getWriterList(name);
+			if(writerList!=null) {
+				for(int i=0; i<writerList.size(); i++) {
+					String[] bookList = writerList.get(i).getWriter_bookList().split("/");
+					String title = adminBook.getTitle(bookList[0]+"/");
+					if(bookList.length>1) {
+						title +=" 외 "+(bookList.length-1)+"종";
+					}
+					
+					WriterDto writerDto = writerList.get(i);
+					LogAspect.logger.info(LogAspect.logMsg+"대표작 타이틀 : "+title);
+					writerDto.setTitle(title);
+					writerList.set(i, writerDto);
+				}
+			}
+			
+			mav.addObject("name", name);
+			mav.addObject("writerList", writerList);
+			LogAspect.logger.info(LogAspect.logMsg+"저자 검색 수 : "+writerList.size());
+		}
+		
 	}
 }
 

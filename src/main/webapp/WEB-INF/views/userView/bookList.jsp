@@ -140,7 +140,7 @@
 				}
 			})
 		}
-		alert(isbnList);
+		//alert(isbnList);
 		
 		$(location).attr("href", "wishList.do?isbnList="+isbnList);
 	}
@@ -166,10 +166,11 @@
 			})
 		}
 		
-		alert(isbnList);
-		alert(quantityList);
 		
-		$(location).attr("href", "cart.do?isbnList="+isbnList);
+		//alert(isbnList);
+		//alert(quantityList);
+		
+		$(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
 	}
 </script>
 </head>
@@ -178,7 +179,7 @@
 		<!-- 18-01-18 컨텐츠-->
 		<div class="centent_jm">
 			<!-- 왼쪽 카테고리 메뉴영역 -->
-			<div class="centent_route_jm">홈 > <a href="bookList.do">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
+			<div class="centent_route_jm">홈 > <a href="bookList.do?path=전체&category_path=전체">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
 						> <a href="bookList.do?path=${pathList}&category_path=${category_path}">${pathList}</a>
 						<c:set var="pathValue" value="${pathList}"/>
 					</c:forTokens></div>

@@ -4,6 +4,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
@@ -16,10 +17,10 @@
 <script type="text/javascript">
 	$(function() {
 		$("#upload_image_jm").click(function() {
-			$("input[name='imageFile']").click();
+			$("input[name='image']").click();
 		})
 
-		$("input[name='imageFile']").change(function(event) {
+		$("input[name='image']").change(function(event) {
 			var imagePath = $(this).val();
 			$("#upload_image_jm").val(imagePath);
 
@@ -43,7 +44,9 @@
 		})
 
 		$("#writer_search").click(function() {
-			window.open("adminWriterSearch.do", "", "width=570, height=600");
+			var name = $("#name").val();
+			
+			window.open("adminWriterSearch.do?name="+name, "", "width=570, height=600");
 			return false;
 		})
 		$("#single_cal3").change(function() {
@@ -68,7 +71,8 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form method="get" class="form-horizontal insert_area_jm">
+								<form action="adminBookUpdate.do" method="post" class="form-horizontal insert_area_jm" enctype="multipart/form-data">
+									
 									<div class="insert_layout book_image_insert_area_jm">
 										<img id="imageView" class="insert_image_jm" src="${bookDto.image_path}" alt="도서이미지를 업로드 해주세요">
 									</div>
@@ -77,6 +81,7 @@
 											<label class="col-sm-2 control-label">도서번호(ISBN)</label>
 											<div class="col-sm-10">
 												<input type="text" name="isbn" value="${bookDto.isbn}" placeholder="도서번호(ISBN)를 입력하세요" class="form-control">
+												<input type="hidden" name="category_number" value="${bookDto.category_number}">
 											</div>
 										</div>
 
@@ -126,24 +131,12 @@
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
 											<div class="col-md-9 col-sm-9 col-xs-12 category_area_jm">
-												<select class="form-control category_jm" title="1차 카테고리">
-													<option value="" selected="selected">1차 카테고리</option>
-													<c:forEach var="category_first" items="${categoryMap}">
-														<option value="${category_first.key}">${category_first.key}/${category_first.value}</option>
+												<select id="category_first" class="form-control category_jm" title="1차 카테고리">
+													<option value="" selected="selected">카테고리를 선택하세요</option>
+													<c:forEach var="category" items="${categoryList}">
+														<c:set var="category_path" value="${fn:replace(category.category_path, ',', ' > ') }"/>
+														<option value="${category.category_number}" ${category.category_number==bookDto.category_number ? 'selected' : ''}>${category_path}</option>
 													</c:forEach>
-												</select>
-												<select class="form-control category_jm" title="2차 카테고리">
-													<option value="">2차 카테고리</option>
-													<c:forEach var="category_second" items="${category_first}">
-														<option value="${category_second}">${category_second}</option>
-													</c:forEach>
-												</select>
-												<select class="form-control category_jm" title="3차 카테고리">
-													<option value="">3차 카테고리</option>
-													<option value="">Option one</option>
-													<option value="">Option two</option>
-													<option value="" selected="selected">Option three</option>
-													<option value="">Option four</option>
 												</select>
 											</div>
 										</div>
@@ -152,7 +145,7 @@
 											<label class="col-sm-2 control-label">도서 이미지</label>
 											<div class="col-sm-10">
 												<input id="upload_image_jm" type="text" value="${bookDto.image_path}" placeholder="도서이미지를 등록 하세요" class="form-control">
-												<input type="file" name="imageFile" style="display: none;">
+												<input type="file" name="image" style="display: none;">
 											</div>
 										</div>
 									</div>
@@ -176,8 +169,8 @@
 											<div class="col-md-9 col-sm-9 col-xs-12 writer_select_area">
 												<div id="datatable_filter" class="dataTables_filter filter_area_right_jm writer_select">
 													<div>
-														<input id="writerName" value="" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
-														<input id="writerNum" value="" type="hidden">
+														<input id="name" name="name" value="${bookDto.name}" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
+														<input id="writer_number" name="writer_number" value="${bookDto.writer_number}" type="hidden">
 													</div>
 													<div>
 														<button id="writer_search" class="btn-all btn-all_jm">검색</button>
