@@ -327,8 +327,17 @@ public class ProController {
 
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("payment.users");
+		ModelAndView mav=new ModelAndView();
+		
+		String isbn="9788959138555/";
+		int count=10;
+		mav.addObject("request",request);
+		mav.addObject("isbn",isbn);
+		mav.addObject("count",count);
+		
+		service.payment(mav);
+//		return new ModelAndView("payment.users");
+		return null;
 	}
 
 	@RequestMapping(value = "/addressList.do", method = RequestMethod.GET)

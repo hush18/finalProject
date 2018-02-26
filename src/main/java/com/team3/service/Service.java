@@ -1,5 +1,7 @@
 package com.team3.service;
 
+import static org.hamcrest.CoreMatchers.is;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,7 +37,7 @@ import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
-import com.team3.user.map.dao.MapDao;
+import com.team3.user.map.dao.PaymentDao;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
 
@@ -55,8 +57,8 @@ public class Service implements ServiceInterface {
 	private AdminMapDao adminMapDao;
 	
 	@Autowired
-	private MapDao mapDao;
-
+	private PaymentDao paymentDao;
+	
 	@Override
 	public void myPage(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -607,4 +609,16 @@ public class Service implements ServiceInterface {
 		mav.setViewName("Map.users");
 	}
 	
+	@Override
+	public void payment(ModelAndView mav) {
+		Map<String, Object>map=mav.getModelMap();
+//		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String isbn=(String) map.get("isbn");
+		int count=(Integer) map.get("count");
+		LogAspect.logger.info(LogAspect.logMsg +isbn+"\t"+count);
+		
+		int price=paymentDao.selectBook(isbn);
+		LogAspect.logger.info(LogAspect.logMsg +"총가격 : "+price*count);
+		
+	}
 }

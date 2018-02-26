@@ -31,4 +31,5 @@ public interface ServiceInterface {
 	public void nearestInsert(ModelAndView mav);
 	public void scrollBanner(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
+	public void payment(ModelAndView mav);
 }
