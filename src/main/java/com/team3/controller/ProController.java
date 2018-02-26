@@ -443,6 +443,24 @@ public class ProController {
 	public ModelAndView logoutMember(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("logoutMember.empty");
 	}
+	
+	@RequestMapping(value = "diapOK.do", method = RequestMethod.POST)
+	public ModelAndView diapOK(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.diapOK(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "searchHeader.do", method = RequestMethod.GET)
+	public ModelAndView searchHeader(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		service.searchHeader(mav);
+		
+		return mav;
+	}
 
 	
 	
@@ -475,7 +493,9 @@ public class ProController {
 
 	@RequestMapping(value = "adminMemberManage.do", method = RequestMethod.GET)
 	public ModelAndView adminMemberManage(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminMemberManage.admin");
+		ModelAndView mav=new ModelAndView();
+		service.memberManage(mav);
+		return mav;
 	}
 	
 	@RequestMapping(value="adminMap.do", method=RequestMethod.GET)
@@ -567,6 +587,14 @@ public class ProController {
 		
 		service.deleteMap(mav);
 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "adminMemberDeleteOK.do", method = RequestMethod.GET)
+	public ModelAndView adminMemberDeleteOK(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.adminMemberDeleteOK(mav);
 		return mav;
 	}
 	

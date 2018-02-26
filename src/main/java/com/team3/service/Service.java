@@ -30,9 +30,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.team3.admin.map.dao.AdminMapDao;
 import com.team3.admin.map.dto.MapDto;
+import com.team3.admin.member.dao.MemberManageDao;
 import com.team3.user.member.dto.ZipcodeDto;
 
 import com.team3.aop.LogAspect;
+import com.team3.user.book.dao.BookDao;
+import com.team3.user.book.dto.BookDto;
 import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.map.dao.MapDao;
@@ -53,6 +56,12 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private AdminMapDao adminMapDao;
+	
+	@Autowired
+	private BookDao bookDao;
+	
+	@Autowired
+	private MemberManageDao memberManageDao;
 	
 	@Autowired
 	private MapDao mapDao;
@@ -171,51 +180,52 @@ public class Service implements ServiceInterface {
 		mav.addObject("authNum", authNum);
 		mav.setViewName("searchPwd.empty");
 	}
+	
+	//회원로그인하기
+		@Override
+		public void memberLoginOK(ModelAndView mav) {
+			Map<String, Object> map = mav.getModelMap();
+			HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-	@Override
-	public void memberLoginOK(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
+			LogAspect.logger.info(LogAspect.logMsg + "로그인시작:" + id + "\t" + password);
 
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		LogAspect.logger.info(LogAspect.logMsg + "로그인시작:" + id + "\t" + password);
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap.put("id", id);
+			hmap.put("password", password);
 
-		Map<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("id", id);
-		hmap.put("password", password);
+			// 마지막 로그인날짜 비교하기(휴면계정)
+			Date last_login = memberDao.memberDate(hmap);
+			int check = 0;
+			MemberDto memberDto = null;
+			if (last_login != null) {
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date now = sdf.parse(sdf.format(new Date().getTime()));
 
-		// 마지막 로그인날짜 비교하기(휴면계정)
-		Date last_login = memberDao.memberDate(hmap);
-		int check = 0;
-		MemberDto memberDto = null;
-		if (last_login != null) {
-			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date now = sdf.parse(sdf.format(new Date().getTime()));
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(last_login);
+					cal.add(Calendar.DATE, 7);
+					Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+					System.out.println(loginYear);
 
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 7);
-				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
-				System.out.println(loginYear);
+					if (now.compareTo(loginYear) < 0) {
+						memberDto = memberDao.memberLoginOK(hmap);
+						LogAspect.logger.info(LogAspect.logMsg + "로그인확인:" + memberDto.toString());
 
-				if (now.compareTo(loginYear) < 0) {
-					memberDto = memberDao.memberLoginOK(hmap);
-					LogAspect.logger.info(LogAspect.logMsg + "로그인확인:" + memberDto.toString());
+					} else {
+						check = memberDao.memberDiap(hmap);
+					}
 
-				} else {
-					check = memberDao.memberDiap(hmap);
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-
-			} catch (ParseException e) {
-				e.printStackTrace();
 			}
+			mav.addObject("check", check);
+			mav.addObject("memberDto", memberDto);
+			mav.setViewName("loginMemberOK.users");
 		}
-		mav.addObject("check", check);
-		mav.addObject("memberDto", memberDto);
-		mav.setViewName("loginMemberOK.users");
-	}
 
 	@Override
 	public void zipcode(ModelAndView mav) {
@@ -514,6 +524,8 @@ public class Service implements ServiceInterface {
 		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
 		// mav.setViewName("userMain.users");
 	}
+	
+	//회원 아이디 찾기
 	@Override
 	public void findIdOK(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -529,7 +541,8 @@ public class Service implements ServiceInterface {
 		mav.addObject("id", id);
 		mav.setViewName("findIdOK.empty");
 	}
-
+	
+	//비밀번호 찾기
 	@Override
 	public void searchPwdOK(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -607,4 +620,108 @@ public class Service implements ServiceInterface {
 		mav.setViewName("Map.users");
 	}
 	
+	//휴면계정해지하기
+	@Override
+	public void diapOK(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id=request.getParameter("id");
+		String password=request.getParameter("password");
+		
+		Map<String, Object> hmap=new HashMap<String, Object>();
+		hmap.put("id", id);
+		hmap.put("password", password);
+		
+		int check=0;
+		Date last_login=memberDao.memberDate(hmap);
+		if (last_login != null) {
+			try {
+				check=-1;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date now = sdf.parse(sdf.format(new Date().getTime()));
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(last_login);
+				cal.add(Calendar.DATE, 1);
+				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+				System.out.println(loginYear);
+
+				if (now.compareTo(loginYear) > 0) {
+					check = memberDao.diapOK(hmap);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		LogAspect.logger.info(LogAspect.logMsg + "휴면해지했수꽈? " + check);
+		mav.addObject("check", check);
+		mav.setViewName("diapOK.empty");
+	}
+	
+	//회원관리(관리자)
+		@Override
+		public void memberManage(ModelAndView mav) {
+			List<MemberDto> memberList=memberManageDao.memberManage();
+			LogAspect.logger.info(LogAspect.logMsg +memberList.size());
+			int check=0;
+			
+			for (int i = 0; i < memberList.size(); i++) {
+				Date last_login=memberList.get(i).getLast_login();
+
+				// 휴면계정 처리하기
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date now = sdf.parse(sdf.format(new Date().getTime()));
+
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(last_login);
+					cal.add(Calendar.DATE, 7);
+					Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+					System.out.println(loginYear);
+
+					if (now.compareTo(loginYear) > 0) {
+						check = memberManageDao.memberDiapCheck();
+					}
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			mav.addObject("memberList", memberList);
+			mav.setViewName("adminMemberManage.admin");
+		}
+		
+		//회원 삭제하기 (관리자)
+		@Override
+		public void adminMemberDelete(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			mav.addObject(map.get("member_number"));
+			mav.setViewName("adminMemberDelete.adminEmpty");
+		}
+		
+		@Override
+		public void adminMemberDeleteOK(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			HttpServletRequest request=(HttpServletRequest) map.get("request");
+			
+			int member_number=Integer.parseInt(request.getParameter("member_number"));
+			String password=request.getParameter("password");
+			
+			int check=memberManageDao.adminMemberDelete(member_number, password);
+			
+			mav.addObject("check", check);
+			mav.setViewName("adminMemberDeleteOK.adminEmpty");
+		}
+		
+		@Override
+		public void searchHeader(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			HttpServletResponse response=(HttpServletResponse) map.get("response");
+			
+			List<BookDto> bookList=bookDao.bookListMH();
+			
+		}
+		
 }

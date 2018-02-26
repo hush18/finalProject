@@ -16,12 +16,21 @@
 			$(".email_address").val(str);
 		});
 		
+		$("button[name=diap_btn]").click(function(){
+			opener.document.location.href="diap.do";
+			self.close();
+		});
+		
+		$("button[name=consulting_btn]").click(function(){
+			opener.document.location.href="CustomerService_consulting.do";
+			self.close();
+		});
 	});
 	
 </script>
 </head>
 <body>
-	<form action="findIdOK.do" method="post" onsubmit="return idForm(this)">
+	
 		<div class="widthline">
 			<div class="fi_mh">
 				<h2 class="h2-hr" style="padding-left: 20px;">아이디 찾기</h2>
@@ -34,16 +43,21 @@
 						<li>
 							<span>• </span>
 							1년 이상 미접속 회원이시라면 휴면계정 해지 후 이용해 주시기 바랍니다.
-							<button class="btn-all" style="padding: 0; width: 100px;">휴면해제하기</button>
+							<button class="btn-all" style="padding: 0; width: 100px;" name="diap_btn">
+								휴면해제하기
+							</button>
 						</li>
 						<li>
 							<span>• </span>
 							위 방법으로 찾기 힘드신 경우 1:1상담을 이용 하시면 빠르게 답변 드리겠습니다.
-							<button class="btn-all" style="padding: 0; width: 100px;">1:1상담하기</button>
+							<button class="btn-all" style="padding: 0; width: 100px;" name="consulting_btn">
+								1:1상담하기
+							</button>
 						</li>
 					</ul>
 				</div>
 				<!-- 회원정보 입력란 -->
+			<form action="findIdOK.do" method="post" onsubmit="return idForm(this)">
 				<div class="fi_input_mh">
 					<div class="input_title_mh">
 						<div>이름</div>
@@ -54,9 +68,8 @@
 
 					<div class="input_sub_mh">
 						<div>
-							<input type="text" name="name" />
-							&nbsp;&nbsp;
-							<span style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 실명</span>
+							<input type="text" name="name" /> &nbsp;&nbsp; <span
+								style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 실명</span>
 						</div>
 						<div>
 							<select>
@@ -64,26 +77,18 @@
 								<c:forEach var="i" begin="1974" end="2018">
 									<option value="${i }"><c:out value="${i }"></c:out></option>
 								</c:forEach>
-							</select>
-							<span>년</span>
-							&nbsp;&nbsp;
-							<select>
+							</select> <span>년</span> &nbsp;&nbsp; <select>
 								<option value="">월</option>
 								<c:forEach var="i" begin="1" end="12">
 									<option value="${i }"><c:out value="${i }"></c:out></option>
 								</c:forEach>
-							</select>
-							<span>월</span>
-							&nbsp;&nbsp;
-							<select>
+							</select> <span>월</span> &nbsp;&nbsp; <select>
 								<option>일</option>
 								<c:forEach var="i" begin="1" end="31">
 									<option value="${i }"><c:out value="${i }"></c:out></option>
 								</c:forEach>
-							</select>
-							<span>일</span>
-							&nbsp;&nbsp;
-							<span style="color: #3C7B5e; font-size: 12px;">신분증 상의 생년월일</span>
+							</select> <span>일</span> &nbsp;&nbsp; <span
+								style="color: #3C7B5e; font-size: 12px;">신분증 상의 생년월일</span>
 						</div>
 						<div>
 							<select>
@@ -94,26 +99,16 @@
 								<option value="017">017</option>
 								<option value="018">018</option>
 								<option value="019">019</option>
-							</select>
-							&nbsp;
-							<span>-</span>
-							&nbsp;
-							<input class="phone_m" type="text" name="phon_middle" maxlength="4" size="3" />
-							&nbsp;
-							<span>-</span>
-							&nbsp;
-							<input class="phone_e" type="text" name="phon_end" maxlength="4" size="3" />
-							&nbsp;&nbsp;
-							<span style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 번호</span>
+							</select> &nbsp; <span>-</span> &nbsp; <input class="phone_m" type="text"
+								name="phon_middle" maxlength="4" size="3" /> &nbsp; <span>-</span>
+							&nbsp; <input class="phone_e" type="text" name="phon_end"
+								maxlength="4" size="3" /> &nbsp;&nbsp; <span
+								style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 번호</span>
 						</div>
 						<div class="input_email_mh">
-							<input type="text" name="email">
-							&nbsp; &nbsp;
-							<span>@</span>
-							&nbsp;
-							<input type="text" name="email_address" class="email_address">
-							&nbsp;
-							<select>
+							<input type="text" name="email"> &nbsp; &nbsp; <span>@</span>
+							&nbsp; <input type="text" name="email_address"
+								class="email_address"> &nbsp; <select>
 								<option value="">직접입력</option>
 								<option value="gmail.com">구글(G메일)</option>
 								<option value='nownuri.net'>나우누리</option>
@@ -133,21 +128,20 @@
 								<option value='hanmir.com'>한미르</option>
 								<option value='hotmail.com'>핫메일</option>
 								<option value='msn.com'>MSN</option>
-							</select>
-							<br />
-							<span>가입 시 등록된 메일</span>
-							<input type="hidden" name="email"/>
+							</select> <br /> <span>가입 시 등록된 메일</span> <input type="hidden"
+								name="email" />
 						</div>
 					</div>
 				</div>
+			</form>
 
-				<!-- 입력버튼 -->
+			<!-- 입력버튼 -->
 				<div class="fi_btn_mh" align="center">
 					<input class="btn-all" style="width: 17%;" type="submit" value="확인" />
 					<input class="btn-all" style="width: 17%;" type="reset" value="다시입력" />
 				</div>
 			</div>
 		</div>
-	</form>
+	
 </body>
 </html>

@@ -12,8 +12,6 @@
 
 <link href="css/user/loginMember.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/user/loginMember.js"></script>
-
-</script>
 </head>
 <body>
 	<div class="widthline">
@@ -76,7 +74,7 @@
 				
 				<div class="interwork_facebook_mh">
 					<div>
-						<button class="btn-all" onclick="javascript:location.href='${facebookUrl}'">페이스북 아이디 가입/로그인</button>
+			        	<button class="btn-all" onclick="javascript:location.href='${facebookUrl}'">페이스북 아이디 가입/로그인</button>
 					</div>
 				</div>
 			</div>

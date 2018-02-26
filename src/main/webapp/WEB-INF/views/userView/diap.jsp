@@ -8,7 +8,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <link href="css/user/diap.css" type="text/css" rel="stylesheet" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script type="text/javascript" src="js/user/loginMember.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".diap_text_mh").find("input:eq(0)").blur(function() {
@@ -26,7 +25,20 @@
 		});
 	});
 	
-	function diapForm(obj){
+	var url="";
+	function idFind(){
+		url="findId.do";
+		window.open(url,"","width=716, height=600, location=1, top=100px, left=500px");
+	}
+
+	function pwdFind(){
+		url="findPwd.do";
+		window.open(url,"","width=716, height=600, top=100px, left=500px");
+	}
+
+	
+	//유효성 검사
+	/* function diapForm(obj){
 	//	alert("OK");
 		if($("input[name=id]").val()=="" || $("input[name=id]").val()=="아이디" || $("input[name=id]").val()=="아이디를 입력하세요."){
 			alert("아이디를 입력하세요.")
@@ -39,7 +51,7 @@
 			$("input[name=password]").focus();
 			return false;
 		}
-	}
+	} */
 </script>
 <script type="text/javascript" src="script/scrollBanner.js"></script>
 </head>
@@ -58,7 +70,7 @@
 		
 		<!-- 휴면 회원 해지 -->
 	<div class="diap_main_mh">
-		<form action="userMain.do" method=get onsubmit="return diapForm(this)">
+		<form action="diapOK.do" method="post" onsubmit="return diapForm(this)">
 			<div>
 				<h2 class="h2-hr">휴면계정 복원 하기</h2>
 			</div>

@@ -4,22 +4,12 @@
 <script type="text/javascript" src="jquery_ui/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
 <script type="text/javascript" src="js/user/header.js"></script>
+<script type="text/javascript" src="js/xhr/xhr.js"></script>
 
 <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
 <link rel="stylesheet" href="css/user/header.css">
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<script>
-	$(function() {
-		var arrStr = [ "치킨", "퇴근", "칼퇴", "산책", "마운틴북", "mountainbook", "apple",
-				"callme", "lipstick", "볼펜", "집", "저녁", "식사", "목요일", "주말",
-				"불타는금요일", "hungry", "americano" ];
-		$("#search_mh").autocomplete({
-			source : arrStr,
-			autoFocus : true
-		});
-	});
-</script>
 <script type="text/javascript">
 	$(function() {
 		var jbOffset = $('.mainMenu-iy').offset();
@@ -37,7 +27,7 @@
 </script>
 </head>
 
-<div class="widthline">
+<div class="widthline" onload="toServer()">
 	<div class="topMenu-iy">
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">

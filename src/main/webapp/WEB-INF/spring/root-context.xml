@@ -24,6 +24,7 @@
 				<value>classpath:com/team3/admin/map/dao/mapper/mapMapper.xml</value>
 				<value>classpath:com/team3/user/interest/dao/mapper/InterestMapper.xml</value>
 				<value>classpath:com/team3/user/member/dao/mapper/MemberMapper.xml</value>
+				<value>classpath:com/team3/admin/member/dao/mapper/MemberManageMapper.xml</value>
 			</list>
 		</property>
 	</bean>

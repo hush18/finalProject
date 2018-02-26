@@ -86,4 +86,11 @@ public class MemberDaoImp implements MemberDao {
 	public MemberDto memberSelect(String id) {
 		return sqlSession.selectOne("memberSelect", id);
 	}
+	
+	@Override
+	public int diapOK(Map<String, Object> hmap) {
+		return sqlSession.update("diapOK", hmap);
+	}
+	
+	
 }

@@ -1,5 +1,9 @@
 package com.team3.user.book.dao;
 
-public interface BookDao {
+import java.util.List;
 
+import com.team3.user.book.dto.BookDto;
+
+public interface BookDao {
+	public List<BookDto> bookListMH();
 }
