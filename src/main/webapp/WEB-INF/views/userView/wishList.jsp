@@ -184,10 +184,10 @@
 								<div class="bookCon_title_sc">${interestDto.title }</div>
 								<div class="bookCon_name_sc">${interestDto.name }</div>
 								<div class="bookCon_publisher_sc">${interestDto.publisher }</div>
+								<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 							</div>
 						</div>
 					</c:forEach>
-					
 				</div>
 			</div>
 		</div>

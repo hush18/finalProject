@@ -8,4 +8,10 @@
 			alert("가입을 축하합니다.\n로그인해주세요.");
 			this.submit();
 		});
+		
+		$("#confirmUpdate").click(function() {
+			alert("정보수정이 완료되었습니다.");
+			this.submit();
+		});
+		
 	});

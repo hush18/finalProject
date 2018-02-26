@@ -1,19 +1,17 @@
 package com.team3.admin.sales.dto;
 
-import java.util.Date;
-
 public class SalesDto {
-	private Date sales_day;
+	private String sales_day;
 	private long sales_count;
 	private long sales_total;
 	private long sales_cash;
 	private long sales_point;
 	
-	public Date getSales_day() {
+	public String getSales_day() {
 		return sales_day;
 	}
 
-	public void setSales_day(Date sales_day) {
+	public void setSales_day(String sales_day) {
 		this.sales_day = sales_day;
 	}
 

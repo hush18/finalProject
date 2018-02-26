@@ -52,10 +52,10 @@
 
 					<div class="input_sub_mh">
 						<div>
-							<input type="text" name="id" style="margin-top: 13px;"/>
+							<input type="text" id="id" name="id" style="margin-top: 13px;"/>
 						</div>
 						<div>
-							<input type="text" name="name" />
+							<input type="text" id="name" name="name" />
 							&nbsp;&nbsp;
 							<span style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 실명</span>
 						</div>

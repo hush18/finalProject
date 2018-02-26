@@ -10,6 +10,10 @@ public interface ServiceInterface {
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
+	public void createMap(ModelAndView  mav);
+	public void readMap(ModelAndView mav);
+	public void updateMap(ModelAndView mav);
+	public void deleteMap(ModelAndView mav);
 	public void nearestList(ModelAndView mav);
 	public void nearestUp(ModelAndView mav);
 	public void nearestDel(ModelAndView mav);
@@ -17,8 +21,15 @@ public interface ServiceInterface {
 	public void wishListUp(ModelAndView mav);
 	public void wishListDel(ModelAndView mav);
 	public void createAccountOk(ModelAndView mav);
+	public void myPage(ModelAndView mav);
+	public void updateAccount(ModelAndView mav);
+	public void updateAccountOk(ModelAndView mav);
+	public void deleteAccount(ModelAndView mav);
+	public void findIdOK(ModelAndView mav);
+	public void searchPwdOK(ModelAndView mav);
 	public void wishListInsert(ModelAndView mav);
 	public void nearestInsert(ModelAndView mav);
 	public void scrollBanner(ModelAndView mav);
 	public void adminSales(ModelAndView mav);
+	public void userMapRead(ModelAndView mav);
 }

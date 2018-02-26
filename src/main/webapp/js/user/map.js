@@ -5,16 +5,16 @@ var placeName="부평점";
 
 function load(){
 	startmap(lat,lng,placeName);
-	
+	changeContent(placeName);
 	$(".btn-group > button").click(function () {
 		placeName=$(this).text();
 		var latlng=$(this).attr("id").split(",");
 		lat=latlng[0];
 		lng=latlng[1];
 		startmap(lat,lng,placeName);
+		changeContent(placeName);
 	});
 }
-
 
 function startmap(lat,lng,placeName) {
 	$(function(){
@@ -51,4 +51,10 @@ function startmap(lat,lng,placeName) {
 		infowindow.open(map, marker); 
 	});
 	
+}
+
+//내용바꾸는 메소드
+function changeContent(placeName) {
+	$("div[id='mapDisplay']").css("display","none");
+	$("div[class='"+placeName+"']").css("display","block");
 }

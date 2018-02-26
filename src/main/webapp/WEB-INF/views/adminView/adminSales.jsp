@@ -19,10 +19,31 @@
 <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 매출관리</title>
-
+<script type="text/javascript">
+	$(function(){
+		if($('input[type="hidden"]:eq(0)').val()=="1"){
+			$("#listSize option:eq(0)").attr("selected","selected");
+			$("#listSize option:eq(1)").removeAttr("selected");
+			$("#listSize option:eq(2)").removeAttr("selected");
+		}else if($('input[type="hidden"]:eq(0)').val()=="2"){
+			$("#listSize option:eq(1)").attr("selected","selected");
+			$("#listSize option:eq(0)").removeAttr("selected");
+			$("#listSize option:eq(2)").removeAttr("selected");
+		}else if($('input[type="hidden"]:eq(0)').val()=="3"){
+			$("#listSize option:eq(2)").attr("selected","selected");
+			$("#listSize option:eq(0)").removeAttr("selected");
+			$("#listSize option:eq(1)").removeAttr("selected");
+		}
+		$("#listSize").change(function(){
+			location.href="adminSales.do?value=" + $(this).val();
+		});
+	});
+</script>
 </head>
 <body>
 <div class="container body">
+	<input type="hidden" name="value" value="${value }" />
+	
 	<div class="main_container">
 		<div class="right_col" role="main">
 			<div class="">
@@ -60,7 +81,7 @@
 							</div>
 							<div>
 								<select id="listSize" name="datatable_length" aria-controls="datatable" class="form-control input-sm">
-									<option value="1" selected="selected">일별</option>
+									<option value="1">일별</option>
 									<option value="2">월별</option>
 									<option value="3">연별</option>
 								</select>
@@ -141,7 +162,7 @@
 <!-- ECharts -->
 <script src="vendors/echarts/dist/echarts.js"></script>
 <script type="text/javascript">
-	var str=$('input[type="hidden"]').val();
+	var str=$('input[type="hidden"]:eq(1)').val();
 	var alist=str.split("/");
 	
 	var theme = {
@@ -411,8 +432,8 @@
 	
 	echartBar.setOption({
 		title : {
-			text : '일별 그래프',
-			subtext : '일별조회'
+			text : '기간별 그래프',
+			subtext : '기간별조회'
 		},
 
 		tooltip : {

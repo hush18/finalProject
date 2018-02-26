@@ -113,17 +113,15 @@ public class InterestDaoImp implements InterestDao {
 	@Override
 	public int wishListInsert(String id, String[] strArr) {
 		int chk=0;
-		int check=0;
+		int check=1;
 		for(int i=0;i<strArr.length; i++) {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("isbn", strArr[i]);
 			LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
-			chk=sqlSession.delete("nearestDel",hMap);
-			if(chk==0) {
-				check=0;
-			}else {
-				check=1;
+			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
+			if(dto==null) {
+				chk=sqlSession.insert("wishListInsert",hMap);
 			}
 		}
 		return check;
@@ -133,13 +131,17 @@ public class InterestDaoImp implements InterestDao {
 		Map<String, Object> hMap=new HashMap<String, Object>();
 		hMap.put("id", id);
 		hMap.put("isbn", isbn);
+		int check=0;
 		LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
-		return sqlSession.insert("nearestInsert",hMap);
+		InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
+		if(dto==null) {
+			check=sqlSession.insert("nearestInsert",hMap);
+		}
+		return check;
 	}
 
 	@Override
 	public List<InterestDto> scrollSelect(String id) {
-		LogAspect.logger.info(LogAspect.logMsg + "여기까지는?????" + id);
 		return sqlSession.selectList("scrollSelect", id);
 	}
 }

@@ -6,7 +6,31 @@
   <mapper namespace="com.team3.admin.sales.dao.mapper">
 	  <select id="selectSales" resultType="com.team3.admin.sales.dto.SalesDto">
 	  	<![CDATA[
-		  	SELECT * from sales
+		  	SELECT to_char(sales_day,'YYYYMMDD') sales_day, sales_count, sales_total, sales_cash, sales_point from sales
+		]]>
+	  </select>
+	  <select id="selectMonth" resultType="com.team3.admin.sales.dto.SalesDto">
+		  	select distinct to_char(sales_day,'YYYYMM') sales_day from sales where to_char(sales_day,'YYYYMM')
+			between '200108' and to_char(sysdate,'YYYYMM')
+	  </select>
+	  <select id="selectMonthDto" parameterType="com.team3.admin.sales.dto.SalesDto" resultType="com.team3.admin.sales.dto.SalesDto">
+	  	<![CDATA[
+		  	select SUM(sales_total) sales_total,sum(sales_cash) sales_cash, sum(sales_point) sales_point 
+		  	from sales 
+			where to_char(sales_day, 'YYYYMM')
+			between #{sales_day} and #{sales_day}
+		]]>
+	  </select>
+	  <select id="selectYear" resultType="com.team3.admin.sales.dto.SalesDto">
+		  	select distinct to_char(sales_day,'YYYY') sales_day from sales where to_char(sales_day,'YYYY')
+			between '200108' and to_char(sysdate,'YYYY')
+	  </select>
+	  <select id="selectYearDto" parameterType="com.team3.admin.sales.dto.SalesDto" resultType="com.team3.admin.sales.dto.SalesDto">
+	  	<![CDATA[
+		  	select SUM(sales_total) sales_total,sum(sales_cash) sales_cash, sum(sales_point) sales_point 
+		  	from sales 
+			where to_char(sales_day, 'YYYY')
+			between #{sales_day} and #{sales_day}
 		]]>
 	  </select>
   </mapper>

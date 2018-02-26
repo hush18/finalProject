@@ -15,11 +15,13 @@
 			var str = $(this).val();
 			$(".email_address").val(str);
 		});
+		
 	});
+	
 </script>
 </head>
 <body>
-	<form>
+	<form action="findIdOK.do" method="post" onsubmit="return idForm(this)">
 		<div class="widthline">
 			<div class="fi_mh">
 				<h2 class="h2-hr" style="padding-left: 20px;">아이디 찾기</h2>
@@ -134,6 +136,7 @@
 							</select>
 							<br />
 							<span>가입 시 등록된 메일</span>
+							<input type="hidden" name="email"/>
 						</div>
 					</div>
 				</div>
