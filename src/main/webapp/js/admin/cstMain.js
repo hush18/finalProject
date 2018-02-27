@@ -2,27 +2,12 @@
  * 
  */
 $(function() {
+	$(this).css("display", "none");
+	$("#list_ej2").css("display", "inline-block");
+	$("#list_ej3").css("display", "inline-block");
+	$(".checkbox_ej").show();
+	$(".child_ej").attr("colspan", 3);
 	
-	$(".checkbox_ej").hide();
-
-	$("#list_ej").click(function() {
-		$(this).css("display", "none");
-		$("#list_ej2").css("display", "inline-block");
-		$("#list_ej3").css("display", "inline-block");
-		$(".checkbox_ej").show();
-		$(".child_ej").attr("colspan", 3);
-	});
-
-	$("#list_ej3").click(function() {
-		$(".checkbox_ej").hide();
-		// $(".bulk-actions").css("display","none");
-		// $(".selected").removeClass("selected");
-		$("#list_ej").css("display", "inline-block");
-		$("#list_ej2").css("display", "none");
-		$(this).css("display", "none");
-		$("input[type=checkbox]").removeAttr("checked");
-		$(".flat").prop("checked", false);
-	});
 
 	$("#list_ej2").click(function() {
 		if ($("input[type=checkbox]").is(":checked") == false) {
@@ -40,7 +25,7 @@ $(function() {
 	$(".column-title").click(function() {
 		$(".floatgreen_ej").show();
 		$(".floatred_ej").hide();
-		$(".checkbox_ej").hide();
+//		$(".checkbox_ej").hide();
 		$("#list_ej").show();
 		$("#list_ej2").hide();
 	});

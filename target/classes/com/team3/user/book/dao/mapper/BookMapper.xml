@@ -2,9 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+ 
   <mapper namespace="com.team3.user.book.dao.mapper">
   
+  	<select id="getMainList" resultType="com.team3.user.book.dto.BookDto">
+		  <![CDATA[
+		  	select * from (select b.title, b.publisher, b.image_path, w.NAME from book b, writer w order by dbms_random.value) where rownum < 4
+		  ]]>
+	</select>
+	
   	<select id="getCategoryPath" parameterType="String" resultType="com.team3.user.book.dto.CategoryDto">
   		select * from category WHERE CATEGORY_NUMBER=#{category_number}
   	</select>
@@ -25,12 +31,14 @@ WHERE b.rnum BETWEEN #{startRow} AND #{endRow}
       ORDER by b.rnum
       
   		]]>
-  	</select>
-  	
-  	<select id="getCategoryNumber" parameterType="String" resultType="String">
+	</select>
+
+	<select id="getCategoryNumber" parameterType="String"
+		resultType="String">
   		<![CDATA[
   			SELECT CATEGORY_NUMBER FROM CATEGORY WHERE CATEGORY_PATH LIKE CONCAT('%',#{category_path})
   		]]>
+
   	</select>
   	
   	<select id="getBookInfo" parameterType="String" resultType="com.team3.user.book.dto.BookDto">

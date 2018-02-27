@@ -35,4 +35,10 @@
 	<update id="faqTopInsert" parameterType="int">
 		<![CDATA[update faq set is_top_ten='1' where faq_number=#{faq_number}]]> 
 	</update>
+	
+	<select id="getFaqList" resultType="com.team3.admin.faq.dto.AdminFaqDto">
+		<![CDATA[
+			select * from faq where rownum < 6
+		]]>
+	</select>
   </mapper>

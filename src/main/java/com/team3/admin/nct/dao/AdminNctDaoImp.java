@@ -44,6 +44,9 @@ public class AdminNctDaoImp implements AdminNctDao {
 	public int nctDeleteOk(String checked) {
 		return  sqlSession.delete("nctDeleteOk",checked);
 	}
-	
-	
+
+	@Override
+	public List<AdminNctDto> getNctList() {
+		return sqlSession.selectList("getNctList");
+	}
 }
