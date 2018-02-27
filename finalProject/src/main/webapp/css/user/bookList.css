@@ -1,0 +1,92 @@
+@charset "UTF-8";
+/*책 리스트 공통*/
+.book_list_jm{
+	overflow: hidden;
+}
+.book_list_jm > div{
+	border-bottom: 1px solid #9c9c9c;
+	margin-top: 15px;
+	padding-bottom: 5px;
+}
+.simply .book_list_jm > div{
+	border-bottom: 0px;
+	padding-bottom: 15px;
+}
+.book_list_jm > img{
+	width: 200px;
+	height: 280px;
+}
+.quantity_div_jm{
+	margin-top: 30px;
+}
+
+.book_list_button_jm{
+	border-left: 1px solid #9c9c9c;
+	margin-bottom: 15px;
+	float: right;
+	width: 150px;
+	padding-left: 20px;
+}
+.btn_list_1_jm{
+	width: 120px;
+	margin-left: 20px;
+}
+.btn_list_2_jm{
+	width: 120px;
+	display: list-item;
+	margin: 30px auto;
+}
+
+/*책리스트 자세히보기*/
+.detail_list_jm .book_list_jm > div > div{
+	display:inline-block;
+}
+.detail_list_jm .book_list_content_jm{
+	border: 0px solid #9c9c9c;
+	vertical-align: top;
+	width: 370px;
+	height: 290px;
+	padding: 20px 15px;
+	overflow: hidden;
+}
+.detail_list_jm .book_list_content_jm > div{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+.detail_list_jm .book_list_content_jm > div:nth-child(4){
+	display: inline-block;
+}
+.detail_list_jm .book_list_content_jm > div:first-child{
+	margin-top: 10px;
+}
+.detail_list_jm .book_list_content_jm > div:last-child{
+	height: 100px;
+	margin-bottom: 0px;
+}
+
+/*책리스트 간단히보기*/
+#simply_list_jm .book_list_jm{}
+#simply_list_jm .book_list_jm > div{
+	display: inline-block;
+	margin: 0px 23px;
+	margin-top: 5px;
+	width: 150px;
+}
+#simply_list_jm .book_list_jm > div > img{
+	width: 150px;
+	height: 230px;
+}
+#simply_list_jm .book_list_jm > div > .book_list_content_jm{
+	margin-bottom: 5px;
+	text-align: center;
+	position: relative;
+}
+#simply_list_jm .book_list_content_jm > div{
+	white-space:pre;
+}
+
+/*마우스 오버 이벤츠*/
+.hover{
+	cursor: pointer;
+}
+

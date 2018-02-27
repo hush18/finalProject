@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+/* 버튼 css 통일 */
+.btn-all {
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width: 10%;
+	height: 30px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+.btn-all:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn-all:before, .btn-all:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn-all:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn-all:hover:before, .btn-all:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.line_mh{
+	width: 500px; height: 250px; 
+	border: 1px solid #9c9c9c;
+	box-shadow: 2px 2px 2px 2px #c0c0c0;
+	margin: auto; margin-top: 100px;
+	padding-top: 50px;
+}
+
+.line_mh > div{
+	width: 500px; height: 50px; 
+	border: 0px solid blue;
+	text-align: center;
+}
+
+.lb_mh{font-size: 1.17em; color: #5cb38b; font-weight: bold;}
+
+.txt_mh{
+	height: 30px; border: 2px solid #3C7B5e;
+	font-size: 1.17em; color: #3C7B5e; text-align: center;
+}
+
+.btn_mh{
+	margin-top: 30px;
+}
