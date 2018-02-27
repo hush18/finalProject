@@ -1,26 +1,5 @@
 @charset "UTF-8";
 
-body {
-	width: 100%;
-	background: #fff;
-	font-size: 14px;
-	color: #000;
-	margin: 0;
-	padding: 0;
-}
-
-
-.widthline {
-	margin: 0 auto;
-	width: 1000px;
-}
-
-.h2-hr {
-	color: #5cb38b;
-	border-bottom: 1px solid #9c9c9c;
-	padding-bottom: 10px;
-}
-
 .side_mh{
 	margin-top : 10px;
 	display: inline-block;

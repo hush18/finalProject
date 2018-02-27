@@ -1,17 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>고객센터 회원</title>
-<link href="css/user/CustomerService_faq.css" rel="stylesheet"
-	type="text/css" />
+<link href="css/user/CustomerService_faq.css" rel="stylesheet" type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script src="js/user/CustomerService.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
+
+<!-- iCheck -->
+<link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
 </head>
 <body>
 	<div class="widthline">
@@ -26,13 +30,20 @@
 							<div class="orderManager_mh">
 								<div class="title_mh">
 									<h3>주문관리</h3>
-									<img src="images/down.png"> <img src="images/up.png">
+									<img src="images/down.png">
+									<img src="images/up.png">
 								</div>
 								<div class="sub_mh">
 									<ul>
-										<li><a href="orderSearch.do">주문/배송 조회</a></li>
-										<li><a href="cancel.do">취소/반품/교환 내역</a></li>
-										<li><a href="buyList.do">구매내역</a></li>
+										<li>
+											<a href="orderSearch.do">주문/배송 조회</a>
+										</li>
+										<li>
+											<a href="cancel.do">취소/반품/교환 내역</a>
+										</li>
+										<li>
+											<a href="buyList.do">구매내역</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -41,13 +52,20 @@
 							<div class="wishList_mh">
 								<div class="title_mh">
 									<h3>관심리스트</h3>
-									<img src="images/down.png"> <img src="images/up.png">
+									<img src="images/down.png">
+									<img src="images/up.png">
 								</div>
 								<div class="sub_mh">
 									<ul>
-										<li><a href="nearestList.do">최근본 상품</a></li>
-										<li><a href="wishList.do">위시리스트</a></li>
-										<li><a href="buyList.do">장바구니</a></li>
+										<li>
+											<a href="nearestList.do">최근본 상품</a>
+										</li>
+										<li>
+											<a href="wishList.do">위시리스트</a>
+										</li>
+										<li>
+											<a href="buyList.do">장바구니</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -56,25 +74,43 @@
 							<div class="client_mh">
 								<div class="title_mh">
 									<h3>고객센터</h3>
-									<img src="images/down.png"> <img src="images/up.png">
+									<img src="images/down.png">
+									<img src="images/up.png">
 								</div>
 								<div class="sub_mh">
 									<p class="faq_sc">FAQ</p>
 									<ul>
-										<li><a href="CustomerService_faq.do">회원</a></li>
-										<li><a href="CustomerService_faq.do">상품</a></li>
-										<li><a href="CustomerService_faq.do">입금/결제</a></li>
-										<li><a href="CustomerService_faq.do">취소/교환/환불</a></li>
-										<li><a href="CustomerService_faq.do">주문</a></li>
-										<li><a href="CustomerService_faq.do">배송</a></li>
-										<li><a href="CustomerService_faq.do">적립</a></li>
+										<li>
+											<a href="CustomerService_faq.do">회원</a>
+										</li>
+										<li>
+											<a href="CustomerService_faq.do">상품</a>
+										</li>
+										<li>
+											<a href="CustomerService_faq.do">입금/결제</a>
+										</li>
+										<li>
+											<a href="CustomerService_faq.do">취소/교환/환불</a>
+										</li>
+										<li>
+											<a href="CustomerService_faq.do">주문</a>
+										</li>
+										<li>
+											<a href="CustomerService_faq.do">배송</a>
+										</li>
+										<li>
+											<a href="CustomerService_faq.do">적립</a>
+										</li>
 									</ul>
 
 									<p class="consulting_sc">1:1 상담</p>
 									<ul>
-										<li><a href="CustomerService_consulting.do">1:1 상담하기</a></li>
-										<li><a href="CustomerService_consultingList.do">1:1
-												상담내역</a></li>
+										<li>
+											<a href="CustomerService_consulting.do">1:1 상담하기</a>
+										</li>
+										<li>
+											<a href="CustomerService_consultingList.do">1:1 상담내역</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -83,13 +119,18 @@
 							<div class="map_mh">
 								<div class="title_mh">
 									<h3>영업점 안내</h3>
-									<img src="images/down.png"> <img src="images/up.png">
+									<img src="images/down.png">
+									<img src="images/up.png">
 								</div>
 								<div class="sub_mh">
 
 									<ul>
-										<li><a href="Introduction.do">회사 소개</a></li>
-										<li><a href="Map.do">매장 소개</a></li>
+										<li>
+											<a href="Introduction.do">회사 소개</a>
+										</li>
+										<li>
+											<a href="Map.do">매장 소개</a>
+										</li>
 									</ul>
 
 								</div>
@@ -123,8 +164,8 @@
 							</div>
 
 							<div class="search_sub_ej">
-								<input type="text" name="search" size="40" /> <a href="#"
-									class="btn-all btn_ej">검색</a>
+								<input type="text" name="search" size="40" />
+								<a href="#" class="btn-all btn_ej">검색</a>
 							</div>
 						</form>
 					</div>
@@ -133,35 +174,154 @@
 						<div class="FAQ_TOP_1_ej">
 							<h3>자주 찾는 질문</h3>
 							<p>
-								고객님께서 가장 궁금하신 부분을 <br />FAQ를 통해 간편하게 해결할 수 있습니다.
+								고객님께서 가장 궁금하신 부분을
+								<br />
+								FAQ를 통해 간편하게 해결할 수 있습니다.
 							</p>
 						</div>
 						<div class=FAQ_TOP_2_ej>
 							<h2 class="h2_hr_ej">회원 FAQ</h2>
-							<div class="sub_category_ej">
-								<a href="#">전체</a> <a href="#">상품불량</a> <a href="#">입고/품절/절판</a>
-								<a href="#">상품정보/가격</a>
-							</div>
-							<div class="faqlist_header_ej">
-								<div>번호</div>
-								<div>질문유형</div>
-								<div>제목</div>
-							</div>
-							<c:forEach var="i" begin="1" end="10">
-								<div class="jlist_ej faqlist_ej">
-									<div class="faqlistrow_ej number${i}_ej">
-										<span class="faqlistcell1_ej">${i}</span> 
-										<span class="faqlistcell2_ej">회원 > 회원가입</span> 
-										<span class="faqlistcell3_ej">제목</span>
+
+							<div class="container body">
+								<div class="main_container">
+									<div class="right_col" role="main">
+										<div class="">
+											<div class="row">
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<div class="x_panel">
+														<div class="x_content">
+															<table id="datatable" class="table table-striped table-bordered">
+																<thead>
+																	<tr>
+																		<th>번호</th>
+																		<th>질문유형</th>
+																		<th>제목</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<c:set var="i" value="1" />
+																	<c:forEach items="${faqDtoList}" var="list">
+																		<tr class="number${i}_ej" onclick="faqList(${i}, '${list.content}')">
+																			<td class="faqlistcell1_ej">${i}</td>
+																			<td class="faqlistcell1_ej">회원 &gt; 회원가입</td>
+																			<td class="faqlistcell1_ej">${list.title}</td>
+																		</tr>
+																		<c:set var="i" value="${i+1}" />
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-							</c:forEach>
-							<div class="page_ej">< 페이지 ></div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- FastClick -->
+	<script src="vendors/fastclick/lib/fastclick.js"></script>
+	<!-- iCheck -->
+	<script src="vendors/iCheck/icheck.min.js"></script>
+	<!-- DateJS -->
+	<script src="vendors/DateJS/build/date.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="vendors/moment/min/moment.min.js"></script>
+	<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- Datatables -->
+	<script src="js/user/userDataTables.js"></script>
+	<script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script src="vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script src="vendors/datatables.net-scroller/js/dataTables.scroller.js"></script>
+
+	<!-- Datatables -->
+	<script>
+		$(document).ready(function() {
+			var handleDataTableButtons = function() {
+				if ($("#datatable-buttons").length) {
+					$("#datatable-buttons").DataTable({
+						dom : "Bfrtip",
+						buttons : [ {
+							extend : "copy",
+							className : "btn-sm"
+						}, {
+							extend : "csv",
+							className : "btn-sm"
+						}, {
+							extend : "excel",
+							className : "btn-sm"
+						}, {
+							extend : "print",
+							className : "btn-sm"
+						}, {
+							extend : "pdf",
+							className : "btn-sm"
+						}, ],
+						responsive : true
+					});
+				}
+			};
+
+			TableManageButtons = function() {
+				"use strict";
+				return {
+					init : function() {
+						handleDataTableButtons();
+					}
+				};
+			}();
+
+			$('#datatable').dataTable();
+
+			$('#datatable-keytable').DataTable({
+				keys : true
+			});
+
+			$('#datatable-responsive').DataTable();
+
+			$('#datatable-scroller').DataTable({
+				ajax : "js/datatables/json/scroller-demo.json",
+				deferRender : true,
+				scrollY : 380,
+				scrollCollapse : true,
+				scroller : true
+			});
+
+			$('#datatable-fixed-header').DataTable({
+				fixedHeader : true
+			});
+
+			var $datatable = $('#datatable-checkbox');
+
+			$datatable.dataTable({
+				'order' : [ [ 1, 'asc' ] ],
+				'columnDefs' : [ {
+					orderable : false,
+					targets : [ 0 ]
+				} ]
+			});
+			$datatable.on('draw.dt', function() {
+				$('input').iCheck({
+					checkboxClass : 'icheckbox_flat-green'
+				});
+			});
+
+			TableManageButtons.init();
+		});
+	</script>
+
 </body>
 </html>

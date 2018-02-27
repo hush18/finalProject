@@ -91,7 +91,7 @@
 	<div class="pwd_mh">
 		<div class="print_mh">
 			<h2>귀하의 비밀번호는</h2>
-			<h2>123456</h2>
+			<h2>${password }</h2>
 			<h2>입니다.</h2>
 		</div>
 		

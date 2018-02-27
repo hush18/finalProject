@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.member-contents-iy {
+	position: absolute;
+	display: inline-block;
+	margin-left: 50px;
+	width: 700px;
+}
+
+.member-info-iy {
+	margin: 0 auto;
+	width: -webkit-fill-available;
+}
+
+.info-box-iy {
+	color: #000;
+	background-color: #ebebeb;
+	border-color: #ebebeb;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.info-box-iy  strong {
+	font-size: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}

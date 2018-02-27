@@ -14,29 +14,5 @@ public class CstDaoImp implements CstDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	@Override
-	public int cstCount() {
-		return sqlSession.selectOne("cstCount");
-	}
-
-	@Override
-	public List<AdminCstDto> adminCstList() {
-		return sqlSession.selectList("cstList");
-	}
-
-	@Override
-	public int cstInsertOk(AdminCstDto adminCstDto) {
-		return sqlSession.update("cstInsert",adminCstDto);
-	}
-
-	@Override
-	public int cstUpdateOk(AdminCstDto adminCstDto) {
-		return sqlSession.update("cstUpdate",adminCstDto);
-	}
-	
-	@Override
-	public int cstDeleteOk(String checked) {
-		return  sqlSession.delete("cstDeleteOk",checked);
-	}
 	
 }
