@@ -179,7 +179,7 @@
 								<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
 								<input type="hidden" name="isbn" value="${interestDto.isbn}"/>
 							</div>
-							<img id="image" src="${interestDto.image_path }" width="150px" height="230px"/>
+							<img id="image" src="${interestDto.image_path }" width="150px" height="230px" onclick="location.href=bookInfo.do?isbn=${interestDto.isbn}"/>
 							<div class="bookCon_sc">
 								<div class="bookCon_title_sc">${interestDto.title }</div>
 								<div class="bookCon_name_sc">${interestDto.name }</div>
