@@ -11,9 +11,35 @@ public interface ServiceInterface {
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
 	
+	public void orderSearch(ModelAndView mav);
+	public void statusChange(ModelAndView mav);
+	public void orderDelete(ModelAndView mav);
+	public void ordering(ModelAndView mav);
+	public void delivery(ModelAndView mav);
+	public void cancel(ModelAndView mav);
+	public void buyList(ModelAndView mav);
+	public void cart(ModelAndView mav);
+	public void cartListDelete(ModelAndView mav);
+	public void detailOrder(ModelAndView mav);
+	public void cstOk(ModelAndView mav);
+	public void adminFaqInsertOk(ModelAndView mav);
+	public void adminFaqMain(ModelAndView mav);
+	public void adminFaqUpdate(ModelAndView mav);
+	public void adminFaqUpdateOk(ModelAndView mav);
+	public void adminFaqDeleteOk(ModelAndView mav);
+	public void adminFaqTopDelete(ModelAndView mav);
+	public void adminFaqTopInsert(ModelAndView mav);
+	public void adminNctInsertOk(ModelAndView mav);
+	public void adminNctMain(ModelAndView mav);
+	public void adminNctDeleteOk(ModelAndView mav);
+	public void adminNctUpdate(ModelAndView mav);
+	public void adminNctUpdateOk(ModelAndView mav);
+	public void adminCstMain(ModelAndView mav);
+	public void adminCstInsertOk(ModelAndView mav);
+	public void adminCstUpdateOk(ModelAndView mav);
+	public void adminCstDeleteOk(ModelAndView mav);
 	public void bookList(ModelAndView mav);
 	public void bookInfo(ModelAndView mav);
-	
 	public void adminBookSearch(ModelAndView mav);
 	public void adminBookInfo(ModelAndView mav);
 	public void adminWriterSearch(ModelAndView mav);
@@ -38,10 +64,17 @@ public interface ServiceInterface {
 	public void wishListInsert(ModelAndView mav);
 	public void nearestInsert(ModelAndView mav);
 	public void scrollBanner(ModelAndView mav);
+	public void adminSales(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
 	public void payment(ModelAndView mav);
 	public void addressList(ModelAndView mav);
 	public void addAddress(ModelAndView mav);
 	public void deleteAddress(ModelAndView mav);
 	public void paymentOk(ModelAndView mav);
+	public void getTopTen(ModelAndView mav);
+	public void getFaq(ModelAndView mav);
+	public void loginMember(ModelAndView mav);
+	public void naverCreateAccount(ModelAndView mav) throws Throwable;
+	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
 }
+

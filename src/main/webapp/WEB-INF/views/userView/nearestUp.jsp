@@ -11,13 +11,19 @@
 <body>
 	<c:if test="${check>0 }">
 		<script type="text/javascript">
-			alert("장바구니로 이동 완료.최근본상품임");
+			alert("장바구니로 이동 완료.");
 			location.href="nearestList.do";
 		</script>
 	</c:if>
 	<c:if test="${check==0 }">
 		<script type="text/javascript">
-			alert("장바구니로 이동 실패.최근본상품임");
+			alert("장바구니로 이동 실패.");
+			location.href="nearestList.do";
+		</script> 
+	</c:if>
+	<c:if test="${check==-1 }">
+		<script type="text/javascript">
+			alert("로그인 하여 주시기 바랍니다.");
 			location.href="nearestList.do";
 		</script> 
 	</c:if>

@@ -19,8 +19,31 @@
 <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 매출관리</title>
+<script type="text/javascript">
+	$(function(){
+		if($('input[type="hidden"]:eq(0)').val()=="1"){
+			$("#listSize option:eq(0)").attr("selected","selected");
+			$("#listSize option:eq(1)").removeAttr("selected");
+			$("#listSize option:eq(2)").removeAttr("selected");
+		}else if($('input[type="hidden"]:eq(0)').val()=="2"){
+			$("#listSize option:eq(1)").attr("selected","selected");
+			$("#listSize option:eq(0)").removeAttr("selected");
+			$("#listSize option:eq(2)").removeAttr("selected");
+		}else if($('input[type="hidden"]:eq(0)').val()=="3"){
+			$("#listSize option:eq(2)").attr("selected","selected");
+			$("#listSize option:eq(0)").removeAttr("selected");
+			$("#listSize option:eq(1)").removeAttr("selected");
+		}
+		$("#listSize").change(function(){
+			location.href="adminSales.do?value=" + $(this).val();
+		});
+	});
+</script>
 </head>
+<body>
 <div class="container body">
+	<input type="hidden" name="value" value="${value }" />
+	
 	<div class="main_container">
 		<div class="right_col" role="main">
 			<div class="">
@@ -58,7 +81,7 @@
 							</div>
 							<div>
 								<select id="listSize" name="datatable_length" aria-controls="datatable" class="form-control input-sm">
-									<option value="1" selected="selected">일별</option>
+									<option value="1">일별</option>
 									<option value="2">월별</option>
 									<option value="3">연별</option>
 								</select>
@@ -66,6 +89,7 @@
 
 							<!-- 일별========================================================== -->
 							<div class="x_content" id="day1">
+								<c:set var="strList" value=""/>
 								<table id="datatable" class="table table-striped table-bordered">
 									<thead>
 										<tr>
@@ -78,30 +102,28 @@
 									</thead>
 									<tbody>
 										<!-- 						for문(홀수일경우 class안에 odd, 짝수일경우 class안에 even 나머지 동일) -->
-										<c:forEach var="i" begin="1" end="10">
+										<c:forEach var="salesDto" items="${salesList }">
+										<c:set var="str" value="${salesDto.sales_day },${salesDto.sales_total },${salesDto.sales_cash },${salesDto.sales_point }"/>
+										<c:set var="strList" value="${strList }/${str }"/>
 											<tr role="row" class="odd">
-												<c:if test="${i==10 }">
-													<td class="sorting_1">2018.01.${i}</td>
-												</c:if>
-												<c:if test="${i!=10 }">
-													<td class="sorting_1">2018.01.0${i}</td>
-												</c:if>
+												<td class="sorting_1">${salesDto.sales_day }</td>
 												<td>
-													<a href="#">1</a>
+													<a href="#">${salesDto.sales_count }</a>
 												</td>
 												<td>
-													<fmt:formatNumber value="${i*1000 + 10000 }" pattern="0,000" />
+													<fmt:formatNumber value="${salesDto.sales_total }" pattern="0,000" />
 												</td>
 												<td>
-													<fmt:formatNumber value="${(i*1000 + 10000)-(i*1000 + 10000)/10}" pattern="0,000" />
+													<fmt:formatNumber value="${salesDto.sales_cash }" pattern="0,000" />
 												</td>
 												<td>
-													<fmt:formatNumber value="${(i*1000 + 10000)/10 }" pattern="0,000" />
+													<fmt:formatNumber value="${salesDto.sales_point }" pattern="0,000" />
 												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<input type="hidden" name="str" value="${strList }"/>
 								<!-- 차트부분 -->
 								<div id="mainb" style="height: 350px;"></div>
 							</div>
@@ -125,7 +147,7 @@
 <!-- iCheck -->
 <script src="vendors/iCheck/icheck.min.js"></script>
 <!-- Datatables -->
-<script src="vendors/datatables.net/js/jquery.dataTables.js"></script>
+<script src="vendors/datatables.net/js/jquery.dataTables_sc.js"></script>
 <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
@@ -139,7 +161,10 @@
 
 <!-- ECharts -->
 <script src="vendors/echarts/dist/echarts.js"></script>
-<script>
+<script type="text/javascript">
+	var str=$('input[type="hidden"]:eq(1)').val();
+	var alist=str.split("/");
+	
 	var theme = {
 		color : [ '#083D76', '#F95738', '#FFC72C', '#3498DB', '#9B59B6',
 				'#8abb6f', '#759c6a', '#bfd3b7' ],
@@ -356,11 +381,59 @@
 	};
 	/*echartBar- 일별!!----------------------------------------------------------------------------------------*/
 	var echartBar = echarts.init(document.getElementById('mainb'), theme);
-
+	var json_data = "[";
+	for(var i = 1 ; i < alist.length ; i++) {
+		json_data += "{ \"title\":\"" + alist[i].split(",")[0] + "\",\"종합가격\":"
+					+ alist[i].split(",")[1] + ",\"현금가격\":" + alist[i].split(",")[2] + ",\"포인트\":" + alist[i].split(",")[3] + "},";
+	}
+	json_data += "]";
+	json_data=json_data.replace(",]","]");
+	json_data=JSON.parse(json_data);
+		
+     var col_title = ""; //标题的列名,固定为第一列
+     var col_data = [] ; // 从第二列开始, 为值字段 , ["value","value1"];
+     var col_data_name =[]; // 从第二列开始, 为值字段 , ["销量","值二"];
+     
+     var chart_title =new Array(); //标题娄组
+     var chart_data = new Array(); //值数组
+     
+     //列标题,列字段名取值
+     var col = 0;
+     for(var key in json_data[0]){
+         if(col==0)
+             col_title = key;
+         else
+         {
+             col_data.push(key);
+             col_data_name.push(key);
+         }
+         col++;
+     }
+     
+     //给值字段赋值
+     for(var i =0;i<col_data.length;i++){
+         chart_data[i] = {
+                 "name": col_data_name[i],
+                 "type":"bar",
+                 "data": [] //[5, 20, 40, 10, 10, 20]
+            };
+     }
+     
+     //填入标题及各值的数据
+     for(var i=0;i<json_data.length;i++){
+         chart_title.push(json_data[i]["title"]);
+         for(var j =0;j<col_data.length;j++){
+             var col_name = col_data[j];
+             chart_data[j].data.push(json_data[i][col_name]);
+             //chart_data[1].data.push(json_data[i]["value1"]);
+         };
+     };
+	
+	
 	echartBar.setOption({
 		title : {
-			text : '일별 그래프',
-			subtext : '일별조회'
+			text : '기간별 그래프',
+			subtext : '기간별조회'
 		},
 
 		tooltip : {
@@ -391,54 +464,17 @@
 		},
 		calculable : true,
 		legend : {
-			data : [ '종합', '현금', '포인트' ]
+			data : col_data_name
 		},
 		xAxis : [ {
 			type : 'category',
-			data : [ '2018.01.01', '2018.01.02', '2018.01.03', '2018.01.04',
-					'2018.01.05', '2018.01.06', '2018.01.07', '2018.01.08',
-					'2018.01.09', '2018.01.10' ]
+			data : chart_title
 		} ],
 		yAxis : [ {
 			type : 'value'
 		} ],
 
-		series : [
-				{
-					name : '종합',
-					type : 'bar',
-					data : [ 11000, 12000, 13000, 14000, 15000, 16000, 17000,
-							18000, 19000, 30000 ],
-					markLine : {
-						data : [ {
-							type : 'average',
-							name : '평균'
-						} ]
-					}
-				},
-				{
-					name : '현금',
-					type : 'bar',
-					data : [ 9900, 10800, 11700, 12600, 13500, 14400, 15300,
-							16200, 17100, 18000 ],
-					markLine : {
-						data : [ {
-							type : 'average',
-							name : '평균'
-						} ]
-					}
-				},
-				{
-					name : '포인트',
-					type : 'bar',
-					data : [ 1100, 500, 0, 5000, 100, 3000, 1700, 0, 6000,
-							20000 ],
-					markLine : {
-						data : [ {
-							type : 'average',
-							name : '평균'
-						} ]
-					}
-				} ]
+		series : chart_data
 	});
 </script>
+</body>

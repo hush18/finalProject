@@ -16,15 +16,27 @@
 		<h2 class="h2-hr">주문상품 확인</h2>
 		
 		<div class="order_item_Confirm_yk">
-			<div class="order_item_subject_yk">
-				<div style="width: 33%;">주문상품</div>
-				<div style="width: 8%;">수량</div>
-				<div style="width: 14%;">주문금액</div>
-				<div style="width: 14%;">배송비</div>
-				<div style="width: 14%;">예상적립금</div>
-				<!-- 적립금은 10%로 예상 -->
-				<div style="width: 15%; border-right: 0px;">주문 금액 합계</div>
-			</div>
+			<c:if test="${length==1 }">
+				<div class="order_item_subject_yk">
+					<div style="width: 33%;">주문상품</div>
+					<div style="width: 8%;">수량</div>
+					<div style="width: 14%;">주문금액</div>
+					<div style="width: 14%;">배송비</div>
+					<div style="width: 14%;">예상적립금</div>
+					<!-- 적립금은 10%로 예상 -->
+					<div style="width: 15%; border-right: 0px;">주문 금액 합계</div>
+				</div>
+			</c:if>
+			<c:if test="${count>1 }">
+				<div class="order_item_subject_yk">
+					<div style="width: 36%;">주문상품</div>
+					<div style="width: 15%;">수량</div>
+					<div style="width: 15%;">배송비</div>
+					<div style="width: 16%;">예상적립금</div>
+					<!-- 적립금은 10%로 예상 -->
+					<div style="width: 17%; border-right: 0px;">주문 금액 합계</div>
+				</div>
+			</c:if>
 			<c:if test="${length==1 }">
 				<div class="order_item_list_yk">
 					<c:set var="shppingCharge"/>
@@ -44,7 +56,28 @@
 					<div style="width: 14%;">${point }p</div>
 					<div style="width: 15%; border-right: 0px;">${price }원</div>
 					<input type="hidden" name="order_account" value="${quantity }">
-					<input type="hidden" name="isbn" value="${isbn }">
+					<input type="hidden" name="goods" value="${isbn }">
+				</div>
+			</c:if>
+			<c:if test="${count>1 }">
+				<div class="order_item_list_yk">
+					<c:set var="shppingCharge"/>
+					<c:if test="${price>10000 }">
+						<c:set var="shppingCharge" value="0"/>
+					</c:if>
+					<c:if test="${price<=10000 }">
+						<c:set var="shppingCharge" value="3000"/>
+					</c:if>
+					<div style="width: 36%;">${bookDto.title } 외 ${bookListSize } 개</div>
+					<div style="width: 15%;">총 ${count } 개</div>
+					<fmt:formatNumber var="Allprice" value="${price }" pattern="#,###"/>
+					
+					<div style="width: 15%;"><fmt:formatNumber value="${shppingCharge }" pattern="#,###" />원</div>
+					<fmt:formatNumber var="point" value="${price*0.1 }" pattern="#,###"/>
+					<div style="width: 16%;">${point }p</div>
+					<div style="width: 17%; border-right: 0px;">${Allprice }원</div>
+					<input type="hidden" name="order_account" value="${quantity }">
+					<input type="hidden" name="goods" value="${isbn }">
 				</div>
 			</c:if>
 		</div>
@@ -189,7 +222,7 @@
 					<div style="border-right: 0px;">결제 금액</div>
 				</div>
 				<div class="payment_detail_yk">
-					<div>${price }원</div>
+					<div>${Allprice }원</div>
 					<img src="images/plus.png" class="icon_yk" style="margin-left: -747px; margin-top: 65px; z-index: 0">
 					<div>${shppingCharge }원</div>
 					<img src="images/negative.png" class="icon_yk" style="margin-left: -506px; margin-top: 65px; z-index: 0">
@@ -203,18 +236,34 @@
 					<input type="hidden" name="total_price">
 					
 					<fmt:formatNumber var="finalPrice" value="" pattern="#,###"/>
-					<script type="text/javascript">
-						var finalPrice=${bookDto.price*quantity};
-						
-						$(".final_price").text(finalPrice+"원");
-						$("input[name='point']").change(function() {
+					<c:if test="${length==1 }">
+						<script type="text/javascript">
+							var finalPrice=${bookDto.price*quantity};
 							var point=$("input[name='point']").val();
-							$(".final_price").text(finalPrice-point+"원");
+							$("input[name='total_price']").attr("value",finalPrice);
+							$(".final_price").text(finalPrice+"원");
+							$("input[name='point']").change(function() {
+								point=$("input[name='point']").val();
+								$(".final_price").text(finalPrice-point+"원");
+								$("input[name='total_price']").attr("value",finalPrice-point);
+								$("input[name='save_point']").attr("value",(finalPrice-point)*0.1);
+							});
+						</script>
+					</c:if>
+					<c:if test="${count>1 }">
+						<script type="text/javascript">
+							var finalPrice=${price};
+							$(".final_price").text(finalPrice+"원");
+							var point=$("input[name='point']").val();
 							$("input[name='total_price']").attr("value",finalPrice-point);
-							$("input[name='save_point']").attr("value",(finalPrice-point)*0.1);
-							alert($("input[name='save_point']").val())
-						});
-					</script>
+							$("input[name='point']").change(function() {
+								point=$("input[name='point']").val();
+								$(".final_price").text(finalPrice-point+"원");
+								$("input[name='total_price']").attr("value",finalPrice-point);
+								$("input[name='save_point']").attr("value",(finalPrice-point)*0.1);
+							});
+						</script>
+					</c:if>
 					<input type="hidden" name="save_point" value="">
 				</div>
 			</div>

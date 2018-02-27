@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.filter_area_right_jm{
+	width: 350px;
+}
+.filter_area_right_jm div{
+	display: inline-block;
+	width: 150px;
+	margin-right: 15px;
+}
+
+.filter_area_left_jm{
+	width: 300px;
+}
+
+.filter_area_left_jm div{
+	display: inline-block;
+}
+
+.row{
+	margin-bottom: 5px;
+}

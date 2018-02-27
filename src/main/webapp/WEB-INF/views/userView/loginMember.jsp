@@ -12,8 +12,6 @@
 
 <link href="css/user/loginMember.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/user/loginMember.js"></script>
-
-</script>
 </head>
 <body>
 	<div class="widthline">
