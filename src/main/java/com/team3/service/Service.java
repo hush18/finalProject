@@ -1,25 +1,25 @@
 package com.team3.service;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,13 +31,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.team3.admin.map.dao.AdminMapDao;
 import com.team3.admin.map.dto.MapDto;
 import com.team3.user.member.dto.ZipcodeDto;
-
+import com.team3.user.oauth.bo.FacebookLoginBO;
+import com.team3.user.oauth.bo.NaverLoginBO;
 import com.team3.aop.LogAspect;
+import com.team3.user.faq.dao.FaqDao;
+import com.team3.user.faq.dto.FaqDto;
 import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.map.dao.MapDao;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberDto;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @Component
 public class Service implements ServiceInterface {
@@ -56,6 +60,83 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private MapDao mapDao;
+	
+	@Autowired
+	private FaqDao faqDao;
+	
+	/* NaverLoginBO */
+	@Autowired
+	private NaverLoginBO naverLoginBO;
+	
+	@Autowired
+	private FacebookLoginBO facebookLoginBO;
+
+	@Override
+	public void loginMember(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpSession session = (HttpSession) map.get("session");
+		
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
+
+		mav.addObject("naverAuthUrl", naverAuthUrl);
+		mav.addObject("facebookUrl", facebookUrl);
+		mav.setViewName("loginMember.users");
+	}
+
+	@Override
+	public void naverCreateAccount(ModelAndView mav) throws Throwable {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpSession session = (HttpSession) map.get("session");
+		
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		
+		if (code != null && state != null) {
+			OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+			String apiResult = naverLoginBO.getUserProfile(oauthToken);
+			JSONObject jsonObj = new JSONObject(apiResult);
+			jsonObj = (JSONObject) jsonObj.get("response");
+
+			String email = (String) jsonObj.get("email");
+			String name = (String) jsonObj.get("name");
+			String id = (String) jsonObj.get("id");
+
+			mav.addObject("email", email);
+			mav.addObject("name", name);
+			mav.addObject("id", id);
+		}
+
+		mav.setViewName("createAccount.users");
+
+	}
+
+	@Override
+	public void facebookCreateAccount(ModelAndView mav) throws Throwable {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpSession session = (HttpSession) map.get("session");
+		
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		
+
+		if (code != null && state != null) {
+			OAuth2AccessToken oauthToken = facebookLoginBO.getAccessToken(session, code, state);
+			String apiResult = facebookLoginBO.getUserProfile(oauthToken);
+			JSONObject jsonObj = new JSONObject(apiResult);
+
+			String name = (String) jsonObj.get("name");
+			String id = (String) jsonObj.get("id");
+
+			mav.addObject("name", name);
+			mav.addObject("id", id);
+		}
+
+		mav.setViewName("createAccount.users");
+
+	}
 
 	@Override
 	public void myPage(ModelAndView mav) {
@@ -606,5 +687,23 @@ public class Service implements ServiceInterface {
 		mav.addObject("mapList", mapList);
 		mav.setViewName("Map.users");
 	}
-	
+
+	@Override
+	public void getTopTen(ModelAndView mav) {
+		List<FaqDto> faqDtoTTList = faqDao.getTopTenList();
+		mav.addObject("faqDtoTTList", faqDtoTTList);
+		mav.setViewName("CustomerService_main.users");
+	}
+
+	@Override
+	public void getFaq(ModelAndView mav) {
+		List<FaqDto> faqDtoList = faqDao.getTopTenList();
+		
+		for (int i = 0; i < faqDtoList.size(); i++) {
+			faqDtoList.get(i).setContent(faqDtoList.get(i).getContent().replace("\r\n", "<br />"));
+		}
+		
+		mav.addObject("faqDtoList", faqDtoList);
+		mav.setViewName("CustomerService_faq.users");
+	}
 }

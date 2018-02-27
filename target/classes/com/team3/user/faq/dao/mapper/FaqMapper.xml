@@ -4,4 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.team3.user.faq.dao.mapper">
+  	<select id="getTopTenList" resultType="com.team3.user.faq.dto.FaqDto">
+  		<![CDATA[
+  			select * from faq where is_top_ten = '1'
+  		]]>
+  	</select>
   </mapper>

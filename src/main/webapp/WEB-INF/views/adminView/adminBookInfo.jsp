@@ -6,7 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
-<link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 도서등록</title>
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">

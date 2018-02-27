@@ -31,4 +31,10 @@ public interface ServiceInterface {
 	public void nearestInsert(ModelAndView mav);
 	public void scrollBanner(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
+	public void getTopTen(ModelAndView mav);
+	public void getFaq(ModelAndView mav);
+	public void loginMember(ModelAndView mav);
+	public void naverCreateAccount(ModelAndView mav) throws Throwable;
+	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
 }
+
