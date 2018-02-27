@@ -7,34 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.team3.admin.map.dto.MapDto;
 import com.team3.service.ServiceInterface;
 import com.team3.user.book.dto.BookDto;
 import com.team3.user.book.dto.WriterDto;
 
 import com.team3.user.member.dto.MemberDto;
-import com.team3.user.oauth.bo.FacebookLoginBO;
-import com.team3.user.oauth.bo.NaverLoginBO;
 
 @Controller
 public class ProController {
 
 	@Autowired
 	private ServiceInterface service;
-
-	/* NaverLoginBO */
-	@Autowired
-	private NaverLoginBO naverLoginBO;
-	@Autowired
-	private FacebookLoginBO facebookLoginBO;
 
 	// 여기부터 사용자
 	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
@@ -180,69 +170,44 @@ public class ProController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.nearestDel(mav);
+
 		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
 	public ModelAndView loginMember(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
-
-		mav.addObject("naverAuthUrl", naverAuthUrl);
-		mav.addObject("facebookUrl", facebookUrl);
-		mav.setViewName("loginMember.users");
+		mav.addObject("session", session);
+		service.loginMember(mav);
 
 		return mav;
 	}
 
 	@RequestMapping(value = "/naverCreateAccount.do", method = RequestMethod.GET)
-	public ModelAndView naverCreateAccount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws IOException {
+	public ModelAndView naverCreateAccount(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) throws Throwable {
 		ModelAndView mav = new ModelAndView();
-		String code = request.getParameter("code");
-		String state = request.getParameter("state");
+		mav.addObject("request", request);
+		mav.addObject("session", session);
+		service.naverCreateAccount(mav);
 		
-		if (code != null && state != null) {
-			OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-			String apiResult = naverLoginBO.getUserProfile(oauthToken);
-			JSONObject jsonObj = new JSONObject(apiResult);
-			jsonObj = (JSONObject) jsonObj.get("response");
-
-			String email = (String) jsonObj.get("email");
-			String name = (String) jsonObj.get("name");
-			String id = (String) jsonObj.get("id");
-
-			mav.addObject("email", email);
-			mav.addObject("name", name);
-			mav.addObject("id", id);
-		}
-
-		mav.setViewName("createAccount.users");
 		return mav;
 	}
 
 	@RequestMapping(value = "/facebookCreateAccount.do", method = RequestMethod.GET)
-	public ModelAndView facebookCreateAccount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws IOException {
+	public ModelAndView facebookCreateAccount(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) throws Throwable {
 		ModelAndView mav = new ModelAndView();
-		String code = request.getParameter("code");
-		String state = request.getParameter("state");
+		mav.addObject("request", request);
+		mav.addObject("session", session);
+		service.facebookCreateAccount(mav);
 		
-		if (code != null && state != null) {
-			OAuth2AccessToken oauthToken = facebookLoginBO.getAccessToken(session, code, state);
-			String apiResult = facebookLoginBO.getUserProfile(oauthToken);
-			JSONObject jsonObj = new JSONObject(apiResult);
-
-			String name = (String) jsonObj.get("name");
-			String id = (String) jsonObj.get("id");
-
-			mav.addObject("name", name);
-			mav.addObject("id", id);
-		}
-
-		mav.setViewName("createAccount.users");
 		return mav;
+	}
+
+	@RequestMapping(value = "/createAccount.do", method = RequestMethod.GET)
+	public ModelAndView createAccount(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("createAccount.users");
 	}
 
 	@RequestMapping(value = "/createAccount.do", method = RequestMethod.POST)
@@ -313,8 +278,10 @@ public class ProController {
 
 	@RequestMapping(value = "/CustomerService_main.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_main(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 
-		return new ModelAndView("CustomerService_main.users");
+		service.getTopTen(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/CustomerService_consulting.do", method = RequestMethod.GET)
@@ -331,8 +298,11 @@ public class ProController {
 
 	@RequestMapping(value = "/CustomerService_faq.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_faq(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 
-		return new ModelAndView("CustomerService_faq.users");
+		service.getFaq(mav);
+		
+		return mav;
 	}
 
 	@RequestMapping(value = "/CustomerService_order_search.do", method = RequestMethod.GET)
@@ -349,10 +319,10 @@ public class ProController {
 
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav= new ModelAndView();
-		
+		ModelAndView mav = new ModelAndView();
+
 		service.userMapRead(mav);
-		
+
 		return mav;
 	}
 
@@ -471,10 +441,7 @@ public class ProController {
 	}
 
 	
-	
-	
 	// 여기부터 관리자 ================================================================================================================================================
-	
 	@RequestMapping(value="adminBookSearch.do", method=RequestMethod.GET)
 	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {	
 		ModelAndView mav = new ModelAndView();
@@ -526,10 +493,10 @@ public class ProController {
 	public ModelAndView adminMemberManage(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminMemberManage.admin");
 	}
-	
-	@RequestMapping(value="adminMap.do", method=RequestMethod.GET)
+
+	@RequestMapping(value = "adminMap.do", method = RequestMethod.GET)
 	public ModelAndView adminMap(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 		service.readMap(mav);
 		return mav;
 	}
@@ -594,35 +561,36 @@ public class ProController {
 	public ModelAndView adminNctUpdate(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminNctUpdate.admin");
 	}
-	
-	@RequestMapping(value="adminMapOk.do",method=RequestMethod.POST)
-	public ModelAndView adminMapInsert(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) throws Exception {		
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("request",request);
-		mav.addObject("mapDto",mapDto);
-		
+
+	@RequestMapping(value = "adminMapOk.do", method = RequestMethod.POST)
+	public ModelAndView adminMapInsert(HttpServletRequest request, HttpServletResponse response, MapDto mapDto)
+			throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("mapDto", mapDto);
+
 		service.createMap(mav);
 		return mav;
 	}
-	
-	@RequestMapping(value="adminMapUpdate.do",method=RequestMethod.POST)
+
+	@RequestMapping(value = "adminMapUpdate.do", method = RequestMethod.POST)
 	public ModelAndView adminMapUpdate(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) {
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("request",request);
-		mav.addObject("mapDto",mapDto);
-		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("mapDto", mapDto);
+
 		service.updateMap(mav);
 		return mav;
 	}
-	
-	@RequestMapping(value="adminMapDelete.do",method=RequestMethod.POST)
+
+	@RequestMapping(value = "adminMapDelete.do", method = RequestMethod.POST)
 	public ModelAndView adminMapDelete(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("request",request);
-		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+
 		service.deleteMap(mav);
-		
+
 		return mav;
 	}
-	
+
 }
