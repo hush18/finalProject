@@ -53,6 +53,7 @@ public interface ServiceInterface {
 	public void wishListInsert(ModelAndView mav);
 	public void nearestInsert(ModelAndView mav);
 	public void scrollBanner(ModelAndView mav);
+	public void adminSales(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);

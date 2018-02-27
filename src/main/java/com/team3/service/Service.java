@@ -33,6 +33,9 @@ import com.team3.user.book.dto.WriterDto;
 import com.team3.admin.map.dao.AdminMapDao;
 import com.team3.admin.map.dto.MapDto;
 import com.team3.user.member.dto.ZipcodeDto;
+import com.team3.admin.sales.dao.SalesDao;
+import com.team3.admin.sales.dto.SalesDto;
+
 import com.team3.user.oauth.bo.FacebookLoginBO;
 import com.team3.user.oauth.bo.NaverLoginBO;
 import com.team3.user.faq.dao.FaqDao;
@@ -66,6 +69,9 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private InterestDao interestDao;
+	
+	@Autowired
+	private SalesDao salesDao;
 
 	@Autowired
 	private AdminMapDao adminMapDao;
@@ -787,9 +793,8 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		List<InterestDto> interestList = interestDao.nearestSelect(id);
 		int count = interestList.size();
 		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -805,9 +810,8 @@ public class Service implements ServiceInterface {
 	public void nearestUp(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		String isbn = request.getParameter("isbn");
 		String[] strArr = isbn.split("/");
 		for (int i = 0; i < strArr.length; i++) {
@@ -815,7 +819,6 @@ public class Service implements ServiceInterface {
 			strArr[i] += "/";
 		}
 		int check = interestDao.nearestUp(id, strArr);
-		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
 		mav.addObject("check", check);
 		mav.setViewName("nearestUp.users");
 	}
@@ -825,9 +828,8 @@ public class Service implements ServiceInterface {
 	public void nearestDel(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		String isbn = request.getParameter("isbn");
 		String[] strArr = isbn.split("/");
 		for (int i = 0; i < strArr.length; i++) {
@@ -835,7 +837,6 @@ public class Service implements ServiceInterface {
 			strArr[i] += "/";
 		}
 		int check = interestDao.nearestDel(id, strArr);
-		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
 		mav.addObject("check", check);
 		mav.setViewName("nearestDel.users");
 
@@ -847,9 +848,8 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		List<InterestDto> interestList = interestDao.wishListSelect(id);
 		int count = interestList.size();
 		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -866,9 +866,8 @@ public class Service implements ServiceInterface {
 	public void wishListUp(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		String isbn = request.getParameter("isbn");
 		String[] strArr = isbn.split("/");
 		for (int i = 0; i < strArr.length; i++) {
@@ -876,7 +875,6 @@ public class Service implements ServiceInterface {
 			strArr[i] += "/";
 		}
 		int check = interestDao.wishListUp(id, strArr);
-		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
 
 		mav.addObject("check", check);
 		mav.setViewName("wishListUp.users");
@@ -887,9 +885,8 @@ public class Service implements ServiceInterface {
 	public void wishListDel(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		String isbn = request.getParameter("isbn");
 		String[] strArr = isbn.split("/");
 		for (int i = 0; i < strArr.length; i++) {
@@ -897,7 +894,6 @@ public class Service implements ServiceInterface {
 			strArr[i] += "/";
 		}
 		int check = interestDao.wishListDel(id, strArr);
-		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
 		mav.addObject("check", check);
 		mav.setViewName("wishListDel.users");
 
@@ -950,9 +946,8 @@ public class Service implements ServiceInterface {
 	public void wishListInsert(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
 		String isbn = request.getParameter("isbn");
 
 		String[] strArr = isbn.split("/");
@@ -961,7 +956,6 @@ public class Service implements ServiceInterface {
 			strArr[i] += "/";
 		}
 		int check = interestDao.wishListInsert(id, strArr);
-		LogAspect.logger.info(LogAspect.logMsg + "업데이트가 제대로 됬나" + check);
 
 		mav.addObject("check", check);
 		mav.setViewName("wishListInsert.users");
@@ -974,29 +968,36 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String isbn = request.getParameter("isbn");
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
-		String id = "user123";
-		int check = interestDao.nearestInsert(id, isbn);
-		LogAspect.logger.info(LogAspect.logMsg + "인서트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + check);
+		HttpSession session = request.getSession(); //세션받기 ID
+		String id=(String) session.getAttribute("id");
+		interestDao.nearestInsert(id, isbn);
 	}
 
 	@Override
 	public void scrollBanner(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();		//세션받기 ID
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			List<InterestDto> scrollList=interestDao.scrollSelect(id);
+			int scrollCount=scrollList.size();
+			if(scrollList.size() > 2) scrollCount=2;
+			mav.addObject("scrollList", scrollList);
+		}
+	}
 
-		String id = "user123";
-		// HttpSession session = request.getSession(); //세션받기 ID
-		// String id=(String) session.getAttribute("id");
-		List<InterestDto> scrollList = interestDao.scrollSelect(id);
-		LogAspect.logger.info(LogAspect.logMsg + "여기까진 넘어오나요" + scrollList.toString());
-		int scrollCount = scrollList.size();
-		if (scrollList.size() > 2)
-			scrollCount = 2;
-		LogAspect.logger.info(LogAspect.logMsg + "scrollCount: " + scrollCount);
-		LogAspect.logger.info(LogAspect.logMsg + scrollList.toString());
-		mav.addObject("scrollList", scrollList);
+	@Override
+	public void adminSales(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String value=request.getParameter("value");
+		List<SalesDto> salesList=salesDao.salesSelect(value);
+		mav.addObject("value", value);
+		mav.addObject("salesList", salesList);
+		mav.setViewName("adminSales.admin");
 	}
 
 	@Override

@@ -36,9 +36,16 @@
 	  </insert>
 	  
 	  <select id="scrollSelect" parameterType="String" resultType="com.team3.user.interest.dto.InterestDto">
+	  	<![CDATA[
 		  	select b.image_path,b.title, c.cart_day
 			from book b, cart c
 			where b.isbn = c.isbn and c.state=1 and c.id=#{id}
 			order by c.cart_day desc
+		]]>
+	  </select>
+	  <select id="selectInsert" parameterType="java.util.Map" resultType="com.team3.user.interest.dto.InterestDto">
+  		<![CDATA[
+		  	select * from cart where id=#{id} and isbn=#{isbn}
+		]]>
 	  </select>
   </mapper>

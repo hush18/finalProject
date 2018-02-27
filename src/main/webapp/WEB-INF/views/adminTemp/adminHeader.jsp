@@ -47,7 +47,7 @@
 								<li><a> <i class="fa fa-bar-chart-o"></i> 매출관리 <span class="fa fa-chevron-down"></span>
 								</a>
 									<ul class="nav child_menu">
-										<li><a href="adminSales.do">기간별관리</a></li>
+										<li><a href="adminSales.do?value=1">기간별관리</a></li>
 									</ul></li>
 								<li><a> <i class="fa fa-question-circle"></i> 고객문의관리 <span class="fa fa-chevron-down"></span>
 								</a>

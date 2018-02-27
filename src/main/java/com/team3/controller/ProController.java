@@ -1,5 +1,7 @@
 package com.team3.controller;
 
+import java.io.IOException;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.team3.admin.cst.dto.AdminCstDto;
 import com.team3.admin.faq.dto.AdminFaqDto;
 import com.team3.admin.nct.dto.AdminNctDto;
 import com.team3.aop.LogAspect;
+import com.team3.admin.map.dto.MapDto;
 import com.team3.service.ServiceInterface;
 import com.team3.user.cst.dto.CstDto;
 import com.team3.admin.map.dto.MapDto;
@@ -34,13 +36,22 @@ public class ProController {
 	// 여기부터 사용자
 	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
 	public ModelAndView scroll(ModelAndView mav) {
-		service.scrollBanner(mav);
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();		//세션받기 ID
+		
+		if(session.getAttribute("id")!=null) {
+			service.scrollBanner(mav);
+		}
 		return mav;
 	}
 
 	@RequestMapping(value = "/userMain.do", method = RequestMethod.GET)
 	public ModelAndView userMain(HttpServletRequest request, HttpServletResponse response) {
-		return scroll(new ModelAndView("userMain.users"));
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.setViewName("userMain.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
@@ -517,7 +528,13 @@ public class ProController {
 
 	@RequestMapping(value = "adminSales.do", method = RequestMethod.GET)
 	public ModelAndView adminSales(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminSales.admin");
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.adminSales(mav);
+		return mav;
+		
 	}
 
 	@RequestMapping(value = "adminCstMain.do", method = RequestMethod.GET)
