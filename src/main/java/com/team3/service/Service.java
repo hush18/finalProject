@@ -484,16 +484,17 @@ public class Service implements ServiceInterface {
 	public void nearestList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
-		List<InterestDto> interestList = interestDao.nearestSelect(id);
-		int count = interestList.size();
-		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
-		LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
-		mav.addObject("interestList", interestList);
-		mav.addObject("count", count);
-		mav.addObject("id", id);
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			List<InterestDto> interestList = interestDao.nearestSelect(id);
+			int count = interestList.size();
+			LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
+			LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
+			mav.addObject("interestList", interestList);
+			mav.addObject("count", count);
+			mav.addObject("id", id);
+		}
 		mav.setViewName("nearestList.users");
 	}
 
@@ -503,14 +504,18 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
-		String isbn = request.getParameter("isbn");
-		String[] strArr = isbn.split("/");
-		for (int i = 0; i < strArr.length; i++) {
-			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
-			strArr[i] += "/";
+		
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			String isbn = request.getParameter("isbn");
+			String[] strArr = isbn.split("/");
+			for (int i = 0; i < strArr.length; i++) {
+				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+				strArr[i] += "/";
+			}
+			int check = interestDao.nearestUp(id, strArr);
 		}
-		int check = interestDao.nearestUp(id, strArr);
+		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("nearestUp.users");
 	}
@@ -521,14 +526,18 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
-		String isbn = request.getParameter("isbn");
-		String[] strArr = isbn.split("/");
-		for (int i = 0; i < strArr.length; i++) {
-			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
-			strArr[i] += "/";
+		
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			String isbn = request.getParameter("isbn");
+			String[] strArr = isbn.split("/");
+			for (int i = 0; i < strArr.length; i++) {
+				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+				strArr[i] += "/";
+			}
+			int check = interestDao.nearestDel(id, strArr);
 		}
-		int check = interestDao.nearestDel(id, strArr);
+		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("nearestDel.users");
 
@@ -539,16 +548,17 @@ public class Service implements ServiceInterface {
 	public void wishList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
-		List<InterestDto> interestList = interestDao.wishListSelect(id);
-		int count = interestList.size();
-		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
-		LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
-		mav.addObject("interestList", interestList);
-		mav.addObject("count", count);
-		mav.addObject("id", id);
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			List<InterestDto> interestList = interestDao.wishListSelect(id);
+			int count = interestList.size();
+			LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
+			LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
+			mav.addObject("interestList", interestList);
+			mav.addObject("count", count);
+			mav.addObject("id", id);
+		}
 		mav.setViewName("wishList.users");
 
 	}
@@ -559,15 +569,18 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
-		String isbn = request.getParameter("isbn");
-		String[] strArr = isbn.split("/");
-		for (int i = 0; i < strArr.length; i++) {
-			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
-			strArr[i] += "/";
+		
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			String isbn = request.getParameter("isbn");
+			String[] strArr = isbn.split("/");
+			for (int i = 0; i < strArr.length; i++) {
+				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+				strArr[i] += "/";
+			}
+			int check = interestDao.wishListUp(id, strArr);
 		}
-		int check = interestDao.wishListUp(id, strArr);
-
+		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("wishListUp.users");
 	}
@@ -578,14 +591,17 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
-		String isbn = request.getParameter("isbn");
-		String[] strArr = isbn.split("/");
-		for (int i = 0; i < strArr.length; i++) {
-			LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
-			strArr[i] += "/";
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+			String isbn = request.getParameter("isbn");
+			String[] strArr = isbn.split("/");
+			for (int i = 0; i < strArr.length; i++) {
+				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
+				strArr[i] += "/";
+			}
+			int check = interestDao.wishListDel(id, strArr);
 		}
-		int check = interestDao.wishListDel(id, strArr);
+		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("wishListDel.users");
 
