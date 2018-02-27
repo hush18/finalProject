@@ -813,6 +813,7 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
 		
+		int check=0;
 		if(session.getAttribute("id")!=null) {
 			String id=(String) session.getAttribute("id");
 			String isbn = request.getParameter("isbn");
@@ -821,9 +822,10 @@ public class Service implements ServiceInterface {
 				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
-			int check = interestDao.nearestUp(id, strArr);
+			check = interestDao.nearestUp(id, strArr);
+		}else if(session.getAttribute("id")==null) {
+			check=-1;
 		}
-		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("nearestUp.users");
 	}
@@ -835,6 +837,7 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
 		
+		int check=0;
 		if(session.getAttribute("id")!=null) {
 			String id=(String) session.getAttribute("id");
 			String isbn = request.getParameter("isbn");
@@ -843,9 +846,10 @@ public class Service implements ServiceInterface {
 				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
-			int check = interestDao.nearestDel(id, strArr);
+			check = interestDao.nearestDel(id, strArr);
+		}else if(session.getAttribute("id")==null) {
+			check=-1;
 		}
-		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("nearestDel.users");
 
@@ -877,7 +881,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		
+		int check=0;
 		if(session.getAttribute("id")!=null) {
 			String id=(String) session.getAttribute("id");
 			String isbn = request.getParameter("isbn");
@@ -886,9 +890,10 @@ public class Service implements ServiceInterface {
 				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
-			int check = interestDao.wishListUp(id, strArr);
+			check = interestDao.wishListUp(id, strArr);
+		}else if(session.getAttribute("id")==null) {
+			check=-1;
 		}
-		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("wishListUp.users");
 	}
@@ -899,6 +904,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
+		int check=0;
 		if(session.getAttribute("id")!=null) {
 			String id=(String) session.getAttribute("id");
 			String isbn = request.getParameter("isbn");
@@ -907,9 +913,10 @@ public class Service implements ServiceInterface {
 				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
-			int check = interestDao.wishListDel(id, strArr);
+			check = interestDao.wishListDel(id, strArr);
+		}else if(session.getAttribute("id")==null) {
+			check=-1;
 		}
-		int check=-1;
 		mav.addObject("check", check);
 		mav.setViewName("wishListDel.users");
 

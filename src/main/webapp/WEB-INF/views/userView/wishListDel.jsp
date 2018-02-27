@@ -24,7 +24,7 @@
 	<c:if test="${check==-1 }">
 		<script type="text/javascript">
 			alert("로그인 하여 주시기 바랍니다.");
-			location.href="nearestList.do";
+			location.href="wishList.do";
 		</script> 
 	</c:if>
 </body>
