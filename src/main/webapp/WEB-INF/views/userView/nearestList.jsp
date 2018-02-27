@@ -167,8 +167,8 @@
 		<div class="main_sc">
 			<div class="bar_sc">
 				<div class="bar_ea_sc">총 개수:${count }개</div>
-				<button class="delete_sc" value="${id}">삭제</button>
-				<button class="cart_sc" value="${id}">장바구니 담기</button>
+				<button class="delete_sc" value="${mbId}">삭제</button>
+				<button class="cart_sc" value="${mbId}">장바구니 담기</button>
 				<div class="bar_check_sc">
 					<input type="checkbox" name="check" value="전체선택" class="checkAll_sc"/>
 					<label>전체선택</label>
@@ -182,7 +182,7 @@
 								<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
 								<input type="hidden" name="isbn" value="${interestDto.isbn}"/>
 							</div>
-							<img id="image" src="${interestDto.image_path }" width="150px" height="230px"/>
+							<img id="image" src="${interestDto.image_path }" width="150px" height="230px" onclick="javascript:location.href='bookInfo.do?isbn=${interestDto.isbn}'"/>
 							<div class="bookCon_sc">
 								<div class="bookCon_title_sc">${interestDto.title }</div>
 								<div class="bookCon_name_sc">${interestDto.name }</div>
