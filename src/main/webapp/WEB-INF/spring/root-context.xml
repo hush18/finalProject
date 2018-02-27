@@ -24,16 +24,19 @@
 				<value>classpath:com/team3/user/order/dao/mapper/OrderMapper.xml</value>
 				<value>classpath:com/team3/user/book/dao/mapper/BookMapper.xml</value>
 				<value>classpath:com/team3/admin/book/dao/mapper/AdminBookMapper.xml</value>
+				<value>classpath:com/team3/admin/cst/dao/mapper/AdminCstMapper.xml</value>
+				<value>classpath:com/team3/admin/faq/dao/mapper/AdminFaqMapper.xml</value>
 				<value>classpath:com/team3/admin/map/dao/mapper/mapMapper.xml</value>
 				<value>classpath:com/team3/user/interest/dao/mapper/InterestMapper.xml</value>
 				<value>classpath:com/team3/user/member/dao/mapper/MemberMapper.xml</value>
 				<value>classpath:com/team3/user/map/dao/mapper/PaymentMapper.xml</value>
-				<value>classpath:com/team3/admin/sales/dao/mapper/SalesMapper.xml</value>
-				<value>classpath:com/team3/user/faq/dao/mapper/FaqMapper.xml</value>
-				<value>classpath:com/team3/user/cst/dao/mapper/CstMapper.xml</value>
-				<value>classpath:com/team3/admin/faq/dao/mapper/AdminFaqMapper.xml</value>
+				<value>classpath:com/team3/admin/member/dao/mapper/MemberManageMapper.xml</value>
 				<value>classpath:com/team3/admin/nct/dao/mapper/AdminNctMapper.xml</value>
-				<value>classpath:com/team3/admin/cst/dao/mapper/AdminCstMapper.xml</value>
+				<value>classpath:com/team3/admin/sales/dao/mapper/SalesMapper.xml</value>
+				<value>classpath:com/team3/user/cst/dao/mapper/CstMapper.xml</value>
+				<value>classpath:com/team3/user/faq/dao/mapper/FaqMapper.xml</value>
+				<value>classpath:com/team3/user/main/dao/mapper/MainMapper.xml</value>
+				<value>classpath:com/team3/user/review/dao/mapper/ReviewMapper.xml</value>
 			</list>
 		</property>
 	</bean>

@@ -71,6 +71,11 @@ public interface ServiceInterface {
 	public void addAddress(ModelAndView mav);
 	public void deleteAddress(ModelAndView mav);
 	public void paymentOk(ModelAndView mav);
+	public void diapOK(ModelAndView mav);
+	public void memberManage(ModelAndView mav);
+	public void adminMemberDelete(ModelAndView mav);
+	public void adminMemberDeleteOK(ModelAndView mav);
+	public void searchHeader(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
 	public void loginMember(ModelAndView mav);

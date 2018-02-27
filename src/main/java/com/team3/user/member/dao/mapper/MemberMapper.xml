@@ -57,4 +57,10 @@
 	<select id="memberSelect" parameterType="String" resultType="com.team3.user.member.dto.MemberDto">
 		select * from member where id=#{id}
 	</select>
+	
+	<update id="diapOK" parameterType="java.util.Map">
+		<![CDATA[ update member set last_login=sysdate, diap='1' where id=#{id} and password=#{password} ]]>
+	</update>
+	
+	
 </mapper>

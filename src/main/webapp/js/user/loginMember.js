@@ -154,7 +154,7 @@ $(function(){
 	});
 
 	// 체크박스가 체크되있는 상태에서 아이디를 작성할 때 저장
-	$("input[name=id]").keyup(function() {
+	$("input[name=password]").keyup(function() {
 		if ($("input[name=pwd_remember]").is(":checked")) {
 			var userInputPwd = $("input[name=password]").val();
 			setCookie("userInputPwd", userInputPwd, 7);
