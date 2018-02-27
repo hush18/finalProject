@@ -22,7 +22,10 @@ import com.team3.admin.faq.dto.AdminFaqDto;
 import com.team3.admin.nct.dao.AdminNctDao;
 import com.team3.admin.nct.dto.AdminNctDto;
 import com.team3.aop.LogAspect;
+import com.team3.user.cst.dao.CstDao;
 import com.team3.user.cst.dto.CstDto;
+import com.team3.user.cstList.dao.CstListDao;
+import com.team3.user.cstList.dto.CstListDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.admin.book.dao.AdminBook;
 import com.team3.user.book.dao.BookDao;
@@ -81,6 +84,12 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private FaqDao faqDao;
+	
+	@Autowired
+	private CstDao cstDao;
+	
+	@Autowired
+	private CstListDao cstListDao;
 
 	/* NaverLoginBO */
 	@Autowired
@@ -330,15 +339,6 @@ public class Service implements ServiceInterface {
 	}
 
 	@Override
-	public void cstOk(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		CstDto cstDto = (CstDto) map.get("cstDto");
-
-		LogAspect.logger.info(LogAspect.logMsg);
-	}
-
-	@Override
 	public void adminFaqInsertOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -363,12 +363,6 @@ public class Service implements ServiceInterface {
 	public void adminFaqMain(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
-		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null)
-			pageNumber = "1";
-
-		int currentPage = Integer.parseInt(pageNumber);
 
 		int count = adminFaqDao.faqCount();
 		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -461,12 +455,6 @@ public class Service implements ServiceInterface {
 	public void adminNctMain(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
-		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null)
-			pageNumber = "1";
-
-		int currentPage = Integer.parseInt(pageNumber);
 
 		int count = adminNctDao.nctCount();
 		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -575,7 +563,7 @@ public class Service implements ServiceInterface {
 
 		mav.addObject("check", check);
 
-		mav.setViewName("adminNctInsertOk.admin");
+		mav.setViewName("adminCstInsertOk.admin");
 	}
 
 	@Override
@@ -1030,6 +1018,42 @@ public class Service implements ServiceInterface {
 
 		mav.addObject("faqDtoList", faqDtoList);
 		mav.setViewName("CustomerService_faq.users");
+	}
+	
+	@Override
+	public void cstList(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String id = (String)request.getAttribute("id");//mbId로 바꿔
+		
+//		List<CstListDto> cstList = cstListDao.cstList(id);
+//		LogAspect.logger.info(LogAspect.logMsg + cstList.toString());
+	}
+
+	@Override
+	public void cstOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		CstDto cstDto = (CstDto) map.get("cstDto");
+		HttpSession session = request.getSession();
+		cstDto.setId((String)session.getAttribute("id"));//mbId로 바꿔
+		int emailing = Integer.parseInt(request.getParameter("emailing"));
+		cstDto.setUp_category(cstDto.getUp_category().replace(",", ""));
+		cstDto.setDown_category(cstDto.getDown_category().replace(",", ""));
+		if(emailing==0) {
+			cstDto.setEmail("X");
+		}
+		if(cstDto.getCounsel_product()==null) {
+			cstDto.setCounsel_product("X");
+		}
+		if(cstDto.getOrder_number()==null) {
+			cstDto.setOrder_number("X");
+		};
+		LogAspect.logger.info(LogAspect.logMsg + cstDto.toString());
+		
+		int check = cstDao.userInsert(cstDto);
+		mav.addObject("check",check);
+		mav.setViewName("CustomerService_cstOk.users");
 	}
 
 	@Override

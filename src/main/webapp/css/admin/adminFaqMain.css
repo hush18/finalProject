@@ -108,3 +108,8 @@
 .bossrow_ej th{
 	vertical-align: middle !important;
 }
+
+.topten_ej{
+    margin: 0 0 0 15px;
+    border-color: #5cb38b;
+}

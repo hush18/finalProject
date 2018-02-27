@@ -309,8 +309,10 @@ public class ProController {
 
 	@RequestMapping(value = "/CustomerService_consultingList.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_consultingList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("CustomerService_consultingList.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.cstList(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/CustomerService_faq.do", method = RequestMethod.GET)

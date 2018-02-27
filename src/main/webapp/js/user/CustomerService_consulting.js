@@ -15,17 +15,17 @@ $(function(){
 	$(".conpop1_ej").hide();
 	$(".conpop2_ej").hide();
 	
-	var consulting = ["member","product","payment","cancel","order","delivery","saving"];
+	var consulting = ["회원","상품","입금/결제","취소/교환/환불","주문","배송","적립"];
 	$(".consulting_sub2_ej input").click(function(){
 		$(".consulting_sub2_1_ej").hide();
 		$(".conpop1_ej").hide();
 		$(".conpop2_ej").hide();
 		$.each(consulting, function(i,e){
-			if($(".consulting_sub2_ej input:radio[name=consulting]:checked").val()==e){
-				$("#"+e).show();
-				if(e=="product"){
+			if($(".consulting_sub2_ej input:radio[name=up_category]:checked").val()==e){
+				$("#"+e.substring(0,2)).show();
+				if(e=="상품"){
 					$(".conpop1_ej").show();
-				}else if(e=="payment"||e=="cancel"||e=="order"||e=="delivery"){
+				}else if(e=="입금/결제"||e=="취소/교환/환불"||e=="주문"||e=="배송"){
 					$(".conpop2_ej").show();
 				}
 			}

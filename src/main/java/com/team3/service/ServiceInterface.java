@@ -10,7 +10,6 @@ public interface ServiceInterface {
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
-	public void cstOk(ModelAndView mav);
 	public void adminFaqInsertOk(ModelAndView mav);
 	public void adminFaqMain(ModelAndView mav);
 	public void adminFaqUpdate(ModelAndView mav);
@@ -57,6 +56,8 @@ public interface ServiceInterface {
 	public void userMapRead(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
+	public void cstOk(ModelAndView mav);
+	public void cstList(ModelAndView mav);
 	public void loginMember(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;

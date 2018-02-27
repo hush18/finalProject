@@ -1,4 +1,4 @@
-package com.team3.user.cst.dao;
+package com.team3.user.cstList.dao;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.team3.aop.LogAspect;
 import com.team3.user.cst.dto.CstDto;
 
 @Component
-public class CstDaoImp implements CstDao {
+public class CstListDaoImp implements CstListDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;

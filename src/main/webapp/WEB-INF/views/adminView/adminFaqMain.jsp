@@ -108,10 +108,10 @@
 													</td>
 													<td class="">
 														<c:if test="${list.is_top_ten eq '0'}">
-															<button type="button" class="btn btn-success btn-xs" style="margin-left: 15px; border-color: #5cb38b;" onclick="location.href='adminFaqTopInsert.do?faq_number=${list.faq_number}'">추가</button>
+															<button type="button" class="btn btn-success btn-xs topten_ej" onclick="location.href='adminFaqTopInsert.do?faq_number=${list.faq_number}'">추가</button>
 														</c:if>
 														<c:if test="${list.is_top_ten eq '1'}">
-															<button type="button" class="btn btn-success btn-xs" style="margin-left: 15px; border-color: #5cb38b;" onclick="location.href='adminFaqTopDelete.do?faq_number=${list.faq_number}'">삭제</button>
+															<button type="button" class="btn btn-success btn-xs topten_ej" onclick="location.href='adminFaqTopDelete.do?faq_number=${list.faq_number}'">삭제</button>
 														</c:if>
 													</td>
 												</tr>

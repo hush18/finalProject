@@ -150,15 +150,17 @@
 							<div>상담명</div>
 							<div>답변유무</div>
 						</div>
-						<c:forEach var="i" begin="1" end="10">
+						<c:set value="0" var="count" />
+						<c:forEach var="${}" var="list">
 							<div class="list_ej">
-								<div class="listrow_ej number${i}_ej">
+								<div class="listrow_ej number${count}_ej">
 									<span class="listcell1_ej">2018-02-13</span>
 									<span class="listcell2_ej">회원&nbsp;>&nbsp;회원가입</span>
 									<span class="listcell3_ej">회원가입은 어떻게 하나요?</span>
 									<span class="listcell4_ej">O</span>
 								</div>
 							</div>
+							<c:set var="count" value="${count + 1}" />
 						</c:forEach>
 						<div class="page_ej">< 페이지 ></div>
 					</div>

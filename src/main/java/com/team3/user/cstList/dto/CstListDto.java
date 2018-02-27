@@ -1,8 +1,8 @@
-package com.team3.user.cst.dto;
+package com.team3.user.cstList.dto;
 
 import java.util.Date;
 
-public class CstDto {
+public class CstListDto {
 	private int counsel_number;
 	private String id;
 	private String title;
