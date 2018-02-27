@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+body{
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+.widthline{
+	margin: 0 auto;
+	width: 1000px;
+}
+.h2-hr {
+	padding-bottom:10px;
+	margin-top:5px;
+	font-size:1.5em;
+	color: #3c7b5e;
+	border-bottom: 1px solid #ddd;
+}
+/* 주문상품확인 */
+.order_item_Confirm_yk{
+	width: 100%;
+	height: 170px;
+	margin-top: -18px;
+}
+.order_item_subject_yk >div{
+	background-color: #d7d7d721;
+	color: #9c9c9c;
+	font-size: 1.17em;
+}
+.order_item_subject_yk >div, .order_item_list_yk >div{
+	display: inline-block;
+	text-align: center;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    float: left;
+}
+.order_item_subject_yk div{
+	height: 50px;
+	line-height: 50px;
+}
+.order_item_list_yk div {
+	height: 100px;
+	line-height: 100px;
+}
+/* 주문상품확인 */
+
+/* 배송지 정보, 주문자 정보 */
+.Shipping_Information_yk{
+	width: 100%;
+	height: 355px;
+	margin-top:-18px;
+}
+.Shipping_Information_yk > div{
+	float: left;
+}
+.Shipping_subject_yk > div{
+	background-color: #d7d7d721;
+	font-size: 1.17em;
+	color: #9c9c9c;
+}
+.Shipping_subject_yk > div ,.Shipping_input_yk>div {
+	height: 50px;
+	line-height: 50px;
+}
+.Shipping_subject_yk{
+	width: 20%;
+	text-align: center;
+}
+.Shipping_subject_yk>div{
+	border-right: 0.1px solid #ddd;
+	border-bottom:0.1px solid #ddd;
+}
+.Shipping_input_yk{
+	width: 55%;
+}
+.Shipping_input_yk>div{
+	border-right: 0.1px solid #ddd;
+	border-bottom:0.1px solid #ddd;
+}
+
+.order_Information_yk{
+	width: 24%;
+	border-bottom:0.1px solid #ddd;
+	height: 350.5px;
+	background-color: #5cb38b38;
+}
+.order_Information_yk>div{
+	line-height: 50px;
+	margin-left: 20px;
+}
+/* 배송지 정보, 주문자 정보 */
+
+/* 결제창 */
+.payment_Information_yk{
+	margin-top: 25px;
+	height: 160px;
+}
+.payment_subject_yk>div{
+	background-color: #d7d7d721;
+	height: 50px;
+	line-height: 50px;
+	color: #9c9c9c;
+	font-size: 1.17em;
+}
+.payment_subject_yk>div{
+	font-size: 1.17em;
+}
+.payment_subject_yk>div,.payment_detail_yk>div{
+	width: 24%;
+	display: inline-block;
+	text-align: center;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	float: left;
+}
+.payment_detail_yk>div{
+	height: 80px;
+	line-height: 80px;
+}
+.payment_detail_yk > div{
+	font-size: 1.17em;
+}
+.icon_yk{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+/* 결제창 */
+
+/*결제정보*/
+.how_to_pay_yk{
+	width:100%;
+	height: 200px;
+	margin-top: -18px;
+}
+.payment_choice_yk{
+	background-color: #5cb38b38;
+	height: 50px;
+	line-height: 50px;
+	font-size: 1.17em;
+}
+.payment_choice_yk>input{
+	margin-left: 120px;
+}
+.payment_Detail_input_yk{
+	width: 100%;
+	background-color: #d7d7d721;
+}
+.payment_Detail_input_yk>div{
+	margin: 0px auto;
+	padding-top: 10px;
+}
+.payment_Detail_input_yk > div > div{
+	margin-bottom: 10px;
+}
+.payment_Detail_input_yk>div>div>div{
+	display: inline-table;
+}
+.payment_Detail_display_yk{
+	display: none;
+}
+/*결제정보*/
+
+/*결제 버튼*/
+.btn_div_yk{
+	width: 50%;
+	height: 150px;
+	margin: 0px auto;
+	text-align: center;
+}
+
+
+/*결제 버튼*/
+
+

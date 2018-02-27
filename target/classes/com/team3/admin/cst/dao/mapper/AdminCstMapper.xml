@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.team3.admin.cst.dao.mapper">
+  	<select id="cstCount" resultType="int">
+		<![CDATA[select count(*) from counsel]]>
+	</select>
+	
+	<select id="cstList" resultType="com.team3.admin.cst.dto.AdminCstDto">
+  		<![CDATA[select * from(select rownum rnum, a.* from counsel a)]]>
+  	</select>
+  	
+  	<update id="cstInsert" parameterType="com.team3.admin.cst.dto.AdminCstDto">
+  		<![CDATA[update counsel set admin_content=#{admin_content}, reply_check='O', Awrite_date=sysdate where counsel_number=#{counsel_number}]]>
+  	</update>
+  	
+  	<update id="cstUpdate" parameterType="com.team3.admin.cst.dto.AdminCstDto">
+  		<![CDATA[update counsel set admin_content=#{admin_content}, Awrite_date=sysdate where counsel_number=#{counsel_number}]]>
+  	</update>
+  	
+  	<delete id="cstDeleteOk" parameterType="String">
+		delete from counsel where counsel_number=#{counsel_number}
+	</delete>
+  </mapper>

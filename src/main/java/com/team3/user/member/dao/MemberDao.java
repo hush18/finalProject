@@ -21,4 +21,5 @@ public interface MemberDao {
 	public String findId(String name, String email);
 	public String findPwd(String id);
 	public MemberDto memberSelect(String id);
+	public int diapOK(Map<String, Object> hmap);
 }

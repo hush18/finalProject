@@ -25,27 +25,38 @@ $(function() {
 	});
 
 	$(".floatred_ej").hide();
-
-	$(".parent").each(function(i, e) {
-		$("#plus_ej" + i).click(function() {
-			$(this).hide();
-			$("#minus_ej" + i).show();
-
-			var tr = $("<tr class='child content_ej" + i + "'></tr>");
-			tr.append("<td class='child_ej' colspan='1'><span>내용</span></td>");
-			tr.append("<td colspan='3'><span></span></td>");
-
-			$(this).closest("tr").after(tr);
-
-		});
-	});
-
-	$(".parent").each(function(i, e) {
-		$("#minus_ej" + i).click(function() {
-			$(this).hide();
-			$("#plus_ej" + i).show();
-
-			$(".content_ej" + i).remove();
-		});
-	});
 });
+
+function adminNctDelete(pageNumber) {
+	var checked = [];
+	$('input:checkbox[name="table_records"]').each(function() {
+		$('input:checkbox[name="table_records"]').is(":checked") == true; // checked
+		// 처리
+		if (this.checked) {// checked 처리된 항목의 값
+			checked.push(this.value);
+		}
+	});
+	$(location).attr("href","adminNctDeleteOk.do?checked=" + checked);
+}
+
+function plus(content, id) {
+	$("#plus_ej" + id).hide();
+	$("#minus_ej" + id).show();
+
+	var tr = $("<tr class='child content_ej" + id + " content_ej'></tr>");
+	tr.append("<td style='display:none'></td>");
+	tr.append("<td style='display:none'></td>");
+	tr.append("<td class='child_ej' colspan='1'><span>내용</span></td>");
+	tr.append("<td colspan='3'><span>" + content + "</span></td>");
+	$("#plus_ej" + id).closest("tr").after(tr);
+	
+	$(".content_ej").not($(".content_ej" + id)).remove();
+	$(".floatred_ej").not($("#minus_ej" + id)).css("display", "none");
+	$(".floatgreen_ej").not($("#plus_ej" + id)).css("display", "inline");
+}
+
+function minus(id){
+	$(".content_ej"+id).remove();
+	$("#minus_ej" + id).hide();
+	$("#plus_ej" + id).show();
+}

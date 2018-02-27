@@ -4,22 +4,12 @@
 <script type="text/javascript" src="jquery_ui/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
 <script type="text/javascript" src="js/user/header.js"></script>
+<script type="text/javascript" src="js/xhr/xhr.js"></script>
 
 <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
 <link rel="stylesheet" href="css/user/header.css">
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<script>
-	$(function() {
-		var arrStr = [ "치킨", "퇴근", "칼퇴", "산책", "마운틴북", "mountainbook", "apple",
-				"callme", "lipstick", "볼펜", "집", "저녁", "식사", "목요일", "주말",
-				"불타는금요일", "hungry", "americano" ];
-		$("#search_mh").autocomplete({
-			source : arrStr,
-			autoFocus : true
-		});
-	});
-</script>
 <script type="text/javascript">
 	$(function() {
 		var jbOffset = $('.mainMenu-iy').offset();
@@ -33,6 +23,8 @@
 				$('.mainMenu-iy hr').css("margin-bottom", "30px");
 			}
 		});
+		
+		
 	});
 </script>
 </head>
@@ -41,7 +33,7 @@
 	<div class="topMenu-iy">
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
-				<c:if test="${id==null }">
+				<c:if test="${mbId==null }">
 					<li>
 						<a href="loginMember.do">로그인</a>
 					</li>
@@ -50,9 +42,9 @@
 					</li>
 				</c:if>
 
-				<c:if test="${id!=null }">
+				<c:if test="${mbId!=null }">
 					<li>
-						<a href="myPage.do">${id } 님</a>
+						<a href="myPage.do">${mbId } 님</a>
 					</li>
 					<li>
 						<a href="logoutMember.do">로그아웃</a>
@@ -107,26 +99,18 @@
 				<li>
 					<a href="Map.do">영업점안내</a>
 				</li>
-				<li>
-					<a href="adminBookSearch.do">(관리자메뉴)</a>
-					<ul class="ul-iy">
-						<li>
-							<a href="adminBookSearch.do">도서관리</a>
-						</li>
-						<li>
-							<a href="adminMemberManage.do">회원관리</a>
-						</li>
-						<li>
-							<a href="adminSales.do">매출관리</a>
-						</li>
-						<li>
-							<a href="adminFaqMain.do">고객문의관리</a>
-						</li>
-						<li>
-							<a href="adminOrderSearch.do">주문관리</a>
-						</li>
-					</ul>
-				</li>
+				
+				<%-- <c:if test="${member_number!=null && member_number<1000}"> --%>
+					<li><a href="adminBookSearch.do">(관리자메뉴)</a>
+						<ul class="ul-iy">
+							<li><a href="adminBookSearch.do">도서관리</a></li>
+							<li><a href="adminMemberManage.do">회원관리</a></li>
+							<li><a href="adminSales.do">매출관리</a></li>
+							<li><a href="adminFaqMain.do">고객문의관리</a></li>
+							<li><a href="adminOrderSearch.do">주문관리</a></li>
+						</ul></li>
+				<%-- </c:if> --%>
+				
 			</ul>
 		</div>
 	</div>

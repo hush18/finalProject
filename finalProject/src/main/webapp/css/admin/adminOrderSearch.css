@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+
+
+.row{
+	margin-bottom: 5px;
+}
+
+.even >td, .odd >td{
+	text-align: center;
+	vertical-align: middle;
+	line-height: normal;
+	padding-top: 12px !important;
+}
+.even >td:last-child, .odd >td:last-child{
+	padding-top: 8px !important;
+}
+
+.even button, .odd button{
+	margin-bottom: 0px;
+}
+
+.even select, .odd select{
+	vertical-align: middle;
+}
+
+.btn-all {
+	float: right;
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width:78px;
+	height: 30px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+.btn-all:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn-all:before, .btn-all:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn-all:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn-all:hover:before, .btn-all:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.block_btn_hy{
+	background: #5cb38b;
+	color: #fff;
+	position: relative;
+	cursor: pointer;
+	padding: 4px 0.5em;	
+	font-size: 12px;
+	border-radius: 3px;
+	outline: none;
+	border:0px;
+	margin-right: 1.5px;
+	margin-left: 1.5px;
+}
+
+.thead_hy th{
+	text-align: center;
+}
+
+.text_left_hy{
+	text-align: left !important;
+}
+.text_right_hy{
+	text-align: right !important;
+}

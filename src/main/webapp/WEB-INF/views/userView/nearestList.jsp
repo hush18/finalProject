@@ -61,7 +61,7 @@
 		<div class="path_sc">홈 > 관심리스트 > 최근 본 상품</div>
 		
 		<!-- 사이드메뉴 -->
-		<div class="side_mh">
+		<div class="side_mh" style="margin-bottom: 100px;">
 		<div class="category_mh">
 			<div>
 				<!-- 주문관리 -->

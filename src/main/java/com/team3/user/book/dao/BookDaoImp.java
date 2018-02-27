@@ -47,4 +47,10 @@ public class BookDaoImp implements BookDao {
 	public WriterDto getWriterInfo(long writer_number) {
 		return sqlSession.selectOne("getWriterInfo", writer_number);
 	}
+	
+	@Override
+	public List<BookDto> bookListMH() {
+		return sqlSession.selectList("bookListMH");
+	}
+	
 }
