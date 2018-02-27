@@ -3,6 +3,7 @@
  -->
  
  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 회원관리</title>
@@ -50,179 +51,29 @@
 											</tr>
 										</thead>
 
-
 										<tbody>
+											<c:forEach var="memberList" items="${memberList }">
 											<tr>
-												<td>Tiger Nixon</td>
-												<td>System Architect</td>
-												<td>Edinburgh</td>
-												<td>2011/04/25</td>
-												<td>$320,800</td>
-												<td>휴면</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
+												<td>${memberList.id }</td>
+												<td>${memberList.email }</td>
+												<td>${memberList.name }</td>
+												<td>${memberList.point }</td>
+												<td>${memberList.block_count }</td>
+												<td>
+													<c:if test="${memberList.diap eq '1' }">
+														-
+													</c:if>
+													<c:if test="${memberList.diap eq '0' }">
+														휴면
+													</c:if>
+												</td>
+												<td>
+													<button type="button" class="btn btn-success btn-xs" onclick="deleteForm('${memberList.member_number}')" style="margin-left: 15px;">
+														삭제
+													</button>
+												</td>
 											</tr>
-											<tr>
-												<td>Garrett Winters</td>
-												<td>Accountant</td>
-												<td>Tokyo</td>
-												<td>2011/07/25</td>
-												<td>$170,750</td>
-												<td>휴면</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Ashton Cox</td>
-												<td>Junior Technical Author</td>
-												<td>San Francisco</td>
-												<td>2009/01/12</td>
-												<td>$86,000</td>
-												<td>휴면</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Cedric Kelly</td>
-												<td>Senior Javascript Developer</td>
-												<td>Edinburgh</td>
-												<td>2012/03/29</td>
-												<td>$433,060</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Airi Satou</td>
-												<td>Accountant</td>
-												<td>Tokyo</td>
-												<td>2008/11/28</td>
-												<td>$162,700</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Brielle Williamson</td>
-												<td>Integration Specialist</td>
-												<td>New York</td>
-												<td>2012/12/02</td>
-												<td>$372,000</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Herrod Chandler</td>
-												<td>Sales Assistant</td>
-												<td>San Francisco</td>
-												<td>2012/08/06</td>
-												<td>$137,500</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Rhona Davidson</td>
-												<td>Integration Specialist</td>
-												<td>Tokyo</td>
-												<td>2010/10/14</td>
-												<td>$327,900</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Colleen Hurst</td>
-												<td>Javascript Developer</td>
-												<td>San Francisco</td>
-												<td>2009/09/15</td>
-												<td>$205,500</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Sonya Frost</td>
-												<td>Software Engineer</td>
-												<td>Edinburgh</td>
-												<td>2008/12/13</td>
-												<td>$103,600</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Jena Gaines</td>
-												<td>Office Manager</td>
-												<td>London</td>
-												<td>2008/12/19</td>
-												<td>$90,560</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Quinn Flynn</td>
-												<td>Support Lead</td>
-												<td>Edinburgh</td>
-												<td>2013/03/03</td>
-												<td>$342,000</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Charde Marshall</td>
-												<td>Regional Director</td>
-												<td>San Francisco</td>
-												<td>2008/10/16</td>
-												<td>$470,600</td>
-												<td>휴면</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Haley Kennedy</td>
-												<td>Senior Marketing Designer</td>
-												<td>London</td>
-												<td>2012/12/18</td>
-												<td>$313,500</td>
-												<td>휴면</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Tatyana Fitzpatrick</td>
-												<td>Regional Director</td>
-												<td>London</td>
-												<td>2010/03/17</td>
-												<td>$385,750</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Michael Silva</td>
-												<td>Marketing Designer</td>
-												<td>London</td>
-												<td>2012/11/27</td>
-												<td>$198,500</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Paul Byrd</td>
-												<td>Chief Financial Officer (CFO)</td>
-												<td>New York</td>
-												<td>2010/06/09</td>
-												<td>$725,000</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Gloria Little</td>
-												<td>Systems Administrator</td>
-												<td>New York</td>
-												<td>2009/04/10</td>
-												<td>$237,500</td>
-												<td>-</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
-											<tr>
-												<td>Bradley Greer</td>
-												<td>Software Engineer</td>
-												<td>London</td>
-												<td>2012/10/13</td>
-												<td>$132,000</td>
-												<td>휴면</td>
-												<td><button type="button" class="btn btn-success btn-xs" style="margin-left: 15px;">삭제</button></td>
-											</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -331,4 +182,9 @@
 
 			TableManageButtons.init();
 		});
+		
+		function deleteForm(member_number){
+			var url="adminMemberDelete.do?member_number="+member_number;
+			window.open(url,"","width=600, height=450, location=1, top=100px, left=500px");
+		}
 	</script>

@@ -66,6 +66,11 @@ public interface ServiceInterface {
 	public void scrollBanner(ModelAndView mav);
 	public void adminSales(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
+	public void diapOK(ModelAndView mav);
+	public void memberManage(ModelAndView mav);
+	public void adminMemberDelete(ModelAndView mav);
+	public void adminMemberDeleteOK(ModelAndView mav);
+	public void searchHeader(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
 	public void loginMember(ModelAndView mav);

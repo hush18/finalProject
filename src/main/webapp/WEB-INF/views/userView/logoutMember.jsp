@@ -8,9 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:remove var="id" scope="session"/>
-	<c:remove var="name" scope="session"/>
-	<c:remove var="email" scope="session"/>
+	<c:remove var="mbId" scope="session"/>
+	<c:remove var="mbName" scope="session"/>
+	<c:remove var="mbEmail" scope="session"/>
+	<c:remove var="member_number" scope="session"/>
 	
 	<script type="text/javascript">
 		alert("로그아웃 되었습니다.");

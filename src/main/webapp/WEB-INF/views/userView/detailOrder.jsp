@@ -12,7 +12,13 @@
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
-	
+	$(function() {
+		$("#titleClick").click(function() {
+			var isbn=$(this).next().val();
+			var url="bookInfo.do?isbn="+isbn;
+			$(location).attr('href', url);
+		});
+	});
 </script>
 </head>
 
@@ -150,7 +156,8 @@
 						<div class="list_hy">
 							<c:forEach var="detailList" items="${detailList}">
 								<div class="detail_list_con_hy">
-									<div class="title_hy">${detailList.title }</div>
+									<div class="title_hy" id="titleClick">${detailList.goods_name }</div>
+									<input type="hidden" name="isbn" value="${detailList.isbn }"/>
 									<div>${detailList.order_account }권</div>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy-MM-dd"/></div>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.maybe_date}" pattern="yyyy-MM-dd"/></div>

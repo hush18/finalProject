@@ -1,17 +1,21 @@
 package com.team3.service;
 
+
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
-
 import java.io.*;
 import java.util.*;
 import java.text.*;
 import javax.servlet.http.*;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.*;
@@ -36,10 +40,14 @@ import com.team3.user.book.dto.CategoryDto;
 import com.team3.user.book.dto.WriterDto;
 import com.team3.admin.map.dao.AdminMapDao;
 import com.team3.admin.map.dto.MapDto;
+import com.team3.admin.member.dao.MemberManageDao;
 import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.admin.sales.dao.SalesDao;
 import com.team3.admin.sales.dto.SalesDto;
 
+import com.team3.aop.LogAspect;
+import com.team3.user.book.dao.BookDao;
+import com.team3.user.book.dto.BookDto;
 import com.team3.user.oauth.bo.FacebookLoginBO;
 import com.team3.user.oauth.bo.NaverLoginBO;
 import com.team3.user.faq.dao.FaqDao;
@@ -71,8 +79,6 @@ public class Service implements ServiceInterface {
 	@Autowired
 	private AdminCstDao adminCstDao;
 
-	@Autowired
-	private BookDao bookDao;
 
 	@Autowired
 	private AdminBook adminBook;
@@ -86,6 +92,12 @@ public class Service implements ServiceInterface {
 	@Autowired
 	private AdminMapDao adminMapDao;
 
+	@Autowired
+	private BookDao bookDao;
+	
+	@Autowired
+	private MemberManageDao memberManageDao;
+	
 	@Autowired
 	private MapDao mapDao;
 
@@ -210,7 +222,7 @@ public class Service implements ServiceInterface {
 		int check = memberDao.deleteAccount(memberDto);
 
 		HttpSession session = request.getSession();
-		session.removeAttribute("id");
+		session.removeAttribute("mbId");
 		session.removeAttribute("password");
 
 		mav.addObject("check", check);
@@ -279,51 +291,52 @@ public class Service implements ServiceInterface {
 		mav.addObject("authNum", authNum);
 		mav.setViewName("searchPwd.empty");
 	}
+	
+	//회원로그인하기
+		@Override
+		public void memberLoginOK(ModelAndView mav) {
+			Map<String, Object> map = mav.getModelMap();
+			HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-	@Override
-	public void memberLoginOK(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
+			LogAspect.logger.info(LogAspect.logMsg + "로그인시작:" + id + "\t" + password);
 
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		LogAspect.logger.info(LogAspect.logMsg + "로그인시작:" + id + "\t" + password);
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap.put("id", id);
+			hmap.put("password", password);
 
-		Map<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("id", id);
-		hmap.put("password", password);
+			// 마지막 로그인날짜 비교하기(휴면계정)
+			Date last_login = memberDao.memberDate(hmap);
+			int check = 0;
+			MemberDto memberDto = null;
+			if (last_login != null) {
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date now = sdf.parse(sdf.format(new Date().getTime()));
 
-		// 마지막 로그인날짜 비교하기(휴면계정)
-		Date last_login = memberDao.memberDate(hmap);
-		int check = 0;
-		MemberDto memberDto = null;
-		if (last_login != null) {
-			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date now = sdf.parse(sdf.format(new Date().getTime()));
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(last_login);
+					cal.add(Calendar.DATE, 7);
+					Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+					System.out.println(loginYear);
 
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 7);
-				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
-				System.out.println(loginYear);
+					if (now.compareTo(loginYear) < 0) {
+						memberDto = memberDao.memberLoginOK(hmap);
+						LogAspect.logger.info(LogAspect.logMsg + "로그인확인:" + memberDto.toString());
 
-				if (now.compareTo(loginYear) < 0) {
-					memberDto = memberDao.memberLoginOK(hmap);
-					LogAspect.logger.info(LogAspect.logMsg + "로그인확인:" + memberDto.toString());
+					} else {
+						check = memberDao.memberDiap(hmap);
+					}
 
-				} else {
-					check = memberDao.memberDiap(hmap);
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-
-			} catch (ParseException e) {
-				e.printStackTrace();
 			}
+			mav.addObject("check", check);
+			mav.addObject("memberDto", memberDto);
+			mav.setViewName("loginMemberOK.users");
 		}
-		mav.addObject("check", check);
-		mav.addObject("memberDto", memberDto);
-		mav.setViewName("loginMemberOK.users");
-	}
 
 	@Override
 	public void zipcode(ModelAndView mav) {
@@ -803,8 +816,8 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			List<InterestDto> interestList = interestDao.nearestSelect(id);
 			int count = interestList.size();
 			LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -824,8 +837,8 @@ public class Service implements ServiceInterface {
 		HttpSession session = request.getSession(); //세션받기 ID
 		
 		int check=0;
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
@@ -833,7 +846,7 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestUp(id, strArr);
-		}else if(session.getAttribute("id")==null) {
+		}else if(session.getAttribute("mbId")==null) {
 			check=-1;
 		}
 		mav.addObject("check", check);
@@ -848,8 +861,8 @@ public class Service implements ServiceInterface {
 		HttpSession session = request.getSession(); //세션받기 ID
 		
 		int check=0;
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
@@ -857,7 +870,7 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestDel(id, strArr);
-		}else if(session.getAttribute("id")==null) {
+		}else if(session.getAttribute("mbId")==null) {
 			check=-1;
 		}
 		mav.addObject("check", check);
@@ -871,8 +884,8 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			List<InterestDto> interestList = interestDao.wishListSelect(id);
 			int count = interestList.size();
 			LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -892,8 +905,8 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
 		int check=0;
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
@@ -901,7 +914,7 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListUp(id, strArr);
-		}else if(session.getAttribute("id")==null) {
+		}else if(session.getAttribute("mbId")==null) {
 			check=-1;
 		}
 		mav.addObject("check", check);
@@ -915,8 +928,8 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
 		int check=0;
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
@@ -924,7 +937,7 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListDel(id, strArr);
-		}else if(session.getAttribute("id")==null) {
+		}else if(session.getAttribute("mbId")==null) {
 			check=-1;
 		}
 		mav.addObject("check", check);
@@ -944,7 +957,8 @@ public class Service implements ServiceInterface {
 		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
 		// mav.setViewName("userMain.users");
 	}
-
+	
+	//회원 아이디 찾기
 	@Override
 	public void findIdOK(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -960,13 +974,14 @@ public class Service implements ServiceInterface {
 		mav.addObject("id", id);
 		mav.setViewName("findIdOK.empty");
 	}
-
+	
+	//비밀번호 찾기
 	@Override
 	public void searchPwdOK(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-		String id = request.getParameter("id");
+		String id = request.getParameter("mbId");
 		String password = memberDao.findPwd(id);
 		LogAspect.logger.info(LogAspect.logMsg + password);
 
@@ -980,7 +995,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
+		String id=(String) session.getAttribute("mbId");
 		String isbn = request.getParameter("isbn");
 
 		String[] strArr = isbn.split("/");
@@ -1002,7 +1017,7 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String isbn = request.getParameter("isbn");
 		HttpSession session = request.getSession(); //세션받기 ID
-		String id=(String) session.getAttribute("id");
+		String id=(String) session.getAttribute("mbId");
 		interestDao.nearestInsert(id, isbn);
 	}
 
@@ -1012,8 +1027,8 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		HttpSession session = request.getSession();		//세션받기 ID
-		if(session.getAttribute("id")!=null) {
-			String id=(String) session.getAttribute("id");
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
 			List<InterestDto> scrollList=interestDao.scrollSelect(id);
 			int scrollCount=scrollList.size();
 			if(scrollList.size() > 2) scrollCount=2;
@@ -1045,6 +1060,146 @@ public class Service implements ServiceInterface {
 		mav.addObject("mapList", mapList);
 		mav.setViewName("Map.users");
 	}
+	
+	//휴면계정해지하기
+	@Override
+	public void diapOK(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		String id=request.getParameter("id");
+		String password=request.getParameter("password");
+		
+		Map<String, Object> hmap=new HashMap<String, Object>();
+		hmap.put("id", id);
+		hmap.put("password", password);
+		
+		int check=0;
+		Date last_login=memberDao.memberDate(hmap);
+		if (last_login != null) {
+			try {
+				check=-1;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date now = sdf.parse(sdf.format(new Date().getTime()));
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(last_login);
+				cal.add(Calendar.DATE, 1);
+				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+				System.out.println(loginYear);
+
+				if (now.compareTo(loginYear) > 0) {
+					check = memberDao.diapOK(hmap);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		LogAspect.logger.info(LogAspect.logMsg + "휴면해지했수꽈? " + check);
+		mav.addObject("check", check);
+		mav.setViewName("diapOK.empty");
+	}
+	
+	//회원관리(관리자)
+		@Override
+		public void memberManage(ModelAndView mav) {
+			List<MemberDto> memberList=memberManageDao.memberManage();
+			LogAspect.logger.info(LogAspect.logMsg +memberList.size());
+			int check=0;
+			
+			for (int i = 0; i < memberList.size(); i++) {
+				Date last_login=memberList.get(i).getLast_login();
+
+				// 휴면계정 처리하기
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date now = sdf.parse(sdf.format(new Date().getTime()));
+
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(last_login);
+					cal.add(Calendar.DATE, 7);
+					Date loginYear = sdf.parse(sdf.format(cal.getTime()));
+					System.out.println(loginYear);
+
+					if (now.compareTo(loginYear) > 0) {
+						check = memberManageDao.memberDiapCheck();
+					}
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			mav.addObject("memberList", memberList);
+			mav.setViewName("adminMemberManage.admin");
+		}
+		
+		//회원 삭제하기 (관리자)
+		@Override
+		public void adminMemberDelete(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			mav.addObject(map.get("member_number"));
+			mav.setViewName("adminMemberDelete.adminEmpty");
+		}
+		
+		@Override
+		public void adminMemberDeleteOK(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			HttpServletRequest request=(HttpServletRequest) map.get("request");
+			
+			int member_number=Integer.parseInt(request.getParameter("member_number"));
+			String password=request.getParameter("password");
+			int check=0;
+			
+			List<MemberDto> abminPassword=memberManageDao.adminGetPassword();
+			
+			for(int i=0; i<abminPassword.size(); i++) {
+				if(password.equals(abminPassword.get(i).getPassword())) {
+					check = memberManageDao.adminMemberDelete(member_number);
+				}
+			}
+			
+			mav.addObject("check", check);
+			mav.setViewName("adminMemberDeleteOK.adminEmpty");
+		}
+		
+		//Header 도서, 저자 검색하기
+		@Override
+		public void searchHeader(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			HttpServletResponse response=(HttpServletResponse) map.get("response");
+			
+			List<BookDto> bookList=bookDao.bookListMH();
+			LogAspect.logger.info(LogAspect.logMsg+bookList.size());
+			
+			
+			try {
+				JSONArray arrTitle=new JSONArray();
+				JSONArray arrName=new JSONArray();
+				String jsonStr=null;
+				/*HashMap<String, String> hmap=null;*/
+				
+				for(int i=0; i<bookList.size(); i++) {
+					BookDto bookDto=bookList.get(i);
+					
+					String searchValue = bookDto.getTitle() + " - " + bookDto.getName();
+					
+					arrTitle.add(searchValue);
+				}
+				
+				
+				jsonStr=JSONValue.toJSONString(arrTitle);
+				response.setContentType("application/x-json;charset=utf-8");
+				PrintWriter out=response.getWriter();
+				out.print(jsonStr);
+				out.flush();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 
 	@Override
 	public void getTopTen(ModelAndView mav) {
@@ -1980,18 +2135,15 @@ public class Service implements ServiceInterface {
 		for(int i=0; i<isbnArr.length; i++) {
 			OrderDto detailDto=new OrderDto();
 			String isbn=isbnArr[i]+"/";
+			detailDto.setIsbn(isbn);
 			LogAspect.logger.info(LogAspect.logMsg+ "isbn:" + isbn);
 			String amount=amountArr[i];
 			String title=orderDao.getTitle(isbn);
-			detailDto.setTitle(title);
-			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getTitle());
+			detailDto.setGoods_name(title);
 			detailDto.setOrder_account(amount);
-			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getOrder_account());
 			long price=orderDao.getDetailPrice(isbn);
 			detailDto.setTotal_price(price);
-			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getTotal_price());
 			detailDto.setOrder_date(order_date);
-			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getOrder_date());
 			detailDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 			detailList.add(detailDto);
 		}
