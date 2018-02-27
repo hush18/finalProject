@@ -23,15 +23,17 @@
 				$('.mainMenu-iy hr').css("margin-bottom", "30px");
 			}
 		});
+		
+		
 	});
 </script>
 </head>
 
-<div class="widthline" onload="toServer()">
+<div class="widthline">
 	<div class="topMenu-iy">
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
-				<c:if test="${id==null }">
+				<c:if test="${mbId==null }">
 					<li>
 						<a href="loginMember.do">로그인</a>
 					</li>
@@ -40,9 +42,9 @@
 					</li>
 				</c:if>
 
-				<c:if test="${id!=null }">
+				<c:if test="${mbId!=null }">
 					<li>
-						<a href="myPage.do">${id } 님</a>
+						<a href="myPage.do">${mbId } 님</a>
 					</li>
 					<li>
 						<a href="logoutMember.do">로그아웃</a>
@@ -97,26 +99,18 @@
 				<li>
 					<a href="Map.do">영업점안내</a>
 				</li>
-				<li>
-					<a href="adminBookSearch.do">(관리자메뉴)</a>
-					<ul class="ul-iy">
-						<li>
-							<a href="adminBookSearch.do">도서관리</a>
-						</li>
-						<li>
-							<a href="adminMemberManage.do">회원관리</a>
-						</li>
-						<li>
-							<a href="adminSales.do">매출관리</a>
-						</li>
-						<li>
-							<a href="adminFaqMain.do">고객문의관리</a>
-						</li>
-						<li>
-							<a href="adminOrderSearch.do">주문관리</a>
-						</li>
-					</ul>
-				</li>
+				
+				<%-- <c:if test="${member_number!=null && member_number<1000}"> --%>
+					<li><a href="adminBookSearch.do">(관리자메뉴)</a>
+						<ul class="ul-iy">
+							<li><a href="adminBookSearch.do">도서관리</a></li>
+							<li><a href="adminMemberManage.do">회원관리</a></li>
+							<li><a href="adminSales.do">매출관리</a></li>
+							<li><a href="adminFaqMain.do">고객문의관리</a></li>
+							<li><a href="adminOrderSearch.do">주문관리</a></li>
+						</ul></li>
+				<%-- </c:if> --%>
+				
 			</ul>
 		</div>
 	</div>
@@ -140,7 +134,7 @@
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
 				<li id="all-main-iy">
-					<a href="bookList.do" style="position: relative;">전체</a>
+					<a href="bookList.do?path=전체&category_path=전체" style="position: relative;">전체</a>
 					<div class="all-mainMenu-iy">
 						<div>
 							<h3 class="h2-hr">소설</h3>

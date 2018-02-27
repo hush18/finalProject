@@ -12,11 +12,17 @@
 	<update id="diapCheck">
 		update member set diap='0'
 	</update>
+	
+	<select id="getPassword" resultType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[
+			select * from member where member_number<1000
+		]]>
+	</select>
 
-	<delete id="adminMemberDelete" parameterType="java.util.Map">
+	<delete id="adminMemberDelete" parameterType="int">
 		<![CDATA[
 			delete from member
-			where password=#{password} and member_number=#{member_number}
+			where member_number=#{member_number}
 		]]>
 	</delete>
 

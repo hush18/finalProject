@@ -6,6 +6,7 @@ import com.team3.user.member.dto.MemberDto;
 
 public interface MemberManageDao {
 	public List<MemberDto> memberManage();
-	public int adminMemberDelete(int member_number, String password);
+	public int adminMemberDelete(int member_number);
 	public int memberDiapCheck();
+	public List<MemberDto> adminGetPassword();
 }

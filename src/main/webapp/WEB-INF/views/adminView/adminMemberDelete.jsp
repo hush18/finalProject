@@ -49,9 +49,9 @@
 }
 .box_line_mh {
 	margin: 20px auto; border : solid 1px #9c9c9c;
-	width: 500px;
+	width: 500px; background-color: white;
 	height: 400px; text-align: center;
-	box-shadow: 2px 2px 2px 2px #c0c0c0;
+	/* box-shadow: 2px 2px 2px 2px #9c9c9c; */
 	border: solid 1px #9c9c9c;
 }
 

@@ -13,15 +13,45 @@ $(function() {
 		alert(arrStr.length);
 	});*/
 	
-	function toServer(root){
+/*	$("#search_mh").keydown(function() {
 		var url="searchHeader.do";
-		
 		sendRequest("get", url, fromServer, null);
-	}
-
-	$("#search_mh").autocomplete({
-		source : arrStr,
-		minLength: 2,
-		autoFocus : true
 	});
+	
+	function fromServer(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var obj=JSON.parse(xhr.responseText);
+			alert(obj.length);
+		}
+	}*/
+	
+	  $.ajax({
+          url : "searchHeader.do",
+          type: "post",
+          dataType : "json",
+          success : function(data){
+        	  setArrStr(data)
+          }
+      });
+	
+	  function setArrStr(data){
+		  var str;
+		  
+		  for(var i=0; i<data.length; i++){
+			  arrStr.push(data[i]);
+    	  }
+		  
+		 /* alert(arrStr.length);*/
+		  
+		  $("#search_mh").autocomplete({
+			  source : function(request, response) {
+				  var request = $.ui.autocomplete.filter(arrStr, request.term);
+				  
+				  response(request.slice(0,10));
+			  },
+			  autoFocus : true
+		  });
+		  
+		 // $(".ui-menu-item").eq(10).nextAll("li").hide();
+	  }
 });

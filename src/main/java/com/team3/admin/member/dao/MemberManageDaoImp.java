@@ -26,12 +26,16 @@ public class MemberManageDaoImp implements MemberManageDao {
 	public int memberDiapCheck() {
 		return sqlSession.update("diapCheck");
 	}
+	
+	@Override
+	public List<MemberDto> adminGetPassword() {
+		return sqlSession.selectList("getPassword");
+	}
 
 	@Override
-	public int adminMemberDelete(int member_number, String password) {
-		Map<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("member_number", member_number);
-		hmap.put("password", password);
-		return sqlSession.delete("adminMemberDelete", hmap);
+	public int adminMemberDelete(int member_number) {
+		return sqlSession.delete("adminMemberDelete", member_number);
 	}
+	
+	
 }

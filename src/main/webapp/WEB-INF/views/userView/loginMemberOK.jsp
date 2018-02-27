@@ -11,9 +11,9 @@
 	<c:if test="${check==0 && memberDto!=null }">
 		<!-- 세션 설정 -->
 		<c:set var="member_number" value="${memberDto.member_number }" scope="session"/>
-		<c:set var="id" value="${memberDto.id }" scope="session"/>
-		<c:set var="name" value="${memberDto.name }" scope="session"/>
-		<c:set var="email" value="${memberDto.email }" scope="session"/>
+		<c:set var="mbId" value="${memberDto.id }" scope="session"/>
+		<c:set var="mbName" value="${memberDto.name }" scope="session"/>
+		<c:set var="mbEmail" value="${memberDto.email }" scope="session"/>
 		
 		<script type="text/javascript">
 			$(location).attr("href", "userMain.do");
