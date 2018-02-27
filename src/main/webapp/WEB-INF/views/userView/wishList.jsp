@@ -34,20 +34,36 @@
 			$(this).css("color","#9c9c9c");
 		});
 		$(".cart_sc").click(function(){
-			var str="";
-			//str+=$(".checkBook_sc").prop("checked").parent().val();
-			$('.checkBook_sc:checked').each(function(i){
-				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
-			});
-			location.href="wishListUp.do?isbn=" + str;
+			if($(this).val()!=""){
+				var str="";
+				//str+=$(".checkBook_sc").prop("checked").parent().val();
+				$('.checkBook_sc:checked').each(function(i){
+					str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
+				});
+				if(str!=""){
+					location.href="wishListUp.do?isbn=" + str;
+				}else{
+					alert("선택된 책이 없습니다.");
+				}
+			}else if($(this).val()==null || $(this).val()==""){
+				alert("로그인 후에 이용 가능합니다.");
+			}
 		});
 		$(".delete_sc").click(function(){
-			var str="";
-			//str+=$(".checkBook_sc").prop("checked").parent().val();
-			$('.checkBook_sc:checked').each(function(i){
-				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
-			});
-			location.href="wishListDel.do?isbn=" + str;
+			if($(this).val()!=""){
+				var str="";
+				//str+=$(".checkBook_sc").prop("checked").parent().val();
+				$('.checkBook_sc:checked').each(function(i){
+					str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
+				});
+				if(str!=""){
+					location.href="wishListDel.do?isbn=" + str;
+				}else{
+					alert("선택된 책이 없습니다.");
+				}
+			}else if($(this).val()==null || $(this).val()==""){
+				alert("로그인 후에 이용 가능합니다.");
+			}
 		});
 	});
 	
@@ -164,8 +180,8 @@
 						<option value="40">40개씩</option>
 					</select>
 				</div>
-				<button class="delete_sc">삭제</button>
-				<button class="cart_sc">장바구니 담기</button>
+				<button class="delete_sc" value="${id}">삭제</button>
+				<button class="cart_sc" value="${id}">장바구니 담기</button>
 				<div class="bar_check_sc">
 					<input type="checkbox" name="check" value="전체선택" class="checkAll_sc"/>
 					<label>전체선택</label>
