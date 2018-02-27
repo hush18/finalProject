@@ -21,9 +21,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<list>
-<<<<<<< HEAD
 				<value>classpath:com/team3/user/order/dao/mapper/OrderMapper.xml</value>
-=======
 				<value>classpath:com/team3/user/book/dao/mapper/BookMapper.xml</value>
 				<value>classpath:com/team3/admin/book/dao/mapper/AdminBookMapper.xml</value>
 				<value>classpath:com/team3/admin/map/dao/mapper/mapMapper.xml</value>
@@ -35,7 +33,6 @@
 				<value>classpath:com/team3/admin/faq/dao/mapper/AdminFaqMapper.xml</value>
 				<value>classpath:com/team3/admin/nct/dao/mapper/AdminNctMapper.xml</value>
 				<value>classpath:com/team3/admin/cst/dao/mapper/AdminCstMapper.xml</value>
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 			</list>
 		</property>
 	</bean>

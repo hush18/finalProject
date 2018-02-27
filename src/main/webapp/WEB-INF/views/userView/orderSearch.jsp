@@ -231,7 +231,7 @@
 						<div class="list_hy">
 							<c:forEach var="orderSearchList" items="${orderSearchList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}&order_date=${orderSearchList.order_date}">${orderSearchList.order_number }</a></div>
+									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
 									<div><a href="detailOrder.do">${orderSearchList.goods_name }</a></div>
 									<div>${orderSearchList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${orderSearchList.order_date}" pattern="yyyy-MM-dd"/></div>

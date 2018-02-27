@@ -182,13 +182,15 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   		select * from order_delivery where id=#{id} and order_number=#{order_number}
   	</select>
   	
-  	<select id="getDetailTitle" parameterType="String" resultType="String">
-  		select title from book where isbn=#{isbn}
-  	</select>
-  	
   	<select id="getDetailPrice" parameterType="String" resultType="long">
   		select price from book where isbn=#{isbn}
   	</select>
   	
-  	<select id="getorderDate" parameterType="String" resultType=""></select>
+  	<select id="getOrderDate" parameterType="String" resultType="java.util.Date">
+  		select order_date from order_delivery where order_number=#{order_number}
+  	</select>
+  	
+  	<select id="getOrderTitle" parameterType="String" resultType="String">
+  		select title from book where isbn=#{isbn}
+  	</select>
   </mapper>

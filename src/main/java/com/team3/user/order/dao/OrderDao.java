@@ -24,8 +24,8 @@ public interface OrderDao {
 	public int insertCart(String isbn, String cart_amount);
 	public int cartListDelete(String isbn);
 	public int orderDelete(String order_number);
-	public OrderDto getDetailOrder(String order_number);
-	public String getDetailTitle(String isbn);
+	public List<OrderDto> getDetailOrder(String order_number);
 	public long getDetailPrice(String isbn);
-	public Date getorderDate(String order_number);
+	public Date getOrderDate(String order_number);
+	public String getTitle(String isbn);
 }

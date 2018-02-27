@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +11,6 @@
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
 </script>
@@ -115,19 +116,19 @@
 				<div class="con_info1_hy">
 					<div class="info_head_hy">
 						<div>진행중 주문 건</div>
-						<div class="info_box_hy"><span><a href="ordering.do">1</a></span></div>
+						<div class="info_box_hy"><span><a href="ordering.do">${orderingCount }</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>배송중</div>
-						<div class="info_box_hy"><span><a href="delivery.do">1</a></span></div>
+						<div class="info_box_hy"><span><a href="delivery.do">${deliveryCount}</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>환불/취소</div>
-						<div class="info_box_hy"><span><a href="cancel.do">1</a></span></div>
+						<div class="info_box_hy"><span><a href="cancel.do">${cancelCount }</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">1</a></span></div>
+						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -141,55 +142,30 @@
 					<div class="detail_list_size_hy">주문금액</div>
 					<div class="detail_list_size_hy">취소</div>
 				</div>
-				<div class="recentOrder_hy">
-					<div class="list_hy">
-						<div class="detail_list_con_hy">
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="detail_list_size_hy">2018.01.24</div>
-							<div class="detail_list_size_hy">2018.01.25</div>
-							<div class="detail_list_size_hy"><strong>97,340원</strong></div>
-							<div class="detail_list_size_hy"><button class="block_btn_hy">취소</button></div>
+				<c:if test="${count==0}">
+					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+				</c:if>
+				<c:if test="${count>0 }">
+					<div class="recentOrder_hy">
+						<div class="list_hy">
+							<c:forEach var="detailList" items="${detailList}">
+								<div class="detail_list_con_hy">
+									<div class="title_hy">${detailList.title }</div>
+									<div>${detailList.order_account }권</div>
+									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy-MM-dd"/></div>
+									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.maybe_date}" pattern="yyyy-MM-dd"/></div>
+									<fmt:parseNumber var="price"
+											value="${detailList.total_price*detailList.order_account}"
+											integerOnly="true" />
+									<div class="detail_list_size_hy"><strong>${price }</strong></div>
+									<div class="detail_list_size_hy"><button class="block_btn_hy" id="change_cancel">취소</button></div>
+								</div>
+							</c:forEach>
 						</div>
-						
-						<div class="detail_list_con_hy">
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="detail_list_size_hy">2018.01.24</div>
-							<div class="detail_list_size_hy">2018.01.25</div>
-							<div class="detail_list_size_hy"><strong>97,340원</strong></div>
-							<div class="detail_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="detail_list_con_hy">
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="detail_list_size_hy">2018.01.24</div>
-							<div class="detail_list_size_hy">2018.01.25</div>
-							<div class="detail_list_size_hy"><strong>97,340원</strong></div>
-							<div class="detail_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						<div class="detail_list_con_hy">
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="detail_list_size_hy">2018.01.24</div>
-							<div class="detail_list_size_hy">2018.01.25</div>
-							<div class="detail_list_size_hy"><strong>97,340원</strong></div>
-							<div class="detail_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						<div class="detail_list_con_hy">
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="detail_list_size_hy">2018.01.24</div>
-							<div class="detail_list_size_hy">2018.01.25</div>
-							<div class="detail_list_size_hy"><strong>97,340원</strong></div>
-							<div class="detail_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
 					</div>
-				</div>
+				</c:if>
 			</div>
-			<div class="delivery_info_hy">
+			<!-- <div class="delivery_info_hy">
 				<h2 class="h2_hy">가격정보</h2>
 				<div class="payment_Information_yk">
 					<div class="payment_subject_yk">
@@ -212,7 +188,7 @@
 						<div style="border-right: 0px; width: 170px;">11,700원</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="delivery_info_hy">
 				<h2 class="h2_hy">배송 정보</h2>
 				<div class="delivery_con_hy">

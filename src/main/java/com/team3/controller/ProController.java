@@ -246,7 +246,6 @@ public class ProController {
 
 		return new ModelAndView("findPwd.empty");
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public ModelAndView cart(HttpServletRequest request,HttpServletResponse response) {
@@ -336,45 +335,8 @@ public class ProController {
 		service.buyList(mav);
 		
 		return mav;
-=======
-
-	@RequestMapping(value = "/cart.do", method = RequestMethod.GET)
-	public ModelAndView cart(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("cart.users");
 	}
-
-	@RequestMapping(value = "/orderSearch.do", method = RequestMethod.GET)
-	public ModelAndView orderSearch(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("orderSearch.users");
-	}
-
-	@RequestMapping(value = "/cancel.do", method = RequestMethod.GET)
-	public ModelAndView cancel(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("cancel.users");
-	}
-
-	@RequestMapping(value = "/ordering.do", method = RequestMethod.GET)
-	public ModelAndView ordering(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("ordering.users");
-	}
-
-	@RequestMapping(value = "/delivery.do", method = RequestMethod.GET)
-	public ModelAndView delivery(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("delivery.users");
-	}
-
-	@RequestMapping(value = "/buyList.do", method = RequestMethod.GET)
-	public ModelAndView buyList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("buyList.users");
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
-	}
-
+	
 	@RequestMapping(value = "/CustomerService_main.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_main(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -460,7 +422,6 @@ public class ProController {
 		mav.setViewName("bookInfo.users");
 		return scroll(mav);
 	}
-<<<<<<< HEAD
 		
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
@@ -470,15 +431,7 @@ public class ProController {
 		service.detailOrder(mav);
 		
 		return mav;
-=======
-
-	@RequestMapping(value = "/detailOrder.do", method = RequestMethod.GET)
-	public ModelAndView detailOrder(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("detailOrder.users");
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 	}
-
 	@RequestMapping(value = "/eventPopup.do", method = RequestMethod.GET)
 	public ModelAndView popup(HttpServletRequest request, HttpServletResponse response) {
 

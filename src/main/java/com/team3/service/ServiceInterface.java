@@ -10,7 +10,6 @@ public interface ServiceInterface {
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
-<<<<<<< HEAD
 	
 	public void orderSearch(ModelAndView mav);
 	public void statusChange(ModelAndView mav);
@@ -22,7 +21,6 @@ public interface ServiceInterface {
 	public void cart(ModelAndView mav);
 	public void cartListDelete(ModelAndView mav);
 	public void detailOrder(ModelAndView mav);
-=======
 	public void cstOk(ModelAndView mav);
 	public void adminFaqInsertOk(ModelAndView mav);
 	public void adminFaqMain(ModelAndView mav);
@@ -73,6 +71,5 @@ public interface ServiceInterface {
 	public void loginMember(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 }
 

@@ -262,17 +262,11 @@ public class OrderDaoImp implements OrderDao {
 	}
 	
 	@Override
-	public OrderDto getDetailOrder(String order_number) {
+	public List<OrderDto> getDetailOrder(String order_number) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
 		map.put("id", "tlsghdyd93");
-		return (OrderDto) sqlSession.selectList("getDetailOrder", map);
-	}
-	
-	@Override
-	public String getDetailTitle(String isbn) {
-		
-		return sqlSession.selectOne("getDetailTitle", isbn);
+		return sqlSession.selectList("getDetailOrder", map);
 	}
 	
 	@Override
@@ -281,7 +275,12 @@ public class OrderDaoImp implements OrderDao {
 	}
 	
 	@Override
-	public Date getorderDate(String order_number) {
-		return sqlSession.selectOne("getorderDate", order_number);
+	public Date getOrderDate(String order_number) {
+		return sqlSession.selectOne("getOrderDate", order_number);
+	}
+	
+	@Override
+	public String getTitle(String isbn) {
+		return sqlSession.selectOne("getOrderTitle", isbn);
 	}
 }

@@ -1,13 +1,10 @@
 package com.team3.service;
 
-<<<<<<< HEAD
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-=======
 import java.io.File;
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 
 import java.io.*;
 import java.util.*;
@@ -51,13 +48,10 @@ import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.map.dao.MapDao;
 import com.team3.user.member.dto.MemberDto;
-<<<<<<< HEAD
 import com.team3.user.order.dao.OrderDao;
 import com.team3.user.order.dto.CartDto;
 import com.team3.user.order.dto.OrderDto;
-=======
 import com.github.scribejava.core.model.OAuth2AccessToken;
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 
 @Component
 public class Service implements ServiceInterface {
@@ -67,11 +61,9 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private MemberDao memberDao;
-<<<<<<< HEAD
 	
 	@Autowired
 	private OrderDao orderDao;
-=======
 	@Autowired
 	private AdminFaqDao adminFaqDao;
 	@Autowired
@@ -224,7 +216,6 @@ public class Service implements ServiceInterface {
 		mav.addObject("check", check);
 		mav.setViewName("deleteAccountOk.users");
 	}
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
@@ -1397,7 +1388,8 @@ public class Service implements ServiceInterface {
 				orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 				String[] str=orderDto.getGoods().split("/");
 				LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-				String title=orderDto.getTitle();
+				
+				String title=orderDao.getTitle(str[0]+"/");
 				LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
 				if(str.length>1) {
 					orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
@@ -1501,7 +1493,7 @@ public class Service implements ServiceInterface {
 				orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 				String[] str=orderDto.getGoods().split("/");
 				LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-				String title=orderDto.getTitle();
+				String title=orderDao.getTitle(str[0]+"/");
 				LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
 				if(str.length>1) {
 					orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
@@ -1580,7 +1572,7 @@ public class Service implements ServiceInterface {
 				orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 				String[] str=orderDto.getGoods().split("/");
 				LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-				String title=orderDto.getTitle();
+				String title=orderDao.getTitle(str[0]+"/");
 				LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
 				if(str.length>1) {
 					orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
@@ -1659,7 +1651,7 @@ public class Service implements ServiceInterface {
 				orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 				String[] str=orderDto.getGoods().split("/");
 				LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-				String title=orderDto.getTitle();
+				String title=orderDao.getTitle(str[0]+"/");
 				LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
 				if(str.length>1) {
 					orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
@@ -1739,7 +1731,7 @@ public class Service implements ServiceInterface {
 				orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 				String[] str=orderDto.getGoods().split("/");
 				LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-				String title=orderDto.getTitle();
+				String title=orderDao.getTitle(str[0]+"/");
 				LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
 				if(str.length>1) {
 					orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
@@ -1968,29 +1960,54 @@ public class Service implements ServiceInterface {
 	public void detailOrder(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id")!=null) {
+			String id=(String) session.getAttribute("id");
+		}
 		
 		String order_number=request.getParameter("order_number");
-		Date order_date=orderDao.getorderDate(order_number);
-		OrderDto orderDto=orderDao.getDetailOrder(order_number);
+		Date order_date=orderDao.getOrderDate(order_number);
+		LogAspect.logger.info(LogAspect.logMsg+ "order_date:" + order_date);
+		List<OrderDto> orderDtoList=orderDao.getDetailOrder(order_number);
+		OrderDto orderDto=orderDtoList.get(0);
+		LogAspect.logger.info(LogAspect.logMsg+ "orderDto:" + orderDto.toString());
 		String goods=orderDto.getGoods();
 		String order_amount=orderDto.getOrder_account();
 		String[] isbnArr=goods.split("/");
 		String[] amountArr=order_amount.split("/");
-		
-		List<OrderDto> detailList=null;
-		OrderDto detailDto=null;
+		int count=isbnArr.length;
+		List<OrderDto> detailList=new ArrayList<OrderDto>();
 		for(int i=0; i<isbnArr.length; i++) {
+			OrderDto detailDto=new OrderDto();
 			String isbn=isbnArr[i]+"/";
+			LogAspect.logger.info(LogAspect.logMsg+ "isbn:" + isbn);
 			String amount=amountArr[i];
-			String title=orderDao.getDetailTitle(isbn);
+			String title=orderDao.getTitle(isbn);
 			detailDto.setTitle(title);
+			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getTitle());
 			detailDto.setOrder_account(amount);
+			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getOrder_account());
 			long price=orderDao.getDetailPrice(isbn);
 			detailDto.setTotal_price(price);
-			
+			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getTotal_price());
+			detailDto.setOrder_date(order_date);
+			LogAspect.logger.info(LogAspect.logMsg+ "detailDto:" + detailDto.getOrder_date());
+			detailDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 			detailList.add(detailDto);
 		}
-			
+		LogAspect.logger.info(LogAspect.logMsg+ "detailList:" + detailList.toString());
+		
+		int orderingCount=orderDao.getOrderingCount();
+		int deliveryCount=orderDao.getDeliveryCount();
+		int cancelCount=orderDao.getCancelCount();
+		int point=orderDao.getPoint();
+		
+		
+		mav.addObject("count", count);
+		mav.addObject("orderingCount", orderingCount);
+		mav.addObject("deliveryCount", deliveryCount);
+		mav.addObject("cancelCount", cancelCount);
+		mav.addObject("point", point);
 		mav.addObject("detailList", detailList);
 		mav.addObject("order_date", order_date);
 		mav.setViewName("detailOrder.users");
