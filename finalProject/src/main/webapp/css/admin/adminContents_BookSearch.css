@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+.box_jm{
+	/* width: 1200px; */
+}
+
+/*버튼 공통 스타일*/
+.btn-all {
+	float: right;
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width: 10%;
+	height: 30px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+.btn-all:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn-all:before, .btn-all:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn-all:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn-all_jm{
+	width: 85px;
+	padding: 0;
+	margin: 0px;
+}
+
+.btn-all:hover:before, .btn-all:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.filter_area_right_jm{
+	width: 350px;
+	font-size: 0px;
+}
+.filter_area_right_jm div{
+	display: inline-block;
+	/* width: 150px; */
+	vertical-align: bottom;
+	font-size: 13px;
+}
+
+.filter_area_right_jm > div > *{
+	border-right: 0px;
+}
+
+.filter_area_left_jm{
+	width: 300px;
+}
+
+.filter_area_left_jm div{
+	display: inline-block;
+}
+
+.row{
+	margin-bottom: 5px;
+}
+.book_info_title th{
+	text-align: center;
+}
+.book_info_list tr > td:first-child{
+	text-align: center;
+}
+.book_info_list tr > td:nth-child(5){
+	text-align: center;
+}
+.book_info_list tr > td:nth-child(6){
+	text-align: right;
+}
+.book_info_list tr > td:nth-child(7){
+	text-align: right;
+}
+
+.p_style_jm a{
+	background-color: #5cb38b !important;
+	border: 0px 1px !important;
+	color: white !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

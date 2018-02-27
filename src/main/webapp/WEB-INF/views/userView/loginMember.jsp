@@ -10,8 +10,8 @@
 
 <c:set var="root" value="${pageContext.request.contextPath }"/>
 
-<link href="css/loginMember.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="js/loginMember.js"></script>
+<link href="css/user/loginMember.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/user/loginMember.js"></script>
 </head>
 <body>
 	<div class="widthline">
@@ -23,7 +23,7 @@
 			<div class="login_mh">
 				<ul>
 					<li class="on_mh">회원 로그인</li>
-					<li class="alt_mh">비회원 주문조회</li>
+					<li class="alt_mh"></li>
 				</ul>
 			</div><br/><br/>
 			
@@ -35,14 +35,14 @@
 					<div class="input_on_mh">
 						<div>
 							<input type="text" name="id" value="아이디" /><br />
-							<input type="text" name="password" value="비밀번호" /><br />
+							<input type="password" name="password" value="비밀번호"/><br />
 						</div>
 					</div>
 
 					<div class="input_check_mh">
 						<div>
 							<input type="checkbox" name="id_remember" />아이디저장 
-							<input	type="checkbox" name="login_remember" />로그인유지
+							<input	type="checkbox" name="pwd_remember" />비밀번호저장
 						</div>
 					</div>
 				</div>
@@ -68,20 +68,20 @@
 			<div class="interwork_mh" >
 				<div class="interwork_naver_mh">
 					<div>
-						<button class="btn-all">네이버 아이디 가입/로그인</button>
+						<button class="btn-all" onclick="javascript:location.href='${naverAuthUrl}'">네이버 아이디 가입/로그인</button>
 					</div>
 				</div>
 				
 				<div class="interwork_facebook_mh">
 					<div>
-						<button class="btn-all">페이스북 아이디 가입/로그인</button>
+						<button class="btn-all" onclick="javascript:location.href='${facebookUrl}'">페이스북 아이디 가입/로그인</button>
 					</div>
 				</div>
 			</div>
 			</div>
 			
 			<!-- 비회원 조회 창 -->
-			<form action="userMain.do" method=get onsubmit="return inquiryForm(this)">
+			<!-- <form action="userMain.do" method=get onsubmit="return inquiryForm(this)">
 			<div class="alt_login_mh">
 				<div class="input_alt_mh">
 					<div>
@@ -112,7 +112,7 @@
 			</div>
 			</div>
 			
-			</form>
+			</form> -->
 		</div>
 	</div>
 </body>

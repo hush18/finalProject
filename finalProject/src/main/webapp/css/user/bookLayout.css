@@ -1,0 +1,209 @@
+@charset "UTF-8";
+/*공통 스타일*/
+body {
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+.widthline {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+/*카테고리 및 책정보 공통 스타일*/
+.centent_jm{
+	border: 0px solid red;
+	overflow: hidden;
+}
+.centent_route_jm{
+	width: 1000px;
+    height: 30px;
+    border-bottom: 1px solid #9C9C9C;
+    font-size: 12px;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+.left_category_menu_jm{
+	width: 18%;
+	border: 1px solid #9C9C9C;
+	float:left;
+	vertical-align: top;
+}
+.h2_jm {
+	width : 80%;
+	border-bottom: 1px solid #9c9c9c;
+	padding-bottom: 10px;
+	margin: 18px;
+	color: #3c7b5e;
+}
+.category_menu_jm{
+	padding-left: 20px;
+}
+.category_menu_jm > li{
+	list-style-type: none;
+	margin: 10px auto;
+	color: #9C9C9C;
+}
+.category_menu_jm > li > a{
+	text-decoration: none;
+	color: #9C9C9C;
+	font-size: 12px;
+}
+.book_area_jm{
+	width: 80%;
+	border: 0px solid red;
+	float:right;
+}
+.search_area_jm{
+	height: 100px;
+	border: 0px solid red;
+}
+
+/*책 리스트 공통(정렬순서 스타일)*/
+.condition_area_jm{
+	border: 0px solid black;
+	overflow: hidden;
+}
+.sort_list_jm{
+	float: left;
+}
+.sort_list_ul_jm{
+	display: inline-block;
+	padding-left: 10px;
+	margin: 0px;
+	margin-top: 55px;
+}
+.sort_list_ul_jm > li{
+	display:inline-block;
+	list-style-type: none;
+}
+.sort_list_ul_jm > li > a{
+	text-decoration: none;
+	color: #9C9C9C;
+	font-size: 12px;
+}
+
+/*책리스트 공통(보기방식)*/
+.select_list_jm{
+	float: right;
+	margin-top: 10px;
+}
+.select_list_view_jm{
+	float: right;
+	margin-top: 10px;
+}
+.select_list_view_jm select{
+	color: #9C9C9C;
+	padding: 3px;
+	/*font-size: 12px;*/
+}
+
+/*컨텐츠 상단 제목*/
+.list_name_jm{
+	border-bottom: 1px solid #9C9C9C;
+}
+.list_name_jm > h2{
+	margin-bottom: 5px;
+	color: #3c7b5e;
+}
+
+/*책 공통(수량선택)*/
+.quantity_input_jm{
+	text-align: right;
+}
+
+.quantity_jm{
+	float: right;
+	margin-top: 1px;
+	margin-right: 40px;
+}
+.quantity_jm > span{
+	display: list-item;
+	text-decoration: none;
+	list-style-type: none;
+	margin: 0px;
+	font-size: 5px;
+	border: 1px solid #9c9c9c;
+	width: 10px;
+	height: 8px;
+	padding: 0px;
+	line-height: 5px;
+	cursor: pointer;
+}
+.quantity_area_jm{
+	margin-top: 1px;
+	display: inline-block;
+}
+.quantity_area_jm > span{
+	display: list-item;
+	text-decoration: none;
+	list-style-type: none;
+	margin: 0px;
+	font-size: 5px;
+	border: 1px solid #9c9c9c;
+	width: 10px;
+	height: 8px;
+	padding: 0px;
+	line-height: 5px;
+	cursor: pointer;
+}
+
+/*페이지번호*/
+.page_area_jm{
+	border: 0px solid black;
+	text-align: center;
+}
+.page_area_jm > ul > li{
+	display: inline-block;
+}
+.page_area_jm > ul > li > a{
+	font-size: 1.17em;
+	text-decoration: none;
+	margin: 0px 10px;
+}
+
+/*버튼 공통 스타일*/
+.btn-all {
+	float: right;
+	background: #5cb38b;
+	color: #fff;
+	border: 0px;
+	position: relative;
+	width: 10%;
+	height: 30px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+.btn-all:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn-all:before, .btn-all:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn-all:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn-all:hover:before, .btn-all:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}

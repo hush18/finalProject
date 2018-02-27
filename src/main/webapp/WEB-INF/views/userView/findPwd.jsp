@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>비밀번호 찾기</title>
-<link href="css/findPwd.css" type="text/css" rel="stylesheet" />
+<link href="css/user/findPwd.css" type="text/css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function() {
@@ -52,10 +52,10 @@
 
 					<div class="input_sub_mh">
 						<div>
-							<input type="text" name="id" style="margin-top: 13px;"/>
+							<input type="text" id="id" name="id" style="margin-top: 13px;"/>
 						</div>
 						<div>
-							<input type="text" name="name" />
+							<input type="text" id="name" name="name" />
 							&nbsp;&nbsp;
 							<span style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 실명</span>
 						</div>

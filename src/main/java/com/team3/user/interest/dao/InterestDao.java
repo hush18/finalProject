@@ -1,5 +1,17 @@
 package com.team3.user.interest.dao;
 
-public interface InterestDao {
+import java.util.List;
 
+import com.team3.user.interest.dto.InterestDto;
+
+public interface InterestDao {
+	public List<InterestDto> nearestSelect(String id);
+	public int nearestUp(String id, String[] strArr);
+	public int nearestDel(String id, String[] strArr);
+	public List<InterestDto> wishListSelect(String id);
+	public int wishListUp(String id, String[] strArr);
+	public int wishListDel(String id, String[] strArr);
+	public int wishListInsert(String id, String[] strArr);
+	public int nearestInsert(String id, String isbn);
+	public List<InterestDto> scrollSelect(String id);
 }

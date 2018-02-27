@@ -23,7 +23,7 @@
 	margin-top: 0px;
 	margin-bottom: 0px;
 	width: 1000px;
-	height: 510px;
+	height: 550px;
 	-webkit-border-radius: 8px/7px;
 	-moz-border-radius: 8px/7px;
 	border-radius: 8px/7px;
@@ -106,12 +106,25 @@
 	padding-left: 10px;
 }
 
-.col-iy input[name=address] {
-	width: 34.5%;
+.col-iy input[name=member_zipcode] {
+	width: 10.5%;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.col-iy input[name=member_address] {
+	width: 37%;
 	display: inline-block;
 }
 
+.col-iy input[name=member_detail_address] {
+	width: 34.5%;
+	display: inline-block;
+	margin-left: 73px;
+}
+
 .col-iy .button {
+	width: 60px;
 	height: 33px;
 	float: inherit;
 	line-height: 31px;
@@ -146,7 +159,8 @@
 	margin-top: 20px;
 }
 
-a.button {
+.button {
+	cursor: pointer;
 	font-size: 14px;
 	font-weight: 600;
 	color: white;
@@ -155,8 +169,7 @@ a.button {
 	display: inline-block;
 	float: right;
 	text-decoration: none;
-	width: 60px;
-	height: 27px;
+	line-height: 25px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -167,9 +180,10 @@ a.button {
 	transition: all 0.1s linear 0s;
 	top: 0px;
 	position: relative;
+	border: 0;
 }
 
-a.button:hover {
+.button:hover {
 	top: 3px;
 	background-color: #3C7B5e;
 	-webkit-box-shadow: none;
@@ -182,11 +196,10 @@ a.button:hover {
 	margin: 0 auto;
 }
 
-.button {
-	text-align: center;
-	margin: 0 10px;
-}
-
+/* .button { */
+/* 	text-align: center; */
+/* 	margin: 0 10px; */
+/* } */
 .col-iy {
 	text-align: center;
 }

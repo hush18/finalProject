@@ -235,6 +235,9 @@ p.adam {
 	font-size: 1.17em;
 	color: #3C7B5e;
 }
+#serviceWrap label a{
+	color:#3C7B5e;
+}
 
 .recommend_sc {
 	border: 1px solid #9c9c9c;
@@ -247,6 +250,8 @@ p.adam {
 }
 
 .nearest_sc {
+	
+	background-color:white;
 	margin-top: 5px;
 	border: 1px solid #9c9c9c;
 	text-align: center;
