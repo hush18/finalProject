@@ -85,7 +85,7 @@ line-height: 170%;}
 	function wishList(isbn) {
 		var quantity = $("input[id='"+isbn+"']").val();
 		
-		$(location).attr("href", "wishList.do?isbn="+isbn);
+		$(location).attr("href", "wishListInsert.do?isbn="+isbn);
 	}
 </script>
 </head>

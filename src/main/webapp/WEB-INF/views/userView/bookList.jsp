@@ -60,7 +60,7 @@
 			var path = parent.find("input[name='path']").val();
 			var category_path = parent.find("input[name='category_path']").val();
 			
-			$(location).attr("href", "bookInfo.do?isbn="+isbn+"&pageNumber="+pageNumber+"&path="+path+"&category_path="+category_path);
+			$(location).attr("href", "bookInfo.do?isbn="+isbn+"&pageNumber="+pageNumber);
 		})
 		
 		
