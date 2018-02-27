@@ -13,4 +13,13 @@ public interface ServiceInterface {
 	public void zipcode(ModelAndView mav);
 	
 	public void orderSearch(ModelAndView mav);
+	public void statusChange(ModelAndView mav);
+	public void orderDelete(ModelAndView mav);
+	public void ordering(ModelAndView mav);
+	public void delivery(ModelAndView mav);
+	public void cancel(ModelAndView mav);
+	public void buyList(ModelAndView mav);
+	public void cart(ModelAndView mav);
+	public void cartListDelete(ModelAndView mav);
+	public void detailOrder(ModelAndView mav);
 }

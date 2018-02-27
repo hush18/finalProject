@@ -8,8 +8,8 @@
 <!-- font awesome -->
 <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <!-- Custom style -->
-<link rel="stylesheet" href="css/account.css" media="screen" title="no title" charset="utf-8">
-<script type="text/javascript" src="js/account.js"></script>
+<link rel="stylesheet" href="css/user/account.css" media="screen" title="no title" charset="utf-8">
+<script type="text/javascript" src="js/user/account.js"></script>
 <script type="text/javascript">
 	function submitCheck() {
 		var check = new Check();

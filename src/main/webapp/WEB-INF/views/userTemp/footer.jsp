@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <head>
-<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/user/footer.css">
 
 <script src="js/user/fadeInOut.js"></script>
-<script type="text/javascript" src="js/scrollBanner.js"></script>
+<script type="text/javascript" src="js/user/scrollBanner.js"></script>
 </head>
 <div class="footer-pre">
 	<div style="background: #444;">

@@ -1,3 +1,6 @@
+<!-- 
+	작성자: 허승찬
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,9 +10,9 @@
 <title>위시리스트</title>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<link type = "text/css" rel = "stylesheet" href = "css/nearestList.css">
-<script type="text/javascript" src="js/sideCategory.js"></script>
-<link type = "text/css" rel="stylesheet" href="css/sideCategory.css"/>
+<link type = "text/css" rel = "stylesheet" href = "css/user/nearestList.css">
+<script type="text/javascript" src="js/user/sideCategory.js"></script>
+<link type = "text/css" rel="stylesheet" href="css/user/sideCategory.css"/>
 <script type="text/javascript">
 	$(function(){
 		$(".checkAll_sc").click(function(){

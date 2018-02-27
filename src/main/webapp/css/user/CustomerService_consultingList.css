@@ -172,7 +172,7 @@ body {
 	float: left;
 	color: #3C7B5e;
 	padding: 0px 10px 0px 8px;
-	background-image: url("../images/CustomerService/minus3.png");
+	background-image: url("../../images/CustomerService/minus3.png");
 	background-repeat: no-repeat;
 	background-position: 93px 1px;
 }
@@ -229,7 +229,7 @@ body {
 }
 
 .sub4_ej div:nth-child(1) {
-	background-image: url("../images/CustomerService/minus5.png");
+	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 104px 4px;
 	width: 19%;
@@ -240,14 +240,14 @@ body {
 }
 
 .sub4_ej div:nth-child(3) {
-	background-image: url("../images/CustomerService/minus5.png");
+	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 1px 4px;
 	width: 47%;
 }
 
 .sub4_ej div:nth-child(4) {
-	background-image: url("../images/CustomerService/minus5.png");
+	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 1px 4px;
 	width: 14%;
@@ -365,7 +365,7 @@ body {
 .top_content_ej {
 	border-bottom: 1px solid #9C9C9C;
 	padding: 3px 0px 0px 60px;
-	background: #F8F8F8 url("../images/CustomerService/arrow.png");
+	background: #F8F8F8 url("../../images/CustomerService/arrow.png");
 	background-repeat: no-repeat;
 	background-position: 35px 15px;
 }

@@ -66,7 +66,7 @@ body {
 }
 
 .qsub4_ej div:nth-child(1) {
-	background-image: url("../images/CustomerService/minus5.png");
+	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 183px 4px;
     width: 41%;
@@ -77,14 +77,14 @@ body {
 }
 
 .qsub4_ej div:nth-child(3) {
-	background-image: url("../images/CustomerService/minus5.png");
+	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 1px 4px;
 	width: 25%;
 }
 
 .qsub4_ej div:nth-child(4) {
-	background-image: url("../images/CustomerService/minus5.png");
+	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 1px 4px;
 	width: 17%;

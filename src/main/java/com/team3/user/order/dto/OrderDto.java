@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class OrderDto {
 	private String order_number;
-	private String isbn;
+	private String goods;
 	private String order_account;
 	private long total_price;
-	private long order_status;
+	private int order_status;
 	private String id;
 	private Date order_date;
 	private String receive_name;
@@ -15,14 +15,20 @@ public class OrderDto {
 	private String receive_home;
 	private String receive_addr;
 	private String delivery_msg;
+	private String title;
+	private long member_number;
+	private Date maybe_date;
+	private String goods_name;
+	private long goods_account;
+	private String status;
 	
 	public OrderDto() {}
 	
-	public OrderDto(String order_number, String isbn, String order_account, long total_price, long order_status,
+	public OrderDto(String order_number, String goods, String order_account, long total_price, int order_status,
 			String id, Date order_date, String receive_name, String receive_phone, String receive_home,
-			String receive_addr, String delivery_msg) {
+			String receive_addr, String delivery_msg, String title, long member_number, Date maybe_date, String goods_name, long goods_account, String status) {
 		this.order_number = order_number;
-		this.isbn = isbn;
+		this.goods = goods;
 		this.order_account = order_account;
 		this.total_price = total_price;
 		this.order_status = order_status;
@@ -33,6 +39,12 @@ public class OrderDto {
 		this.receive_home = receive_home;
 		this.receive_addr = receive_addr;
 		this.delivery_msg = delivery_msg;
+		this.title = title;
+		this.member_number = member_number;
+		this.maybe_date = maybe_date;
+		this.goods_name = goods_name;
+		this.goods_account = goods_account;
+		this.status = status;
 	}
 
 	public String getOrder_number() {
@@ -41,11 +53,11 @@ public class OrderDto {
 	public void setOrder_number(String order_number) {
 		this.order_number = order_number;
 	}
-	public String getIsbn() {
-		return isbn;
+	public String getGoods() {
+		return goods;
 	}
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setGoods(String goods) {
+		this.goods = goods;
 	}
 	public String getOrder_account() {
 		return order_account;
@@ -59,10 +71,10 @@ public class OrderDto {
 	public void setTotal_price(long total_price) {
 		this.total_price = total_price;
 	}
-	public long getOrder_status() {
+	public int getOrder_status() {
 		return order_status;
 	}
-	public void setOrder_status(long order_status) {
+	public void setOrder_status(int order_status) {
 		this.order_status = order_status;
 	}
 	public String getId() {
@@ -107,14 +119,51 @@ public class OrderDto {
 	public void setDelivery_msg(String delivery_msg) {
 		this.delivery_msg = delivery_msg;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public long getMember_number() {
+		return member_number;
+	}
+	public void setMember_number(long member_number) {
+		this.member_number = member_number;
+	}
+	public Date getMaybe_date() {
+		return maybe_date;
+	}
+	public void setMaybe_date(Date maybe_date) {
+		this.maybe_date = maybe_date;
+	}
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
+	public long getGoods_account() {
+		return goods_account;
+	}
+	public void setGoods_account(long goods_account) {
+		this.goods_account = goods_account;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
-		return "OrderDto [order_number=" + order_number + ", isbn=" + isbn + ", order_account=" + order_account
+		return "OrderDto [order_number=" + order_number + ", goods=" + goods + ", order_account=" + order_account
 				+ ", total_price=" + total_price + ", order_status=" + order_status + ", id=" + id + ", order_date="
 				+ order_date + ", receive_name=" + receive_name + ", receive_phone=" + receive_phone + ", receive_home="
-				+ receive_home + ", receive_addr=" + receive_addr + ", delivery_msg=" + delivery_msg + "]";
+				+ receive_home + ", receive_addr=" + receive_addr + ", delivery_msg=" + delivery_msg + ", title="
+				+ title + ", member_number=" + member_number + ", maybe_date=" + maybe_date + ", goods_name="
+				+ goods_name + ", goods_account=" + goods_account + ", status=" + status + "]";
 	}
-	
-	
+
 }

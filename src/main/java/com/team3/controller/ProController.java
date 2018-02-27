@@ -69,7 +69,21 @@ public class ProController {
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public ModelAndView cart(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("cart.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.cart(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/cartListDelete.do", method=RequestMethod.GET)
+	public ModelAndView cartListDelete(HttpServletRequest request,HttpServletResponse response) {
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.cartListDelete(mav);
+		
+		return mav;
 	}
 		
 	@RequestMapping(value="/orderSearch.do", method=RequestMethod.GET)
@@ -82,28 +96,64 @@ public class ProController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/statusChange.do", method=RequestMethod.GET)
+	public ModelAndView statusChange(HttpServletRequest request,HttpServletResponse response) {
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.statusChange(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/orderDelete.do", method=RequestMethod.GET)
+	public ModelAndView orderDelete(HttpServletRequest request,HttpServletResponse response) {
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.orderDelete(mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/cancel.do", method=RequestMethod.GET)
 	public ModelAndView cancel(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("cancel.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.cancel(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/ordering.do", method=RequestMethod.GET)
 	public ModelAndView ordering(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("ordering.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.ordering(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/delivery.do", method=RequestMethod.GET)
 	public ModelAndView delivery(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("delivery.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.delivery(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/buyList.do", method=RequestMethod.GET)
 	public ModelAndView buyList(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("buyList.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.buyList(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/CustomerService_main.do", method=RequestMethod.GET)
@@ -168,7 +218,11 @@ public class ProController {
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
 		
-		return new ModelAndView("detailOrder.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.detailOrder(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/eventPopup.do", method=RequestMethod.GET)
@@ -246,11 +300,11 @@ public class ProController {
 	
 	@RequestMapping(value="adminWriterSearch.do", method=RequestMethod.GET)
 	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminWriterSearch.admin");
+		return new ModelAndView("adminWriterSearch.adminEmpty");
 	}
 	@RequestMapping(value="adminWriterInsert.do", method=RequestMethod.GET)
 	public ModelAndView adminWriterInsert(HttpServletRequest request, HttpServletResponse response) {		
-		return new ModelAndView("adminWriterInsert.admin");
+		return new ModelAndView("adminWriterInsert.adminEmpty");
 	}
 	
 	@RequestMapping(value="adminMemberManage.do", method=RequestMethod.GET)

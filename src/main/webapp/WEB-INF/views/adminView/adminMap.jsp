@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<!-- 
+작성자 : 김용기
+ -->
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 영업점관리</title>
@@ -11,7 +15,7 @@
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 용기CSS -->
 <link href="css/admin/adminBtn_yk.css" rel="stylesheet">
-<script type="text/javascript" src="js/function_yk.js"></script>
+<script type="text/javascript" src="js/admin/function_yk.js"></script>
 <script type="text/javascript">
 	$(document).ready(
 			function() {

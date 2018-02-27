@@ -1,3 +1,7 @@
+<!-- 
+작성자 : 심제민
+ -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
@@ -38,18 +42,16 @@
 			}
 		})
 
-		$("#writer_search").click(
-				function() {
-					window.open("adminWriterSearch.do", "",
-							"width=570, height=600");
-					return false;
-				})
-		$("#single_cal3").change(function () {
+		$("#writer_search").click(function() {
+			window.open("adminWriterSearch.do", "", "width=570, height=600");
+			return false;
+		})
+		$("#single_cal3").change(function() {
 			var date = $(this).val().split("/");
-			var y=date[2]+"-";
-			var m=date[0]+"-";
-			var d=date[1];
-			$(this).val(y+m+d);
+			var y = date[2] + "-";
+			var m = date[0] + "-";
+			var d = date[1];
+			$(this).val(y + m + d);
 		})
 	})
 </script>
@@ -160,7 +162,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">목차</label>
 											<div class="col-md-6 col-sm-6 col-xs-12 area_jm">
-											<textarea id="" name="" placeholder="목차를 입력하세요" class="form-control col-md-7 col-xs-12"><%="1. 몰린 학교\r\n2. 수상한 이웃집\r\n3. 세탁소 사건\r\n4. 우리 둘만의 약속이야\r\n5. 베니의 누나\r\n6. 다시 찾은 이름\r\n7. 이건 모험이라고!\r\n8. 엠마 아줌마의 트럭\r\n9. 난생처음 히치하이킹\r\n10. 다시 돌아온 엠마 아줌마\r\n11. 잃어버렸던 소중한 것\r\n12. 인디언의 노래\r\n13. 길 위의 아이들\r\n14. 두 개의 이름\r\n15. 미시시피 강의 모험"%></textarea>
+												<textarea id="" name="" placeholder="목차를 입력하세요" class="form-control col-md-7 col-xs-12"><%="1. 몰린 학교\r\n2. 수상한 이웃집\r\n3. 세탁소 사건\r\n4. 우리 둘만의 약속이야\r\n5. 베니의 누나\r\n6. 다시 찾은 이름\r\n7. 이건 모험이라고!\r\n8. 엠마 아줌마의 트럭\r\n9. 난생처음 히치하이킹\r\n10. 다시 돌아온 엠마 아줌마\r\n11. 잃어버렸던 소중한 것\r\n12. 인디언의 노래\r\n13. 길 위의 아이들\r\n14. 두 개의 이름\r\n15. 미시시피 강의 모험"%></textarea>
 											</div>
 										</div>
 
