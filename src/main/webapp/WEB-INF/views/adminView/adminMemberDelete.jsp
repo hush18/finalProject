@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,6 +79,10 @@
 	<div class="box_line_mh">
 		<input type="hidden" name="member_number" value="${member_number }"/>
 		<div class="sub_mh">
+			<c:if test="${member_number<1000 }">
+				<p>본 계정은 관리자 계정입니다. 삭제 시 유의해주십시오.</p>
+			</c:if>
+		
 			<p>관리자님의 비밀번호를 입력해주세요.</p>
 		</div>
 		<div class="input_mh">
