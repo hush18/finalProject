@@ -14,10 +14,16 @@ public interface ServiceInterface {
 	public void bookList(ModelAndView mav);
 	public void bookInfo(ModelAndView mav);
 	
+	public void adminBookInsert(ModelAndView mav);
+	public void adminBookInsertOk(ModelAndView mav);
 	public void adminBookSearch(ModelAndView mav);
 	public void adminBookInfo(ModelAndView mav);
-	public void adminWriterSearch(ModelAndView mav);
 	public void adminBookUpdate(ModelAndView mav);
+	public void adminBookDelete(ModelAndView mav);
+	
+	public void adminWriterSearch(ModelAndView mav);
+	public void adminWriterInsertOk(ModelAndView mav);
+	
 	public void createMap(ModelAndView  mav);
 	public void readMap(ModelAndView mav);
 	public void updateMap(ModelAndView mav);

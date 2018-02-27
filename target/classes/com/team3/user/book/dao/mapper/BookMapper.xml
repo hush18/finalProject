@@ -15,13 +15,9 @@
   	
   	<select id="getBookList" parameterType="java.util.Map" resultType="com.team3.user.book.dto.BookDto">
   		<![CDATA[
-      SELECT * FROM 
-      (SELECT ROWNUM rnum, A.* FROM 
-            (SELECT w.NAME,bb.* FROM book bb, writer w WHERE w.WRITER_BOOKLIST LIKE CONCAT(CONCAT('%',isbn),'%') and CATEGORY_NUMBER IN
+      SELECT w.NAME,b.* FROM book b, writer w WHERE b.CATEGORY_NUMBER IN 
                   (SELECT DISTINCT CATEGORY_NUMBER FROM CATEGORY WHERE CATEGORY_PATH LIKE CONCAT(
-                        (SELECT CATEGORY_PATH FROM CATEGORY WHERE CATEGORY_NUMBER=#{category_number}),'%')) ORDER BY ${sortValue}) A) b
-WHERE b.rnum BETWEEN #{startRow} AND #{endRow}
-      ORDER by b.rnum
+                        (SELECT DISTINCT CATEGORY_PATH FROM CATEGORY WHERE CATEGORY_NUMBER=#{category_number}),'%') ) and w.WRITER_NUMBER=b.WRITER_NUMBER ORDER BY ${sortValue}
       
   		]]>
   	</select>

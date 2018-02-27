@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -598,8 +600,8 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		String id="user123";
-//		HttpSession session = request.getSession();		//세션받기 ID
-//		String id=(String) session.getAttribute("id");
+		//HttpSession session = request.getSession();		//세션받기 ID
+		//String id=(String) session.getAttribute("id");
 		List<InterestDto> scrollList=interestDao.scrollSelect(id);
 		LogAspect.logger.info(LogAspect.logMsg + "여기까진 넘어오나요" + scrollList.toString());
 		int scrollCount=scrollList.size();
@@ -627,7 +629,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
-String category_path = request.getParameter("category_path");
+		String category_path = request.getParameter("category_path");
 		
 		String path = request.getParameter("path");
 		
@@ -683,16 +685,26 @@ String category_path = request.getParameter("category_path");
 		String sortValue = request.getParameter("sortValue");
 		if(sortValue==null) sortValue="WRITE_DATE";
 		
+		List<BookDto> bookListSearch = null;
 		List<BookDto> bookList = null;
 		if(count!=0) {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
-			dataMap.put("startRow", startRow);
-			dataMap.put("endRow", endRow);
 			dataMap.put("category_number", category_number);
 			dataMap.put("sortValue", sortValue);
+			
+			if(count<endRow) {
+				endRow = count;
+			}
+			
 			LogAspect.logger.info(LogAspect.logMsg+startRow+", "+endRow+", "+category_number+", "+sortValue);
-			bookList = bookDao.getBookList(dataMap);
-			LogAspect.logger.info(LogAspect.logMsg+"읽어온 책의 갯수 : "+bookList.size());
+			bookListSearch = bookDao.getBookList(dataMap);
+			LogAspect.logger.info(LogAspect.logMsg+"읽어온 책의 갯수 : "+bookListSearch.size());
+			
+			
+			bookList = new ArrayList<BookDto>();
+			for(int i=startRow-1; i<endRow; i++) {
+				bookList.add(bookListSearch.get(i));
+			}
 		}
 		
 		int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
@@ -714,44 +726,11 @@ String category_path = request.getParameter("category_path");
 		mav.addObject("bookListSize", bookListSize);
 	}
 	
+	@Transactional
 	@Override
 	public void bookInfo(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
-		
-		String category_path = request.getParameter("category_path");
-		
-		String path = request.getParameter("path");
-		
-		String category_number = null;
-		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+category_path);
-		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+path);
-		
-		category_number = bookDao.getCategoryNumber(","+path.trim());
-		if(category_number==null) {
-			category_number = bookDao.getCategoryNumber(category_path.trim());
-		}
-		
-		if(request.getParameter("category_number")!=null) {
-			category_number = request.getParameter("category_number");
-		}
-		
-		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
-		
-		category_path=path;
-		
-		CategoryDto categoryDto = bookDao.getCategoryPath(category_number);
-		LogAspect.logger.info(LogAspect.logMsg+"현재 카테고리정보 : "+categoryDto.toString());
-		String[] str = null;
-		if(path!=null) {
-			str = categoryDto.getCategory_path().split(",");
-			if(str.length==4) {
-				path = str[str.length-2];
-			} else {
-				path = str[str.length-1];
-			}
-		}
-		LogAspect.logger.info(LogAspect.logMsg+"현재 카테고리 출력 : "+category_path);
 		
 		String isbn = request.getParameter("isbn");
 		
@@ -778,12 +757,31 @@ String category_path = request.getParameter("category_path");
 		
 		LogAspect.logger.info(LogAspect.logMsg+"해당 저자의 다른 책 갯수 : "+writerBookList.size());
 		
+		CategoryDto categoryDto = bookDao.getCategoryPath(bookDto.getCategory_number());
+		LogAspect.logger.info(LogAspect.logMsg+"현재 카테고리정보 : "+categoryDto.toString());
+		
+		String path = categoryDto.getCategory_path();
+		String category_path = null;
+		String[] str = null;
+		if(path!=null) {
+			str = path.split(",");
+			if(str.length==4) {
+				path = str[str.length-2];
+				category_path = str[str.length-1];
+			} else {
+				path = str[str.length-1];
+				category_path = str[str.length];
+			}
+		}
+		
+		LogAspect.logger.info(LogAspect.logMsg+"현재 카테고리 출력 : "+path);
+		
 		mav.addObject("writerBookList", writerBookList);
 		mav.addObject("writerDto", writerDto);
 		mav.addObject("bookDto", bookDto);
 		mav.addObject("path", path);
-		mav.addObject("categoryDto", categoryDto);
 		mav.addObject("category_path", category_path);
+		mav.addObject("categoryDto", categoryDto);
 	}
 	
 	@Override
@@ -797,25 +795,61 @@ String category_path = request.getParameter("category_path");
 	}
 	
 	@Override
+	public void adminBookInsert(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		List<CategoryDto> categoryList = adminBook.adminBookCategogyList();
+		mav.addObject("categoryList", categoryList);
+	}
+	
+	@Override
+	public void adminBookInsertOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		BookDto bookDto = (BookDto)map.get("bookDto");
+		
+		bookDto.setIsbn(bookDto.getIsbn()+"/");
+		
+		LogAspect.logger.info(LogAspect.logMsg+"책 등록정보 : "+bookDto.toString());
+		
+		int check = adminBook.adminBookInsert(bookDto);
+		WriterDto writerDto = null;
+		if(check!=0) {
+			writerDto = adminBook.getWriter(bookDto.getWriter_number());
+			LogAspect.logger.info(LogAspect.logMsg+"저자 정보 : "+writerDto.toString());
+			String writer_bookList = writerDto.getWriter_bookList();
+			if(writer_bookList==null) {
+				writer_bookList=bookDto.getIsbn();
+			} else if(writer_bookList.indexOf(bookDto.getIsbn())==-1){
+				writer_bookList+=bookDto.getIsbn();
+			}
+			
+			writerDto.setWriter_bookList(writer_bookList);
+			if(writerDto.getWriter_number()!=0) {
+				adminBook.updateWriter(writerDto);
+			}
+		}
+		
+		
+		mav.addObject("check", check);
+		mav.addObject("isbn", bookDto.getIsbn());
+	}
+	
+	@Override
 	public void adminBookInfo(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		String isbn = request.getParameter("isbn");
+		LogAspect.logger.info(LogAspect.logMsg+"요청 책 번호 : "+isbn);
 		
 		BookDto bookDto = adminBook.adminBookInfo(isbn);
+		LogAspect.logger.info(LogAspect.logMsg+"책 정보 : "+bookDto.toString());
 		
-		WriterDto writerDto = adminBook.getWriter(isbn);
+		WriterDto writerDto = adminBook.getWriter(bookDto.getWriter_number());
+		LogAspect.logger.info(LogAspect.logMsg+"저자 정보 : "+writerDto.toString());
 		
 		List<CategoryDto> categoryList = adminBook.adminBookCategogyList();
-		
-		String imagePath = request.getRealPath("/").split("apache")[0]+"workspace\\finalProject\\src\\main\\webapp\\images\\books";
-		LogAspect.logger.info(LogAspect.logMsg+"프로젝트 경로 : "+imagePath);
-		
-		
-		String[] date = bookDto.getWrite_date().split("\\.");
-		LogAspect.logger.info(LogAspect.logMsg+"날짜확인 : "+bookDto.getWrite_date()+", "+date.length);
-		bookDto.setWrite_date(date[1]+"/"+date[2]+"/"+date[0]);
 		
 		if(writerDto!=null) {
 			LogAspect.logger.info(LogAspect.logMsg+"저자확인 : "+writerDto.toString());
@@ -823,49 +857,64 @@ String category_path = request.getParameter("category_path");
 			bookDto.setName(writerDto.getName());
 			bookDto.setWriter_number(writerDto.getWriter_number());
 		}
-		
+		bookDto.setIsbn(bookDto.getIsbn().split("/")[0]);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("bookDto", bookDto);
 	}
 	
+	@Transactional
 	@Override
 	public void adminBookUpdate(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
-		MultipartHttpServletRequest request=(MultipartHttpServletRequest) map.get("request");
-		
-		String imagePath = request.getRealPath("/").split("apache")[0]+"workspace\\finalProject\\src\\main\\webapp\\images\\books";
-		LogAspect.logger.info(LogAspect.logMsg+"프로젝트 이미지폴더 경로 : "+imagePath);
-		
-		MultipartFile upImage = request.getFile("image");
-		
-		String fileName = Long.toString(System.currentTimeMillis())+"_"+upImage.getOriginalFilename();
-		long fileSize = upImage.getSize();
-		LogAspect.logger.info(LogAspect.logMsg+"파일명 : "+fileName+", 파일크기 : "+fileSize);
-		
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		BookDto bookDto = (BookDto)map.get("bookDto");
-		
-		LogAspect.logger.info(LogAspect.logMsg+"책 수정정보 : ");
-		
+		bookDto.setIsbn(bookDto.getIsbn()+"/");
 		LogAspect.logger.info(LogAspect.logMsg+"책 수정정보 : "+bookDto.toString());
 		
-		int check;
-		if(fileSize!=0) {
-			check = adminBook.adminBookUpdateFile(bookDto);
-		}else {
-			check = adminBook.adminBookUpdate(bookDto);
-		}
+		int check = adminBook.adminBookUpdate(bookDto);
 		
 		if(check!=0) {
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
-			hashMap.put("isbn", bookDto.getIsbn());
-			hashMap.put("writer_number", bookDto.getWriter_number());
-			adminBook.writerListUpdate(hashMap);
+			WriterDto writerDto = adminBook.getWriter(bookDto.getWriter_number());
+			LogAspect.logger.info(LogAspect.logMsg+"저자 정보 : "+writerDto.toString());
+			String writer_bookList = writerDto.getWriter_bookList();
+			
+			if(writer_bookList==null) {
+				writer_bookList=bookDto.getIsbn();
+			} else if(writer_bookList.indexOf(bookDto.getIsbn())==-1){
+				writer_bookList+=bookDto.getIsbn();
+			}
+			
+			if(writerDto.getWriter_number()!=0) {
+				adminBook.updateWriter(writerDto);
+			}
 		}
 		
 		mav.addObject("check", check);
 		mav.addObject("isbn", bookDto.getIsbn());
+	}
+	
+	@Transactional
+	@Override
+	public void adminBookDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
+		String isbn = request.getParameter("isbn");
+		LogAspect.logger.info(LogAspect.logMsg+"삭제요청 책 번호 : "+isbn);
+		
+		long writer_number = Long.parseLong(request.getParameter("writer_number"));
+		LogAspect.logger.info(LogAspect.logMsg+"삭제요청 책의 저자번호 : "+writer_number);
+		
+		int check = adminBook.adminBookDelete(isbn);
+		
+		if(check!=0) {
+			WriterDto writerDto = adminBook.getWriter(writer_number);
+			writerDto.setWriter_bookList(writerDto.getWriter_bookList().replace(isbn, ""));
+			adminBook.adminWriterBookListUpdate(writerDto);
+		}
+		
+		mav.addObject("check", check);
 	}
 	
 	@Override
@@ -880,11 +929,15 @@ String category_path = request.getParameter("category_path");
 			writerList = adminBook.getWriterList(name);
 			if(writerList!=null) {
 				for(int i=0; i<writerList.size(); i++) {
-					String[] bookList = writerList.get(i).getWriter_bookList().split("/");
-					String title = adminBook.getTitle(bookList[0]+"/");
-					if(bookList.length>1) {
-						title +=" 외 "+(bookList.length-1)+"종";
+					String title = "등록도서 없음";
+					if(writerList.get(i).getWriter_bookList()!=null) {
+						String[] bookList = writerList.get(i).getWriter_bookList().split("/");
+						title = adminBook.getTitle(bookList[0]+"/");
+						if(bookList.length>1) {
+							title +=" 외 "+(bookList.length-1)+"종";
+						}
 					}
+					
 					
 					WriterDto writerDto = writerList.get(i);
 					LogAspect.logger.info(LogAspect.logMsg+"대표작 타이틀 : "+title);
@@ -898,6 +951,19 @@ String category_path = request.getParameter("category_path");
 			LogAspect.logger.info(LogAspect.logMsg+"저자 검색 수 : "+writerList.size());
 		}
 		
+	}
+	
+	@Override
+	public void adminWriterInsertOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		WriterDto writerDto = (WriterDto)map.get("writerDto");
+		LogAspect.logger.info(LogAspect.logMsg+"저자 등록 정보 : "+writerDto.toString());
+		int check = adminBook.adminWriterInsert(writerDto);
+		LogAspect.logger.info(LogAspect.logMsg+"저자 등록 확인 : "+check);
+		
+		mav.addObject("check", check);
 	}
 }
 

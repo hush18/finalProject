@@ -188,13 +188,13 @@
 						<div>
 							<h3 class="h2-hr">문학</h3>
 							<p>
-								<a href="#">시</a>
+								<a href="bookList.do?path=시&category_path=시">시</a>
 							</p>
 							<p>
-								<a href="#">에세이</a>
+								<a href="bookList.do?path=에세이&category_path=에세이">에세이</a>
 							</p>
 							<p>
-								<a href="#">기행</a>
+								<a href="bookList.do?path=기행&category_path=기행">기행</a>
 							</p>
 						</div>
 						<div>
@@ -273,16 +273,16 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#">문학</a>
+					<a href="bookList.do?path=문학&category_path=문학">문학</a>
 					<ul class="ul-iy">
 						<li>
-							<a href="#">시</a>
+							<a href="bookList.do?path=시&category_path=시">시</a>
 						</li>
 						<li>
-							<a href="#">에세이</a>
+							<a href="bookList.do?path=에세이&category_path=에세이">에세이</a>
 						</li>
 						<li>
-							<a href="#">기행</a>
+							<a href="bookList.do?path=기행&category_path=기행">기행</a>
 						</li>
 					</ul>
 				</li>

@@ -30,6 +30,9 @@
 .centent_route_jm a{
 	color: black;
 }
+.info_goods_jm p{
+line-height: 170%;}
+
 </style>
 <script type="text/javascript">
 	$(function () {
@@ -224,7 +227,12 @@
 					</div>
 					<div class="info_review_jm">
 						<div style="display: block;">
-							<label style="display: inline-block; margin-right: 40px;">아이디</label>
+							<c:if test="${id!=null}">
+								<label style="display: inline-block; margin-right: 40px;">${id}</label>
+							</c:if>
+							<c:if test="${id==null}">
+								<label style="display: inline-block; margin-right: 40px;">아이디</label>
+							</c:if>
 							<p class="star_rating" style="display: inline-block;">
 								<a href="#" class="on">★</a>
 								<a href="#" class="on">★</a>

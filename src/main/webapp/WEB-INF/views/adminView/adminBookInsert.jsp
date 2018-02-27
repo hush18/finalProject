@@ -4,6 +4,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
@@ -15,43 +16,19 @@
 <link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
 	$(function() {
-		$("#upload_image_jm").click(function() {
-			$("input[name='imageFile']").click();
-		})
-
-		$("input[name='imageFile']").change(function(event) {
-			var imagePath = $(this).val();
-			$("#upload_image_jm").val(imagePath);
-
-			var image = event.target.files;
-			var imageArr = Array.prototype.slice.call(image);
-
-			imageArr.forEach(function(f) {
-				var reader = new FileReader();
-				reader.onload = function(e) {
-
-					var check = imagePath.split(".")[1];
-
-					$("#imageView").attr("src", e.target.result);
-				}
-				reader.readAsDataURL(f);
-			})
-
-			if (imagePath == "") {
-				$("#imageView").attr("src", "images/header/logo.png");
-			}
-		})
-
 		$("#writer_search").click(function() {
-			window.open("adminWriterSearch.do", "", "width=570, height=600");
+			var name = $("#name").val();
+			
+			window.open("adminWriterSearch.do?name="+name, "", "width=570, height=600");
 			return false;
 		})
-		$("#single_cal3").change(function() {
-			var date = $(this).val().split("/");
-			var y = date[2] + "-";
-			var m = date[0] + "-";
-			var d = date[1];
-			$(this).val(y + m + d);
+		
+		$("#category").change(function () {
+			$("input[name='category_number']").val($(this).val());
+		})
+		
+		$("#image_path").change(function () {
+			$("#imageView").attr("src",$(this).val());
 		})
 	})
 </script>
@@ -68,7 +45,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form method="get" class="form-horizontal insert_area_jm">
+								<form action="adminBookInsertOk.do" method="post" class="form-horizontal insert_area_jm">
 									<div class="insert_layout book_image_insert_area_jm">
 										<img id="imageView" class="insert_image_jm" src="images/header/logo.png" alt="도서이미지를 업로드 해주세요">
 									</div>
@@ -76,21 +53,21 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">도서번호(ISBN)</label>
 											<div class="col-sm-10">
-												<input type="text" name="" placeholder="도서번호(ISBN)를 입력하세요" class="form-control">
+												<input type="text" name="isbn" placeholder="도서번호(ISBN)를 입력하세요" class="form-control">
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-2 control-label">도서명</label>
 											<div class="col-sm-10">
-												<input type="text" name="" placeholder="도서명을 입력하세요" class="form-control">
+												<input type="text" name="title" placeholder="도서명을 입력하세요" class="form-control">
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-2 control-label">출판사</label>
 											<div class="col-sm-10">
-												<input type="text" name="" placeholder="출판사를 입력하세요" class="form-control">
+												<input type="text" name="publisher" placeholder="출판사를 입력하세요" class="form-control">
 											</div>
 										</div>
 
@@ -100,7 +77,7 @@
 											<div class="control-group">
 												<div class="controls">
 													<div class="col-md-11 xdisplay_inputx form-group has-feedback style_0_jm date_input_jm">
-														<input type="text" class="form-control has-feedback-left active" id="single_cal3" value="">
+														<input type="text" name="write_date" class="form-control has-feedback-left active" id="single_cal3" value="">
 														<!-- 날짜를 value에 삽입(월/일/년) -->
 														<span class="fa fa-calendar-o form-control-feedback left"></span>
 														<span id="inputSuccess2Status3" class="sr-only">(success)</span>
@@ -112,40 +89,27 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">가격</label>
 											<div class="col-sm-10">
-												<input type="text" placeholder="가격을 입력하세요" class="form-control">
+												<input type="text" name="price" placeholder="가격을 입력하세요" class="form-control">
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-2 control-label">재고</label>
 											<div class="col-sm-10">
-												<input type="text" placeholder="재고를 입력하세요" class="form-control">
+												<input type="text" name="stock" placeholder="재고를 입력하세요" class="form-control" value="0">
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
 											<div class="col-md-9 col-sm-9 col-xs-12 category_area_jm">
-												<select class="form-control category_jm" title="1차 카테고리">
-													<option value="">1차 카테고리</option>
-													<option value="">인문학/철학</option>
-													<option value="">문학</option>
-													<option value="">참고서</option>
-													<option value="">기타도서</option>
-												</select>
-												<select class="form-control category_jm" title="2차 카테고리">
-													<option value="">2차 카테고리</option>
-													<option value="">Option one</option>
-													<option value="">Option two</option>
-													<option value="">Option three</option>
-													<option value="">Option four</option>
-												</select>
-												<select class="form-control category_jm" title="3차 카테고리">
-													<option value="">3차 카테고리</option>
-													<option value="">Option one</option>
-													<option value="">Option two</option>
-													<option value="">Option three</option>
-													<option value="">Option four</option>
+												<input type="hidden" name="category_number" value="">
+												<select id="category" class="form-control category_jm" title="1차 카테고리">
+													<option value="">카테고리를 선택하세요</option>
+													<c:forEach var="category" items="${categoryList}">
+														<c:set var="category_path" value="${fn:replace(category.category_path, ',', ' > ') }"/>
+														<option value="${category.category_number}" ${category.category_number==bookDto.category_number ? 'selected' : ''}>${category_path}</option>
+													</c:forEach>
 												</select>
 											</div>
 										</div>
@@ -153,8 +117,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">도서 이미지</label>
 											<div class="col-sm-10">
-												<input id="upload_image_jm" type="text" placeholder="도서이미지를 등록 하세요" class="form-control">
-												<input type="file" name="imageFile" style="display: none;">
+												<input id="image_path" name="image_path" type="text" placeholder="도서이미지를 등록 하세요" class="form-control">
 											</div>
 										</div>
 									</div>
@@ -162,14 +125,14 @@
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">목차</label>
 											<div class="col-md-6 col-sm-6 col-xs-12 area_jm">
-												<textarea id="" name="" placeholder="목차를 입력하세요" class="form-control col-md-7 col-xs-12"></textarea>
+												<textarea id="" name="contents" placeholder="목차를 입력하세요" class="form-control col-md-7 col-xs-12"></textarea>
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">책소개</label>
 											<div class="col-md-6 col-sm-6 col-xs-12 area_jm">
-												<textarea id="" name="" placeholder="책소개를 입력하세요" class="form-control col-md-7 col-xs-12"></textarea>
+												<textarea id="" name="book_introduction" placeholder="책소개를 입력하세요" class="form-control col-md-7 col-xs-12"></textarea>
 											</div>
 										</div>
 
@@ -178,8 +141,8 @@
 											<div class="col-md-9 col-sm-9 col-xs-12 writer_select_area">
 												<div id="datatable_filter" class="dataTables_filter filter_area_right_jm writer_select">
 													<div>
-														<input id="writerName" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
-														<input id="writerNum" type="hidden">
+														<input id="name" name="name" value="${bookDto.name}" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
+														<input id="writer_number" name="writer_number" value="${bookDto.writer_number}" type="hidden">
 													</div>
 													<div>
 														<button id="writer_search" class="btn-all btn-all_jm">검색</button>
@@ -211,5 +174,5 @@
 <!-- DateJS -->
 <script src="vendors/DateJS/build/date.js"></script>
 <!-- bootstrap-daterangepicker -->
-<script src="vendors/moment/min/moment.min.js"></script>
+<script src="vendors/moment/moment.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>

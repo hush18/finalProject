@@ -104,7 +104,7 @@
 		})
 	})
 	
-	function cart(isbn) {
+	function cart(isbn, id) {
 		var quantity = $("input[id='"+isbn+"']").val();
 		
 		$(location).attr("href", "cart.do?isbn="+isbn+"&quantity="+quantity);
@@ -179,15 +179,15 @@
 		<!-- 18-01-18 컨텐츠-->
 		<div class="centent_jm">
 			<!-- 왼쪽 카테고리 메뉴영역 -->
-			<div class="centent_route_jm">홈 > <a href="bookList.do?path=전체&category_path=전체">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
-						> <a href="bookList.do?path=${pathList}&category_path=${category_path}">${pathList}</a>
+			<div class="centent_route_jm"><a href="userMain.do">홈</a> > <a href="bookList.do?path=전체&category_path=전체&bookListSize=${bookListSize}">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
+						> <a href="bookList.do?path=${pathList}&category_path=${category_path}&bookListSize=${bookListSize}">${pathList}</a>
 						<c:set var="pathValue" value="${pathList}"/>
 					</c:forTokens></div>
 			<div class="left_category_menu_jm">
 				<h2 class="h2_jm">${path}</h2>
 				<ul class="category_menu_jm">
 					<c:forTokens begin="0" items="${categoryDto.low_category}" delims="," var="low">
-						<li><a href="bookList.do?path=${low}&category_path=${category_path}" style="${low==category_path ? 'color:#5cb38b;font-weight: bold;' : ''}">${low}</a></li>
+						<li><a href="bookList.do?path=${low}&category_path=${category_path}&bookListSize=${bookListSize}" style="${low==category_path ? 'color:#5cb38b;font-weight: bold;' : ''}">${low}</a></li>
 						
 					</c:forTokens>
 				</ul>
@@ -215,10 +215,10 @@
 				<div class="condition_area_jm">
 					<div class="sort_list_jm">
 						<ul class="sort_list_ul_jm">
-							<li><a href="bookList.do?path=${category_path}&sortValue=WRITE_DATE&category_path=${category_path}" style="${sortValue=='WRITE_DATE' ? 'color:#5cb38b;font-weight: bold;' : ''}">출간일순</a> |</li>
-							<li><a href="bookList.do?path=${category_path}&sortValue=TITLE&category_path=${category_path}" style="${sortValue=='TITLE' ? 'color:#5cb38b;font-weight: bold;' : ''}">도서명순</a> |</li>
+							<li><a href="bookList.do?path=${category_path}&sortValue=WRITE_DATE&category_path=${category_path}&bookListSize=${bookListSize}" style="${sortValue=='WRITE_DATE' ? 'color:#5cb38b;font-weight: bold;' : ''}">출간일순</a> |</li>
+							<li><a href="bookList.do?path=${category_path}&sortValue=TITLE&category_path=${category_path}&bookListSize=${bookListSize}" style="${sortValue=='TITLE' ? 'color:#5cb38b;font-weight: bold;' : ''}">도서명순</a> |</li>
 							<li><a href="">리뷰순</a> |</li>
-							<li><a href="bookList.do?path=${category_path}&sortValue=PRICE&category_path=${category_path}" style="${sortValue=='PRICE' ? 'color:#5cb38b;font-weight: bold;' : ''}">가격순</a></li>
+							<li><a href="bookList.do?path=${category_path}&sortValue=PRICE&category_path=${category_path}&bookListSize=${bookListSize}" style="${sortValue=='PRICE' ? 'color:#5cb38b;font-weight: bold;' : ''}">가격순</a></li>
 						</ul>
 					</div>
 					
@@ -302,7 +302,7 @@
 											<span class="quantity_down_jm">▼<input type="hidden" value="${bookDto.isbn}"/></span>
 										</span>
 									</div>
-									<button class="btn-all btn_list_2_jm" value="" onclick="cart('${bookDto.isbn}')">장바구니</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="cart('${bookDto.isbn}','${id}')">장바구니</button>
 									<button class="btn-all btn_list_2_jm" value="" onclick="payment('${bookDto.isbn}')">즉시구매</button>
 									<button class="btn-all btn_list_2_jm" value="" onclick="wishList('${bookDto.isbn}')">위시리스트</button>
 								</div>
@@ -319,6 +319,10 @@
 						<c:forEach var="bookDto" begin="0" items="${bookList}">
 							<div class="info_move_jm">
 								<input class="check" type="checkbox" value="${bookDto.isbn}"/>
+								<input type="hidden" name="isbn" value="${bookDto.isbn}">
+								<input type="hidden" name="pageNumber" value="${pageNumber}">
+								<input type="hidden" name="path" value="${category_path}">
+								<input type="hidden" name="category_path" value="${category_path}">
 								<img alt="" src="${bookDto.image_path}" id="${bookDto.isbn}" style="box-shadow: 1px 1px 2px 0px #9c9c9c;">
 								<div class="book_list_content_jm" style="margin-top: 5px;">
 									<div id="${bookDto.isbn}" title="${bookDto.title}" style="text-overflow: ellipsis; overflow: hidden;">${bookDto.title}</div>
@@ -333,13 +337,13 @@
 				<div class="page_area_jm">
 					<ul>
 						<c:if test="${startPage>pageBlock}">
-							<li><a href="bookList.do?pageNumber=${startPage-1}&category_path=${category_path}&path=${category_path}">이전</a></li>
+							<li><a href="bookList.do?pageNumber=${startPage-1}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">이전</a></li>
 						</c:if>
 						<c:forEach var="i" begin="${startPage}" end="${endPage-1}" step="1">
-							<li><a href="bookList.do?pageNumber=${i}&category_path=${category_path}&path=${category_path}" style="${i==pageNumber ? 'font-weight: bold;' : ''}">${i}</a></li>
+							<li><a href="bookList.do?pageNumber=${i}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}" style="${i==pageNumber ? 'font-weight: bold;' : ''}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${endPage <= pageCount}">
-							<li><a href="bookList.do?pageNumber=${endPage}&category_path=${category_path}&path=${category_path}">다음</a></li>
+							<li><a href="bookList.do?pageNumber=${endPage}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">다음</a></li>
 						</c:if>
 					</ul>
 				</div>
