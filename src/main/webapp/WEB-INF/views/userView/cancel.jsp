@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,36 +14,28 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
-		$(".recentOrder_hy").show();
-		$(".orderNum_hy").hide();
-		$(".goodsName_hy").hide();
-		$(".orderPrice_hy").hide();
-		
-		$(".downList_sel_hy").change(function(){
-			var str=$(this).val();
-			
-			if(str=="orderNum"){
-				$(".orderNum_hy").show();
-				$(".recentOrder_hy").hide();
-				$(".goodsName_hy").hide();
-				$(".orderPrice_hy").hide();
-			}else if(str=="goodsName"){
-				$(".orderNum_hy").hide();
-				$(".recentOrder_hy").hide();
-				$(".goodsName_hy").show();
-				$(".orderPrice_hy").hide();
-			}else if(str=="orderPrice"){
-				$(".orderNum_hy").hide();
-				$(".recentOrder_hy").hide();
-				$(".goodsName_hy").hide();
-				$(".orderPrice_hy").show();
-			}else if(str=="recentOrder"){
-				$(".orderNum_hy").hide();
-				$(".recentOrder_hy").show();
-				$(".goodsName_hy").hide();
-				$(".orderPrice_hy").hide();
-			}
+		$("#array").change(function(){
+			var url="orderSearch.do?list_id="+$(this).val();
+			$(location).attr('href', url);
 		})
+		
+		var list_id=$('input[type="hidden"]').val();
+		if(list_id=="") list_id="0";
+		$("#array option:selected").removeAttr("selected"); 
+ 		$("#array").val(list_id).attr("selected", "selected");
+ 		
+ 		$("#change_exchange").click(function(){
+			alert("이미 환불 처리 요청이된 주문입니다.");
+				
+		});
+	 		
+ 		$("#change_cancel").click(function(){
+ 			alert("배송을 처음부터 다시 시작하겠습니다.");
+ 			var order_number=$(this).parents().find("#order_number").text();
+			var url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=4";
+			$(location).attr('href', url);
+			
+ 		});
 	});
 		
 </script>
@@ -54,6 +48,7 @@
 		<div class="side_mh">
 		<div class="category_mh">
 			<div>
+			<input type="hidden" name="listId" value="${list_id }"/>
 				<!-- 주문관리 -->
 				<div class="orderManager_mh">
 					<div class="title_mh">
@@ -147,19 +142,19 @@
 				<div class="con_info1_hy">
 					<div class="info_head_hy">
 						<div>진행중 주문 건</div>
-						<div class="info_box_hy"><span><a href="ordering.do">1</a></span></div>
+						<div class="info_box_hy"><span><a href="ordering.do">${orderingCount }</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>배송중</div>
-						<div class="info_box_hy"><span><a href="delivery.do">1</a></span></div>
+						<div class="info_box_hy"><span><a href="delivery.do">${deliveryCount}</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>환불/취소</div>
-						<div class="info_box_hy"><span><a href="cancel.do">1</a></span></div>
+						<div class="info_box_hy"><span><a href="cancel.do">${cancelCount }</a></span></div>
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">1</a></span></div>
+						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -191,11 +186,10 @@
 				</div>
 				
 				<div class="downList_hy">
-					<select class="downList_sel_hy" name="array">
-						<option value="recentOrder" selected="selected">최근주문 순</option>
-						<option value="orderNum">주문번호 순</option>
-						<option value="goodsName">상품이름 순</option>
-						<option value="orderPrice">주문가격 순</option>
+					<select class="downList_sel_hy" id="array">
+						<option value="0" selected="selected">최근주문 순</option>
+						<option value="1" >상품이름 순</option>
+						<option value="2" >주문가격 순</option>
 					</select>
 				</div>
 				<div class="search_faqlist_header_ej table_jm">
@@ -208,256 +202,56 @@
 					<div class="search_list_size_hy">주문금액</div>
 					<div class="search_list_size_hy">교환/환불</div>
 				</div>
-				<div class="recentOrder_hy">
-					<div class="list_hy">
-						<div class="search_list_con_hy table_jm">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.24</div>
-							<div class="search_list_size_hy">2018.01.25</div>
-							<div class="search_list_size_hy">취소중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy table_jm">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.23</div>
-							<div class="search_list_size_hy">2018.01.24</div>
-							<div class="search_list_size_hy">반품중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy table_jm">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.22</div>
-							<div class="search_list_size_hy">2018.01.23</div>
-							<div class="search_list_size_hy">교환중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						
-					</div>
-				</div>
-				<div class="orderNum_hy">
-					<div class="list_hy">
-						<div class="search_list_con_hy">
-							<div><a href="">A0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">D0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">E0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">F0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-					</div>
-				</div>
 				
-				<div class="goodsName_hy">
-					<div class="list_hy">
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">가언어 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.24</div>
-							<div class="search_list_size_hy">2018.01.25</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">나오라클  PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.23</div>
-							<div class="search_list_size_hy">2018.01.24</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">다언어의도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.22</div>
-							<div class="search_list_size_hy">2018.01.23</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><input type="button" value="취소"></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">라오라클 과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.21</div>
-							<div class="search_list_size_hy">2018.01.22</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><input type="button" value="취소"></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">마언어의 온도1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.21</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>97,340원</strong></div>
-							<div class="search_list_size_hy"><input type="button" value="취소"></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">바오라클 SQPL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.19</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>100,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
+				<c:if test="${cancelCount==0}">
+					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+				</c:if>
+				<c:if test="${cancelCount>0 }">
+					<div class="recentOrder_hy">
+						<div class="list_hy">
+							<c:forEach var="cancelList" items="${cancelList}">
+								<div class="search_list_con_hy table_jm">
+									<div id="order_number"><a href="detailOrder.do">${cancelList.order_number }</a></div>
+									<div><a href="detailOrder.do">${cancelList.goods_name }</a></div>
+									<div>${cancelList.goods_account }권</div><!-- search_list_size_hy -->
+									<div class=""><fmt:formatDate value="${cancelList.order_date}" pattern="yyyy-MM-dd"/></div>
+									<div class=""><fmt:formatDate value="${cancelList.maybe_date}" pattern="yyyy-MM-dd"/></div>
+									<div class="">${cancelList.status }</div>
+									<div class=""><strong>${cancelList.total_price }원</strong></div>
+									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
-				</div>
+				</c:if>
 				
-				<div class="orderPrice_hy">
-					<div class="list_hy">
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.24</div>
-							<div class="search_list_size_hy">2018.01.25</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>72,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.23</div>
-							<div class="search_list_size_hy">2018.01.24</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>60,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.22</div>
-							<div class="search_list_size_hy">2018.01.23</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>46,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.21</div>
-							<div class="search_list_size_hy">2018.01.22</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>40,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">B0635_20180115174023</a></div>
-							<div><a href="">언어의 온도 외 1개</a></div>
-							<div>2권</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">2018.01.21</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>35,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-						
-						<div class="search_list_con_hy">
-							<div><a href="">C0635_20180115174023</a></div>
-							<div><a href="">오라클 SQL과 PL/SQL</a></div>
-							<div>3권</div>
-							<div class="search_list_size_hy">2018.01.19</div>
-							<div class="search_list_size_hy">2018.01.20</div>
-							<div class="search_list_size_hy">배송중</div>
-							<div class="search_list_size_hy"><strong>19,340원</strong></div>
-							<div class="search_list_size_hy"><button class="block_btn_hy">취소</button></div>
-						</div>
-					</div>
-				</div>
 			</div>
 			<div class="page_count_hy">
-				<a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a><a href="">[다음]</a>
+				<c:if test="${cancelCount>0 }">
+					<fmt:parseNumber var="pageCount" value="${cancelCount/pageSize+(cancelCount%pageSize==0 ? 0:1)}" integerOnly="true"/>
+					<c:set var="pageBlock" value="${5 }"/>
+				
+					<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock }" integerOnly="true"/>
+					<c:set var="startPage" value="${rs*pageBlock +1 }"/>
+					
+					<c:set var="endPage" value="${startPage+pageBlock -1 }"/>
+					<c:if test="${endPage >pageCount }">
+						<c:set var="endPage" value="${pageCount }"/>
+					</c:if>
+			
+					<c:if test="${startPage> pageBlock }">
+						<a href="cancel.do?cancel_pageNumber=${startPage-pageBlock }&list_id=${list_id}">[이전]</a>
+					</c:if>
+				
+					<c:forEach var="i" begin="${startPage}" end="${endPage }">
+						<a href="cancel.do?cancel_pageNumber=${i }&list_id=${list_id}">${i }</a>
+					</c:forEach>
+				
+					<c:if test="${endPage< pageCount }">
+						<a href="cancel.do?cancel_pageNumber=${startPage + pageBlock }&list_id=${list_id}">[다음]</a>
+					</c:if>
+				
+				</c:if>
 			</div>
 			<div class="underimg_hy"><img src="images/info2.png" style="width:85%;"/></div>
 		</div>

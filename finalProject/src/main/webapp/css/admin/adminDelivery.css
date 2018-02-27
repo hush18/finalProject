@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+
+
+.row{
+	margin-bottom: 5px;
+}
+
+.even >td, .odd >td{
+	text-align: center;
+	vertical-align: middle;
+	line-height: normal;
+	padding-top: 11px !important;
+}
+.even >td:last-child, .odd >td:last-child{
+	padding-top: 9px !important;
+}
+
+.thead_hy th{
+	text-align: center;
+}
+
+.text_left_hy{
+	text-align: left !important;
+}
+.text_right_hy{
+	text-align: right !important;
+}
+
+.text_hy{
+	text-align: center;
+	font-size: 12px;
+}

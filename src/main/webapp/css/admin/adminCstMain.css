@@ -21,9 +21,8 @@
 
 .btn_ej:focus{
 	color: #fff;
-    background-color: #429F6B;
-    border-color: #429F6B;
-    font-weight: bold;
+    background-color: #5cb38b;
+    border-color: #5cb38b;
 }
 
 .btn_ej:active:focus{

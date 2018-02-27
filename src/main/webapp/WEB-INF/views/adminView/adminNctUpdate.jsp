@@ -47,12 +47,14 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="form-horizontal form-label-left">
+									<form class="form-horizontal form-label-left" action="adminNctUpdateOk.do" method="post">
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">제목</label>
 											<div class="col-md-9 col-sm-9 col-xs-12">
+											<input type="hidden" name="notice_number" value="${param.notice_number}"/>
+											<input type="hidden" name="pageNumber" value="${param.pageNumber}"/>
 												<input type="text" class="form-control" placeholder="제목 입력"
-													value="내용요요요용">
+													value="${adminNctDto.title}" name="title">
 											</div>
 										</div>
 										<div class="form-group">
@@ -61,7 +63,7 @@
 											<div class="col-md-9 col-sm-9 col-xs-12">
 												<textarea id="textContent_ej"
 													class="form-control form-control_ej" rows="10"
-													placeholder="내용 입력">내용~~~~~</textarea>
+													placeholder="내용 입력" name="content">${adminNctDto.content}</textarea>
 											</div>
 										</div>
 
