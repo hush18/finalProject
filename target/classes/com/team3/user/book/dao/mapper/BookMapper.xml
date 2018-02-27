@@ -2,29 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.team3.user.book.dao.mapper">
-
-	<select id="getMainList" resultType="com.team3.user.book.dto.BookDto">
+ 
+  <mapper namespace="com.team3.user.book.dao.mapper">
+  
+  	<select id="getMainList" resultType="com.team3.user.book.dto.BookDto">
 		  <![CDATA[
 		  	select * from (select b.title, b.publisher, b.image_path, w.NAME from book b, writer w order by dbms_random.value) where rownum < 4
 		  ]]>
 	</select>
-
-	<select id="getCategoryPath" parameterType="String"
-		resultType="com.team3.user.book.dto.CategoryDto">
-		select * from category WHERE CATEGORY_NUMBER=#{category_number}
-	</select>
-
-	<select id="getCount" parameterType="String" resultType="int">
-		SELECT nvl(count(*),0) FROM book WHERE CATEGORY_NUMBER IN (SELECT
-		CATEGORY_NUMBER FROM CATEGORY WHERE CATEGORY_PATH LIKE CONCAT(
-		(SELECT CATEGORY_PATH FROM CATEGORY WHERE
-		CATEGORY_NUMBER=#{category_number}),'%'))
-	</select>
-
-	<select id="getBookList" parameterType="java.util.Map"
-		resultType="com.team3.user.book.dto.BookDto">
+	
+  	<select id="getCategoryPath" parameterType="String" resultType="com.team3.user.book.dto.CategoryDto">
+  		select * from category WHERE CATEGORY_NUMBER=#{category_number}
+  	</select>
+  	
+  	<select id="getCount" parameterType="String" resultType="int">
+  		SELECT nvl(count(*),0) FROM book WHERE CATEGORY_NUMBER IN (SELECT CATEGORY_NUMBER FROM CATEGORY WHERE CATEGORY_PATH LIKE CONCAT(
+                        (SELECT CATEGORY_PATH FROM CATEGORY WHERE CATEGORY_NUMBER=#{category_number}),'%'))
+  	</select>
+  	
+  	<select id="getBookList" parameterType="java.util.Map" resultType="com.team3.user.book.dto.BookDto">
   		<![CDATA[
       SELECT * FROM 
       (SELECT ROWNUM rnum, A.* FROM 
@@ -42,16 +38,19 @@ WHERE b.rnum BETWEEN #{startRow} AND #{endRow}
   		<![CDATA[
   			SELECT CATEGORY_NUMBER FROM CATEGORY WHERE CATEGORY_PATH LIKE CONCAT('%',#{category_path})
   		]]>
-	</select>
 
-	<select id="getBookInfo" parameterType="String"
-		resultType="com.team3.user.book.dto.BookDto">
-		select w.*, b.* from book b,writer w where isbn=#{isbn} and
-		w.WRITER_BOOKLIST LIKE CONCAT(CONCAT('%',#{isbn}),'%')
-	</select>
-
-	<select id="getWriterInfo" parameterType="long"
-		resultType="com.team3.user.book.dto.WriterDto">
-		select * from writer where writer_number=#{writer_number}
-	</select>
-</mapper>
+  	</select>
+  	
+  	<select id="getBookInfo" parameterType="String" resultType="com.team3.user.book.dto.BookDto">
+  		select w.*, b.* from book b,writer w where isbn=#{isbn} and w.WRITER_BOOKLIST LIKE CONCAT(CONCAT('%',#{isbn}),'%')
+  	</select>
+  	
+  	<select id="getWriterInfo" parameterType="long" resultType="com.team3.user.book.dto.WriterDto">
+  		select * from writer where writer_number=#{writer_number}
+  	</select>
+  	
+  	<select id="bookListMH" resultType="com.team3.user.book.dto.BookDto">
+  		select b.title, w.name from book b, writer w where b.writer_number=w.writer_number
+  	</select>
+  	
+  </mapper>

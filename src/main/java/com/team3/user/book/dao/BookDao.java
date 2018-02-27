@@ -15,4 +15,5 @@ public interface BookDao {
 	public BookDto getBookInfo(String isbn);
 	public WriterDto getWriterInfo(long writer_number);
 	public List<BookDto> getMainList();
+	public List<BookDto> bookListMH();
 }
