@@ -266,16 +266,6 @@ body {
     text-align: center;
 }
 
-.consulting_abtn2_ej{
-	background: #5cb38b;
-    color: #fff;
-    height: 21px;
-    padding: 5px 0.5em;
-    cursor: pointer;
-    font-size: 12px;	
-    border-radius: 3px;
-}
-
 .consulting_abtn1_ej{
 	background: #5cb38b;
     color: #fff;
@@ -287,4 +277,15 @@ body {
 
 .consulting_abtn1_ej:hover, .consulting_abtn2_ej:hover{
 	font-weight: bold;
+}
+
+.consulting_abtn2_ej{
+	border: 0;
+	background: #5cb38b;
+    color: #fff;
+    padding: 5px 0.5em;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 3px;
+    outline: 0;
 }

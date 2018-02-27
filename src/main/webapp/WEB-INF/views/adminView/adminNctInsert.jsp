@@ -52,17 +52,17 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form class="form-horizontal form-label-left">
+								<form class="form-horizontal form-label-left" action="adminNctInsertOk.do" method="post">
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">제목</label>
 										<div class="col-md-9 col-sm-9 col-xs-12">
-											<input type="text" class="form-control" placeholder="제목 입력">
+											<input type="text" class="form-control" placeholder="제목 입력" name="title">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">내용 </label>
 										<div class="col-md-9 col-sm-9 col-xs-12">
-											<textarea class="form-control form-control_ej" rows="10" placeholder="내용 입력"></textarea>
+											<textarea class="form-control form-control_ej" rows="10" placeholder="내용 입력" name="content"></textarea>
 										</div>
 									</div>
 

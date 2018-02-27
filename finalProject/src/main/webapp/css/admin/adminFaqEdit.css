@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.control-label_ej{
+	margin-top: 15px;
+}
+
+.form-control_ej{
+	margin-bottom: 10px;
+	resize: none;
+}
+
+.col-md-9_ej{
+	width: 100%;
+    text-align: center;
+    margin-left: 0px;
+}
+
+.col-md-9_ej button{
+	background-color: #5cb38b;
+    border-color: #5cb38b;
+}
+
+.col-md-9_ej button:hover{
+	font-weight: bold;
+	background-color: #5cb38b;
+	border-color: #5cb38b;
+}
+
+.col-md-9_ej button:focus{
+	color: #fff;
+    background-color: #429F6B;
+    border-color: #429F6B;
+    font-weight: bold;
+}
+
+.col-md-9_ej button:active:focus{
+	color: #fff;
+    background-color: #5cb38b;
+    border-color: #3C7B5e;
+}

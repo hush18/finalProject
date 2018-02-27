@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	background: #fff;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.widthline_ej {
+	margin: 0 auto;
+	width: 500px;
+}
+
+.qboss_ej{
+	background-color: #F8F8F8;
+	width:100%;
+	font-size: 12px;
+}
+
+.sub1_ej{
+	height: 40px;
+	margin-bottom: 10px;
+	background-color: #5cb38b;
+}
+
+.sub1_ej span{
+	color: #fff;
+	line-height: 40px;
+	font-size: 1.17em;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.sub2_ej{
+	color: #5cb38b;
+	padding-left: 22px;
+}
+
+.sub3_ej{
+	border: 1px solid #9c9c9c;
+	height: 50px;
+	line-height: 50px;
+	margin-bottom: 10px;
+	width: 90%;
+	margin-left: 22px;
+	background-color: #fff;
+	margin-top: 10px;
+}
+
+.sub3_ej > div:nth-child(1){
+	float: left;
+	margin-left: 40px;
+	margin-right: 10px;
+}
+
+.sub3_ej > div:nth-child(2) a{
+	background: #5cb38b;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 0.5em;
+    border-radius: 3px;	
+    text-decoration: none;
+}
+
+.sub3_ej a:hover{
+	font-weight: bold;
+}
+
+.sub4_ej {
+	margin-top: 10px;
+	margin-left: 22px;
+	border: 1px solid #9c9c9c;
+	background-color: #fff;
+	font-size: 12px;
+	width: 90%;
+	height: 25px;
+	color: #000;
+	line-height: 25px;
+}
+
+.sub4_ej div {
+	float:left;
+	text-align: center;
+}
+
+.sub4_ej div:nth-child(1) {
+	background-image: url("../../images/CustomerService/minus5.png");
+	background-repeat: no-repeat;
+	background-position: 78px 4px;
+	width: 19%;
+}
+
+.sub4_ej div:nth-child(2) {
+	width: 22%;
+}
+
+.sub4_ej div:nth-child(3) {
+	background-image: url("../../images/CustomerService/minus5.png");
+	background-repeat: no-repeat;
+	background-position: 1px 4px;
+	width: 42%;
+}
+
+.sub4_ej div:nth-child(4) {
+	background-image: url("../../images/CustomerService/minus5.png");
+	background-repeat: no-repeat;
+	background-position: 1px 4px;
+	width: 17%;
+}
+
+.page2_ej {
+	margin-top: 10px;
+	background-color: #F8F8F8;
+	font-size: 12px;
+	width: 100%;
+	height: 25px;
+	color: #000;
+	line-height: 25px;
+	text-align: center;
+}
+
+.sub5_ej{
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+    text-align: center;
+    border-bottom: 1px solid #9c9c9c;
+    height: 45px;
+}
+
+.sub5_ej ul{
+	padding: 0px;
+}
+
+.sub5_ej li{
+	float: left;
+	list-style: none;
+}
+
+.sub5_li1_ej{
+	width: 15%;
+    padding-left: 26px;
+    cursor: pointer;
+}
+
+.sub5_li1_ej:hover{
+	color: #5cb38b;
+	font-weight: bold;
+}
+
+.sub5_li2_ej{
+    width: 22%;
+}
+
+.sub5_li3_ej{
+	width: 38%;
+}
+
+.sub5_li4_ej{
+    width: 13%;
+}

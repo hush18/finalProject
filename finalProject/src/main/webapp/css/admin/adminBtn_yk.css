@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+.div_yk {
+	width: 1000px;
+}
+
+.btn-group_yk {
+	overflow: hidden;
+}
+
+.btn-group_yk>button {
+	float: left;
+}
+
+.btn_yk {
+	width: 100px;
+	height: 40px;
+	background-color: #5CB38B;
+	color: white;
+	border: 0px;
+	position: relative;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	font-size: 12px;
+}
+
+.btn_yk:hover {
+	background: #fff;
+	color: #5cb38b;
+}
+
+.btn_yk:before, .btn_yk:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+.btn_yk:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.btn_yk:hover:before, .btn_yk:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.btn-link {
+	background-color: white;
+}
+
+.btn-group_yk>button {
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+.form-group>div>label {
+	text-align: center;
+	line-height: 29px;
+}
+
+.form-group {
+	overflow: hidden;
+}
+
+.form-group>div0 .....{
+	overflow: hidden;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
+
+/* named upload */
+.filebox, .upload-name {
+	display: inline-block;
+	padding: .5em .75em;
+	font-size: inherit;
+	font-family: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.filebox.bs3-primary label {
+	color: #fff;
+	background-color: #5cb38b;
+	border-color: #5cb38b;
+}
+
+.create_map_yk textarea,.admin_map_yk textarea{
+	resize: none;
+}
