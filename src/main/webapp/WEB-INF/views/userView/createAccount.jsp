@@ -22,38 +22,38 @@
 				<label id="icon" for="name">
 					<i class="fa fa-user fa-lg"></i>
 				</label>
-				<input type="text" name="name" id="name" placeholder="Name" />
+				<input type="text" name="name" id="name" placeholder="Name" value="${name}"  required="required" />
 			</div>
 
 			<div class="col-iy">
 				<label id="icon" for="id">
 					<i class="fa fa-id-card-o fa-lg"></i>
 				</label>
-				<input type="text" name="id" id="id" placeholder="ID" />
+				<input type="text" name="id" id="id" placeholder="ID" value="${id}" required="required" />
 			</div>
 
 			<div class="col-iy">
 				<label id="icon" for="password">
 					<i class="fa fa-key fa-lg"></i>
 				</label>
-				<input type="password" name="password" id="password" placeholder="Password" />
+				<input type="password" name="password" id="password" placeholder="Password" required="required" />
 			</div>
 
 			<div class="col-iy">
 				<label id="icon" for="passwordCheck">
 					<i class="fa fa-check-circle fa-lg"></i>
 				</label>
-				<input type="password" name="passwordCheck" id="passwordCheck" placeholder="Password Check" />
+				<input type="password" name="passwordCheck" id="passwordCheck" placeholder="Password Check" required="required" />
 			</div>
 
 			<div class="col-iy">
 				<label id="icon" for="address">
 					<i class="fa fa-map-marker fa-lg"></i>
 				</label>
-				<input type="text" name="member_zipcode" id="member_zipcode" placeholder="Zipcode" />
-				<input type="text" name="member_address" id="member_address" placeholder="Address" />
+				<input type="text" name="member_zipcode" id="member_zipcode" placeholder="Zipcode" required="required" />
+				<input type="text" name="member_address" id="member_address" placeholder="Address" required="required" />
 				<br />
-				<input type="text" name="member_detail_address" id="member_detail_address" placeholder="DetailAddress" />
+				<input type="text" name="member_detail_address" id="member_detail_address" placeholder="DetailAddress" required="required" />
 				<a href="#" class="button" onclick="zipcode('${root}')">주소찾기</a>
 			</div>
 
@@ -61,7 +61,7 @@
 				<label id="icon" for="email">
 					<i class="fa fa-envelope-o fa-lg"></i>
 				</label>
-				<input type="text" name="email" id="email" placeholder="Email" />
+				<input type="text" name="email" id="email" placeholder="Email" value="${email}" required="required" />
 			</div>
 			<div class="btn-iy">
 				<button id="reset" class="button" style="margin-left: 30px;">가입취소</button>

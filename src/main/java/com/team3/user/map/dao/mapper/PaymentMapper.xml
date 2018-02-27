@@ -4,7 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.team3.user.map.dao.mapper">
-  	<select id="selectBookPrice" parameterType="String" resultType="int">
-  		select price from book where isbn=#{isbn}
+  	<select id="selectBookPrice" parameterType="String" resultType="com.team3.user.book.dto.BookDto">
+  		select * from book where isbn=#{isbn}
   	</select>
+  	<select id="member_address_list" parameterType="String" resultType="com.team3.user.member.dto.MemberAddressDto">
+  		select * from member_address where id=#{id}
+  	</select>
+  	
+  	<insert id="zipcodeInsert" parameterType="com.team3.user.member.dto.MemberAddressDto">
+	  	<![CDATA[
+	  		insert into member_address values(#{id},#{member_zipcode},#{member_address},#{member_detail_address})
+		]]>
+  	</insert>
+  	
+  	<delete id="zipcodeDelete" parameterType="String">
+  		delete from member_address where member_zipcode=#{member_zipcode}
+  	</delete>
   </mapper>

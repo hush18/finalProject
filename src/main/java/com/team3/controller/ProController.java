@@ -1,22 +1,29 @@
 package com.team3.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
+import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.team3.admin.map.dto.MapDto;
 import com.team3.aop.LogAspect;
 import com.team3.service.ServiceInterface;
+import com.team3.user.book.dto.BookDto;
+import com.team3.user.book.dto.WriterDto;
+import com.team3.user.map.dto.PaymentPointDto;
+import com.team3.user.member.dto.MemberAddressDto;
 import com.team3.user.member.dto.MemberDto;
+import com.team3.user.oauth.bo.FacebookLoginBO;
+import com.team3.user.oauth.bo.NaverLoginBO;
 
 @Controller
 public class ProController {
@@ -24,168 +31,221 @@ public class ProController {
 	@Autowired
 	private ServiceInterface service;
 
+	/* NaverLoginBO */
+	@Autowired
+	private NaverLoginBO naverLoginBO;
+	@Autowired
+	private FacebookLoginBO facebookLoginBO;
+
 	// 여기부터 사용자
 	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
 	public ModelAndView scroll(ModelAndView mav) {
 		service.scrollBanner(mav);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/userMain.do", method = RequestMethod.GET)
 	public ModelAndView userMain(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("userMain.users");
+		return scroll(new ModelAndView("userMain.users"));
 	}
-	
+
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
 	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		
+
 		service.myPage(mav);
-		
-		return mav;
+
+		return scroll(mav);
 	}
-	
+
 	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
 	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
 
-		return new ModelAndView("userPointView.users");
+		return scroll(new ModelAndView("userPointView.users"));
 	}
-	
+
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
 	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.updateAccount(mav);
-		
-		return mav;
+
+		return scroll(mav);
 	}
-	
+
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.POST)
 	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDto", memberDto);
 		service.updateAccountOk(mav);
-		
-		return mav;
+
+		return scroll(mav);
 	}
-	
+
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.GET)
 	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response) {
 
 		return new ModelAndView("deleteAccount.empty");
 	}
-	
+
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
 	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDto", memberDto);
 		mav.addObject("request", request);
 		service.deleteAccount(mav);
-		
+
 		return mav;
 	}
 
 	// 위시리스트 출력
-	@RequestMapping(value="/wishList.do", method=RequestMethod.GET)
-	public ModelAndView wishList(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value = "/wishList.do", method = RequestMethod.GET)
+	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		
+
 		service.wishList(mav);
-		
+
 		return scroll(mav);
 	}
-	
-	//위시리스트에서 장바구니 이동
-	@RequestMapping(value="/wishListUp.do", method=RequestMethod.GET)
-	public ModelAndView wishListUp(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView();
+
+	// 위시리스트에서 장바구니 이동
+	@RequestMapping(value = "/wishListUp.do", method = RequestMethod.GET)
+	public ModelAndView wishListUp(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		mav.addObject("response",response);
+		mav.addObject("response", response);
 		service.wishListUp(mav);
 		return scroll(mav);
 	}
-	
-	//위시리스트에서 리스트 삭제
-	@RequestMapping(value="/wishListDel.do", method=RequestMethod.GET)
-	public ModelAndView wishListDel(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView();
+
+	// 위시리스트에서 리스트 삭제
+	@RequestMapping(value = "/wishListDel.do", method = RequestMethod.GET)
+	public ModelAndView wishListDel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.wishListDel(mav);
 		return scroll(mav);
 	}
-	
-	//위시리스트로 Insert
-	@RequestMapping(value="/wishListInsert.do", method=RequestMethod.GET)
-	public ModelAndView wishListInsert(HttpServletRequest request,HttpServletResponse response) {
+
+	// 위시리스트로 Insert
+	@RequestMapping(value = "/wishListInsert.do", method = RequestMethod.GET)
+	public ModelAndView wishListInsert(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-		//String id=request.getSession("id");
-		mav.addObject("req", request);
-		
+		// String id=request.getSession("id");
+		mav.addObject("request", request);
+
 		service.wishListInsert(mav);
-		
+
 		return scroll(mav);
 	}
-	
-	//최근본상품 리스트 출력
-	@RequestMapping(value="/nearestList.do", method=RequestMethod.GET)
-	public ModelAndView nearestList(HttpServletRequest request,HttpServletResponse response) {
+
+	// 최근본상품 리스트 출력
+	@RequestMapping(value = "/nearestList.do", method = RequestMethod.GET)
+	public ModelAndView nearestList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		
+
 		service.nearestList(mav);
-		
+
 		return scroll(mav);
-//		return new ModelAndView("nearestList.users");
+		// return new ModelAndView("nearestList.users");
 	}
-	
-	//최근본상품에서 장바구니로 이동
-	@RequestMapping(value="/nearestUp.do", method=RequestMethod.GET)
-	public ModelAndView nearestUp(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView();
+
+	// 최근본상품에서 장바구니로 이동
+	@RequestMapping(value = "/nearestUp.do", method = RequestMethod.GET)
+	public ModelAndView nearestUp(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		
+
 		service.nearestUp(mav);
-//		service.nearestInsert(mav);
+		// service.nearestInsert(mav);
 		return scroll(mav);
 	}
-	
-	//최근본상품에서 리스트 삭제
-	@RequestMapping(value="/nearestDel.do", method=RequestMethod.GET)
-	public ModelAndView nearestDel(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView();
+
+	// 최근본상품에서 리스트 삭제
+	@RequestMapping(value = "/nearestDel.do", method = RequestMethod.GET)
+	public ModelAndView nearestDel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.nearestDel(mav);
 		return scroll(mav);
 	}
-	
-	
 
 	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
-	public ModelAndView loginMember(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView loginMember(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
 
-		return new ModelAndView("loginMember.users");
+		mav.addObject("naverAuthUrl", naverAuthUrl);
+		mav.addObject("facebookUrl", facebookUrl);
+		mav.setViewName("loginMember.users");
+
+		return mav;
 	}
 
-	@RequestMapping(value = "/createAccount.do", method = RequestMethod.GET)
-	public ModelAndView createAccount(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/naverCreateAccount.do", method = RequestMethod.GET)
+	public ModelAndView naverCreateAccount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws IOException {
+		ModelAndView mav = new ModelAndView();
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		
+		if (code != null && state != null) {
+			OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+			String apiResult = naverLoginBO.getUserProfile(oauthToken);
+			JSONObject jsonObj = new JSONObject(apiResult);
+			jsonObj = (JSONObject) jsonObj.get("response");
 
-		return new ModelAndView("createAccount.users");
+			String email = (String) jsonObj.get("email");
+			String name = (String) jsonObj.get("name");
+			String id = (String) jsonObj.get("id");
+
+			mav.addObject("email", email);
+			mav.addObject("name", name);
+			mav.addObject("id", id);
+		}
+
+		mav.setViewName("createAccount.users");
+		return mav;
 	}
-	
-	@RequestMapping(value="/createAccount.do", method=RequestMethod.POST)
-	public ModelAndView createAccount(HttpServletRequest request,HttpServletResponse response, MemberDto memberDto) {
+
+	@RequestMapping(value = "/facebookCreateAccount.do", method = RequestMethod.GET)
+	public ModelAndView facebookCreateAccount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws IOException {
+		ModelAndView mav = new ModelAndView();
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		
+		if (code != null && state != null) {
+			OAuth2AccessToken oauthToken = facebookLoginBO.getAccessToken(session, code, state);
+			String apiResult = facebookLoginBO.getUserProfile(oauthToken);
+			JSONObject jsonObj = new JSONObject(apiResult);
+
+			String name = (String) jsonObj.get("name");
+			String id = (String) jsonObj.get("id");
+
+			mav.addObject("name", name);
+			mav.addObject("id", id);
+		}
+
+		mav.setViewName("createAccount.users");
+		return mav;
+	}
+
+	@RequestMapping(value = "/createAccount.do", method = RequestMethod.POST)
+	public ModelAndView createAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("memberDto", memberDto);
 		service.createAccountOk(mav);
-		
-//		LogAspect.logger.info(LogAspect.logMsg + request.getParameter("id"));
-//		LogAspect.logger.info(LogAspect.logMsg + "멤버 디티오 : " + memberDto);
+
+		// LogAspect.logger.info(LogAspect.logMsg + request.getParameter("id"));
+		// LogAspect.logger.info(LogAspect.logMsg + "멤버 디티오 : " + memberDto);
 		return mav;
 	}
 
@@ -293,17 +353,29 @@ public class ProController {
 
 		return new ModelAndView("Introduction.users");
 	}
-
-	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
-	public ModelAndView bookList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("bookList.users");
+	
+	@RequestMapping(value="/bookList.do", method=RequestMethod.GET)
+	public ModelAndView bookList(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		service.bookList(mav);
+		
+		mav.setViewName("bookList.users");
+		return scroll(mav);
 	}
-
-	@RequestMapping(value = "/bookInfo.do", method = RequestMethod.GET)
-	public ModelAndView bookInfo(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("bookInfo.users");
+	
+	@RequestMapping(value="/bookInfo.do", method=RequestMethod.GET)
+	public ModelAndView bookInfo(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		service.bookInfo(mav);
+		
+		mav.setViewName("bookInfo.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/detailOrder.do", method = RequestMethod.GET)
@@ -321,7 +393,7 @@ public class ProController {
 	@RequestMapping(value = "/newsfeed.do", method = RequestMethod.GET)
 	public ModelAndView newsfeed(HttpServletRequest request, HttpServletResponse response) {
 		service.newsfeedParsing(request, response);
-
+		
 		return null;
 	}
 
@@ -329,21 +401,27 @@ public class ProController {
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		
-		String isbn="9788959138555/";
-		int count=10;
 		mav.addObject("request",request);
-		mav.addObject("isbn",isbn);
-		mav.addObject("count",count);
-		
 		service.payment(mav);
-//		return new ModelAndView("payment.users");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/paymentOk.do", method=RequestMethod.POST)
+	public ModelAndView paymentOk(HttpServletRequest request, HttpServletResponse response,PaymentPointDto paymentPointDto) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request",request);
+		service.paymentOk(mav);
 		return null;
 	}
 
 	@RequestMapping(value = "/addressList.do", method = RequestMethod.GET)
 	public ModelAndView addressList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("addressList.empty");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request",request);
+		service.addressList(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/searchPwd.do", method = RequestMethod.GET)
@@ -352,7 +430,26 @@ public class ProController {
 
 		mav.addObject("req", request);
 		service.searchPwd(mav);
-
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/addAddress.do",method=RequestMethod.GET)
+	public ModelAndView addAddress(HttpServletRequest request, HttpServletResponse response,MemberAddressDto memberAddressDto) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("memberAddressDto",memberAddressDto);
+		mav.addObject("request",request);
+		service.addAddress(mav);
+		return mav;
+	}
+	@RequestMapping(value="/addressDelete.do",method=RequestMethod.GET)
+	public ModelAndView addressDelete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
+		service.deleteAddress(mav);
+		
 		return mav;
 	}
 
@@ -382,8 +479,10 @@ public class ProController {
 
 		return mav;
 	}
+
 	
-	@RequestMapping(value="/findIdOK.do", method=RequestMethod.POST)
+	
+	@RequestMapping(value = "/findIdOK.do", method = RequestMethod.POST)
 	public ModelAndView findIdOK(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -391,31 +490,58 @@ public class ProController {
 
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "logoutMember.do", method = RequestMethod.GET)
 	public ModelAndView logoutMember(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("logoutMember.empty");
 	}
+
+	
+	
+	
 	// 여기부터 관리자 ================================================================================================================================================
-	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)
-	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminBookSearch.admin");
+	
+	@RequestMapping(value="adminBookSearch.do", method=RequestMethod.GET)
+	public ModelAndView adminBookSearch(HttpServletRequest request, HttpServletResponse response) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminBookSearch(mav);
+		mav.setViewName("adminBookSearch.admin");
+		return mav;
 	}
 
 	@RequestMapping(value = "adminBookInsert.do", method = RequestMethod.GET)
 	public ModelAndView adminBookInsert(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminBookInsert.admin");
 	}
-
-	@RequestMapping(value = "adminBookInfo.do", method = RequestMethod.GET)
-	public ModelAndView adminBookInfo(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminBookInfo.admin");
+	
+	@RequestMapping(value="adminBookInfo.do", method=RequestMethod.GET)
+	public ModelAndView adminBookInfo(HttpServletRequest request, HttpServletResponse response) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminBookInfo(mav);
+		mav.setViewName("adminBookInfo.admin");
+		return mav;
 	}
-
-	@RequestMapping(value = "adminWriterSearch.do", method = RequestMethod.GET)
-	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminWriterSearch.adminEmpty");
+	
+	@RequestMapping(value="adminBookUpdate.do", method=RequestMethod.POST)
+	public ModelAndView adminBookUpdate(HttpServletRequest request, HttpServletResponse response,BookDto bookDto) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("bookDto", bookDto);
+		service.adminBookUpdate(mav);
+		mav.setViewName("adminBookUpdateOk.admin");
+		return mav;
 	}
+	
+	@RequestMapping(value="adminWriterSearch.do", method=RequestMethod.GET)
+	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminWriterSearch(mav);
+		mav.setViewName("adminWriterSearch.adminEmpty");
+		return mav;}
+
 
 	@RequestMapping(value = "adminWriterInsert.do", method = RequestMethod.GET)
 	public ModelAndView adminWriterInsert(HttpServletRequest request, HttpServletResponse response) {

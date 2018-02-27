@@ -118,8 +118,8 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("isbn", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
-			chk=sqlSession.delete("nearestDel",hMap);
+			LogAspect.logger.info(LogAspect.logMsg + hMap.toString()+"확인");
+			chk=sqlSession.insert("wishListInsert",hMap);
 			if(chk==0) {
 				check=0;
 			}else {
