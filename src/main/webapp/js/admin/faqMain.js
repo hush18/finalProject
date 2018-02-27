@@ -3,14 +3,11 @@
  */
 
 $(function() {
-	$(".checkbox_ej").hide();
-
-	$("#list_ej").click(function() {
-		$(this).css("display", "none");
-		$("#list_ej2").css("display", "inline-block");
-		$(".checkbox_ej").show();
-		$(".child_ej").attr("colspan", 3);
-	});
+	$(this).css("display", "none");
+	$("#list_ej2").css("display", "inline-block");
+	$("#list_ej3").css("display", "inline-block");
+	$(".checkbox_ej").show();
+	$(".child_ej").attr("colspan", 3);
 
 	$("#list_ej2").click(function() {
 		if ($("input[type=checkbox]").is(":checked") == false) {
@@ -28,13 +25,13 @@ $(function() {
 	$(".paginate_button").click(function(){
 		$(".floatgreen_ej").show();
 		$(".floatred_ej").hide();
-		$(".checkbox_ej").hide();
+//		$(".checkbox_ej").hide();
 	});
 	
 	$(".column-title").click(function(){
 		$(".floatgreen_ej").show();
 		$(".floatred_ej").hide();
-		$(".checkbox_ej").hide();
+//		$(".checkbox_ej").hide();
 		$("#list_ej").show();
 		$("#list_ej2").hide();
 	});

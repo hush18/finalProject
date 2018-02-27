@@ -1,6 +1,7 @@
 package com.team3.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +51,8 @@ public class ProController {
 	public ModelAndView userMain(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		mav.setViewName("userMain.users");
+		service.getMainList(mav);
+		
 		return scroll(mav);
 	}
 

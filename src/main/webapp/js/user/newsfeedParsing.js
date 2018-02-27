@@ -1,6 +1,6 @@
 var i = 0;
 
-function forNews() {
+$( window ).load(function() {
 	var myUrl = 'newsfeed.do';
 
 	var myData = $.ajax({
@@ -71,4 +71,9 @@ function forNews() {
 			}
 		}
 	});
+});
+
+function forNews() {
+//	alert("ready");
+
 }

@@ -20,6 +20,10 @@ html {
 	margin: 0 30px;
 }
 
+.contents1-iy {
+	width: 88px;
+}
+
 .list1 img, .list2 img, .list3 img, .contents1-iy {
 	display: inline-block;
 }

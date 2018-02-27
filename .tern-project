@@ -1,24 +1,7 @@
 {
-  "ecmaVersion": 5,
-  "plugins": {
-    "guess-types": {
-      
-    },
-    "outline": {
-      
-<<<<<<< HEAD
-=======
-    },
-    "browser-extension": {
-      
-    },
-    "jquery-extension": {
-      
->>>>>>> de073d14443aac9204f2a56663f9f72364997468
-    }
-  },
   "libs": [
     "browser",
     "jquery"
-  ]
+  ],
+  "ecmaVersion": 6
 }
