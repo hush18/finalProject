@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team3.admin.book.dao.mapper">
+	<select id="getAdminBookSearch" resultType="com.team3.user.book.dto.BookDto">
+		SELECT b.*,w.name FROM book b, WRITER w where b.WRITER_NUMBER=w.WRITER_NUMBER
+	</select>
+	
+	<select id="adminBookInfo" parameterType="String" resultType="com.team3.user.book.dto.BookDto">
+		select * from book where isbn=#{isbn}
+	</select>
+	
+	<select id="adminBookCategogyList" resultType="com.team3.user.book.dto.CategoryDto">
+		SELECT * FROM CATEGORY
+	</select>
+	
+	<select id="getWriterList" parameterType="String" resultType="com.team3.user.book.dto.WriterDto">
+		select * from writer where name=#{name}
+	</select>
+	
+	<select id="getTitle" parameterType="String" resultType="String">
+		select title from book where isbn=#{isbn}
+	</select>
+	
+	<select id="getWriter" parameterType="String" resultType="com.team3.user.book.dto.WriterDto">
+		SELECT * FROM writer WHERE WRITER_BOOKLIST LIKE CONCAT('%',CONCAT(#{isbn},'%'))
+	</select>
+	
+	<update id="adminBookUpdateFile" parameterType="com.team3.user.book.dto.BookDto">
+		update book set WRITER_NUMBER=#{writer_number}, PUBLISHER=#{publisher}, WRITE_DATE=#{write_date}, IMAGE_PATH=#{image_path},PRICE=#{price},CONTENTS=#{contents},BOOK_INTRODUCTION=#{book_introduction},CATEGORY_NUMBER=#{category_number},STOCK=#{stock} where isbn=#{isbn}
+	</update>
+	
+	<update id="adminBookUpdate" parameterType="com.team3.user.book.dto.BookDto">
+		update book set WRITER_NUMBER=#{writer_number}, PUBLISHER=#{publisher}, WRITE_DATE=#{write_date},PRICE=#{price},CONTENTS=#{contents},BOOK_INTRODUCTION=#{book_introduction},CATEGORY_NUMBER=#{category_number},STOCK=#{stock} where isbn=#{isbn}
+	</update>
+	
+	<update id="writerListUpdate" parameterType="java.util.HashMap">
+		UPDATE writer SET WRITER_BOOKLIST=CONCAT(WRITER_BOOKLIST,#{isbn}) WHERE WRITER_NUMBER=#{writer_number}
+	</update>
+</mapper>

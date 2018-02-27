@@ -23,32 +23,50 @@
 }
 .star_rating label:first-child {margin-left:0;}
 .star_rating label.on {color:#ffc107;}
+.centent_route_jm a{
+	color: black;
+}
 </style>
 <script type="text/javascript">
 	$(function () {
 		$("#view_jm").change(function() {
-			if($(this).val()=="2"){
+			if($(this).val()=="simply"){
 				$("#detail *").hide();
 				$("#simply_list_jm *").show();
-			} else if($(this).val()=="1"){
+			} else if($(this).val()=="detail"){
 				$("#detail *").show();
 				$("#simply_list_jm *").hide();
 			}
 		})
 		$("#simply_list_jm *").hide();
 		
-		$(".info_move_jm > img, .info_move_jm .book_list_content_jm > div:first-child").mousemove(function() {
+		$("#list_count_jm").change(function () {
+			var sortValue = $(".select_list_view_jm").find("input[name='sortValue']").val();
+			var category_path = $(".select_list_view_jm").find("input[name='category_path']").val();
+			var path = $(".select_list_view_jm").find("input[name='path']").val();
+			var bookListSize = $(this).val();
+			
+			$(location).attr("href", "bookList.do?sortValue="+sortValue+"&category_path="+category_path+"&path="+path+"&bookListSize="+bookListSize);
+		})
+		
+		$(".info_move_jm > img").mousemove(function() {
 			$(this).addClass("hover");
 		}).mouseout(function() {
 			$(this).removeClass("hover");
 		}).click(function() {
-			$(location).attr("href", "bookInfo.do");
+			var parent = $(this).parent();
+			var isbn = parent.find("input[name='isbn']").val();
+			var pageNumber = parent.find("input[name='pageNumber']").val();
+			var path = parent.find("input[name='path']").val();
+			var category_path = parent.find("input[name='category_path']").val();
+			
+			$(location).attr("href", "bookInfo.do?isbn="+isbn+"&pageNumber="+pageNumber+"&path="+path+"&category_path="+category_path);
 		})
 		
 		
 		$("#checkAll").click(function() {
 			var view = $("#view_jm").val();
-			if(view=="1"){//자세히보기
+			if(view=="detail"){//자세히보기
 				if($(this).prop("checked")){
 					$("#detail").find(".check").each(function() {
 						$(this).prop("checked", true);
@@ -58,7 +76,7 @@
 						$(this).prop("checked", false);
 					})
 				}
-			} else if(view=="2"){//간단히보기
+			} else if(view=="simply"){//간단히보기
 				if($(this).prop("checked")){
 					$("#simply_list_jm").find(".check").each(function() {
 						$(this).prop("checked", true);
@@ -74,37 +92,85 @@
 		
 		$(".quantity_up_jm").click(function() {
 			var target = $(this).children("input").val();
-			var value = $("#quantity_value_jm_"+target).val();
-			$("#quantity_value_jm_"+target).val(Number(value)+1);
+			var value = $(this).parent().parent().find("input[id='"+target+"']").val();
+			$(this).parent().parent().find("input[id='"+target+"']").val(Number(value)+1);
 		})
 		$(".quantity_down_jm").click(function() {
 			var target = $(this).children("input").val();
-			var value = $("#quantity_value_jm_"+target).val();
+			var value = $(this).parent().parent().find("input[id='"+target+"']").val();
 			if(value!=1){
-				$("#quantity_value_jm_"+target).val(Number(value)-1);
+				$(this).parent().parent().find("input[id='"+target+"']").val(Number(value)-1);
 			}
 		})
 	})
 	
-	function cart(root) {
-		var bookNumber = $("input[name='bookNumber']").val();
-		var quantity = $("input[name='quantity']").val();
+	function cart(isbn) {
+		var quantity = $("input[id='"+isbn+"']").val();
 		
-		location.href=root+"/cart.do?bookNumber="+bookNumber+"&quantity="+quantity;
+		$(location).attr("href", "cart.do?isbn="+isbn+"&quantity="+quantity);
 	}
 	
-	function payment(root) {
-		var bookNumber = $("input[name='bookNumber']").val();
-		var quantity = $("input[name='quantity']").val();
+	function payment(isbn) {
+		var quantity = $("input[id='"+isbn+"']").val();
 		
-		location.href=root+"/payment.do?bookNumber="+bookNumber+"&quantity="+quantity;
+		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
 	}
 	
-	function wishList(root) {
-		var bookNumber = $("input[name='bookNumber']").val();
-		var quantity = $("input[name='quantity']").val();
+	function wishList(isbn) {
+		var quantity = $("input[id='"+isbn+"']").val();
+		alert(isbn);
+		$(location).attr("href", "wishListInsert.do?isbn="+isbn);
+	}
+	
+	function wishListAll() {
+		var view = $("#view_jm").val();
+		var isbnList="";
+		if(view=="detail"){
+			$("#detail").find(".check").each(function() {
+				if($(this).prop("checked")==true) {
+					var isbn = $(this).val();
+					isbnList += isbn;
+				}
+			})
+		} else if(view=="simply"){
+			$("#simply_list_jm").find(".check").each(function() {
+				if($(this).prop("checked")==true) {
+					var isbn = $(this).val();
+					isbnList += isbn;
+				}
+			})
+		}
+		//alert(isbnList);
 		
-		location.href=root+"/wishList.do?bookNumber="+bookNumber+"&quantity="+quantity;
+		$(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
+	}
+	
+	function cartAll() {
+		var view = $("#view_jm").val();
+		var isbnList="";
+		var quantityList="";
+		if(view=="detail"){
+			$("#detail").find(".check").each(function() {
+				if($(this).prop("checked")==true) {
+					var isbn = $(this).val();
+					isbnList += isbn;
+					quantityList += $(this).parent().find("input[id='"+isbn+"']").val()+"/";
+				}
+			})
+		} else if(view=="simply"){
+			$("#simply_list_jm").find(".check").each(function() {
+				if($(this).prop("checked")==true) {
+					var isbn = $(this).val();
+					isbnList += isbn;
+				}
+			})
+		}
+		
+		
+		//alert(isbnList);
+		//alert(quantityList);
+		
+		$(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
 	}
 </script>
 </head>
@@ -113,34 +179,30 @@
 		<!-- 18-01-18 컨텐츠-->
 		<div class="centent_jm">
 			<!-- 왼쪽 카테고리 메뉴영역 -->
-			<div class="centent_route_jm">홈 > 전체</div>
+			<div class="centent_route_jm">홈 > <a href="bookList.do?path=전체&category_path=전체">전체</a><c:forTokens begin="1" items="${categoryDto.category_path}" delims="," var="pathList">
+						> <a href="bookList.do?path=${pathList}&category_path=${category_path}">${pathList}</a>
+						<c:set var="pathValue" value="${pathList}"/>
+					</c:forTokens></div>
 			<div class="left_category_menu_jm">
-				<h2 class="h2_jm">전체</h2>
+				<h2 class="h2_jm">${path}</h2>
 				<ul class="category_menu_jm">
-					<li><a href="">소설</a></li>
-					<li><a href="">인문/철학</a></li>
-					<li><a href="">문학</a></li>
-					<li><a href="">참고서</a></li>
-					<li><a href="">기타도서</a></li>
-					<li><a href="">베스트셀러</a></li>
-					<li><a href="">신간도서</a></li>
+					<c:forTokens begin="0" items="${categoryDto.low_category}" delims="," var="low">
+						<li><a href="bookList.do?path=${low}&category_path=${category_path}" style="${low==category_path ? 'color:#5cb38b;font-weight: bold;' : ''}">${low}</a></li>
+						
+					</c:forTokens>
 				</ul>
 			</div>
 			<!-- 오른쪽 도서 리스트영역 -->
 			<div class="book_area_jm">
 				<div class="search_area_jm">
-					<div class="search_ej">
+					<div class="search_ej" style="width: 80%;">
 						<form>
 							<div class="search_choice_ej">
-								<select>
-									<option>전체</option>
-									<option>소설</option>
-									<option>인문/철학</option>
-									<option>문학</option>
-									<option>참고서</option>
-									<option>기타도서</option>
-									<option>베스트셀러</option>
-									<option>신간도서</option>
+								<select style="width: 180px;">
+									<option>${path}</option>
+									<c:forTokens begin="0" items="${categoryDto.low_category}" delims="," var="str">
+										<option>${str}</option>
+									</c:forTokens>
 								</select>
 							</div>
 							<div class="search_sub_ej">
@@ -153,51 +215,70 @@
 				<div class="condition_area_jm">
 					<div class="sort_list_jm">
 						<ul class="sort_list_ul_jm">
-							<li><a href="">판매량순</a> |</li>
-							<li><a href="">출간일순</a> |</li>
-							<li><a href="">도서명순</a> |</li>
+							<li><a href="bookList.do?path=${category_path}&sortValue=WRITE_DATE&category_path=${category_path}" style="${sortValue=='WRITE_DATE' ? 'color:#5cb38b;font-weight: bold;' : ''}">출간일순</a> |</li>
+							<li><a href="bookList.do?path=${category_path}&sortValue=TITLE&category_path=${category_path}" style="${sortValue=='TITLE' ? 'color:#5cb38b;font-weight: bold;' : ''}">도서명순</a> |</li>
 							<li><a href="">리뷰순</a> |</li>
-							<li><a href="">가격순</a></li>
+							<li><a href="bookList.do?path=${category_path}&sortValue=PRICE&category_path=${category_path}" style="${sortValue=='PRICE' ? 'color:#5cb38b;font-weight: bold;' : ''}">가격순</a></li>
 						</ul>
 					</div>
 					
 					<div class="select_list_jm">
 						<div>
 							<input id="checkAll" type="checkbox" value="" />전체
-							<button class="btn-all btn_list_1_jm" value="">장바구니</button>
-							<button class="btn-all btn_list_1_jm" value="">위시리스트</button>
+							<button class="btn-all btn_list_1_jm" value="" onclick="cartAll()">장바구니</button>
+							<button class="btn-all btn_list_1_jm" value="" onclick="wishListAll()">위시리스트</button>
 						</div>
 						<div class="select_list_view_jm">
 							<select id="view_jm">
-								<option value="1" selected="selected">자세히보기</option>
-								<option value="2">간단히보기</option>
+								<option value="detail" selected="selected">자세히보기</option>
+								<option value="simply">간단히보기</option>
 							</select>
 							
 							<select id="list_count_jm">
-								<option value="10" selected="selected">10개씩</option>
-								<option value="20">20개씩</option>
-								<option value="30">30개씩</option>
+								<c:if test="${bookListSize=='10'}">
+									<option value="10" selected="selected">10개씩</option>
+									<option value="20">20개씩</option>
+									<option value="30">30개씩</option>
+								</c:if>
+								<c:if test="${bookListSize=='20'}">
+									<option value="10">10개씩</option>
+									<option value="20" selected="selected">20개씩</option>
+									<option value="30">30개씩</option>
+								</c:if>
+								<c:if test="${bookListSize=='30'}">
+									<option value="10">10개씩</option>
+									<option value="20">20개씩</option>
+									<option value="30" selected="selected">30개씩</option>
+								</c:if>
 							</select>
+							<input type="hidden" name="sortValue" value="${sortValue}">
+							<input type="hidden" name="category_path" value="${category_path}">
+							<input type="hidden" name="path" value="${category_path}">
+							<input type="hidden" name="bookListSize" value="${bookListSize}">
 						</div>
 					</div>
 				</div>
 				<!-- 자세히보기 리스트 -->
 				<div id="detail" class="detail_list_jm">
-					<div class="list_name_jm"><h2>전체 리스트</h2></div>
+					<div class="list_name_jm"><h2>${category_path} 리스트</h2></div>
 					<div class="book_list_jm">
 						<!-- for문으로 리스트뿌리기 -->
-						<c:forEach var="i" begin="1" end="10">
+						<c:forEach var="bookDto" items="${bookList}">
 							<div class="info_move_jm">
-								<img alt="" src="images/books/testImg.jpg">
+								<img alt="" src="${bookDto.image_path}" id="${bookDto.isbn}" style="box-shadow: 1px 1px 2px 0px #9c9c9c;">
+								<input type="hidden" name="isbn" value="${bookDto.isbn}">
+								<input type="hidden" name="pageNumber" value="${pageNumber}">
+								<input type="hidden" name="path" value="${category_path}">
+								<input type="hidden" name="category_path" value="${category_path}">
 								<div class="book_list_content_jm">
-									<div>
-										난생처음 히치하이킹
+									<div id="${bookDto.isbn}">
+										${bookDto.title}
 									</div>
 									<div>
-										김아영 저 | 문학과지성사 | 2017년 06월
+										${bookDto.name} 저 | ${bookDto.publisher} | ${bookDto.write_date}
 									</div>
 									<div>
-										9000원
+										${bookDto.price}원
 									</div>
 									<div>
 										<p class="star_rating">
@@ -209,21 +290,21 @@
 										</p>
 									</div><label>(4.0)</label>
 									<div>
-										은혜 아니면 살 수 없었어요!감성 아내, 이성 남편의 은혜로 함께 살기수많은 위기 가정을 상담한 박은혜 박사의 ‘위기 탈출 솔루션’｜프롤로그 중에서부부는 무엇으로 사는가? 《은혜로 사는 부부》 속에서 당신만의 명답을 찾아보라.“선생님, 저는 왜 다른 사람들처럼 평범하게 살 수 없는 걸까요? 특별히 많은 욕심을 내는 것이 아니라 그저 평범하게...
+										${bookDto.book_introduction}
 									</div>
 								</div>
 								<div class="book_list_button_jm">
 									<div class="quantity_div_jm">
-										<input class="check" type="checkbox" value=""/> 수량
-										<input id="quantity_value_jm_${i}" class="quantity_input_jm" type="text" size="1" value="1"><!-- id값 뒤에 도서 고유번호 출력 -->
+										<input class="check" type="checkbox" value="${bookDto.isbn}"/> 수량
+										<input id="${bookDto.isbn}" class="quantity_input_jm" type="text" size="1" value="1"><!-- id값 뒤에 도서 고유번호 출력 -->
 										<span class="quantity_jm">
-											<span class="quantity_up_jm">▲<input type="hidden" value="${i}"/></span><!-- 히든의 값에 도서 고유번호 입력 -->
-											<span class="quantity_down_jm">▼<input type="hidden" value="${i}"/></span>
+											<span class="quantity_up_jm">▲<input type="hidden" value="${bookDto.isbn}"/></span><!-- 히든의 값에 도서 고유번호 입력 -->
+											<span class="quantity_down_jm">▼<input type="hidden" value="${bookDto.isbn}"/></span>
 										</span>
 									</div>
-									<button class="btn-all btn_list_2_jm" value="" onclick="javascript:location.href='${root}/cart.do'">장바구니</button>
-									<button class="btn-all btn_list_2_jm" value="" onclick="javascript:location.href='${root}/payment.do'">즉시구매</button>
-									<button class="btn-all btn_list_2_jm" value="" onclick="javascript:location.href='${root}/wishList.do'">위시리스트</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="cart('${bookDto.isbn}')">장바구니</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="payment('${bookDto.isbn}')">즉시구매</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="wishList('${bookDto.isbn}')">위시리스트</button>
 								</div>
 							</div>
 						</c:forEach>
@@ -232,17 +313,17 @@
 				
 				<!-- 간단히보기 리스트 -->
 				<div id="simply_list_jm" class="simply">
-					<div class="list_name_jm"><h2>전체 리스트</h2></div>
+					<div class="list_name_jm"><h2>${category_path} 리스트</h2></div>
 					<div class="book_list_jm">
 						<!-- for문으로 리스트뿌리기 -->
-						<c:forEach begin="1" end="10">
+						<c:forEach var="bookDto" begin="0" items="${bookList}">
 							<div class="info_move_jm">
-								<input class="check" type="checkbox" value=""/>
-								<img alt="" src="images/books/testImg.jpg">
-								<div class="book_list_content_jm">
-									<div>난생처음 히치하이킹</div>
-									<div>김아영 저 | 문학과지성사</div>
-									<div>9000원</div>
+								<input class="check" type="checkbox" value="${bookDto.isbn}"/>
+								<img alt="" src="${bookDto.image_path}" id="${bookDto.isbn}" style="box-shadow: 1px 1px 2px 0px #9c9c9c;">
+								<div class="book_list_content_jm" style="margin-top: 5px;">
+									<div id="${bookDto.isbn}" title="${bookDto.title}" style="text-overflow: ellipsis; overflow: hidden;">${bookDto.title}</div>
+									<div title="김아영 저 | ${bookDto.publisher}" style="text-overflow: ellipsis; overflow: hidden;">김아영 저 | ${bookDto.publisher}</div>
+									<div>${bookDto.price}원</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -251,16 +332,15 @@
 				
 				<div class="page_area_jm">
 					<ul>
-						<li><a href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li><a href="">3</a></li>
-						<li><a href="">4</a></li>
-						<li><a href="">5</a></li>
-						<li><a href="">6</a></li>
-						<li><a href="">7</a></li>
-						<li><a href="">8</a></li>
-						<li><a href="">9</a></li>
-						<li><a href="">10</a></li>
+						<c:if test="${startPage>pageBlock}">
+							<li><a href="bookList.do?pageNumber=${startPage-1}&category_path=${category_path}&path=${category_path}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage-1}" step="1">
+							<li><a href="bookList.do?pageNumber=${i}&category_path=${category_path}&path=${category_path}" style="${i==pageNumber ? 'font-weight: bold;' : ''}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage <= pageCount}">
+							<li><a href="bookList.do?pageNumber=${endPage}&category_path=${category_path}&path=${category_path}">다음</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>

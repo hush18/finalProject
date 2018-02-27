@@ -207,3 +207,9 @@ body {
 	width: 100%;
 	transition: 800ms ease all;
 }
+
+/*마우스 오버 이벤츠*/
+.hover{
+	cursor: pointer;
+}
+

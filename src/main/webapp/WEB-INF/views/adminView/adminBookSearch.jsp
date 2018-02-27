@@ -4,6 +4,7 @@
  
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
@@ -47,17 +48,23 @@
 													</tr>
 												</thead>
 												<tbody class="book_info_list">
-													<c:forEach var="i" begin="1" end="100">
+													<c:forEach var="bookDto" items="${bookList}">
 														<tr role="row" class="target_jm">
-															<td class="sorting_1">9788932030067${i}</td>
+															
+															<c:forTokens var="isbnValue" end="0"  items="${bookDto.isbn}" delims="/">
+																<c:set var="isbn" value="${isbnValue}"/>
+															</c:forTokens>
+															<td class="sorting_1">${isbn}</td>
 															<td>
-																<a href="adminBookInfo.do">난생처음 히치하이킹</a>
+																<a href="adminBookInfo.do?isbn=${bookDto.isbn}">${bookDto.title}</a>
 															</td>
-															<td>김아영, 서영아</td>
-															<td>문학과지성사</td>
-															<td>2017-06-05</td>
-															<td>9,000원</td>
-															<td>xxxx권</td>
+															<td>${bookDto.name}</td>
+															<td>${bookDto.publisher}</td>
+															<td>${bookDto.write_date}</td>
+															<fmt:formatNumber var="priceFmt" value="${bookDto.price}" pattern="###,###"/>
+															<td>${priceFmt}원</td>
+															<fmt:formatNumber var="stockFmt" value="${bookDto.stock}" pattern="###,###"/>
+															<td>${stockFmt}권</td>
 														</tr>
 													</c:forEach>
 												</tbody>

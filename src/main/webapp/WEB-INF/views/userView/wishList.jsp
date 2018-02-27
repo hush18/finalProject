@@ -59,7 +59,7 @@
 		<div class="path_sc">홈 > 관심리스트 > 위시리스트</div>
 		
 				<!-- 사이드메뉴 -->
-		<div class="side_mh">
+		<div class="side_mh" style="margin-bottom: 100px;">
 		<div class="category_mh">
 			<div>
 				<!-- 주문관리 -->
@@ -184,7 +184,6 @@
 								<div class="bookCon_title_sc">${interestDto.title }</div>
 								<div class="bookCon_name_sc">${interestDto.name }</div>
 								<div class="bookCon_publisher_sc">${interestDto.publisher }</div>
-								<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 							</div>
 						</div>
 					</c:forEach>

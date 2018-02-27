@@ -25,9 +25,14 @@ body {
 }
 </style>
 <script type="text/javascript">
-	function sendWriter(name, num) {
-		$(opener.document).find("#writerName").val(name);
-		$(opener.document).find("#writerNum").val(num);
+$(function() {
+	$(".target_jm:even").addClass("even");
+	$(".target_jm:odd").addClass("odd");
+})
+
+	function sendWriter(name, writer_number) {
+		$(opener.document).find("#name").val(name);
+		$(opener.document).find("#writer_number").val(writer_number);
 		self.close();
 	}
 
@@ -35,6 +40,12 @@ body {
 		window.open("adminWriterInsert.do", "", "width=570, height=600");
 		$(opener.document).close();
 		return false;
+	}
+	
+	function writerSearch() {
+		var name = $("#name").val();
+		
+		$(location).attr("href", "adminWriterSearch.do?name="+name);
 	}
 </script>
 </head>
@@ -51,10 +62,10 @@ body {
 					<div class="col-md-9 col-sm-9 col-xs-12 writer_select_area">
 						<div id="datatable_filter" class="dataTables_filter filter_area_right_jm writer_select">
 							<div>
-								<input type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
+								<input name="name" value="${name}" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
 							</div>
 							<div>
-								<button id="writer_search" class="btn-all btn-all_jm">검색</button>
+								<button id="writer_search" class="btn-all btn-all_jm" onclick="">검색</button>
 							</div>
 						</div>
 					</div>
@@ -68,44 +79,21 @@ body {
 										<th class="sorting_asc" rowspan="1" colspan="1" style="width: 100px;">저자</th>
 										<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">국적</th>
 										<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">데뷔연도</th>
-										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">최근저서</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">출판작</th>
 									</tr>
 								</thead>
 								<tbody class="book_info_list">
 									<!-- for문 리스트(홀수일경우 class안에 odd, 짝수일경우 class안에 even 나머지 동일) -->
-									<c:set var="test" value="${0}" />
-									<c:if test="${test>0}">
-										<c:forEach var="i" begin="1" end="${test}">
-											<c:if test="${i%2!=0}">
-												<tr role="row" class="odd">
-													<td class="sorting_1">
-														<a href="javascript:sendWriter('박선희','1')">박선희</a>
-													</td>
-													<td style="text-align: center;">대한민국</td>
-													<td style="text-align: center;">2002년</td>
-													<td>베이비박스</td>
-												</tr>
-											</c:if>
-											<c:if test="${i%2==0}">
-												<tr role="row" class="even">
-													<td class="sorting_1">
-														<a href="javascript:sendWriter('박선희','2')">박선희</a>
-													</td>
-													<td style="text-align: center;">대한민국</td>
-													<td style="text-align: center;">2002년</td>
-													<td>베이비박스</td>
-												</tr>
-											</c:if>
-										</c:forEach>
-									</c:if>
-
-
-									<tr role="row" class="even">
-										<td>-</td>
-										<td style="text-align: center;">-</td>
-										<td style="text-align: center;">-</td>
-										<td style="text-align: center;">-</td>
-									</tr>
+									<c:forEach var="writer" items="${writerList}">
+											<tr role="row" class="target_jm">
+												<td class="sorting_1">
+													<a href="javascript:sendWriter('${writer.name}','${writer.writer_number}')">${writer.name}</a>
+												</td>
+												<td style="text-align: center;">${writer.nationality}</td>
+												<td style="text-align: center;">${writer.debut_year}</td>
+												<td>${writer.title}</td>
+											</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

@@ -10,6 +10,14 @@ public interface ServiceInterface {
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
+	
+	public void bookList(ModelAndView mav);
+	public void bookInfo(ModelAndView mav);
+	
+	public void adminBookSearch(ModelAndView mav);
+	public void adminBookInfo(ModelAndView mav);
+	public void adminWriterSearch(ModelAndView mav);
+	public void adminBookUpdate(ModelAndView mav);
 	public void createMap(ModelAndView  mav);
 	public void readMap(ModelAndView mav);
 	public void updateMap(ModelAndView mav);
