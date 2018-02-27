@@ -8,9 +8,13 @@
 <title>Layout</title>
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+<script type="text/javascript">
+	function toServer() {
+		
+	}
+</script>
 </head>
-
-<body>
+<body onload="toServer()">
 	<!-- div, table 전체 레이아웃 -->
 	<!-- header -->
 	<tiles:insertAttribute name="userHeader" />

@@ -150,7 +150,7 @@
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
 				<li id="all-main-iy">
-					<a href="bookList.do" style="position: relative;">전체</a>
+					<a href="bookList.do?path=전체&category_path=전체" style="position: relative;">전체</a>
 					<div class="all-mainMenu-iy">
 						<div>
 							<h3 class="h2-hr">소설</h3>
