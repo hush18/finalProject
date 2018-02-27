@@ -1,7 +1,5 @@
 package com.team3.user.book.dao;
 
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +14,6 @@ public interface BookDao {
 	public String getCategoryNumber(String category_path);
 	public BookDto getBookInfo(String isbn);
 	public WriterDto getWriterInfo(long writer_number);
+	public List<BookDto> getMainList();
 	public List<BookDto> bookListMH();
 }

@@ -104,6 +104,25 @@ public class Service implements ServiceInterface {
 	private FacebookLoginBO facebookLoginBO;
 
 	@Override
+	public void getMainList(ModelAndView mav) {
+		List<BookDto> bestBookList = bookDao.getMainList();
+		List<BookDto> hotBookList = bookDao.getMainList();
+		List<BookDto> newBookList = bookDao.getMainList();
+		List<AdminNctDto> nctList = adminNctDao.getNctList();
+		List<AdminFaqDto> faqList = adminFaqDao.getFaqList();
+		
+//		LogAspect.logger.info(LogAspect.logMsg + "메인에 뿌려줄 리스트 : " + bookList);
+		
+		mav.addObject("bestBookList", bestBookList);
+		mav.addObject("hotBookList", hotBookList);
+		mav.addObject("newBookList", newBookList);
+		mav.addObject("nctList", nctList);
+		mav.addObject("faqList", faqList);
+		
+		mav.setViewName("userMain.users");
+	}
+
+	@Override
 	public void loginMember(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpSession session = (HttpSession) map.get("session");
