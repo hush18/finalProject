@@ -10,6 +10,16 @@ public interface ServiceInterface {
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
+	public void orderSearch(ModelAndView mav);
+	public void statusChange(ModelAndView mav);
+	public void orderDelete(ModelAndView mav);
+	public void ordering(ModelAndView mav);
+	public void delivery(ModelAndView mav);
+	public void cancel(ModelAndView mav);
+	public void buyList(ModelAndView mav);
+	public void cart(ModelAndView mav);
+	public void cartListDelete(ModelAndView mav);
+	public void detailOrder(ModelAndView mav);
 	public void adminFaqInsertOk(ModelAndView mav);
 	public void adminFaqMain(ModelAndView mav);
 	public void adminFaqUpdate(ModelAndView mav);
@@ -54,6 +64,11 @@ public interface ServiceInterface {
 	public void scrollBanner(ModelAndView mav);
 	public void adminSales(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
+	public void diapOK(ModelAndView mav);
+	public void memberManage(ModelAndView mav);
+	public void adminMemberDelete(ModelAndView mav);
+	public void adminMemberDeleteOK(ModelAndView mav);
+	public void searchHeader(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
 	public void cstOk(ModelAndView mav);

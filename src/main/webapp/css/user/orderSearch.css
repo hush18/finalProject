@@ -320,6 +320,9 @@ body {
 	width:150px;
 	text-align: left;
 	line-height: 17px;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .table_jm div:nth-child(2) > a{
 	overflow: hidden;
@@ -327,6 +330,8 @@ body {
 }
 .table_jm div:nth-child(3) {
 	width:35px;
+	overflow: hidden;
+	word-break: break-all;
 }
 .table_jm div:nth-child(4) {
 	width:100px;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.team3.admin.cst.dto.AdminCstDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.cst.dto.CstDto;
+import com.team3.user.cstList.dto.CstListDto;
 
 @Component
 public class CstListDaoImp implements CstListDao {
@@ -17,7 +18,8 @@ public class CstListDaoImp implements CstListDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int userInsert(CstDto cstDto) {
-		return sqlSession.insert("userInsert",cstDto);
+	public List<CstListDto> cstList(String id) {
+		return sqlSession.selectList("cstList",id);
 	}
+
 }

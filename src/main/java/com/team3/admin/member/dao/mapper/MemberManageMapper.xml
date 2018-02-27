@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team3.admin.member.dao.mapper">
+
+	<select id="memberManage" resultType="com.team3.user.member.dto.MemberDto">
+		select * from member
+	</select>
+
+	<update id="diapCheck">
+		update member set diap='0'
+	</update>
+	
+	<select id="getPassword" resultType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[
+			select * from member where member_number<1000
+		]]>
+	</select>
+
+	<delete id="adminMemberDelete" parameterType="int">
+		<![CDATA[
+			delete from member
+			where member_number=#{member_number}
+		]]>
+	</delete>
+
+</mapper>

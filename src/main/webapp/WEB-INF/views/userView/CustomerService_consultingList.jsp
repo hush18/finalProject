@@ -151,7 +151,7 @@
 							<div>답변유무</div>
 						</div>
 						<c:set value="0" var="count" />
-						<c:forEach var="${}" var="list">
+						<c:forEach items="" var="list">
 							<div class="list_ej">
 								<div class="listrow_ej number${count}_ej">
 									<span class="listcell1_ej">2018-02-13</span>

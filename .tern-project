@@ -8,6 +8,8 @@
       
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
     },
     "browser-extension": {
       
@@ -15,6 +17,7 @@
     "jquery-extension": {
       
 >>>>>>> de073d14443aac9204f2a56663f9f72364997468
+>>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
     }
   },
   "libs": [

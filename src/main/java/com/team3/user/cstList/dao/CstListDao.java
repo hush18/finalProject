@@ -1,7 +1,9 @@
 package com.team3.user.cstList.dao;
 
-import com.team3.user.cst.dto.CstDto;
+import java.util.List;
+
+import com.team3.user.cstList.dto.CstListDto;
 
 public interface CstListDao {
-	public int userInsert(CstDto cstDto);
+	public List<CstListDto> cstList(String id);
 }
