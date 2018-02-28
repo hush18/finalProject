@@ -47,7 +47,7 @@ $(function(){
 });
 
 /*유효성 검사*/
-/*function loginForm(obj){
+function loginForm(obj){
 //	alert("OK");
 		if($("input[name=id]").val()=="아이디" || $("input[name=id]").val()=="아이디를 입력하세요." || $("input[name=id]").val()=="" ){
 			alert("아이디를 입력하세요.");
@@ -86,7 +86,7 @@ function inquiryForm(obj){
 		$("input[name=password]").focus();
 		return false;
 	}
-}*/
+}
 
 var url="";
 function idFind(){
@@ -110,7 +110,7 @@ $(function(){
 		$("input[name=id]").val(userInputId);
 	}
 	
-	if($("input[name=id]").val()!="아이디"||$("input[name=id]").val()!="아이디를 입력하세요."){
+	if($("input[name=id]").val()!="아이디" || $("input[name=id]").val()!="아이디를 입력하세요."){
 		$("input[name=id_remember]").attr("checked", true);
 	}
 		
