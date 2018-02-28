@@ -4,7 +4,6 @@
 <script type="text/javascript" src="jquery_ui/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
 <script type="text/javascript" src="js/user/header.js"></script>
-<script type="text/javascript" src="js/xhr/xhr.js"></script>
 
 <link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
 <link rel="stylesheet" href="css/user/header.css">
@@ -105,7 +104,7 @@
 						<ul class="ul-iy">
 							<li><a href="adminBookSearch.do">도서관리</a></li>
 							<li><a href="adminMemberManage.do">회원관리</a></li>
-							<li><a href="adminSales.do">매출관리</a></li>
+							<li><a href="adminSales.do?value=1">매출관리</a></li>
 							<li><a href="adminFaqMain.do">고객문의관리</a></li>
 							<li><a href="adminOrderSearch.do">주문관리</a></li>
 						</ul></li>
