@@ -5,7 +5,9 @@ import static org.hamcrest.CoreMatchers.is;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.File;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -51,7 +53,6 @@ import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.map.dao.PaymentDao;
 import com.team3.user.map.dto.PaymentDto;
 import com.team3.user.map.dto.PaymentPointDto;
-import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberAddressDto;
 import com.team3.user.member.dto.MemberDto;
 import com.team3.user.order.dao.OrderDao;
@@ -222,7 +223,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 
-		// System.out.println(memberDto);
+//		 System.out.println(memberDto);
 		int check = memberDao.updateAccountOk(memberDto);
 
 		mav.addObject("check", check);
@@ -237,10 +238,10 @@ public class Service implements ServiceInterface {
 
 		int check = memberDao.deleteAccount(memberDto);
 
-		HttpSession session = request.getSession();
-		session.removeAttribute("mbId");
-		session.removeAttribute("password");
-
+		if(check > 0) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("mbId");
+		}
 		mav.addObject("check", check);
 		mav.setViewName("deleteAccountOk.users");
 	}
@@ -869,10 +870,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestUp(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("nearestUp.users");
 	}
 
@@ -893,10 +892,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestDel(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("nearestDel.users");
 
 	}
@@ -937,10 +934,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListUp(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("wishListUp.users");
 	}
 
@@ -960,10 +955,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListDel(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("wishListDel.users");
 
 	}

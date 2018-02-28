@@ -189,5 +189,4 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   	<select id="getDetailPrice" parameterType="String" resultType="long">
   		select price from book where isbn=#{isbn}
   	</select>
-  	
   </mapper>
