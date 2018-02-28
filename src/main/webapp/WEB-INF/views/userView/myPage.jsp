@@ -80,7 +80,7 @@
 				<div class="info-box-iy">
 					<p>
 						<strong>이메일</strong>
-						맹인영
+						${memberDto.member_address} ${memberDto.email}
 					</p>
 				</div>
 			</div>

@@ -230,7 +230,7 @@ line-height: 170%;}
 						</div>
 					</div>
 					<div class="info_review_jm">
-						<form action="">
+						<form action="reviewInsert.do">
 							<div style="display: block;">
 								<c:if test="${id!=null}">
 									<label style="display: inline-block; margin-right: 40px;">${id}</label>
