@@ -166,7 +166,7 @@
 					<div class="search_list_size_hy">교환/환불</div>
 				</div>
 				<c:if test="${deliveryCount==0}">
-					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+					<p style="text-align: center; font-size: 1.17em; color: #8c8c8c; line-height: 5">고객님의 주문내역이 존재하지 않습니다</p>
 				</c:if>
 				<c:if test="${deliveryCount>0 }">
 					<div class="recentOrder_hy">
@@ -176,8 +176,8 @@
 									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.title }</a></div>
 									<div>${deliveryList.goods_account }권</div><!-- search_list_size_hy -->
-									<div class=""><fmt:formatDate value="${deliveryList.order_date }" pattern="yyyy-MM-dd"/></div>
-									<div class=""><fmt:formatDate value="${deliveryList.maybe_date }" pattern="yyyy-MM-dd"/></div>
+									<div class=""><fmt:formatDate value="${deliveryList.order_date }" pattern="yyyy.MM.dd"/></div>
+									<div class=""><fmt:formatDate value="${deliveryList.maybe_date }" pattern="yyyy.MM.dd"/></div>
 									<div class="">${deliveryList.status }</div>
 									<div class=""><strong>${deliveryList.total_price }원</strong></div>
 									<div class=""><button class="block_btn_hy">환불</button><button class="block_btn_hy">취소</button></div>

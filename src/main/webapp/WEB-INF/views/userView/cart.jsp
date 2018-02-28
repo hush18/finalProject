@@ -147,7 +147,7 @@
 						<div class="cart_list_size_hy">취소</div>
 					</div>
 					<c:if test="${cartCount==0}">
-						<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+						<p style="text-align: center; font-size: 1.17em; color: #8c8c8c; line-height: 5">고객님의 주문내역이 존재하지 않습니다</p>
 					</c:if>
 					<c:if test="${cartCount>0 }">
 						<div class="recentOrder_hy">
@@ -181,7 +181,7 @@
 										</div>
 										<div class="cart_list_size_hy text_mid_hy" id="date">
 											<fmt:formatDate value="${cartList.cart_day}"
-												pattern="yyyy-MM-dd" />
+												pattern="yyyy.MM.dd" />
 											<input type="hidden" id="cart_date" name="date" value="${cartList.cart_day}" /> 
 										</div>
 

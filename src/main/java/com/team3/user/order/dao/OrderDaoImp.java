@@ -277,4 +277,9 @@ public class OrderDaoImp implements OrderDao {
 	public String getTitle(String isbn) {
 		return sqlSession.selectOne("getOrderTitle", isbn);
 	}
+	
+	@Override
+	public String getOrder_name(String id) {
+		return null;
+	}
 }

@@ -180,7 +180,7 @@
 				</div>
 				
 				<c:if test="${orderingCount==0}">
-					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+					<p style="text-align: center; font-size: 1.17em; color: #8c8c8c; line-height: 5">고객님의 주문내역이 존재하지 않습니다</p>
 				</c:if>
 				
 				<c:if test="${orderingCount>0 }">
@@ -191,8 +191,8 @@
 									<div id="order_number"><a href="detailOrder.do?order_number=${orderingList.order_number}">${orderingList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${orderingList.order_number}">${orderingList.title }</a></div>
 									<div>${orderingList.goods_account }권</div><!-- search_list_size_hy -->
-									<div class=""><fmt:formatDate value="${orderingList.order_date }" pattern="yyyy-MM-dd"/></div>
-									<div class=""><fmt:formatDate value="${orderingList.maybe_date }" pattern="yyyy-MM-dd"/></div>
+									<div class=""><fmt:formatDate value="${orderingList.order_date }" pattern="yyyy.MM.dd"/></div>
+									<div class=""><fmt:formatDate value="${orderingList.maybe_date }" pattern="yyyy.MM.dd"/></div>
 									<div class="">${orderingList.status }</div>
 									<div class=""><strong>${orderingList.total_price }원</strong></div>
 									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>

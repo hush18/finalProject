@@ -149,7 +149,10 @@
 					<div class="detail_list_size_hy">취소</div>
 				</div>
 				<c:if test="${count==0}">
-					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+					<script type="text/javascript">
+						alert("잘못 조회된 주문입니다.");
+						history.back();
+					</script>
 				</c:if>
 				<c:if test="${count>0 }">
 					<div class="recentOrder_hy">
@@ -159,8 +162,8 @@
 									<div class="title_hy" id="titleClick">${detailList.title }</div>
 									<input type="hidden" name="isbn" value="${detailList.isbn }"/>
 									<div>${detailList.order_account }권</div>
-									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy-MM-dd"/></div>
-									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.maybe_date}" pattern="yyyy-MM-dd"/></div>
+									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy.MM.dd"/></div>
+									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<fmt:parseNumber var="price"
 											value="${detailList.total_price*detailList.order_account}"
 											integerOnly="true" />

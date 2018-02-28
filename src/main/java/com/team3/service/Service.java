@@ -24,6 +24,7 @@ import com.team3.admin.faq.dao.AdminFaqDao;
 import com.team3.admin.faq.dto.AdminFaqDto;
 import com.team3.admin.nct.dao.AdminNctDao;
 import com.team3.admin.nct.dto.AdminNctDto;
+import com.team3.admin.order.dao.AdminOrderDao;
 import com.team3.aop.LogAspect;
 import com.team3.user.cst.dto.CstDto;
 import com.team3.user.member.dao.MemberDao;
@@ -63,6 +64,8 @@ public class Service implements ServiceInterface {
 	
 	@Autowired
 	private OrderDao orderDao;
+	@Autowired
+	private AdminOrderDao adminOrderDao;
 	@Autowired
 	private AdminFaqDao adminFaqDao;
 	@Autowired
@@ -2176,6 +2179,8 @@ public class Service implements ServiceInterface {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("mbId")!=null) {
 			String id=(String) session.getAttribute("mbId");
+			
+			String order_name=orderDao.getOrder_name(id);
 		
 			String order_number=request.getParameter("order_number");
 			Date order_date=orderDao.getOrderDate(order_number);
@@ -2221,5 +2226,70 @@ public class Service implements ServiceInterface {
 			mav.addObject("order_date", order_date);
 		}
 		mav.setViewName("detailOrder.users");
+	}
+	
+	@Override
+	public void adminOrderSearch(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			
+			int count=adminOrderDao.getAdminOrderCount();
+			LogAspect.logger.info(LogAspect.logMsg + "count:" + count);
+			
+			List<OrderDto> adminOrderList=null;
+			if(count >0) {
+				adminOrderList=adminOrderDao.adminOrderList();
+				LogAspect.logger.info(LogAspect.logMsg + "adminOrderList:" +adminOrderList.size());
+				for(int i=0; i<adminOrderList.size(); i++) {
+					OrderDto orderDto=adminOrderList.get(i);
+					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
+					String[] str=orderDto.getGoods().split("/");
+					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
+					
+					String title=orderDto.getTitle();
+					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
+					if(str.length>1) {
+						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
+					}else if(str.length==1) {
+						orderDto.setGoods_name(title);
+					}
+					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
+					
+					String[] str1=orderDto.getOrder_account().split("/");
+					int account=0;  
+					for(int j=0; j<str.length; j++) {
+						account+=Integer.parseInt(str1[j]);
+					}
+					
+					int order_status=orderDto.getOrder_status();
+					String status="";
+					status=status(order_status, status);
+					orderDto.setStatus(status);
+					
+					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
+					
+					orderDto.setGoods_account(account);
+					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
+					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
+					
+				}
+//				LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList.toString());
+			}		
+			
+//			mav.addObject("orderSearch_pageNumber", orderSearch_pageNumber);
+//			mav.addObject("pageSize", pageSize);
+//			mav.addObject("count", count);
+//			mav.addObject("orderingCount", orderingCount);
+//			mav.addObject("deliveryCount", deliveryCount);
+//			mav.addObject("cancelCount", cancelCount);
+//			mav.addObject("point", point);
+//			mav.addObject("orderSearchList", orderSearchList);
+//			mav.addObject("list_id", list_id);
+//			mav.addObject("check", Integer.parseInt(check));
+		}
 	}
 }

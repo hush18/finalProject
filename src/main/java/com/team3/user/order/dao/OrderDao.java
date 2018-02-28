@@ -28,4 +28,5 @@ public interface OrderDao {
 	public long getDetailPrice(String isbn);
 	public Date getOrderDate(String order_number);
 	public String getTitle(String isbn);
+	public String getOrder_name(String id);
 }
