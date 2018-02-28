@@ -40,6 +40,10 @@ line-height: 170%;}
 		$( ".star_rating a" ).click(function() {
 		    $(this).parent().children("a").removeClass("on");
 		    $(this).addClass("on").prevAll("a").addClass("on");
+		    
+		    var onCount = $(".on").length;
+		    $("input[name='grade']").val(onCount);
+		    
 		    return false;
 		});
 		
@@ -226,26 +230,31 @@ line-height: 170%;}
 						</div>
 					</div>
 					<div class="info_review_jm">
-						<div style="display: block;">
-							<c:if test="${id!=null}">
-								<label style="display: inline-block; margin-right: 40px;">${id}</label>
-							</c:if>
-							<c:if test="${id==null}">
-								<label style="display: inline-block; margin-right: 40px;">아이디</label>
-							</c:if>
-							<p class="star_rating" style="display: inline-block;">
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-							</p>
-						</div>
-						<div>
-							<!-- 입력창 -->
-							<textarea rows="" cols=""></textarea>
-							<button class="btn-all re_btn" value="">등록</button>
-						</div>
+						<form action="">
+							<div style="display: block;">
+								<c:if test="${id!=null}">
+									<label style="display: inline-block; margin-right: 40px;">${id}</label>
+								</c:if>
+								<c:if test="${id==null}">
+									<label style="display: inline-block; margin-right: 40px;">아이디</label>
+								</c:if>
+								<p class="star_rating" style="display: inline-block;">
+									<a href="#" class="on">★</a>
+									<a href="#" class="on">★</a>
+									<a href="#" class="on">★</a>
+									<a href="#" class="on">★</a>
+									<a href="#" class="on">★</a>
+								</p>
+							</div>
+							<div>
+								<!-- 입력창 -->
+								<input type="hidden" name="isbn" value="${bookDto.isbn}"/>
+								<input type="hidden" name="id" value="${id}"/>
+								<input type="hidden" name="grade" value="5"/>
+								<textarea name="content" rows="" cols=""></textarea>
+								<button class="btn-all re_btn" type="submit">등록</button>
+							</div>
+						</form>
 						<!-- for -->
 						<c:forEach begin="1" end="5">
 							<div id="" class="info_review_centent_table">

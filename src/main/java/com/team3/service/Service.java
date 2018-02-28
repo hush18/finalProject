@@ -1,8 +1,5 @@
 package com.team3.service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -1211,6 +1208,152 @@ public class Service implements ServiceInterface {
 			
 		}
 		
+		@Override
+		public void searchTitle(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			HttpServletResponse response=(HttpServletResponse) map.get("response");
+			HttpServletRequest request=(HttpServletRequest) map.get("request");
+			
+			String category = request.getParameter("category");
+			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리 값 : "+category);
+			
+			List<BookDto> bookTitleList=bookDao.getBookTitleList(category.trim());
+			LogAspect.logger.info(LogAspect.logMsg+bookTitleList.size());
+			
+			
+			try {
+				JSONArray arrTitle=new JSONArray();
+				JSONArray arrName=new JSONArray();
+				String jsonStr=null;
+				/*HashMap<String, String> hmap=null;*/
+				
+				for(int i=0; i<bookTitleList.size(); i++) {
+					BookDto bookDto=bookTitleList.get(i);
+					bookDto.setIsbn(bookDto.getIsbn().split("/")[0]);
+					String searchValue = bookDto.getTitle() + " - " + bookDto.getName();
+					
+					arrTitle.add(searchValue);
+				}
+				
+				
+				jsonStr=JSONValue.toJSONString(arrTitle);
+				response.setContentType("application/x-json;charset=utf-8");
+				PrintWriter out=response.getWriter();
+				out.print(jsonStr);
+				out.flush();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		@Override
+		public void searchList(ModelAndView mav) {
+			Map<String, Object> map=mav.getModelMap();
+			HttpServletRequest request=(HttpServletRequest) map.get("request");
+			String search = request.getParameter("search");
+			LogAspect.logger.info(LogAspect.logMsg+"검색어 : "+search);
+			
+			String pageNumber = request.getParameter("pageNumber");
+			if(pageNumber==null) pageNumber="1";
+			
+			String bookListSize = request.getParameter("bookListSize");
+			if(bookListSize==null) bookListSize="10";
+			
+			String path = request.getParameter("path");
+			if(path==null || path=="") path = "전체";
+			String category_path = request.getParameter("category_path");
+			if(category_path==null || category_path=="") category_path = "전체";
+			
+			String category_number = null;
+			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+category_path);
+			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+path);
+			
+			String categoryValue = ","+path.trim();
+			
+			category_number = bookDao.getCategoryNumber(","+path.trim());
+			if(category_number==null) {
+				category_number = bookDao.getCategoryNumber(category_path.trim());
+				categoryValue = categoryValue.split(",")[1];
+			}
+			
+			List<BookDto> searchList = null;
+			Map<String, String> dataMap = new HashMap<String, String>();
+			LogAspect.logger.info(LogAspect.logMsg+"검색 카테고리 : "+categoryValue);
+			if(search.indexOf("-")==-1) {
+				dataMap.put("search", search);
+				dataMap.put("categoryValue", categoryValue);
+				searchList = bookDao.searchList(dataMap);
+			} else {
+				String[] str = search.split("-");
+				dataMap.put("title", str[0].trim());
+				dataMap.put("name", str[1].trim());
+				dataMap.put("categoryValue", categoryValue);
+				searchList = bookDao.searchBook(dataMap);
+			}
+			
+			LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리값 : "+category_number);
+			
+			category_path=path;
+			
+			CategoryDto categoryDto = bookDao.getCategoryPath(category_number);
+			LogAspect.logger.info(LogAspect.logMsg+"현재 카테고리정보 : "+categoryDto.toString());
+			String[] str = null;
+			if(path!=null) {
+				str = categoryDto.getCategory_path().split(",");
+				if(str.length==4) {
+					path = str[str.length-2];
+				} else {
+					path = str[str.length-1];
+				}
+			}
+			LogAspect.logger.info(LogAspect.logMsg+"현재 카테고리 출력 : "+category_path);
+			
+			int count=0;
+			if(searchList!=null) {
+				count = searchList.size();
+			}
+			LogAspect.logger.info(LogAspect.logMsg+"현재 검색된 책의 갯수 : "+count);
+			
+			int pageCount = count/Integer.parseInt(bookListSize) + (count%Integer.parseInt(bookListSize)==0 ? 0:1);
+			int pageBlock = 10;
+			int currentPage = Integer.parseInt(pageNumber);
+			int startRow = (currentPage-1)*Integer.parseInt(bookListSize)+1;
+			int endRow = currentPage*Integer.parseInt(bookListSize);
+			if(count<endRow) {
+				endRow = count;
+			}
+			List<BookDto> bookList = null;
+			if(count!=0) {
+				bookList = new ArrayList<BookDto>();
+				for(int i=startRow-1; i<endRow; i++) {
+					bookList.add(searchList.get(i));
+				}
+			}
+			
+			LogAspect.logger.info(LogAspect.logMsg+startRow+", "+endRow);
+			
+			int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
+			
+			int endPage = startPage+pageBlock;
+			if(endPage>pageCount) endPage=pageCount+1;
+			
+			
+			mav.addObject("search", search);
+			mav.addObject("category_number", category_number);
+			mav.addObject("path", path);
+			mav.addObject("categoryDto", categoryDto);
+			mav.addObject("bookList", bookList);
+			mav.addObject("pageCount", pageCount);
+			mav.addObject("pageBlock", pageBlock);
+			mav.addObject("startPage", startPage);
+			mav.addObject("endPage", endPage);
+			mav.addObject("pageNumber", pageNumber);
+			mav.addObject("count", count);
+			mav.addObject("category_path", category_path);
+			mav.addObject("bookListSize", bookListSize);
+		}
+		
 
 	@Override
 	public void getTopTen(ModelAndView mav) {
@@ -1237,8 +1380,10 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		String category_path = request.getParameter("category_path");
+		if(category_path==null) category_path="전체";
 		
 		String path = request.getParameter("path");
+		if(path==null) path="전체";
 		
 		String category_number = null;
 		LogAspect.logger.info(LogAspect.logMsg+"요청 카테고리경로 : "+category_path);
@@ -1319,6 +1464,7 @@ public class Service implements ServiceInterface {
 		int endPage = startPage+pageBlock;
 		if(endPage>pageCount) endPage=pageCount+1;
 		
+		mav.addObject("category_number", category_number);
 		mav.addObject("sortValue", sortValue);
 		mav.addObject("path", path);
 		mav.addObject("categoryDto", categoryDto);
@@ -1344,10 +1490,10 @@ public class Service implements ServiceInterface {
 		BookDto bookDto = bookDao.getBookInfo(isbn);
 		LogAspect.logger.info(LogAspect.logMsg+"읽어온 책의 정보 : "+bookDto.toString());
 		if(bookDto.getContents()!=null) {
-			bookDto.setContents(bookDto.getContents().replace("\r\n", "<br>"));
+			bookDto.setContents(bookDto.getContents().replace("\n", "<br>"));
 		}
 		if(bookDto.getBook_introduction()!=null) {
-			bookDto.setBook_introduction(bookDto.getBook_introduction().replace("\r\n", "<br>"));
+			bookDto.setBook_introduction(bookDto.getBook_introduction().replace("\n", "<br>"));
 		}
 		
 		WriterDto writerDto = bookDao.getWriterInfo(bookDto.getWriter_number());

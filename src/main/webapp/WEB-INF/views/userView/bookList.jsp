@@ -102,12 +102,54 @@
 				$(this).parent().parent().find("input[id='"+target+"']").val(Number(value)-1);
 			}
 		})
+		
+		//검색기능 제민
+		
+		var category="";
+		
+		$("#search_title").focus(function () {
+			searchList=[];
+			category=$("#search_category").val();
+			$.ajax({
+		          url : "searchTitle.do?category="+category,
+		          type: "post",
+		          dataType : "json",
+		          success : function(data){
+		        	  searchTitle(data)
+		          }
+		    });
+		})
+		
+		$("#search_category").change(function () {
+			var value = $(this).val();
+			$("#searchFrom").find("input[name='path']").val(value);
+			$("#searchFrom").find("input[name='category_path']").val(value);
+		})
+		
 	})
+	var searchList=[];
+	function searchTitle(data){
+		var str;
+		
+		  
+		for(var i=0; i<data.length; i++){
+			searchList.push(data[i]);
+	   	}
+		  
+		$("#search_title").autocomplete({
+			source : function(request, response) {
+				var request = $.ui.autocomplete.filter(searchList, request.term);
+				  
+				response(request.slice(0,10));
+			},
+			autoFocus : true
+		});
+	}
 	
 	function cart(isbn, id) {
 		var quantity = $("input[id='"+isbn+"']").val();
 		
-		$(location).attr("href", "cart.do?isbn="+isbn+"&quantity="+quantity);
+		$(location).attr("href", "cart.do?isbnList="+isbn+"&quantityList="+quantity);
 	}
 	
 	function payment(isbn) {
@@ -172,6 +214,12 @@
 		
 		$(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
 	}
+	
+	function searchBookList() {
+		var searchValue = $("#search_title").val();
+		alert(searchValue);
+		//$(location).attr("href", "searchList.do?searchValue="+searchValue);
+	}
 </script>
 </head>
 <body>
@@ -196,18 +244,20 @@
 			<div class="book_area_jm">
 				<div class="search_area_jm">
 					<div class="search_ej" style="width: 80%;">
-						<form>
+						<form id="searchFrom" action="searchList.do" method="get">
+							<input type="hidden" name="category_path" value="${path}"/>
+							<input type="hidden" name="path" value="${path}"/>
 							<div class="search_choice_ej">
-								<select style="width: 180px;">
-									<option>${path}</option>
+								<select id="search_category" style="width: 180px;">
+									<option value="${path}">${path}</option>
 									<c:forTokens begin="0" items="${categoryDto.low_category}" delims="," var="str">
-										<option>${str}</option>
+										<option value="${str}">${str}</option>
 									</c:forTokens>
 								</select>
 							</div>
 							<div class="search_sub_ej">
-								<input type="text" name="search" size="40"/> 
-								<a href="#" class="btn-all btn_ej">검색</a>
+								<input id="search_title" type="text" name="search" size="40"/> 
+								<button class="btn-all btn_ej" style="height: 27px; padding-top: 0px;" type="submit">검색</button>
 							</div>
 						</form>
 					</div>
@@ -333,20 +383,36 @@
 						</c:forEach>
 					</div>
 				</div>
-				
-				<div class="page_area_jm">
-					<ul>
-						<c:if test="${startPage>pageBlock}">
-							<li><a href="bookList.do?pageNumber=${startPage-1}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">이전</a></li>
-						</c:if>
-						<c:forEach var="i" begin="${startPage}" end="${endPage-1}" step="1">
-							<li><a href="bookList.do?pageNumber=${i}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}" style="${i==pageNumber ? 'font-weight: bold;' : ''}">${i}</a></li>
-						</c:forEach>
-						<c:if test="${endPage <= pageCount}">
-							<li><a href="bookList.do?pageNumber=${endPage}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">다음</a></li>
-						</c:if>
-					</ul>
-				</div>
+				<c:if test="${search==''}">
+					<div class="page_area_jm">
+						<ul>
+							<c:if test="${startPage>pageBlock}">
+								<li><a href="bookList.do?pageNumber=${startPage-1}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">이전</a></li>
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage-1}" step="1">
+								<li><a href="bookList.do?pageNumber=${i}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}" style="${i==pageNumber ? 'font-weight: bold;' : ''}">${i}</a></li>
+							</c:forEach>
+							<c:if test="${endPage <= pageCount}">
+								<li><a href="bookList.do?pageNumber=${endPage}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">다음</a></li>
+							</c:if>
+						</ul>
+					</div>
+				</c:if>
+				<c:if test="${search!=''}">
+					<div class="page_area_jm">
+						<ul>
+							<c:if test="${startPage>pageBlock}">
+								<li><a href="searchList.do?search=${search}&pageNumber=${startPage-1}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">이전</a></li>
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage-1}" step="1">
+								<li><a href="searchList.do?search=${search}&pageNumber=${i}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}" style="${i==pageNumber ? 'font-weight: bold;' : ''}">${i}</a></li>
+							</c:forEach>
+							<c:if test="${endPage <= pageCount}">
+								<li><a href="searchList.do?search=${search}&pageNumber=${endPage}&category_path=${category_path}&path=${category_path}&bookListSize=${bookListSize}">다음</a></li>
+							</c:if>
+						</ul>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

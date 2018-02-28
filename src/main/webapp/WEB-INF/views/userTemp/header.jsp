@@ -109,7 +109,6 @@
 							<li><a href="adminOrderSearch.do">주문관리</a></li>
 						</ul></li>
 				<%-- </c:if> --%>
-				
 			</ul>
 		</div>
 	</div>
@@ -122,8 +121,8 @@
 		</div>
 
 		<div class="H-search">
-			<form class="search-form-iy">
-				<input id="search_mh" type="text" placeholder="검색어 입력">
+			<form class="search-form-iy" action="searchList.do" method="get">
+				<input name="search" id="search_mh" type="text" placeholder="검색어 입력">
 				<button type="submit"></button>
 			</form>
 		</div>

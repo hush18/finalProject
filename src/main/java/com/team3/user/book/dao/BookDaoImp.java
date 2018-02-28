@@ -50,12 +50,30 @@ public class BookDaoImp implements BookDao {
 	
 	@Override
 	public WriterDto getWriterInfo(long writer_number) {
-		return sqlSession.selectOne("getWriterInfo", writer_number);
+		return sqlSession.selectOne("com.team3.user.book.dao.mapper.getWriterInfo", writer_number);
 	}
 	
 	@Override
 	public List<BookDto> bookListMH() {
 		return sqlSession.selectList("bookListMH");
+	}
+	
+	@Override
+	public List<BookDto> getBookTitleList(String category) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.team3.user.book.dao.mapper.getBookTitleList", category);
+	}
+	
+	@Override
+	public List<BookDto> searchList(Map<String, String> dataMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.team3.user.book.dao.mapper.searchList", dataMap);
+	}
+	
+	@Override
+	public List<BookDto> searchBook(Map<String, String> dataMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.team3.user.book.dao.mapper.searchBook", dataMap);
 	}
 	
 }

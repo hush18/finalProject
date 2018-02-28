@@ -163,20 +163,20 @@
 	border: 1px solid #5cb38b;
 	margin-bottom: 5px;
 }
-.info_review_jm > div{
+.info_review_jm > form > div{
 	width: 700px;
 	margin: 5px auto;
 	overflow: hidden;
 }
-.info_review_jm > div:nth-child(1){
+.info_review_jm > form > div:nth-child(1){
 	width: auto;
 	margin-left: 80px;
 }
-.info_review_jm > div:nth-child(2) > *{
+.info_review_jm > form > div:nth-child(2) > *{
 	display: inline-block;
 	float: left;
 }
-.info_review_jm > div:nth-child(2) > textarea{
+.info_review_jm > form > div:nth-child(2) > textarea{
 	width: 590px;
 	height: 50px;
 }

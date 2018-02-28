@@ -49,4 +49,16 @@
   		select b.title, w.name from book b, writer w where b.writer_number=w.writer_number
   	</select>
   	
+  	<select id="getBookTitleList" parameterType="String" resultType="com.team3.user.book.dto.BookDto">
+  		SELECT b.isbn, b.TITLE, w.NAME FROM book b, WRITER w WHERE b.WRITER_NUMBER=w.WRITER_NUMBER AND b.CATEGORY_NUMBER IN (SELECT CATEGORY_NUMBER FROM CATEGORY where CATEGORY_PATH LIKE CONCAT('%',CONCAT(#{category},'%')))
+  	</select>
+  	
+  	<select id="searchList" parameterType="java.util.Map" resultType="com.team3.user.book.dto.BookDto">
+  		SELECT w.name, b.* FROM book b, WRITER w WHERE b.WRITER_NUMBER=w.WRITER_NUMBER and (b.title LIKE CONCAT(CONCAT('%',#{search}),'%') or w.name LIKE CONCAT(CONCAT('%',#{search}),'%')) AND b.CATEGORY_NUMBER IN (SELECT CATEGORY_NUMBER FROM CATEGORY where CATEGORY_PATH LIKE CONCAT('%',CONCAT(#{categoryValue},'%')))
+  	</select>
+  	
+  	<select id="searchBook" parameterType="java.util.Map" resultType="com.team3.user.book.dto.BookDto">
+  		SELECT w.NAME, b.* FROM book b, WRITER w WHERE b.WRITER_NUMBER=w.WRITER_NUMBER AND (b.title LIKE CONCAT(CONCAT('%',#{title}),'%') and w.NAME LIKE CONCAT(CONCAT('%',#{name}),'%')) AND b.CATEGORY_NUMBER IN (SELECT CATEGORY_NUMBER FROM CATEGORY where CATEGORY_PATH LIKE CONCAT('%',CONCAT(#{categoryValue},'%')))
+  	</select>
+  	
   </mapper>

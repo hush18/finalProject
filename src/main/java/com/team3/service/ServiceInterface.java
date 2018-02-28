@@ -82,10 +82,13 @@ public interface ServiceInterface {
 	public void adminMemberDelete(ModelAndView mav);
 	public void adminMemberDeleteOK(ModelAndView mav);
 	public void searchHeader(ModelAndView mav);
+	public void searchTitle(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
 	public void loginMember(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
+	
+	public void searchList(ModelAndView mav);
 }
 

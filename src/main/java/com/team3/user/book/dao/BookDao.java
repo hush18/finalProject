@@ -16,4 +16,7 @@ public interface BookDao {
 	public WriterDto getWriterInfo(long writer_number);
 	public List<BookDto> getMainList();
 	public List<BookDto> bookListMH();
+	public List<BookDto> getBookTitleList(String category);
+	public List<BookDto> searchList(Map<String, String> dataMap);
+	public List<BookDto> searchBook(Map<String, String> dataMap);
 }

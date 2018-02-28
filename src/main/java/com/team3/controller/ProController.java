@@ -411,6 +411,16 @@ public class ProController {
 		mav.setViewName("bookList.users");
 		return scroll(mav);
 	}
+	
+	@RequestMapping(value = "/searchList.do", method = RequestMethod.GET)
+	public ModelAndView searchList(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.searchList(mav);
+		
+		mav.setViewName("bookList.users");
+		return mav;
+	}
 
 	@RequestMapping(value = "/bookInfo.do", method = RequestMethod.GET)
 	public ModelAndView bookInfo(HttpServletRequest request, HttpServletResponse response) {
@@ -525,7 +535,15 @@ public class ProController {
 		service.searchHeader(mav);
 		return null;
 	}
-
+	
+	@RequestMapping(value = "/searchTitle.do", method = RequestMethod.POST)
+	public ModelAndView searchTitle(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		service.searchTitle(mav);
+		return null;
+	}
 	// 여기부터 관리자
 	// ================================================================================================================================================
 	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)
