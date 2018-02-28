@@ -69,9 +69,11 @@ public class ProController {
 
 	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
 	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
-
-//		return scroll(new ModelAndView("userPointView.users"));
-		return new ModelAndView("userPointView.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mav.setViewName("userPointView.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
@@ -393,6 +395,8 @@ public class ProController {
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
 		service.userMapRead(mav);
 		return scroll(mav);
 	}

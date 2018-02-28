@@ -1309,6 +1309,10 @@ public class Service implements ServiceInterface {
 		orderDto.setOrder_number(order_number);
 		orderDto.setId(memberDto.getId());
 		
+		if(paymentPointDto.getDirect_deposit()==null||paymentPointDto.getDirect_deposit().equals("")) {
+			orderDto.setOrder_status(1);
+		}
+		
 		LogAspect.logger.info(LogAspect.logMsg+paymentPointDto.toString());
 		LogAspect.logger.info(LogAspect.logMsg+orderDto.toString());
 		
