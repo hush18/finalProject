@@ -27,4 +27,10 @@
 	<update id="nctUpdateOk" parameterType="com.team3.admin.nct.dto.AdminNctDto">
 		<![CDATA[update notice set title=#{title}, content=#{content}, write_date=#{write_date} where notice_number=#{notice_number}]]> 
 	</update>
+	
+	<select id="getNctList" resultType="com.team3.admin.nct.dto.AdminNctDto">
+		<![CDATA[
+			select * from notice where rownum < 6
+		]]>
+	</select>
   </mapper>

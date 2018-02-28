@@ -13,4 +13,5 @@ public interface AdminFaqDao {
 	public int faqDeleteOk(String checked);
 	public int faqTopDelete(int faqNumber);
 	public int faqTopInsert(int faqNumber);
+	public List<AdminFaqDto> getFaqList();
 }

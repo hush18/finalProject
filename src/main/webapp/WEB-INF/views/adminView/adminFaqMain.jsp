@@ -10,14 +10,19 @@
 <title>㈜산책 FAQ관리</title>
 <!-- NProgress -->
 <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+
 <!-- iCheck -->
 <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
 <!-- bootstrap-progressbar -->
 <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
 <!-- css -->
 <link href="css/admin/adminFaqMain.css" rel="stylesheet">
+
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -27,7 +32,7 @@
 					<div class="col-md-8 col-sm-8 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2>회원관리</h2>
+								<h2>FAQ관리</h2>
 								<ul class="nav navbar-right panel_toolbox">
 									<li>
 										<a class="collapse-link">
@@ -59,10 +64,10 @@
 								<div class="x_content" style="color: #000;">
 									<div class="button_div_ej">
 										<button type="button" class="btn btn-primary btn_ej" onclick="location.href='adminFaqInsert.do'">추가</button>
-										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej" onclick="javascript:faqDelete()">삭제</button>
-										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">완료</button>
+<!-- 										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej" onclick="javascript:faqDelete()">삭제</button> -->
+										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">삭제</button>
 									</div>
-									<table id="datatable" class="table table-striped table-bordered" style="width: 100%;">
+									<table id="datatable" class="table table-striped table-bordered bulk_action jambo_table" style="width: 100%;">
 										<thead>
 											<tr id="ftr">
 												<th class="checkbox_ej" style="width: 3%;">
@@ -168,7 +173,7 @@
 <!-- FAQ Scripts -->
 <script src="js/admin/faqMain.js"></script>
 <!-- Datatables -->
-<script src="vendors/datatables.net/js/jquery.dataTables.js"></script>
+<script src="vendors/datatables.net/js/jquery.dataTables_ej.js"></script>
 <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>

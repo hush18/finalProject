@@ -109,7 +109,13 @@
 	vertical-align: middle !important;
 }
 
+<<<<<<< HEAD
 .topten_ej{
     margin: 0 0 0 15px;
     border-color: #5cb38b;
+=======
+#ftr{
+	background-color: #fff;
+	color: #000;
+>>>>>>> 78c266677c920183b0ad3de73ac49e274a169c5b
 }

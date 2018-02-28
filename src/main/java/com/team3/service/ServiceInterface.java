@@ -1,11 +1,16 @@
 package com.team3.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team3.user.book.dto.BookDto;
+
 public interface ServiceInterface {
+	public void getMainList(ModelAndView mav);
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response);
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
@@ -71,6 +76,7 @@ public interface ServiceInterface {
 	public void searchHeader(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
+	public void cstQuestion(ModelAndView mav);
 	public void cstOk(ModelAndView mav);
 	public void cstList(ModelAndView mav);
 	public void loginMember(ModelAndView mav);

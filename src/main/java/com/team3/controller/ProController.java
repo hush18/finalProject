@@ -1,9 +1,5 @@
 package com.team3.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +50,8 @@ public class ProController {
 	public ModelAndView userMain(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		mav.setViewName("userMain.users");
+		service.getMainList(mav);
+		
 		return scroll(mav);
 	}
 
@@ -367,11 +364,10 @@ public class ProController {
 
 	@RequestMapping(value = "/CustomerService_consultingList.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_consultingList(HttpServletRequest request, HttpServletResponse response) {
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("request", request);
-//		service.cstList(mav);
-//		return mav;
-		return new ModelAndView("CustomerService_consultingList.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.cstList(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/CustomerService_faq.do", method = RequestMethod.GET)
@@ -389,8 +385,9 @@ public class ProController {
 
 	@RequestMapping(value = "/CustomerService_question_search.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_question_search(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("CustomerService_question_search.empty");
+		ModelAndView mav = new ModelAndView();
+		service.cstQuestion(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)

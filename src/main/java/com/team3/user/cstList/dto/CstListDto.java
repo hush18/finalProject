@@ -11,6 +11,7 @@ public class CstListDto {
 	private String down_category;
 	private Date write_date;
 	private String reply_check;
+	private int rnum;
 	
 	public int getCounsel_number() {
 		return counsel_number;
@@ -60,10 +61,17 @@ public class CstListDto {
 	public void setReply_check(String reply_check) {
 		this.reply_check = reply_check;
 	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	@Override
 	public String toString() {
 		return "CstListDto [counsel_number=" + counsel_number + ", id=" + id + ", title=" + title + ", content="
 				+ content + ", up_category=" + up_category + ", down_category=" + down_category + ", write_date="
-				+ write_date + ", reply_check=" + reply_check + "]";
+				+ write_date + ", reply_check=" + reply_check + ", rnum=" + rnum + "]";
 	}
+	
 }

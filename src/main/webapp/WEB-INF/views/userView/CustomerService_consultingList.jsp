@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -151,18 +152,52 @@
 							<div>답변유무</div>
 						</div>
 						<c:set value="0" var="count" />
-						<c:forEach items="" var="list">
+						<c:forEach items="cstList" var="list">
 							<div class="list_ej">
 								<div class="listrow_ej number${count}_ej">
-									<span class="listcell1_ej">2018-02-13</span>
-									<span class="listcell2_ej">회원&nbsp;>&nbsp;회원가입</span>
-									<span class="listcell3_ej">회원가입은 어떻게 하나요?</span>
-									<span class="listcell4_ej">O</span>
+									<span class="listcell1_ej">
+										<fmt:formatDate value="${list.write_date}" pattern="yyyy-MM-dd" />
+									</span>
+									<span class="listcell2_ej">${list.up_category}&nbsp;&gt;&nbsp;${list.down_category}</span>
+									<span class="listcell3_ej">${list.title}</span>
+									<span class="listcell4_ej">${list.reply_check}</span>
 								</div>
 							</div>
 							<c:set var="count" value="${count + 1}" />
 						</c:forEach>
-						<div class="page_ej">< 페이지 ></div>
+						<div class="page_ej">
+							<c:if test="${count>10 }">
+ 								<fmt:parseNumber var="pageCount" value="${count / boardSize + (count%boardSize==0 ? 0:1)}" integerOnly="true"/>
+								<c:set var="pageBlock" value="${2}" />
+								<fmt:parseNumber var="startPage" value="${((pageNumber-1)/pageBlock) }" integerOnly="true" />
+								<c:set var="startPage" value="${startPage*pageBlock+1}" />
+								<c:set var="endPage" value="${startPage+pageBlock-1 }" />
+			
+								<c:if test="${endPage > pageCount }">
+									<c:set var="endPage" value="${endPage=pageCount }" />				
+								</c:if>
+								
+								<c:if test="${startPage > pageBlock }">
+									<a href="CustomerService_consulting.do?pageNumber=${startPage-pageBlock }">&nbsp;&lt;&nbsp;</a>
+								</c:if>
+								
+								<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
+									<c:choose>
+										<c:when test="${pageNumber==i }">
+											<a href="CustomerService_consulting.do?pageNumber=${i}" style="color:#fff">${i}</a>
+										</c:when>
+										
+										<c:otherwise>
+											<a href="CustomerService_consulting.do?pageNumber=${i}" style="color:black">${i}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+			
+								<c:if test="${endPage < pageCount}">
+									<a href="CustomerService_consulting.do?pageNumber=${startPage+pageBlock }">&nbsp;&gt;&nbsp;</a>
+								</c:if>
+					 		</c:if>
+						</div>
 					</div>
 				</div>
 			</div>

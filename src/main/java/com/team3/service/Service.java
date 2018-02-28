@@ -1,13 +1,8 @@
 package com.team3.service;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.io.File;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -32,12 +27,12 @@ import com.team3.admin.nct.dto.AdminNctDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.cst.dao.CstDao;
 import com.team3.user.cst.dto.CstDto;
+import com.team3.user.cst.dto.CstQuestionDto;
 import com.team3.user.cstList.dao.CstListDao;
 import com.team3.user.cstList.dto.CstListDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.admin.book.dao.AdminBook;
 import com.team3.user.book.dao.BookDao;
-import com.team3.user.book.dao.BookDaoImp;
 import com.team3.user.book.dto.BookDto;
 import com.team3.user.book.dto.CategoryDto;
 import com.team3.user.book.dto.WriterDto;
@@ -48,9 +43,6 @@ import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.admin.sales.dao.SalesDao;
 import com.team3.admin.sales.dto.SalesDto;
 
-import com.team3.aop.LogAspect;
-import com.team3.user.book.dao.BookDao;
-import com.team3.user.book.dto.BookDto;
 import com.team3.user.oauth.bo.FacebookLoginBO;
 import com.team3.user.oauth.bo.NaverLoginBO;
 import com.team3.user.faq.dao.FaqDao;
@@ -119,6 +111,25 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private FacebookLoginBO facebookLoginBO;
+
+	@Override
+	public void getMainList(ModelAndView mav) {
+		List<BookDto> bestBookList = bookDao.getMainList();
+		List<BookDto> hotBookList = bookDao.getMainList();
+		List<BookDto> newBookList = bookDao.getMainList();
+		List<AdminNctDto> nctList = adminNctDao.getNctList();
+		List<AdminFaqDto> faqList = adminFaqDao.getFaqList();
+		
+//		LogAspect.logger.info(LogAspect.logMsg + "메인에 뿌려줄 리스트 : " + bookList);
+		
+		mav.addObject("bestBookList", bestBookList);
+		mav.addObject("hotBookList", hotBookList);
+		mav.addObject("newBookList", newBookList);
+		mav.addObject("nctList", nctList);
+		mav.addObject("faqList", faqList);
+		
+		mav.setViewName("userMain.users");
+	}
 
 	@Override
 	public void loginMember(ModelAndView mav) {
@@ -1212,10 +1223,33 @@ public class Service implements ServiceInterface {
 	public void cstList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = (String)request.getAttribute("mbId");//mbId로 바꿔
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("mbId");//mbId로 바꿔
 		
-		List<CstListDto> cstList = cstListDao.cstList(id);
+		int boardSize = 10;
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber==null)pageNumber="1";
+		
+		int currentPage = Integer.parseInt(pageNumber);
+		int startNum = (currentPage-1)*boardSize+1;
+		int endNum = currentPage*boardSize;
+		LogAspect.logger.info(LogAspect.logMsg + "id: " +id);
+		int count = cstListDao.cstListCount(id);
+		LogAspect.logger.info(LogAspect.logMsg + "count: " +count);
+		
+		List<CstListDto> cstList = new ArrayList<CstListDto>();
+		if(count>0) {
+			cstList = cstListDao.cstList(id,startNum,endNum);
+		}
+		
 		LogAspect.logger.info(LogAspect.logMsg + cstList.toString());
+		
+		mav.addObject("pageNumber",pageNumber);
+		mav.addObject("boardSize",boardSize);
+		mav.addObject("cstList",cstList);
+		mav.addObject("count",count);
+		
+		mav.setViewName("CustomerService_consultingList.users");
 	}
 
 	@Override
@@ -1224,7 +1258,7 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		CstDto cstDto = (CstDto) map.get("cstDto");
 		HttpSession session = request.getSession();
-		cstDto.setId((String)session.getAttribute("id"));//mbId로 바꿔
+		cstDto.setId((String)session.getAttribute("mbId"));
 		int emailing = Integer.parseInt(request.getParameter("emailing"));
 		cstDto.setUp_category(cstDto.getUp_category().replace(",", ""));
 		cstDto.setDown_category(cstDto.getDown_category().replace(",", ""));
@@ -1242,6 +1276,25 @@ public class Service implements ServiceInterface {
 		int check = cstDao.userInsert(cstDto);
 		mav.addObject("check",check);
 		mav.setViewName("CustomerService_cstOk.users");
+	}
+	
+	
+
+	@Override
+	public void cstQuestion(ModelAndView mav) {
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		String search = request.getParameter("search");
+		
+		if(search!=null) {
+			LogAspect.logger.info(LogAspect.logMsg + search);
+			
+			List<CstQuestionDto> cstQuestionList = cstDao.cstQuestion(search);
+			LogAspect.logger.info(LogAspect.logMsg + cstQuestionList.size());
+			
+			mav.addObject("cstQuestionList",cstQuestionList);
+		}
 	}
 
 	@Override

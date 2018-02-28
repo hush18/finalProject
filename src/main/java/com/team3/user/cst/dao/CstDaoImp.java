@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.team3.admin.cst.dto.AdminCstDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.cst.dto.CstDto;
+import com.team3.user.cst.dto.CstQuestionDto;
 
 @Component
 public class CstDaoImp implements CstDao {
@@ -20,4 +21,10 @@ public class CstDaoImp implements CstDao {
 	public int userInsert(CstDto cstDto) {
 		return sqlSession.insert("userInsert",cstDto);
 	}
+
+	@Override
+	public List<CstQuestionDto> cstQuestion(String search) {
+		return sqlSession.selectList("cstQuestionList",search);
+	}
+	
 }

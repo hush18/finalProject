@@ -22,6 +22,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:com/team3/admin/faq/dao/mapper/AdminFaqMapper.xml</value>
+				<value>classpath:com/team3/user/cstList/dao/mapper/CstListMapper.xml</value>
 			</list>
 		</property>
 	</bean>
