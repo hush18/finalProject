@@ -9,13 +9,8 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
-<<<<<<< HEAD
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet" />
 <link href="css/user/cart.css" type="text/css" rel="stylesheet" />
-=======
-<link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
-<link href="css/user/cart.css" type="text/css" rel="stylesheet"/>
->>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	

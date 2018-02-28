@@ -36,20 +36,34 @@
 			$(this).css("color","#9c9c9c");
 		});
 		$(".cart_sc").click(function(){
-			var str="";
-			//str+=$(".checkBook_sc").prop("checked").parent().val();
-			$('.checkBook_sc:checked').each(function(i){
-				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
-			});
-			location.href="nearestUp.do?isbn=" + str;
+			if($(this).val()!=""){
+				var str="";
+				$('.checkBook_sc:checked').each(function(i){
+					str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
+				});
+				if(str!=""){
+					location.href="nearestUp.do?isbn=" + str;
+				}else{
+					alert("선택된 책이 없습니다.");
+				}
+			}else if($(this).val()==null || $(this).val()==""){
+				alert("로그인 후에 이용 가능합니다.");
+			}
 		});
 		$(".delete_sc").click(function(){
-			var str="";
-			//str+=$(".checkBook_sc").prop("checked").parent().val();
-			$('.checkBook_sc:checked').each(function(i){
-				str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
-			});
-			location.href="nearestDel.do?isbn=" + str;
+			if($(this).val()!=""){
+				var str="";
+				$('.checkBook_sc:checked').each(function(i){
+					str+=$('input[type="checkbox"]:checked ~ input[type="hidden"]').eq(i).val();
+				});
+				if(str!=""){
+					location.href="nearestDel.do?isbn=" + str;
+				}else{
+					alert("선택된 책이 없습니다.");
+				}
+			}else if($(this).val()==null || $(this).val()==""){
+				alert("로그인 후에 이용 가능합니다.");
+			}
 		});
 	});
 	
@@ -153,8 +167,8 @@
 		<div class="main_sc">
 			<div class="bar_sc">
 				<div class="bar_ea_sc">총 개수:${count }개</div>
-				<button class="delete_sc">삭제</button>
-				<button class="cart_sc">장바구니 담기</button>
+				<button class="delete_sc" value="${mbId}">삭제</button>
+				<button class="cart_sc" value="${mbId}">장바구니 담기</button>
 				<div class="bar_check_sc">
 					<input type="checkbox" name="check" value="전체선택" class="checkAll_sc"/>
 					<label>전체선택</label>
@@ -168,7 +182,7 @@
 								<input type="checkbox" name="bookCheck" class="checkBook_sc"/>
 								<input type="hidden" name="isbn" value="${interestDto.isbn}"/>
 							</div>
-							<img id="image" src="${interestDto.image_path }" width="150px" height="230px"/>
+							<img id="image" src="${interestDto.image_path }" width="150px" height="230px" onclick="javascript:location.href='bookInfo.do?isbn=${interestDto.isbn}'"/>
 							<div class="bookCon_sc">
 								<div class="bookCon_title_sc">${interestDto.title }</div>
 								<div class="bookCon_name_sc">${interestDto.name }</div>

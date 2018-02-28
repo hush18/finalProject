@@ -1,5 +1,8 @@
 package com.team3.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +41,9 @@ import com.team3.admin.member.dao.MemberManageDao;
 import com.team3.user.member.dto.ZipcodeDto;
 import com.team3.admin.sales.dao.SalesDao;
 import com.team3.admin.sales.dto.SalesDto;
+import com.team3.aop.LogAspect;
+import com.team3.user.book.dao.BookDao;
+import com.team3.user.book.dto.BookDto;
 
 import com.team3.user.oauth.bo.FacebookLoginBO;
 import com.team3.user.oauth.bo.NaverLoginBO;
@@ -60,7 +66,6 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private MemberDao memberDao;
-	
 	@Autowired
 	private OrderDao orderDao;
 	@Autowired
@@ -856,10 +861,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestUp(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("nearestUp.users");
 	}
 
@@ -880,10 +883,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestDel(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("nearestDel.users");
 
 	}
@@ -924,10 +925,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListUp(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("wishListUp.users");
 	}
 
@@ -947,10 +946,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListDel(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("wishListDel.users");
 
 	}
