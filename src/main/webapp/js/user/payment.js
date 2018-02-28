@@ -87,8 +87,15 @@ $(function() {
 	});
 	
 	$("#payment_submit").click(function() {
+		
+		if($("input[name='member_detail_address']").val()!=""){
+			var receive_addr=$("input[name='member_address']").val()+" "+$("input[name='member_detail_address']").val();
+			$("input[name='receive_addr']").attr("value",receive_addr)
+		}
+		
+		$("input[name='title']").attr("value",$("div[id='title']").text());
 		$("form[name='order']").submit();
 	});
-	
-	
 });
+
+

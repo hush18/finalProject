@@ -46,17 +46,16 @@
 					<c:if test="${bookDto.price*quantity<=10000 }">
 						<c:set var="shppingCharge" value="3000"/>
 					</c:if>
-					<div style="width: 33%;">${bookDto.title }</div>
+					<div id="title" style="width: 33%;">${bookDto.title }</div>
 					<div style="width: 8%;">${quantity }개</div>
-					<fmt:formatNumber var="price" value="${bookDto.price*quantity }" pattern="#,###"/>
-					<div style="width: 14%;">${price }원</div>
+					<c:set var="price" value="${bookDto.price*quantity }"/>
+					<fmt:formatNumber var="Allprice" value="${price }" pattern="#,###"/>
+					<div style="width: 14%;">${Allprice}원</div>
 					
 					<div style="width: 14%;"><fmt:formatNumber value="${shppingCharge }" pattern="#,###" />원</div>
 					<fmt:formatNumber var="point" value="${bookDto.price*quantity*0.1 }" pattern="#,###"/>
 					<div style="width: 14%;">${point }p</div>
-					<div style="width: 15%; border-right: 0px;">${price }원</div>
-					<input type="hidden" name="order_account" value="${quantity }">
-					<input type="hidden" name="goods" value="${isbn }">
+					<div style="width: 15%; border-right: 0px;">${Allprice }원</div>
 				</div>
 			</c:if>
 			<c:if test="${count>1 }">
@@ -68,7 +67,7 @@
 					<c:if test="${price<=10000 }">
 						<c:set var="shppingCharge" value="3000"/>
 					</c:if>
-					<div style="width: 36%;">${bookDto.title } 외 ${bookListSize } 개</div>
+					<div id="title" style="width: 36%;">${bookDto.title } 외 ${bookListSize } 개</div>
 					<div style="width: 15%;">총 ${count } 개</div>
 					<fmt:formatNumber var="Allprice" value="${price }" pattern="#,###"/>
 					
@@ -83,6 +82,11 @@
 		</div>
 		
 		<form action="paymentOk.do" name="order" method="post">
+			<input type="hidden" name="order_account" value="${quantity }">
+			<input type="hidden" name="goods" value="${isbn }">
+			<fmt:formatNumber var="save_point" value="${price*0.1}" pattern="#"/>
+			<input type="hidden" name="save_point" value="${save_point }">
+			<input type="hidden" name="title">
 			<h2 class="h2-hr">배송지 정보</h2>
 			<div class="Shipping_Information_yk">
 				<div class="Shipping_subject_yk">
@@ -184,13 +188,6 @@
 						$("input[name='member_address']").attr("value","${memberDto.member_address}")
 						$("input[name='member_detail_address']").attr("value","${memberDto.member_detail_address}")
 					}));
-					
-					$("input[name='member_detail_address']").focusout(function() {
-						if($("input[name='member_detail_address']").val()!=""){
-							var receive_addr=$("input[name='member_address']").val()+" "+$("input[name='member_detail_address']").val();
-							$("input[name='receive_addr']").attr("value",receive_addr)
-						}
-					});
 				</script>
 
 				<div class="order_Information_yk">
@@ -227,7 +224,7 @@
 					<div>${shppingCharge }원</div>
 					<img src="images/negative.png" class="icon_yk" style="margin-left: -506px; margin-top: 65px; z-index: 0">
 					<div>
-						<input type="text" name="point" value="0" style="width: 80px; text-align: center;">
+						<input type="text" name="point_history" value="0" style="width: 80px; text-align: center;">
 						/
 						<span>${memberDto.point }p</span>
 					</div>
@@ -239,11 +236,11 @@
 					<c:if test="${length==1 }">
 						<script type="text/javascript">
 							var finalPrice=${bookDto.price*quantity};
-							var point=$("input[name='point']").val();
+							var point=$("input[name='point_history']").val();
 							$("input[name='total_price']").attr("value",finalPrice);
 							$(".final_price").text(finalPrice+"원");
-							$("input[name='point']").change(function() {
-								point=$("input[name='point']").val();
+							$("input[name='point_history']").change(function() {
+								point=$("input[name='point_history']").val();
 								$(".final_price").text(finalPrice-point+"원");
 								$("input[name='total_price']").attr("value",finalPrice-point);
 								$("input[name='save_point']").attr("value",(finalPrice-point)*0.1);
@@ -254,10 +251,10 @@
 						<script type="text/javascript">
 							var finalPrice=${price};
 							$(".final_price").text(finalPrice+"원");
-							var point=$("input[name='point']").val();
+							var point=$("input[name='point_history']").val();
 							$("input[name='total_price']").attr("value",finalPrice-point);
-							$("input[name='point']").change(function() {
-								point=$("input[name='point']").val();
+							$("input[name='point_history']").change(function() {
+								point=$("input[name='point_history']").val();
 								$(".final_price").text(finalPrice-point+"원");
 								$("input[name='total_price']").attr("value",finalPrice-point);
 								$("input[name='save_point']").attr("value",(finalPrice-point)*0.1);

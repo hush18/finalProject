@@ -7,6 +7,13 @@ public class PaymentPointDto {
 	private String realtime_account_transfer;
 	private String direct_deposit;
 	private int point_history;
+	private int save_point;
+	public int getSave_point() {
+		return save_point;
+	}
+	public void setSave_point(int save_point) {
+		this.save_point = save_point;
+	}
 	public String getOrder_number() {
 		return order_number;
 	}
@@ -43,10 +50,11 @@ public class PaymentPointDto {
 	public void setPoint_history(int point_history) {
 		this.point_history = point_history;
 	}
+	
 	@Override
 	public String toString() {
 		return "PaymentPointDto [order_number=" + order_number + ", credit_card=" + credit_card + ", phone_payment="
 				+ phone_payment + ", realtime_account_transfer=" + realtime_account_transfer + ", direct_deposit="
-				+ direct_deposit + ", point_history=" + point_history + "]";
+				+ direct_deposit + ", point_history=" + point_history + ", save_point=" + save_point + "]";
 	}
 }

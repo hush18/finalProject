@@ -393,7 +393,7 @@ public class ProController {
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		service.userMapRead(mav);
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
@@ -413,7 +413,7 @@ public class ProController {
 		mav.setViewName("bookList.users");
 		return scroll(mav);
 	}
-
+	
 	@RequestMapping(value = "/bookInfo.do", method = RequestMethod.GET)
 	public ModelAndView bookInfo(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -455,18 +455,18 @@ public class ProController {
 		mav.addObject("request",request);
 		service.payment(mav);
 		
-		return mav;
+		return scroll(mav);
 	}
 	
 	@RequestMapping(value="/paymentOk.do", method=RequestMethod.POST)
 	public ModelAndView paymentOk(HttpServletRequest request, HttpServletResponse response,PaymentPointDto paymentPointDto,OrderDto orderDto) {
 		ModelAndView mav=new ModelAndView();
+		
 		mav.addObject("request",request);
 		mav.addObject("paymentPointDto",paymentPointDto);
-		LogAspect.logger.info(LogAspect.logMsg+paymentPointDto.toString());
-		LogAspect.logger.info(LogAspect.logMsg+orderDto.toString());
+		mav.addObject("orderDto",orderDto);
 		service.paymentOk(mav);
-		return null;
+		return mav;
 	}
 
 	@RequestMapping(value = "/addressList.do", method = RequestMethod.GET)

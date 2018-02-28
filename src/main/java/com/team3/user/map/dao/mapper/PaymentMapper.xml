@@ -20,4 +20,20 @@
   	<delete id="zipcodeDelete" parameterType="String">
   		delete from member_address where member_zipcode=#{member_zipcode}
   	</delete>
+  	
+  	<insert id="paymentOk_paypoint" parameterType="com.team3.user.map.dto.PaymentPointDto">
+  		insert into payment_point values(#{order_number},#{credit_card},#{phone_payment},#{realtime_account_transfer},#{direct_deposit},#{point_history},#{save_point})
+  	</insert>
+  	
+  	<insert id="paymentOk_order" parameterType="com.team3.user.order.dto.OrderDto">
+  		insert into order_delivery values(#{order_number},#{goods},#{order_account},#{total_price},#{order_status},#{id},sysdate,#{receive_name},#{receive_phone},#{receive_home},#{receive_addr},#{delivery_msg},#{title})
+  	</insert>
+  	
+  	<insert id="insert_sales" parameterType="java.util.HashMap">
+  		insert into sales values(sysdate,1,#{sales_total},#{total_price},#{point_history})
+  	</insert>
+  	
+  	<update id="update_member" parameterType="java.util.HashMap">
+  		update member set point=point+#{save_point} where id=#{id}
+  	</update>
   </mapper>

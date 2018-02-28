@@ -6,9 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -52,6 +49,8 @@ import com.team3.user.faq.dto.FaqDto;
 import com.team3.user.interest.dao.InterestDao;
 import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.map.dao.PaymentDao;
+import com.team3.user.map.dto.PaymentDto;
+import com.team3.user.map.dto.PaymentPointDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.user.member.dto.MemberAddressDto;
 import com.team3.user.member.dto.MemberDto;
@@ -1232,11 +1231,17 @@ public class Service implements ServiceInterface {
 		
 		String isbn=request.getParameter("isbn");
 		String[] isbnList=isbn.split(",");
+		String trantIsbn="";
+		for(int i=0;i<isbnList.length;i++) {
+			trantIsbn+=isbnList[i];
+		}
 		HttpSession session = request.getSession(); //세션받기 ID
 		MemberDto memberDto=memberDao.updateAccount(session);
 		
+		LogAspect.logger.info(LogAspect.logMsg +isbnList.length);
+		
 		if(isbnList.length==1) {
-			int quantity=Integer.parseInt(request.getParameter("quantity"));
+			int quantity=Integer.parseInt(request.getParameter("quantity").split(",")[0]);
 			LogAspect.logger.info(LogAspect.logMsg +isbn+"\t"+quantity);
 			
 			BookDto bookDto=paymentDao.selectBook(isbnList[0]);
@@ -1245,7 +1250,12 @@ public class Service implements ServiceInterface {
 			mav.addObject("length",isbnList.length);
 			mav.addObject("isbn",isbn);
 		}else if(isbnList.length>1) {
-			String[] quantityList=request.getParameter("quantity").split(",");
+			String quantity=request.getParameter("quantity");
+			String[] quantityList=quantity.split(",");
+			String transQuantity="";
+			for(int i=0;i<quantityList.length;i++) {
+				transQuantity+=quantityList[i]+"/";
+			}
 			BookDto firstBookDto=new BookDto();
 			int count=0;
 			long price=0;
@@ -1259,6 +1269,8 @@ public class Service implements ServiceInterface {
 				price+=Integer.parseInt(quantityList[i])* bookDto.getPrice();
 				bookList.add(bookDto);
 			}
+			mav.addObject("quantity",transQuantity);
+			mav.addObject("isbn",trantIsbn);
 			mav.addObject("price",price);
 			mav.addObject("bookListSize",bookList.size()-1);
 			mav.addObject("bookDto",firstBookDto);
@@ -1292,6 +1304,32 @@ public class Service implements ServiceInterface {
 	public void paymentOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		PaymentPointDto paymentPointDto=(PaymentPointDto)map.get("paymentPointDto");
+		OrderDto orderDto=(OrderDto) map.get("orderDto");
+		
+		HttpSession session=request.getSession();
+		MemberDto memberDto=memberDao.updateAccount(session);
+		
+		String order_number=Long.toString(System.currentTimeMillis())+"_"+memberDto.getMember_number();
+		paymentPointDto.setOrder_number(order_number);
+		orderDto.setOrder_number(order_number);
+		orderDto.setId(memberDto.getId());
+		
+		LogAspect.logger.info(LogAspect.logMsg+paymentPointDto.toString());
+		LogAspect.logger.info(LogAspect.logMsg+orderDto.toString());
+		
+		HashMap<String, Object>hmap=new HashMap<String, Object>();
+		hmap.put("total_price", orderDto.getTotal_price());
+		hmap.put("point_history",paymentPointDto.getPoint_history());
+		hmap.put("sales_total", orderDto.getTotal_price()+paymentPointDto.getPoint_history());
+		hmap.put("save_point",(paymentPointDto.getSave_point()-paymentPointDto.getPoint_history()));
+		hmap.put("id",orderDto.getId());
+		
+		int check=paymentDao.paymentOk(paymentPointDto,orderDto,hmap);
+		LogAspect.logger.info(LogAspect.logMsg+"paymentOk check : "+check);
+		mav.addObject("check",check);
+		mav.setViewName("paymentOk.users");
 	}
 
 	@Override
@@ -1300,7 +1338,7 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("id");
+		String id = (String) session.getAttribute("mbId");
 
 		List<MemberAddressDto> memberAddressDtoList = paymentDao.getMemberAddress(id);
 		mav.addObject("memberAddressDtoList", memberAddressDtoList);
