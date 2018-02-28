@@ -168,18 +168,6 @@
 		<div class="main_sc">
 			<div class="bar_sc">
 				<div class="bar_ea_sc">총 개수:0개</div>
-				<div class="bar_sel_sc">
-					<select id="sortSel_sc">
-						<option value="1" selected>최신 순</option>
-						<option value="2">오래된 순</option>
-						<option value="3">상품명 순</option>
-						<option value="4">가격 순</option>
-					</select>
-					<select id="listSel_sc">
-						<option value="20" selected>20개씩</option>
-						<option value="40">40개씩</option>
-					</select>
-				</div>
 				<button class="delete_sc" value="${mbId}">삭제</button>
 				<button class="cart_sc" value="${mbId}">장바구니 담기</button>
 				<div class="bar_check_sc">

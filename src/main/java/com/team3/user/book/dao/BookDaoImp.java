@@ -18,6 +18,11 @@ public class BookDaoImp implements BookDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
+	public List<BookDto> getMainList() {
+		return sqlSession.selectList("getMainList");
+	}
+
+	@Override
 	public CategoryDto getCategoryPath(String category_number) {
 		return sqlSession.selectOne("com.team3.user.book.dao.mapper.getCategoryPath", category_number);
 	}

@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.io.File;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -33,7 +32,6 @@ import com.team3.user.cst.dto.CstDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.admin.book.dao.AdminBook;
 import com.team3.user.book.dao.BookDao;
-import com.team3.user.book.dao.BookDaoImp;
 import com.team3.user.book.dto.BookDto;
 import com.team3.user.book.dto.CategoryDto;
 import com.team3.user.book.dto.WriterDto;
@@ -46,6 +44,7 @@ import com.team3.admin.sales.dto.SalesDto;
 import com.team3.aop.LogAspect;
 import com.team3.user.book.dao.BookDao;
 import com.team3.user.book.dto.BookDto;
+
 import com.team3.user.oauth.bo.FacebookLoginBO;
 import com.team3.user.oauth.bo.NaverLoginBO;
 import com.team3.user.faq.dao.FaqDao;
@@ -107,6 +106,25 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private FacebookLoginBO facebookLoginBO;
+
+	@Override
+	public void getMainList(ModelAndView mav) {
+		List<BookDto> bestBookList = bookDao.getMainList();
+		List<BookDto> hotBookList = bookDao.getMainList();
+		List<BookDto> newBookList = bookDao.getMainList();
+		List<AdminNctDto> nctList = adminNctDao.getNctList();
+		List<AdminFaqDto> faqList = adminFaqDao.getFaqList();
+		
+//		LogAspect.logger.info(LogAspect.logMsg + "메인에 뿌려줄 리스트 : " + bookList);
+		
+		mav.addObject("bestBookList", bestBookList);
+		mav.addObject("hotBookList", hotBookList);
+		mav.addObject("newBookList", newBookList);
+		mav.addObject("nctList", nctList);
+		mav.addObject("faqList", faqList);
+		
+		mav.setViewName("userMain.users");
+	}
 
 	@Override
 	public void loginMember(ModelAndView mav) {

@@ -59,8 +59,8 @@
 								<div class="x_content" style="color:#000;">
 									<div class="button_div_ej">
 										<button type="button" class="btn btn-primary btn_ej" onclick="location.href='adminNctInsert.do'">추가</button>
-										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej">삭제</button>
-										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">완료</button>
+<!-- 										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej">삭제</button> -->
+										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">삭제</button>
 									</div>
 									<table id="datatable" class="table table-striped table-bordered jambo_table bulk_action" style="width: 100%;">
 										<thead>
@@ -161,7 +161,7 @@
 <!-- FAQ Scripts -->
 <script src="js/admin/ntcMain.js"></script>
 <!-- Datatables -->
-<script src="vendors/datatables.net/js/jquery.dataTables.js"></script>
+<script src="vendors/datatables.net/js/jquery.dataTables_ej.js"></script>
 <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>

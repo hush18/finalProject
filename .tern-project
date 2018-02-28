@@ -1,4 +1,6 @@
 {
+<<<<<<< HEAD
+=======
   "ecmaVersion": 5,
   "plugins": {
     "guess-types": {
@@ -20,8 +22,10 @@
 >>>>>>> c4afb7846175d0f17c4e7f697fcb1e998253e261
     }
   },
+>>>>>>> ab1d8abe4f760ef2fa7c1059c93bc6ec70ed5ebe
   "libs": [
     "browser",
     "jquery"
-  ]
+  ],
+  "ecmaVersion": 6
 }
