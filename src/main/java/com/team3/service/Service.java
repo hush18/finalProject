@@ -332,7 +332,7 @@ public class Service implements ServiceInterface {
 
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(last_login);
-					cal.add(Calendar.DATE, 7);
+					cal.add(Calendar.YEAR, 1);
 					Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 					System.out.println(loginYear);
 
@@ -1091,7 +1091,7 @@ public class Service implements ServiceInterface {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 1);
+				cal.add(Calendar.YEAR, 1);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 				System.out.println(loginYear);
 
@@ -1124,7 +1124,7 @@ public class Service implements ServiceInterface {
 
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(last_login);
-					cal.add(Calendar.DATE, 7);
+					cal.add(Calendar.YEAR, 1);
 					Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 					System.out.println(loginYear);
 
