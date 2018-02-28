@@ -434,7 +434,6 @@ public class ProController {
 		mav.setViewName("bookInfo.users");
 		return scroll(mav);
 	}
-		
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
 		

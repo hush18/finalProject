@@ -15,7 +15,6 @@ public interface ServiceInterface {
 	public void searchPwd(ModelAndView mav);
 	public void memberLoginOK(ModelAndView mav);
 	public void zipcode(ModelAndView mav);
-	
 	public void orderSearch(ModelAndView mav);
 	public void statusChange(ModelAndView mav);
 	public void orderDelete(ModelAndView mav);

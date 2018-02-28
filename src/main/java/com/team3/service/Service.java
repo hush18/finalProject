@@ -58,7 +58,6 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private MemberDao memberDao;
-	
 	@Autowired
 	private OrderDao orderDao;
 	@Autowired
@@ -854,10 +853,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestUp(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("nearestUp.users");
 	}
 
@@ -878,10 +875,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestDel(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("nearestDel.users");
 
 	}
@@ -922,10 +917,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListUp(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("wishListUp.users");
 	}
 
@@ -945,10 +938,8 @@ public class Service implements ServiceInterface {
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListDel(id, strArr);
-		}else if(session.getAttribute("mbId")==null) {
-			check=-1;
+			mav.addObject("check", check);
 		}
-		mav.addObject("check", check);
 		mav.setViewName("wishListDel.users");
 
 	}

@@ -104,7 +104,11 @@ body {
 .bookCon_sc{
 	width:150px;
 }
-
+.bookCon_title_sc{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: pre;
+}
 /*.delete_sc, .cart_sc{
 	height: 30px;
 	width: 100px;
