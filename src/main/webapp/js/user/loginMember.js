@@ -44,6 +44,10 @@ $(function(){
 	$(".input_alt_mh").find("input").focus(function(){
 		$(this).val("");
 	});
+	
+	$("input[name=password]").focus(function(){
+		$("input[name=password]").attr("type","password");
+	});
 });
 
 /*유효성 검사*/
@@ -161,12 +165,7 @@ $(function(){
 		}
 	});
 	
-	if($("input[name=password]").val()=="비밀번호"){
-		$("input[name=password]").attr("type","text");
-		$("input[name=password]").keyup(function(){
-			$("input[name=password]").attr("type","password");
-		});
-	}
+	
 });
 
 function setCookie(cookieName, value, exdays){
