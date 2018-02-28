@@ -214,7 +214,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 
-		// System.out.println(memberDto);
+//		 System.out.println(memberDto);
 		int check = memberDao.updateAccountOk(memberDto);
 
 		mav.addObject("check", check);
@@ -229,10 +229,10 @@ public class Service implements ServiceInterface {
 
 		int check = memberDao.deleteAccount(memberDto);
 
-		HttpSession session = request.getSession();
-		session.removeAttribute("mbId");
-		session.removeAttribute("password");
-
+		if(check > 0) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("mbId");
+		}
 		mav.addObject("check", check);
 		mav.setViewName("deleteAccountOk.users");
 	}
