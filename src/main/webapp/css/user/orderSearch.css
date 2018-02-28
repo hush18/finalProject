@@ -446,10 +446,10 @@ body {
 
 .detail_list_con_hy div:nth-child(1) {
 	width:348px;
-	line-height: 17px;
+	/* line-height: 17px;
 	text-overflow:ellipsis;
 	overflow: hidden;
-	white-space: nowrap;
+	white-space: nowrap; */
 }
 
 .title_hy:hover{

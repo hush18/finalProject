@@ -11,21 +11,42 @@
   	<select id="orderSearchList0" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		<![CDATA[
   			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
-WHERE O.id=M.id ORDER BY order_number desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow}
+WHERE O.id=M.id ORDER BY order_number desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and order_date between sysdate-#{value} and sysdate
   		]]>
   	</select>
   	
   	<select id="orderSearchList1" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		<![CDATA[
   			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
-WHERE O.id=M.id ORDER BY title ) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow}
+WHERE O.id=M.id ORDER BY title ) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and order_date between sysdate-#{value} and sysdate
   		]]>
   	</select>
   	
   	<select id="orderSearchList2" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		<![CDATA[
   			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
-WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow}
+WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and order_date between sysdate-#{value} and sysdate
+  		]]>
+  	</select>
+  	
+  	<select id="orderSearchList3" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
+WHERE O.id=M.id ORDER BY order_number desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and to_char(order_date, 'YYYY.MM.DD') between #{from_date} and #{to_date}
+  		]]>
+  	</select>
+  	
+  	<select id="orderSearchList4" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
+WHERE O.id=M.id ORDER BY title ) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and to_char(order_date, 'YYYY.MM.DD') between #{from_date} and #{to_date}
+  		]]>
+  	</select>
+  	
+  	<select id="orderSearchList5" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
+WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and to_char(order_date, 'YYYY.MM.DD') between #{from_date} and #{to_date}
   		]]>
   	</select>
   	
@@ -90,21 +111,42 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   	<select id="cancelList0" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		<![CDATA[
   			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
-			WHERE O.id=M.id and order_status >= 11 ORDER BY order_number desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow}
+			WHERE O.id=M.id and order_status >= 11 ORDER BY order_number desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and order_date between sysdate-#{value} and sysdate
   		]]>
   	</select>
   	
   	<select id="cancelList1" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		<![CDATA[
   			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
-			WHERE O.id=M.id and order_status >= 11 ORDER BY title) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow}
+			WHERE O.id=M.id and order_status >= 11 ORDER BY title) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and order_date between sysdate-#{value} and sysdate
   		]]>
   	</select>
   	
   	<select id="cancelList2" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		<![CDATA[
   			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
-			WHERE O.id=M.id and order_status >= 11 ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow}
+			WHERE O.id=M.id and order_status >= 11 ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and order_date between sysdate-#{value} and sysdate
+  		]]>
+  	</select>
+  	
+  	<select id="cancelList3" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
+			WHERE O.id=M.id and order_status >= 11 ORDER BY order_number desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and to_char(order_date, 'YYYY.MM.DD') between #{from_date} and #{to_date}
+  		]]>
+  	</select>
+  	
+  	<select id="cancelList4" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
+			WHERE O.id=M.id and order_status >= 11 ORDER BY title) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and to_char(order_date, 'YYYY.MM.DD') between #{from_date} and #{to_date}
+  		]]>
+  	</select>
+  	
+  	<select id="cancelList5" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		<![CDATA[
+  			select * from (SELECT ROWNUM rnum, A.* FROM (SELECT O.*, M.MEMBER_NUMBER FROM order_delivery O, MEMBER M
+			WHERE O.id=M.id and order_status >= 11 ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startRow} and rnum<=#{endRow} and to_char(order_date, 'YYYY.MM.DD') between #{from_date} and #{to_date}
   		]]>
   	</select>
   	
@@ -192,5 +234,13 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   	
   	<select id="getOrderTitle" parameterType="String" resultType="String">
   		select title from book where isbn=#{isbn}
+  	</select>
+  	
+  	<select id="getOrder_name" parameterType="String" resultType="String">
+  		select name from member where id=#{id}
+  	</select>
+  	
+  	<select id="order_number" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
+  		select * from order_delivery where id=#{id} and order_number=#{order_number}
   	</select>
   </mapper>

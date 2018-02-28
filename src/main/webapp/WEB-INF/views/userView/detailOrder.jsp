@@ -14,8 +14,9 @@
 <script type="text/javascript">
 	$(function() {
 		$("#titleClick").click(function() {
-			var isbn=$(this).next().val();
+			var isbn=$(this).next().next().val();
 			var url="bookInfo.do?isbn="+isbn;
+			alert(url);
 			$(location).attr('href', url);
 		});
 	});
@@ -159,9 +160,9 @@
 						<div class="list_hy">
 							<c:forEach var="detailList" items="${detailList}">
 								<div class="detail_list_con_hy">
-									<div class="title_hy" id="titleClick">${detailList.title }</div>
-									<input type="hidden" name="isbn" value="${detailList.isbn }"/>
+									<div class="title_hy" id="titleClick">${detailList.goods_name }</div>
 									<div>${detailList.order_account }권</div>
+									<input type="hidden" name="isbn" value="${detailList.isbn }"/>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<fmt:parseNumber var="price"
@@ -202,10 +203,10 @@
 			<div class="delivery_info_hy">
 				<h2 class="h2_hy">배송 정보</h2>
 				<div class="delivery_con_hy">
-					<div class="delivery_info1_hy"><div>받는사람</div><div>홍길동</div><div>주문자</div><div>강감찬</div></div>
-					<div class="delivery_info1_hy"><div>휴대폰번호</div><div>010-1234-5678</div></div>
-					<div class="delivery_info1_hy"><div>수령예상일</div><div>2018-02-26</div></div>
-					<div class="delivery_info1_hy"><div>주소</div><div>서울특별시 강남구 역삼1동 한독빌딩 8층</div></div>
+					<div class="delivery_info1_hy"><div>받는사람</div><div>${receive_name }</div><div>주문자</div><div>${order_name }</div></div>
+					<div class="delivery_info1_hy"><div>휴대폰번호</div><div>${receive_phone }</div></div>
+					<div class="delivery_info1_hy"><div>수령예상일</div><div><fmt:formatDate value="${maybe_date}" pattern="yyyy.MM.dd"/></div></div>
+					<div class="delivery_info1_hy"><div>주소</div><div>${receive_addr }</div></div>
 				</div>
 			</div>
 			<div class="payment_info_hy">

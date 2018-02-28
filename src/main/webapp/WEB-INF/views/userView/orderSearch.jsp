@@ -24,6 +24,13 @@
 		$("#array option:selected").removeAttr("selected"); 
  		$("#array").val(list_id).attr("selected", "selected");
  		
+ 		$(".block_btn_hy").click(function() {
+			var dateValue=$(this).val();
+			var url="orderSearch.do?dateValue="+dateValue;
+			$(location).attr('href', url);
+			
+		});
+ 		
  		$("#button").click(function() {
 			var fromYear=$("#fromYear").val();
 			var fromMonth=$("#fromMonth").val();
@@ -32,9 +39,11 @@
 			var toMonth=$("#toMonth").val();
 			var toDay=$("#toDay").val();
 			
-			var from_date=$("#fromYear").val()+"/"+$("#fromMonth").val()+"/"+$("#fromDay").val();
-			var to_date=$("#toYear").val()+"/"+$("#toMonth").val()+"/"+$("#toDay").val();
-			var date=from_date+","+to_date;
+			var from_date=$("#fromYear").val()+"."+$("#fromMonth").val()+"."+$("#fromDay").val();
+			var to_date=$("#toYear").val()+"."+$("#toMonth").val()+"."+$("#toDay").val();
+			var dateValueList=from_date+"/"+to_date+"/";
+			var url="orderSearch.do?dateValueList="+dateValueList;
+			$(location).attr('href', url);
 		})
 		
 		$("#change_exchange").click(function(){
@@ -187,10 +196,10 @@
 					<div><span>기간별 조회</span></div>
 					<div style="margin-top: 5px;">
 						<span>
-							<button class="block_btn_hy">15일이내</button>
-							<button class="block_btn_hy">1개월</button>
-							<button class="block_btn_hy">3개월</button>
-							<button class="block_btn_hy">6개월</button>
+							<button class="block_btn_hy" value="1">15일이내</button>
+							<button class="block_btn_hy" value="2">1개월</button>
+							<button class="block_btn_hy" value="3">3개월</button>
+							<button class="block_btn_hy" value="4">6개월</button>
 						</span>
 					</div>
 					<div style="margin-top: 5px;">

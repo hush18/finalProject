@@ -219,7 +219,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 
-		// System.out.println(memberDto);
+//		 System.out.println(memberDto);
 		int check = memberDao.updateAccountOk(memberDto);
 
 		mav.addObject("check", check);
@@ -234,10 +234,10 @@ public class Service implements ServiceInterface {
 
 		int check = memberDao.deleteAccount(memberDto);
 
-		HttpSession session = request.getSession();
-		session.removeAttribute("mbId");
-		session.removeAttribute("password");
-
+		if(check > 0) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("mbId");
+		}
 		mav.addObject("check", check);
 		mav.setViewName("deleteAccountOk.users");
 	}
@@ -1549,12 +1549,17 @@ public class Service implements ServiceInterface {
 			if(list_value==null) list_value="0";
 			
 			int list_id=Integer.parseInt(list_value);
-			
 			LogAspect.logger.info(LogAspect.logMsg + "list_id:" +list_id);
 			
 			List<OrderDto> orderSearchList=null;
 			if(count >0) {
-				orderSearchList=orderDao.orderSearchList(startRow, endRow, list_id, id);
+				String dateValue=request.getParameter("dateValue");
+				if(dateValue==null) dateValue="0";
+				
+				String dateValueList=request.getParameter("dateValueList");
+				if(dateValueList==null) dateValueList="0";
+				
+				orderSearchList=orderDao.orderSearchList(startRow, endRow, list_id, id, dateValue, dateValueList);
 				LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList.size());
 				for(int i=0; i<orderSearchList.size(); i++) {
 					OrderDto orderDto=orderSearchList.get(i);
@@ -1833,7 +1838,13 @@ public class Service implements ServiceInterface {
 			
 			List<OrderDto> cancelList=null;
 			if(cancelCount >0) {
-				cancelList=orderDao.cancelList(startRow, endRow, list_id, id);
+				String dateValue=request.getParameter("dateValue");
+				if(dateValue==null) dateValue="0";
+				
+				String dateValueList=request.getParameter("dateValueList");
+				if(dateValueList==null) dateValueList="0";
+				
+				cancelList=orderDao.cancelList(startRow, endRow, list_id, id, dateValue, dateValueList);
 				for(int i=0; i<cancelList.size(); i++) {
 					OrderDto orderDto=cancelList.get(i);
 					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
@@ -2188,6 +2199,10 @@ public class Service implements ServiceInterface {
 			List<OrderDto> orderDtoList=orderDao.getDetailOrder(order_number, id);
 			OrderDto orderDto=orderDtoList.get(0);
 			LogAspect.logger.info(LogAspect.logMsg+ "orderDto:" + orderDto.toString());
+			String receive_name=orderDto.getReceive_name();
+			String receive_phone=orderDto.getReceive_phone();
+			String receive_addr=orderDto.getReceive_addr();
+			Date maybe_date=null;
 			String goods=orderDto.getGoods();
 			String order_amount=orderDto.getOrder_account();
 			String[] isbnArr=goods.split("/");
@@ -2208,6 +2223,7 @@ public class Service implements ServiceInterface {
 				detailDto.setOrder_date(order_date);
 				detailDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
 				detailList.add(detailDto);
+				maybe_date=detailDto.getMaybe_date();
 			}
 			LogAspect.logger.info(LogAspect.logMsg+ "detailList:" + detailList.toString());
 			
@@ -2216,7 +2232,11 @@ public class Service implements ServiceInterface {
 			int cancelCount=orderDao.getCancelCount(id);
 			int point=orderDao.getPoint(id);
 			
-			
+			mav.addObject("order_name", order_name);
+			mav.addObject("receive_name", receive_name);
+			mav.addObject("receive_phone", receive_phone);
+			mav.addObject("receive_addr", receive_addr);
+			mav.addObject("maybe_date", maybe_date);
 			mav.addObject("count", count);
 			mav.addObject("orderingCount", orderingCount);
 			mav.addObject("deliveryCount", deliveryCount);
