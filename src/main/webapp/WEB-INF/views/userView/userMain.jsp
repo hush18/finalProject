@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <title>㈜산책</title>
 <!-- Swiper JS -->
@@ -10,7 +10,7 @@
 <script type="text/javascript" src="js/user/newsfeedParsing.js"></script>
 
 <!-- jQuery Cookie 라이브러리 (팝업창 관련)-->
-<!-- <script type="text/javascript" src="jquery_cookie/jquery.cookie.js"></script> -->
+<script type="text/javascript" src="jquery_cookie/jquery.cookie.js"></script>
 <script type="text/javascript">
 	function openMsgBox() {
 		var eventCookie = $.cookie("event_condo");
@@ -67,92 +67,56 @@
 		</div>
 		<h2 class="h2-hr">베스트셀러</h2>
 		<div class="list-content-iy">
-			<div class="list1-iy">
-				<img src="images/4088478.jpg" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
+
+			<c:forEach var="list" items="${bestBookList}">
+				<div class="list1-iy">
+					<img src="${list.image_path}" />
+					<div class="contents1-iy">
+						<p id="book-name">${list.title}</p>
+						<p id="book-writer">${list.name}</p>
+						<p id="book-publisher">${list.publisher}</p>
+					</div>
 				</div>
-			</div>
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
-				</div>
-			</div>
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
-				</div>
-			</div>
+			</c:forEach>
+
 		</div>
 		<button class="btn-all">더 보기</button>
 		<h2 class="h2-hr">핫 서적</h2>
 		<div class="list-content-iy" id="fade-out-1-iy">
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
+
+			<c:forEach var="list" items="${hotBookList}">
+				<div class="list1-iy">
+					<img src="${list.image_path}" />
+					<div class="contents1-iy">
+						<p id="book-name">${list.title}</p>
+						<p id="book-writer">${list.name}</p>
+						<p id="book-publisher">${list.publisher}</p>
+					</div>
 				</div>
-			</div>
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
-				</div>
-			</div>
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
-				</div>
-			</div>
+			</c:forEach>
+
 		</div>
 		<button class="btn-all" id="more-01">더 보기</button>
 		<h2 class="h2-hr">신간도서</h2>
 		<div class="list-content-iy" id="fade-out-2-iy">
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
+
+			<c:forEach var="list" items="${newBookList}">
+				<div class="list1-iy">
+					<img src="${list.image_path}" />
+					<div class="contents1-iy">
+						<p id="book-name">${list.title}</p>
+						<p id="book-writer">${list.name}</p>
+						<p id="book-publisher">${list.publisher}</p>
+					</div>
 				</div>
-			</div>
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
-				</div>
-			</div>
-			<div class="list1-iy">
-				<img src="images/mainPage/overlay.png" />
-				<div class="contents1-iy">
-					<p id="book-name">책 제목</p>
-					<p id="book-writer">글쓴이</p>
-					<p id="book-publisher">출판사</p>
-				</div>
-			</div>
+			</c:forEach>
+
 		</div>
-		<button class="btn-all" id="more-02">더 보기</button>
+		<button class="btn-all" id="more-02" style="margin-bottom: 20px;">더 보기</button>
 		<div class="newsfeed-iy">
 			<!-- newsfeed -->
-			<div class="swiper-container newsfeed" style="height: 300px;">
-				<div class="parallax-bg" style="background-image: url(images/mainPage/newsfeedOverlay.jpg)" data-swiper-parallax="-23%"></div>
+			<div class="swiper-container newsfeed" style="height: 350px;">
+				<div class="parallax-bg" style="background-color: #5cb38b;" data-swiper-parallax="-23%"></div>
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" id="news-1-iy">
 						<div class="title" data-swiper-parallax="-300"></div>
@@ -214,21 +178,21 @@
 			<div class="notice-iy">
 				<h2 class="h2-hr">공지사항</h2>
 				<ol class="rectangle-list">
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
+					<c:forEach var="list" items="${nctList}">
+						<li>
+							<a href="">${list.title}</a>
+						</li>
+					</c:forEach>
 				</ol>
 			</div>
 			<div class="FAQ-iy">
 				<h2 class="h2-hr">FAQ</h2>
 				<ol class="rectangle-list">
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
-					<li><a href="">이것은 테스트입니다.</a></li>
+					<c:forEach var="list" items="${faqList}">
+						<li>
+							<a href="">${list.title}</a>
+						</li>
+					</c:forEach>
 				</ol>
 			</div>
 		</div>
@@ -238,17 +202,20 @@
 			<div class="row input-container">
 				<div class="col-xs-12">
 					<div class="styled-input wide">
-						<input type="text" required /> <label>Name</label>
+						<input type="text" required />
+						<label>Name</label>
 					</div>
 				</div>
 				<div>
 					<div class="styled-input">
-						<input type="text" required /> <label>Email</label>
+						<input type="text" required />
+						<label>Email</label>
 					</div>
 				</div>
 				<div>
 					<div class="styled-input" style="float: right;">
-						<input type="text" required /> <label>Phone Number</label>
+						<input type="text" required />
+						<label>Phone Number</label>
 					</div>
 				</div>
 				<div>
@@ -263,3 +230,4 @@
 			</div>
 		</div>
 	</div>
+</body>

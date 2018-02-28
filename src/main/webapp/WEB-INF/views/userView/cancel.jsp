@@ -211,8 +211,8 @@
 						<div class="list_hy">
 							<c:forEach var="cancelList" items="${cancelList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do">${cancelList.order_number }</a></div>
-									<div><a href="detailOrder.do">${cancelList.goods_name }</a></div>
+									<div id="order_number"><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.order_number }</a></div>
+									<div><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.title }</a></div>
 									<div>${cancelList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${cancelList.order_date}" pattern="yyyy-MM-dd"/></div>
 									<div class=""><fmt:formatDate value="${cancelList.maybe_date}" pattern="yyyy-MM-dd"/></div>

@@ -53,4 +53,9 @@ public class AdminFaqDaoImp implements AdminFaqDao {
 	public int faqTopInsert(int faqNumber) {
 		return sqlSession.update("faqTopInsert",faqNumber);
 	}
+
+	@Override
+	public List<AdminFaqDto> getFaqList() {
+		return sqlSession.selectList("getFaqList");
+	}
 }

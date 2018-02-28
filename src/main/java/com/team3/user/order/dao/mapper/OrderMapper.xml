@@ -159,7 +159,7 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   	</select>
   	
   	<select id="cartSelect" parameterType="java.util.Map" resultType="int">
-  		SELECT nvl(count(*),0) FROM cart WHERE ID=#{id} and isbn=#{isbn}
+  		SELECT nvl(count(*),0) FROM cart WHERE ID=#{id} and isbn=#{isbn} and state=0
   	</select>
   	
   	<insert id="insertCart" parameterType="java.util.Map">
@@ -167,7 +167,7 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   	</insert>
   	
   	<delete id="cartListDelete" parameterType="java.util.Map">
-  		delete from cart where id=#{id} and isbn=#{isbn}
+  		delete from cart where id=#{id} and isbn=#{isbn} and state=0
   	</delete>
   	
   	<update id="statusChange" parameterType="java.util.Map">

@@ -156,7 +156,7 @@
 						<div class="list_hy">
 							<c:forEach var="detailList" items="${detailList}">
 								<div class="detail_list_con_hy">
-									<div class="title_hy" id="titleClick">${detailList.goods_name }</div>
+									<div class="title_hy" id="titleClick">${detailList.title }</div>
 									<input type="hidden" name="isbn" value="${detailList.isbn }"/>
 									<div>${detailList.order_account }권</div>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy-MM-dd"/></div>

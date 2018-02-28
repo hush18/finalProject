@@ -174,7 +174,7 @@
 							<c:forEach var="deliveryList" items="${deliveryList}">
 								<div class="search_list_con_hy table_jm">
 									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.order_number }</a></div>
-									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.goods_name }</a></div>
+									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.title }</a></div>
 									<div>${deliveryList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${deliveryList.order_date }" pattern="yyyy-MM-dd"/></div>
 									<div class=""><fmt:formatDate value="${deliveryList.maybe_date }" pattern="yyyy-MM-dd"/></div>

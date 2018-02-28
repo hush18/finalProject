@@ -12,4 +12,5 @@ public interface AdminNctDao {
 	public AdminNctDto nctSelect(int nctNumber);
 	public int nctUpdateOk(AdminNctDto adminNctDto);
 	public int nctDeleteOk(String checked);
+	public List<AdminNctDto> getNctList();
 }

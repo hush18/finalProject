@@ -162,7 +162,7 @@
 												<img src="${cartList.image_path }" class="bookimg_hy" />
 											</div>
 											<div>
-												<span><a href="">${cartList.title }</a></span><br />
+												<span><a href="bookInfo.do?isbn=${cartList.isbn }">${cartList.title }</a></span><br />
 												<div>
 													<span>${cartList.name }</span> | <span>${cartList.publisher }</span>
 												</div>

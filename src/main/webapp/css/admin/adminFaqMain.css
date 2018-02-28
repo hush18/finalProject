@@ -108,3 +108,8 @@
 .bossrow_ej th{
 	vertical-align: middle !important;
 }
+
+#ftr{
+	background-color: #fff;
+	color: #000;
+}

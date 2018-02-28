@@ -46,12 +46,15 @@
 	 		
  		$("#change_cancel").click(function(){
  			var status=$(this).parents().find("#status").text();
+ 			alert(status);
  			var order_number=$(this).parents().find("#order_number").text();
- 			if(status.equals("입금 대기중")){
+ 			if(status=="1"){
  				var url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
-				$(location).attr('href', url);
+ 				alert(url);
+				//$(location).attr('href', url);
  			}else{
 				var url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
+				alert(url);
 				$(location).attr('href', url);
  				
  			}
@@ -232,7 +235,7 @@
 							<c:forEach var="orderSearchList" items="${orderSearchList}">
 								<div class="search_list_con_hy table_jm">
 									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
-									<div><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.goods_name }</a></div>
+									<div><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.title }</a></div>
 									<div>${orderSearchList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${orderSearchList.order_date}" pattern="yyyy-MM-dd"/></div>
 									<div class=""><fmt:formatDate value="${orderSearchList.maybe_date}" pattern="yyyy-MM-dd"/></div>
