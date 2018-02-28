@@ -12,16 +12,18 @@
 <body>
 <div class="widthline_ej">
 	<div class="qboss_ej">
+	<form action="CustomerService_question_search.do" method="GET">
 		<div class="qsub1_ej">
 			<span>문의상품 조회</span>
 		</div>
 		<div class="qsub2_ej">▶검색하신 상품명이 포함된 모든 상품이 조회됩니다.</div>
 		<div class="qsub3_ej">
 			<div class="qsearch_sub_ej">
-				<input type="text" name="search" size="30" /> <a href="#"
-					class="btn-all btn_ej">검색</a>
+				<input type="text" name="search" size="30" />
+				<button type="submit" class="btn-all btn_ej" style="outline:0; border:0px;">검색</button> 
 			</div>
 		</div>
+		</form>
 		<div class="qsub2_ej">▶상품내역</div>
 		<div class="qsub4_ej">
 			<div>제목</div>
