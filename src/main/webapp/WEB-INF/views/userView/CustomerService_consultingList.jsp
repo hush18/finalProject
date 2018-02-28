@@ -1,18 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="css/user/CustomerService_consultingList.css" rel="stylesheet"
-	type="text/css" />
+<link href="css/user/CustomerService_consultingList.css" rel="stylesheet" type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script src="js/user/CustomerService.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
+<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
 <body>
 	<div class="widthline">
@@ -74,8 +73,7 @@
 									<p class="consulting_sc">1:1 상담</p>
 									<ul>
 										<li><a href="CustomerService_consulting.do">1:1 상담하기</a></li>
-										<li><a href="CustomerService_consultingList.do">1:1
-												상담내역</a></li>
+										<li><a href="CustomerService_consultingList.do">1:1 상담내역</a></li>
 									</ul>
 								</div>
 							</div>
@@ -124,8 +122,9 @@
 							</div>
 
 							<div class="search_sub_ej">
-								<input type="text" name="search" size="40" /> <a href="#"
-									class="btn-all btn_ej">검색</a>
+								<input type="text" name="search" size="40" />
+								<button type="submit" class="btn-all btn_ej" style="height: 27px; padding-top: 0px;">검색</button>
+								>
 							</div>
 						</form>
 					</div>
@@ -141,8 +140,7 @@
 						<div class="sub3_ej">
 							<div>기간별 조회&nbsp;&nbsp;&nbsp;|</div>
 							<div>
-								<a href="#">15일</a> <a href="#">1개월</a> <a href="#">2개월</a> <a
-									href="#">3개월</a>
+								<a href="#">15일</a> <a href="#">1개월</a> <a href="#">2개월</a> <a href="#">3개월</a>
 							</div>
 						</div>
 						<div class="sub4_ej">
@@ -152,51 +150,50 @@
 							<div>답변유무</div>
 						</div>
 						<c:set value="0" var="count" />
-						<c:forEach items="cstList" var="list">
+						<c:forEach items="${cstList}" var="list">
+							<fmt:formatDate value="${list.admin_write_date}" pattern="yyyy-MM-dd" var="Awrite_date"/>
 							<div class="list_ej">
-								<div class="listrow_ej number${count}_ej">
-									<span class="listcell1_ej">
+								<div class="listrow_ej">
+									<span class="listcell1_ej"> 
 										<fmt:formatDate value="${list.write_date}" pattern="yyyy-MM-dd" />
-									</span>
-									<span class="listcell2_ej">${list.up_category}&nbsp;&gt;&nbsp;${list.down_category}</span>
-									<span class="listcell3_ej">${list.title}</span>
+									</span> 
+									<span class="listcell2_ej">${list.up_category}&nbsp;&gt;&nbsp;${list.down_category}</span> 
+									<span class="listcell3_ej number${count}_ej" onclick="javascript:cstReply('${count}','${list.content}','${list.admin_content}','${Awrite_date}')">${list.title}</span> 
 									<span class="listcell4_ej">${list.reply_check}</span>
 								</div>
 							</div>
 							<c:set var="count" value="${count + 1}" />
 						</c:forEach>
 						<div class="page_ej">
-							<c:if test="${count>10 }">
- 								<fmt:parseNumber var="pageCount" value="${count / boardSize + (count%boardSize==0 ? 0:1)}" integerOnly="true"/>
+							<c:if test="${listCount>10 }">
+								<fmt:parseNumber var="pageCount" value="${listCount / boardSize + (listCount%boardSize==0 ? 0:1)}" integerOnly="true" />
 								<c:set var="pageBlock" value="${2}" />
 								<fmt:parseNumber var="startPage" value="${((pageNumber-1)/pageBlock) }" integerOnly="true" />
 								<c:set var="startPage" value="${startPage*pageBlock+1}" />
 								<c:set var="endPage" value="${startPage+pageBlock-1 }" />
-			
+
 								<c:if test="${endPage > pageCount }">
-									<c:set var="endPage" value="${endPage=pageCount }" />				
+									<c:set var="endPage" value="${endPage=pageCount }" />
 								</c:if>
-								
+
 								<c:if test="${startPage > pageBlock }">
-									<a href="CustomerService_consulting.do?pageNumber=${startPage-pageBlock }">&nbsp;&lt;&nbsp;</a>
+									<a href="CustomerService_consultingList.do?pageNumber=${startPage-pageBlock }">&nbsp;&lt;&nbsp;</a>
 								</c:if>
-								
 								<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
 									<c:choose>
-										<c:when test="${pageNumber==i }">
-											<a href="CustomerService_consulting.do?pageNumber=${i}" style="color:#fff">${i}</a>
+										<c:when test="${pageNumber==i}">
+											<a href="CustomerService_consultingList.do?pageNumber=${i}" style="color: #5cb38b;">${i}</a>
 										</c:when>
-										
 										<c:otherwise>
-											<a href="CustomerService_consulting.do?pageNumber=${i}" style="color:black">${i}</a>
+											<a href="CustomerService_consultingList.do?pageNumber=${i}" style="color: black">${i}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-			
+
 								<c:if test="${endPage < pageCount}">
-									<a href="CustomerService_consulting.do?pageNumber=${startPage+pageBlock }">&nbsp;&gt;&nbsp;</a>
+									<a href="CustomerService_consultingList.do?pageNumber=${startPage+pageBlock }">&nbsp;&gt;&nbsp;</a>
 								</c:if>
-					 		</c:if>
+							</c:if>
 						</div>
 					</div>
 				</div>

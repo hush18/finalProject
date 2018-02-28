@@ -9,29 +9,26 @@ function faqTTList(i, con) {
 	});
 }
 
-function faqList(i, con) {
-	$(function(){
+function faqList(i, con, Acon) {
 		$(".number"+i+"_ej").each(function(i,e){
 			index = i+1;
 			$(".top_content_ej").remove();
 			var div = $("<td class='top_content_ej' colspan='3' style='width: 371px;'></td>").append("<p>" + con + "</p>");
 			$(this).after(div);
 		});
-	});
 }
 
-$(".list_ej").each(function(i,e){
-	index = i+1;
-	$(".number"+index+"_ej").click(function(){
-		$(".top_content_ej").remove();
+function cstReply(i,con, Acon, Adate){
+	$(".top_content_ej").remove();
 		var div = $("<div></div>");
-		var div2 = $("<div class='top_content_ej'></div>").append("<p>제목</p><p>내용</p>");
+		var div2 = $("<div class='top_content_ej'></div>").append("<p>내용&nbsp;&nbsp;<i class='far fa-hand-point-right'></i>&nbsp;&nbsp;"+con+"</p>");
 		div.append(div2);
-		// if("답변이 있는 경우")
-			var divap = $("<div class='top_content_ej'></div>").css("overflow","hidden");
-			var p = $("<p>답변</p>").after("<p class='date_ej'>답변 날짜: 2018-02-13</p>");
-			div.append(divap.append(p));
 		
-		$(this).after(div);
-	});
-});
+		if(Adate!=null){
+			var divap = $("<div class='top_content_ej'></div>").css("overflow","hidden");
+			var p = $("<p>&nbsp;&nbsp;<i class='far fa-registered'></i></p>&nbsp;&nbsp;<p>"+Acon+"</p>").after("<p class='date_ej'>답변 날짜:nbsp;"+Adate+"</p>");
+			div.append(divap.append(p));
+			$(".number"+i+"_ej").parent().after(div);
+		}
+}
+

@@ -1234,11 +1234,11 @@ public class Service implements ServiceInterface {
 		int startNum = (currentPage-1)*boardSize+1;
 		int endNum = currentPage*boardSize;
 		LogAspect.logger.info(LogAspect.logMsg + "id: " +id);
-		int count = cstListDao.cstListCount(id);
-		LogAspect.logger.info(LogAspect.logMsg + "count: " +count);
+		int listCount = cstListDao.cstListCount(id);
+		LogAspect.logger.info(LogAspect.logMsg + "listCount: " +listCount);
 		
 		List<CstListDto> cstList = new ArrayList<CstListDto>();
-		if(count>0) {
+		if(listCount>0) {
 			cstList = cstListDao.cstList(id,startNum,endNum);
 		}
 		
@@ -1247,7 +1247,7 @@ public class Service implements ServiceInterface {
 		mav.addObject("pageNumber",pageNumber);
 		mav.addObject("boardSize",boardSize);
 		mav.addObject("cstList",cstList);
-		mav.addObject("count",count);
+		mav.addObject("listCount",listCount);
 		
 		mav.setViewName("CustomerService_consultingList.users");
 	}

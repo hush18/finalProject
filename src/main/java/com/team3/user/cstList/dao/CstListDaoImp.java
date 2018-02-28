@@ -30,7 +30,7 @@ public class CstListDaoImp implements CstListDao {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		
-		return sqlSession.selectList("cstList",map);
+		return sqlSession.selectList("userCstList",map);
 	}
 
 }

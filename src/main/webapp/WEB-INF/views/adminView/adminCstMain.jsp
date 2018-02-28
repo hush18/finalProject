@@ -90,7 +90,7 @@
 											<!--  포문  시작 -->
 											<c:set value="0" var="count" />
 											<c:forEach items="${cstList}" var="list">
-												<fmt:formatDate value="${list.write_date}" pattern="yyyy-MM-dd" var="Awrite_date" />
+												<fmt:formatDate value="${list.admin_write_date}" pattern="yyyy-MM-dd" var="Awrite_date" />
 												<tr class="parent faqparent_ej">
 													<td class="checkbox_ej">
 														<input type="checkbox" class="flat" name="table_records" value="${list.counsel_number}">

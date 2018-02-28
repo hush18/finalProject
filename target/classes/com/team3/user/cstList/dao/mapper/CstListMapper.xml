@@ -8,7 +8,7 @@
   		<![CDATA[select count(*) from counsel where id=#{id}]]>
   	</select>
   	
-  	<select id="cstList" parameterType="java.util.HashMap" resultType="com.team3.user.cstList.dto.CstListDto">
-  		<![CDATA[select * from(select rownum rnum, a.* from(select * from  counsel order by group_number desc, sequence_number asc)a) where rnum >= #{startNum} and rnum <=#{endNum} and id=#{id}]]>
+  	<select id="userCstList" parameterType="java.util.Map" resultType="com.team3.user.cstList.dto.CstListDto">
+  		<![CDATA[select * from(select rownum rnum, a.* from(select * from  counsel order by write_date desc)a) where rnum >= #{startNum} and rnum <=#{endNum} and id=#{id}]]>
   	</select>
   </mapper>

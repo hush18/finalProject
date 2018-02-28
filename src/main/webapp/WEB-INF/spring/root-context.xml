@@ -30,11 +30,11 @@
 				<value>classpath:com/team3/admin/sales/dao/mapper/SalesMapper.xml</value>
 				<value>classpath:com/team3/user/book/dao/mapper/BookMapper.xml</value>
 				<value>classpath:com/team3/user/cst/dao/mapper/CstMapper.xml</value>
+				<value>classpath:com/team3/user/cstList/dao/mapper/CstListMapper.xml</value>
 				<value>classpath:com/team3/user/faq/dao/mapper/FaqMapper.xml</value>
 				<value>classpath:com/team3/user/interest/dao/mapper/InterestMapper.xml</value>
 				<value>classpath:com/team3/user/main/dao/mapper/MainMapper.xml</value>
 				<value>classpath:com/team3/user/map/dao/mapper/MapMapper.xml</value>
-				
 				<value>classpath:com/team3/user/member/dao/mapper/MemberMapper.xml</value>
 				<value>classpath:com/team3/user/order/dao/mapper/OrderMapper.xml</value>
 				<value>classpath:com/team3/user/review/dao/mapper/ReviewMapper.xml</value>
