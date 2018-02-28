@@ -342,7 +342,7 @@ public class ProController {
 		
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/CustomerService_main.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_main(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -439,7 +439,6 @@ public class ProController {
 		
 		return mav;
 	}
-
 	@RequestMapping(value = "/eventPopup.do", method = RequestMethod.GET)
 	public ModelAndView popup(HttpServletRequest request, HttpServletResponse response) {
 
@@ -644,7 +643,11 @@ public class ProController {
 
 	@RequestMapping(value = "adminOrderSearch.do", method = RequestMethod.GET)
 	public ModelAndView adminOrderSearch(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminOrderSearch.admin");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.adminOrderSearch(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "adminSales.do", method = RequestMethod.GET)

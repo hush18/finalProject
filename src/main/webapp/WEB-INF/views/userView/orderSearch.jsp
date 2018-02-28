@@ -24,6 +24,13 @@
 		$("#array option:selected").removeAttr("selected"); 
  		$("#array").val(list_id).attr("selected", "selected");
  		
+ 		$(".block_btn_hy").click(function() {
+			var dateValue=$(this).val();
+			var url="orderSearch.do?dateValue="+dateValue;
+			$(location).attr('href', url);
+			
+		});
+ 		
  		$("#button").click(function() {
 			var fromYear=$("#fromYear").val();
 			var fromMonth=$("#fromMonth").val();
@@ -32,9 +39,11 @@
 			var toMonth=$("#toMonth").val();
 			var toDay=$("#toDay").val();
 			
-			var from_date=$("#fromYear").val()+"/"+$("#fromMonth").val()+"/"+$("#fromDay").val();
-			var to_date=$("#toYear").val()+"/"+$("#toMonth").val()+"/"+$("#toDay").val();
-			var date=from_date+","+to_date;
+			var from_date=$("#fromYear").val()+"."+$("#fromMonth").val()+"."+$("#fromDay").val();
+			var to_date=$("#toYear").val()+"."+$("#toMonth").val()+"."+$("#toDay").val();
+			var dateValueList=from_date+"/"+to_date+"/";
+			var url="orderSearch.do?dateValueList="+dateValueList;
+			$(location).attr('href', url);
 		})
 		
 		$("#change_exchange").click(function(){
@@ -46,12 +55,15 @@
 	 		
  		$("#change_cancel").click(function(){
  			var status=$(this).parents().find("#status").text();
+ 			alert(status);
  			var order_number=$(this).parents().find("#order_number").text();
- 			if(status.equals("입금 대기중")){
+ 			if(status=="1"){
  				var url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
-				$(location).attr('href', url);
+ 				alert(url);
+				//$(location).attr('href', url);
  			}else{
 				var url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
+				alert(url);
 				$(location).attr('href', url);
  				
  			}
@@ -184,10 +196,10 @@
 					<div><span>기간별 조회</span></div>
 					<div style="margin-top: 5px;">
 						<span>
-							<button class="block_btn_hy">15일이내</button>
-							<button class="block_btn_hy">1개월</button>
-							<button class="block_btn_hy">3개월</button>
-							<button class="block_btn_hy">6개월</button>
+							<button class="block_btn_hy" value="1">15일이내</button>
+							<button class="block_btn_hy" value="2">1개월</button>
+							<button class="block_btn_hy" value="3">3개월</button>
+							<button class="block_btn_hy" value="4">6개월</button>
 						</span>
 					</div>
 					<div style="margin-top: 5px;">
@@ -224,18 +236,18 @@
 				</div>
 				
 				<c:if test="${count==0}">
-					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+					<p style="text-align: center; font-size: 1.17em; color: #8c8c8c; line-height: 5">고객님의 주문내역이 존재하지 않습니다</p>
 				</c:if>
 				<c:if test="${count>0 }">
 					<div class="recentOrder_hy">
 						<div class="list_hy">
 							<c:forEach var="orderSearchList" items="${orderSearchList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}&order_date=${orderSearchList.order_date}">${orderSearchList.order_number }</a></div>
-									<div><a href="detailOrder.do">${orderSearchList.goods_name }</a></div>
+									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
+									<div><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.title }</a></div>
 									<div>${orderSearchList.goods_account }권</div><!-- search_list_size_hy -->
-									<div class=""><fmt:formatDate value="${orderSearchList.order_date}" pattern="yyyy-MM-dd"/></div>
-									<div class=""><fmt:formatDate value="${orderSearchList.maybe_date}" pattern="yyyy-MM-dd"/></div>
+									<div class=""><fmt:formatDate value="${orderSearchList.order_date}" pattern="yyyy.MM.dd"/></div>
+									<div class=""><fmt:formatDate value="${orderSearchList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<div id="status">${orderSearchList.status }</div>
 									<div class=""><strong>${orderSearchList.total_price }원</strong></div>
 									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>
