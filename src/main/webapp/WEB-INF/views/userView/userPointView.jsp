@@ -7,6 +7,13 @@
 <link rel="stylesheet" type="text/css" href="css/user/sideCategory.css">
 <link rel="stylesheet" type="text/css" href="css/user/userPointView.css">
 <title>포인트</title>
+<script type="text/javascript">
+	function deleteMember() {
+		window
+				.open("deleteAccount.do", "",
+						"width=400, height=400, scroll=yes");
+	}
+</script>
 </head>
 <body>
 	<div class="widthline">
