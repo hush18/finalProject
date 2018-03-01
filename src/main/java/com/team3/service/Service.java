@@ -1326,6 +1326,7 @@ public class Service implements ServiceInterface {
 		if (searchList != null) {
 			count = searchList.size();
 		}
+		
 		LogAspect.logger.info(LogAspect.logMsg + "현재 검색된 책의 갯수 : " + count);
 
 		int pageCount = count / Integer.parseInt(bookListSize) + (count % Integer.parseInt(bookListSize) == 0 ? 0 : 1);
@@ -1340,6 +1341,14 @@ public class Service implements ServiceInterface {
 		if (count != 0) {
 			bookList = new ArrayList<BookDto>();
 			for (int i = startRow - 1; i < endRow; i++) {
+				BookDto bookDto = searchList.get(i);
+				String isbn = bookDto.getIsbn();
+				long grade = bookDao.getGrade(isbn);
+				
+				bookDto.setGrade(grade);
+				
+				searchList.set(i, bookDto);
+				
 				bookList.add(searchList.get(i));
 			}
 		}
