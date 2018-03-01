@@ -21,14 +21,36 @@ function faqList(i, con, Acon) {
 function cstReply(i,con, Acon, Adate){
 	$(".top_content_ej").remove();
 		var div = $("<div></div>");
-		var div2 = $("<div class='top_content_ej'></div>").append("<p>내용&nbsp;&nbsp;<i class='far fa-hand-point-right'></i>&nbsp;&nbsp;"+con+"</p>");
+		var div2 = $("<div class='top_content_ej'></div>").append("<p>"+con+"</p>");
 		div.append(div2);
 		
-		if(Adate!=null){
+		if(Acon!=""){
 			var divap = $("<div class='top_content_ej'></div>").css("overflow","hidden");
-			var p = $("<p>&nbsp;&nbsp;<i class='far fa-registered'></i></p>&nbsp;&nbsp;<p>"+Acon+"</p>").after("<p class='date_ej'>답변 날짜:nbsp;"+Adate+"</p>");
+			var p = $("<p>"+Acon+"</p>").after("<p class='date_ej'>답변 날짜:nbsp;"+Adate+"</p>");
 			div.append(divap.append(p));
-			$(".number"+i+"_ej").parent().after(div);
 		}
+		$(".number"+i+"_ej").parent().after(div);
 }
 
+function content(i,con){
+	$(".jlist_ej").each(function(index,e){
+		$(".top_content_ej").remove();
+		var div = $("<div class='top_content_ej'></div>").append("<p>"+con+"</p>");
+		$(".number"+i+"_ej").parent().after(div);
+	});
+}
+
+$(function(){
+	$(".sub_category_ej").hide();
+	var nowAddress = unescape(encodeURIComponent(location.href));
+    nowAddress = decodeURIComponent(nowAddress)
+	nowAddress = nowAddress.slice(nowAddress.indexOf('=') + 1);
+    var param = nowAddress.split("&");
+    
+    var consulting = ["회원","상품","입금/결제","취소/교환/환불","주문","배송","적립"];
+    $.each(consulting, function(i,e){
+    	if(param[0]==e){
+    		$("#"+e.substring(0,2)).show();
+    	}
+    });
+});

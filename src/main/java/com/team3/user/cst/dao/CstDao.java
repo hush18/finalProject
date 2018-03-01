@@ -7,5 +7,6 @@ import com.team3.user.cst.dto.CstQuestionDto;
 
 public interface CstDao {
 	public int userInsert(CstDto cstDto);
-	public List<CstQuestionDto> cstQuestion(String search);
+	public List<CstQuestionDto> cstProductList(String search,int startNum,int endNum);
+	public int cstProductCount(String search);
 }

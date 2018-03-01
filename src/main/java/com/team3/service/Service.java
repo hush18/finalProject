@@ -1,8 +1,5 @@
 package com.team3.service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -226,7 +223,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 
-		// System.out.println(memberDto);
+//		 System.out.println(memberDto);
 		int check = memberDao.updateAccountOk(memberDto);
 
 		mav.addObject("check", check);
@@ -241,10 +238,10 @@ public class Service implements ServiceInterface {
 
 		int check = memberDao.deleteAccount(memberDto);
 
-		HttpSession session = request.getSession();
-		session.removeAttribute("mbId");
-		session.removeAttribute("password");
-
+		if(check > 0) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("mbId");
+		}
 		mav.addObject("check", check);
 		mav.setViewName("deleteAccountOk.users");
 	}
@@ -1203,28 +1200,21 @@ public class Service implements ServiceInterface {
 	@Override
 	public void getTopTen(ModelAndView mav) {
 		List<FaqDto> faqDtoTTList = faqDao.getTopTenList();
+		
+		for (int i = 0; i < faqDtoTTList.size(); i++) {
+			faqDtoTTList.get(i).setContent(faqDtoTTList.get(i).getContent().replace("\r\n", "<br />"));
+		}
+		
 		mav.addObject("faqDtoTTList", faqDtoTTList);
 		mav.setViewName("CustomerService_main.users");
 	}
 
 	@Override
 	public void getFaq(ModelAndView mav) {
-		List<FaqDto> faqDtoList = faqDao.getTopTenList();
-
-		for (int i = 0; i < faqDtoList.size(); i++) {
-			faqDtoList.get(i).setContent(faqDtoList.get(i).getContent().replace("\r\n", "<br />"));
-		}
-
-		mav.addObject("faqDtoList", faqDtoList);
-		mav.setViewName("CustomerService_faq.users");
-	}
-	
-	@Override
-	public void cstList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("mbId");//mbId로 바꿔
+		String upCategory = request.getParameter("up_category");
+		String downCategory = request.getParameter("down_category");
 		
 		int boardSize = 10;
 		String pageNumber = request.getParameter("pageNumber");
@@ -1233,13 +1223,60 @@ public class Service implements ServiceInterface {
 		int currentPage = Integer.parseInt(pageNumber);
 		int startNum = (currentPage-1)*boardSize+1;
 		int endNum = currentPage*boardSize;
-		LogAspect.logger.info(LogAspect.logMsg + "id: " +id);
+		
+		int faqListCount = faqDao.faqListCount(upCategory,downCategory);
+		
+		List<FaqDto> faqUpList = new ArrayList<FaqDto>();
+		List<FaqDto> faqDownList = new ArrayList<FaqDto>();
+		
+		if(upCategory!=null && downCategory==null) {
+			faqUpList = faqDao.faqList(upCategory,startNum,endNum);
+			for (int i = 0; i < faqUpList.size(); i++) {
+				faqUpList.get(i).setContent(faqUpList.get(i).getContent().replace("\r\n", "<br />"));
+			}
+		}else if(upCategory!=null && downCategory!=null) {
+			faqDownList = faqDao.faqDownList(downCategory,startNum,endNum);
+			for (int i = 0; i < faqDownList.size(); i++) {
+				faqDownList.get(i).setContent(faqDownList.get(i).getContent().replace("\r\n", "<br />"));
+			}
+		}
+		
+		mav.addObject("faqUpList", faqUpList);
+		mav.addObject("faqDownList", faqDownList);
+		mav.addObject("upCategory", upCategory);
+		mav.addObject("downCategory", downCategory);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("faqListCount", faqListCount);
+		mav.setViewName("CustomerService_faq.users");
+	}
+	
+	@Override
+	public void cstList(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("mbId");
+		
+		int boardSize = 10;
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber==null)pageNumber="1";
+		
+		int currentPage = Integer.parseInt(pageNumber);
+		int startNum = (currentPage-1)*boardSize+1;
+		int endNum = currentPage*boardSize;
 		int listCount = cstListDao.cstListCount(id);
-		LogAspect.logger.info(LogAspect.logMsg + "listCount: " +listCount);
 		
 		List<CstListDto> cstList = new ArrayList<CstListDto>();
 		if(listCount>0) {
 			cstList = cstListDao.cstList(id,startNum,endNum);
+		}
+		
+		for (int i = 0; i < cstList.size(); i++) {
+			cstList.get(i).setContent(cstList.get(i).getContent().replace("\r\n", "<br/>"));
+			if (cstList.get(i).getAdmin_content() != null) {
+				cstList.get(i).setAdmin_content(cstList.get(i).getAdmin_content().replace("\r\n", "<br/>"));
+			}
 		}
 		
 		LogAspect.logger.info(LogAspect.logMsg + cstList.toString());
@@ -1262,6 +1299,9 @@ public class Service implements ServiceInterface {
 		int emailing = Integer.parseInt(request.getParameter("emailing"));
 		cstDto.setUp_category(cstDto.getUp_category().replace(",", ""));
 		cstDto.setDown_category(cstDto.getDown_category().replace(",", ""));
+		
+		LogAspect.logger.info(LogAspect.logMsg + cstDto.toString());
+		
 		if(emailing==0) {
 			cstDto.setEmail("X");
 		}
@@ -1281,20 +1321,35 @@ public class Service implements ServiceInterface {
 	
 
 	@Override
-	public void cstQuestion(ModelAndView mav) {
+	public void cstProduct(ModelAndView mav) {
 		Map<String,Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		
 		String search = request.getParameter("search");
 		
+		int boardSize = 5;
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber==null)pageNumber="1";
+		
+		int currentPage = Integer.parseInt(pageNumber);
+		int startNum = (currentPage-1)*boardSize+1;
+		int endNum = currentPage*boardSize;
+		int producCount=0;
+		List<CstQuestionDto> cstProductList = new ArrayList<CstQuestionDto>();
+		int count = 0;
 		if(search!=null) {
-			LogAspect.logger.info(LogAspect.logMsg + search);
-			
-			List<CstQuestionDto> cstQuestionList = cstDao.cstQuestion(search);
-			LogAspect.logger.info(LogAspect.logMsg + cstQuestionList.size());
-			
-			mav.addObject("cstQuestionList",cstQuestionList);
+			producCount = cstDao.cstProductCount(search);
+			cstProductList = cstDao.cstProductList(search,startNum,endNum);
+			LogAspect.logger.info(LogAspect.logMsg + "두번째 페이지 리스트 : " + cstProductList);
+			count++;
+			mav.addObject("cstProductList",cstProductList);
 		}
+		
+		mav.addObject("count",count);
+		mav.addObject("producCount",producCount);
+		mav.addObject("pageNumber",currentPage);
+		mav.addObject("boardSize",boardSize);
+		mav.addObject("search",search);
+		mav.setViewName("CustomerService_question_search.empty");
 	}
 
 	@Override

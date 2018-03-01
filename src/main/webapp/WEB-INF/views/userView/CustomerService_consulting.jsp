@@ -278,7 +278,7 @@
 									</div>
 									
 									<div class="consulting_sub3_ej">
-										<input type="text" name="up_category" size="20" readonly>
+										<input type="text" name="counsel_product" size="20" readonly style="cursor: not-allowed;">
 										<a id="questionSearch" class="consulting_abtn1_ej">조회</a>
 									</div>
 								</div>
@@ -289,7 +289,7 @@
 									</div>
 									
 									<div class="consulting_sub3_ej">
-										<input type="text" name="down_category" size="20" readonly>
+										<input type="text" name="order_number" size="20" readonly style="cursor: not-allowed;">
 										<a id="orderSearch" class="consulting_abtn1_ej">조회</a>
 									</div>
 								</div>

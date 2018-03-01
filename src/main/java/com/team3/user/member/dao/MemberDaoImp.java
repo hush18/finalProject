@@ -35,7 +35,7 @@ public class MemberDaoImp implements MemberDao {
 	
 	@Override
 	public MemberDto updateAccount(HttpSession session) {
-		String id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("mbId");
 		
 		return sqlSession.selectOne("getAccountInfo", id);
 	}

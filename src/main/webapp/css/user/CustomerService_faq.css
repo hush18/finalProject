@@ -112,28 +112,40 @@ body {
 
 .sub_category_ej a {
 	margin-right: 5px;
-	padding-right: 15px;
+	padding-left: 15px;
 	text-decoration: none;
 	color: #000;
 	font-size: 12px;
 }
 
-.sub_category_ej a:nth-child(1) {
-	background-image: url("../../images/CustomerService/minus5.png");
-	background-repeat: no-repeat;
-	background-position: 33px 0px;
-}
-
 .sub_category_ej a:nth-child(2) {
 	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
-	background-position: 55px 0px;
+	background-position: 0px 0px;
 }
 
 .sub_category_ej a:nth-child(3) {
 	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
-	background-position: 85px 0px;
+	background-position: 0px 0px;
+}
+
+.sub_category_ej a:nth-child(4) {
+	background-image: url("../../images/CustomerService/minus5.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.sub_category_ej a:nth-child(5) {
+	background-image: url("../../images/CustomerService/minus5.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.sub_category_ej a:nth-child(6) {
+	background-image: url("../../images/CustomerService/minus5.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
 }
 
 .faqlist_header_ej {
@@ -289,41 +301,4 @@ body {
 	border-radius: 3px;
 	font-size: 12px;
 	width: auto;
-}
-
-.dataTables_length {
-	float: left;
-}
-
-.col-sm-6 {
-	float: right;
-}
-
-.dataTables_info {
-	float: left;
-}
-
-.table {
-	float: left;
-}
-
-.pagination {
-	list-style: none;
-	float: right;
-	background-color: #ddd;
-	padding: 5px 40px;
-}
-
-.col-sm-6:nth-child(2) {
-	float: left;
-}
-
-.pagination * {
-	display: inline-block;
-	margin-right: 10px;
-}
-
-#datatable td{
-	cursor: pointer;
-	background-color: #eee;
 }

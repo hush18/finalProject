@@ -6,9 +6,15 @@
   <mapper namespace="com.team3.user.cst.dao.mapper">
 	<insert id="userInsert" parameterType="com.team3.user.cst.dto.CstDto">
 		insert into counsel(counsel_number,id,title,counsel_product,order_number,content,email,up_category,down_category,write_date) values(counsel_counsel_number_seq.nextval,#{id},#{title},#{counsel_product},#{order_number},#{content},#{email},#{up_category},#{down_category},sysdate)
-	</insert>
+	</insert>	
 	
-	<select id="cstQuestionList" parameterType="String" resultType="com.team3.user.cst.dto.CstDto">
-		<![CDATA[SELECT e.title,e.write_date,e.price,d.NAME FROM book e, writer d WHERE e.writer_number = d.writer_number and e.title like #{search}]]>
+	<select id="cstProductList" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstQuestionDto">
+		<![CDATA[
+			select * from(select rownum rnum, A.* from(select e.title,e.write_date,e.price,d.name from book e, writer d where e.writer_number = d.writer_number and e.title like '%'||#{search}||'%' order by e.title)a) where rnum >= #{startNum} AND rnum <= #{endNum}
+		]]>
+	</select>
+	
+	<select id="cstProductCount" parameterType="String" resultType="int">
+		<![CDATA[select count(*) from book where title like '%'||#{search}||'%']]>
 	</select>
   </mapper>

@@ -76,7 +76,7 @@ public interface ServiceInterface {
 	public void searchHeader(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
-	public void cstQuestion(ModelAndView mav);
+	public void cstProduct(ModelAndView mav);
 	public void cstOk(ModelAndView mav);
 	public void cstList(ModelAndView mav);
 	public void loginMember(ModelAndView mav);

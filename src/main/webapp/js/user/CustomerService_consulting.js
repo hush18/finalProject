@@ -4,11 +4,11 @@
 
 $(function(){
 	$("#orderSearch").click(function(){
-		window.open("CustomerService_order_search.do","","width=500 ,height=450");
+		window.open("CustomerService_order_search.do","","width=700 ,height=500");
 	});
 	
 	$("#questionSearch").click(function(){
-		window.open("CustomerService_question_search.do","","width=500 ,height=450");
+		window.open("CustomerService_question_search.do","","width=700 ,height=500");
 	});
 	
 	$(".consulting_sub2_1_ej").hide();
@@ -32,3 +32,8 @@ $(function(){
 		});
 	});
 });
+
+function cstPopValue(title){
+	$(opener.document).find("input[name=counsel_product]").val(title);
+	self.close();
+}

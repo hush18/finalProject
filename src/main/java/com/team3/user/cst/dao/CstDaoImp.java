@@ -1,13 +1,13 @@
 package com.team3.user.cst.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.team3.admin.cst.dto.AdminCstDto;
-import com.team3.aop.LogAspect;
 import com.team3.user.cst.dto.CstDto;
 import com.team3.user.cst.dto.CstQuestionDto;
 
@@ -23,8 +23,16 @@ public class CstDaoImp implements CstDao {
 	}
 
 	@Override
-	public List<CstQuestionDto> cstQuestion(String search) {
-		return sqlSession.selectList("cstQuestionList",search);
+	public List<CstQuestionDto> cstProductList(String search,int startNum,int endNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		return sqlSession.selectList("cstProductList",map);
 	}
-	
+
+	@Override
+	public int cstProductCount(String search) {
+		return sqlSession.selectOne("cstProductCount",search);
+	}
 }

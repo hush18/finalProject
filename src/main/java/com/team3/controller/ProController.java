@@ -68,7 +68,8 @@ public class ProController {
 	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
 	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
 
-		return scroll(new ModelAndView("userPointView.users"));
+//		return scroll(new ModelAndView("userPointView.users"));
+		return new ModelAndView("userPointView.users");
 	}
 
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
@@ -88,7 +89,7 @@ public class ProController {
 		mav.addObject("memberDto", memberDto);
 		service.updateAccountOk(mav);
 
-		return scroll(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.GET)
@@ -373,6 +374,7 @@ public class ProController {
 	@RequestMapping(value = "/CustomerService_faq.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_faq(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		service.getFaq(mav);
 		return mav;
 	}
@@ -386,7 +388,8 @@ public class ProController {
 	@RequestMapping(value = "/CustomerService_question_search.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_question_search(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-		service.cstQuestion(mav);
+		mav.addObject("request", request);
+		service.cstProduct(mav);
 		return mav;
 	}
 

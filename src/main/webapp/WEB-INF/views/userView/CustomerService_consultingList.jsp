@@ -177,7 +177,7 @@
 								</c:if>
 
 								<c:if test="${startPage > pageBlock }">
-									<a href="CustomerService_consultingList.do?pageNumber=${startPage-pageBlock }">&nbsp;&lt;&nbsp;</a>
+									<a href="CustomerService_consultingList.do?pageNumber=${startPage-pageBlock }" style="color: black">&nbsp;&lt;&nbsp;</a>
 								</c:if>
 								<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
 									<c:choose>
@@ -191,7 +191,7 @@
 								</c:forEach>
 
 								<c:if test="${endPage < pageCount}">
-									<a href="CustomerService_consultingList.do?pageNumber=${startPage+pageBlock }">&nbsp;&gt;&nbsp;</a>
+									<a href="CustomerService_consultingList.do?pageNumber=${startPage+pageBlock }" style="color: black">&nbsp;&gt;&nbsp;</a>
 								</c:if>
 							</c:if>
 						</div>

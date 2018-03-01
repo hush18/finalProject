@@ -11,7 +11,7 @@ body {
 
 .widthline_ej {
 	margin: 0 auto;
-	width: 500px;
+	width: 700px;
 }
 
 .qboss_ej{
@@ -68,26 +68,26 @@ body {
 .qsub4_ej div:nth-child(1) {
 	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
-	background-position: 183px 4px;
+	background-position: 256px 4px;
     width: 41%;
 }
 
 .qsub4_ej div:nth-child(2) {
-	width: 17%;
+	width: 30%;
 }
 
 .qsub4_ej div:nth-child(3) {
 	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 1px 4px;
-	width: 25%;
+	width: 17%;
 }
 
 .qsub4_ej div:nth-child(4) {
 	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
-	background-position: 1px 4px;
-	width: 17%;
+	background-position: 0px 4px;
+	width: 12%;
 }
 
 .page2_ej {
@@ -103,7 +103,7 @@ body {
 
 .qsearch_sub_ej {
 	float: left;
-	margin: 13px 0 0 50px;
+	margin: 13px 0 0 175px;
 }
 
 .qsearch_sub_ej input {
@@ -153,19 +153,19 @@ body {
     cursor: pointer;
 }
 
-.qsub5_li1_ej:hover{
-	color: #5cb38b;
-	font-weight: bold;
-}
-
 .qsub5_li2_ej{
-    width: 15%;
+    width: 28%;
 }
 
 .qsub5_li3_ej{
-	width: 24%;
+	width: 15%;
 }
 
 .qsub5_li4_ej{
-    width: 13%;
+    width: 10%;
+}
+
+.qsub_title_ej:hover{
+	color: #5cb38b !important;
+	font-weight: bold;
 }

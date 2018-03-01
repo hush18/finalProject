@@ -75,7 +75,7 @@
 									<p class="faq_sc">FAQ</p>
 									<ul>
 										<li>
-											<a href="CustomerService_faq.do">회원</a>
+											<a href="CustomerService_faq.do?up_category=회원">회원</a>
 										</li>
 										<li>
 											<a href="CustomerService_faq.do">상품</a>
