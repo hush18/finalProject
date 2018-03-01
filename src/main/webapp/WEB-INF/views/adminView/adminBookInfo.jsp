@@ -14,35 +14,8 @@
 <!-- 관리자 도서검색 -->
 <link href="css/admin/adminContents_BookInsert.css" type="text/css" rel="stylesheet">
 <link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
-<script type="text/javascript">
-	$(function() {
-		$("#writer_search").click(function() {
-			var name = $("#name").val();
-			window.open("adminWriterSearch.do?name="+name, "", "width=570, height=600");
-			return false;
-		})
-		
-		$("#delete").click(function () {
-			var isbn = $("input[name='isbn']").val()+"/";//writer_number
-			var writer_number = $("input[name='writer_number']").val();
-			var check = confirm("정말 삭제하시겠습니까?");
-			
-			if(check){
-				$(location).attr("href", "adminBookDelete.do?isbn="+isbn+"&writer_number="+writer_number);
-			}
-			
-			return false;
-		})
-		
-		$("#category").change(function () {
-			$("input[name='category_number']").val($(this).val());
-		})
-		
-		$("#image_path").change(function () {
-			$("#imageView").attr("src",$(this).val());
-		})
-	})
-</script>
+<script type="text/javascript" src="js/admin/adminBookInfo.js"></script>
+<script type="text/javascript" src="js/admin/adminBookCheck.js"></script>
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -165,7 +138,7 @@
 									</div>
 									<div class="button_area">
 										<div>
-											<button class="btn-all btn-all_jm btn_result" type="submit">수정</button>
+											<button id="updateCheck" class="btn-all btn-all_jm btn_result" type="submit">수정</button>
 										</div>
 										<div>
 											<button id="delete" class="btn-all btn-all_jm btn_result">삭제</button>

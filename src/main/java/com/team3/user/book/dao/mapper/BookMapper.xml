@@ -28,6 +28,10 @@
       
   		]]>
 	</select>
+	
+	<select id="getGrade" parameterType="String" resultType="long">
+		select nvl(round(avg(GRADE)),1) from REVIEW where isbn=#{isbn}
+	</select>
 
 	<select id="getCategoryNumber" parameterType="String"
 		resultType="String">

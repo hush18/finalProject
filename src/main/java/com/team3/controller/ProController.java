@@ -26,6 +26,7 @@ import com.team3.user.book.dto.BookDto;
 import com.team3.user.book.dto.WriterDto;
 
 import com.team3.user.member.dto.MemberDto;
+import com.team3.user.review.dto.ReviewDto;
 
 @Controller
 public class ProController {
@@ -430,10 +431,12 @@ public class ProController {
 		mav.addObject("request", request);
 
 		service.bookInfo(mav);
+		service.reviewList(mav);
 
 		mav.setViewName("bookInfo.users");
 		return scroll(mav);
 	}
+	
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -544,6 +547,18 @@ public class ProController {
 		service.searchTitle(mav);
 		return null;
 	}
+	
+
+	@RequestMapping(value = "/reviewInsert.do", method = RequestMethod.POST)
+	public ModelAndView reviewInsert(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		mav.addObject("reviewDto", reviewDto);
+		service.reviewInsert(mav);
+		return null;
+	}
+	
 	// 여기부터 관리자
 	// ================================================================================================================================================
 	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)

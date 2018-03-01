@@ -22,6 +22,14 @@ public class BookDto {
 		this.name = name;
 	}
 	
+	//리뷰평점 가져오기
+	private long grade;
+	public long getGrade() {
+		return grade;
+	}
+	public void setGrade(long grade) {
+		this.grade = grade;
+	}
 	
 	public String getIsbn() {
 		return isbn;

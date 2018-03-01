@@ -36,6 +36,12 @@ public class BookDaoImp implements BookDao {
 	public List<BookDto> getBookList(Map<String, Object> dataMap) {
 		return sqlSession.selectList("com.team3.user.book.dao.mapper.getBookList", dataMap);
 	}
+	
+	@Override
+	public long getGrade(String isbn) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.team3.user.book.dao.mapper.getGrade", isbn);
+	}
 
 	@Override
 	public String getCategoryNumber(String category_path) {

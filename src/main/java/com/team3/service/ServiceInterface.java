@@ -89,5 +89,7 @@ public interface ServiceInterface {
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
 	
 	public void searchList(ModelAndView mav);
+	public void reviewInsert(ModelAndView mav);
+	public void reviewList(ModelAndView mav);
 }
 
