@@ -1,13 +1,9 @@
 package com.team3.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-
-import com.team3.user.book.dto.BookDto;
 
 public interface ServiceInterface {
 	public void getMainList(ModelAndView mav);
@@ -91,5 +87,6 @@ public interface ServiceInterface {
 	public void searchList(ModelAndView mav);
 	public void reviewInsert(ModelAndView mav);
 	public void reviewList(ModelAndView mav);
+	public void adminOrderSearch(ModelAndView mav);
 }
 
