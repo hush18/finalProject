@@ -45,10 +45,15 @@ $(function(){
 		$(this).val("");
 	});
 	
-	$("input[name=password]").focus(function(){
-		$("input[name=password]").attr("type","password");
-	});
 });
+
+//비밀번호 입력 타입 바꾸기 text->password
+function changePwd(){
+	if($("input[name=password]").val()=="비밀번호"){
+		$("input[name=password]").val("");
+		$("input[name=password]").attr("type", "password");
+	}
+}
 
 /*유효성 검사*/
 function loginForm(obj){
@@ -165,7 +170,9 @@ $(function(){
 		}
 	});
 	
-	
+	if($("input[name=password]").val()!="비밀번호"){
+		$("input[name=password]").attr("type", "password");
+	}
 });
 
 function setCookie(cookieName, value, exdays){

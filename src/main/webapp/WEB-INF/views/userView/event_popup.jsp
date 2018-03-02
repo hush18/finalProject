@@ -4,6 +4,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>㈜산책</title>
+<style type="text/css">
+.search_btn_mh{
+		height: 25px; background-color: #5cb38b; cursor: pointer;
+		 border-radius: 3px; color: white; border: none; padding: 3px 0.5em;
+	}
+	.search_btn_mh:hover{ font-weight: bold;}
+</style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="jquery_cookie/jquery.cookie.js"></script>
 <script type="text/javascript">
@@ -19,7 +26,7 @@
 	<form name="event_Fcondo" style="padding-top: 260px;">
 		<input type="checkbox" name="event">
 		<font size=2>오늘하루 이 창을 열지않음</font>
-		<input type=button value="닫기" onclick="self.close()">
+		<input type=button value="닫기" name="search_btn_mh" onclick="self.close()">
 	</form>
 </body>
 </html>

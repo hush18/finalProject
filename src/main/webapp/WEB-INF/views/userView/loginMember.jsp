@@ -35,7 +35,7 @@
 					<div class="input_on_mh">
 						<div>
 							<input type="text" name="id" value="아이디" /><br />
-							<input type="text" name="password" value="비밀번호"/><br />
+							<input type="text" name="password" value="비밀번호" onfocus="changePwd()"/><br />
 						</div>
 					</div>
 
