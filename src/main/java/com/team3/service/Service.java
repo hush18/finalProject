@@ -1037,6 +1037,7 @@ public class Service implements ServiceInterface {
 		if(session.getAttribute("mbId")!=null) {
 			String id=(String) session.getAttribute("mbId");
 			List<InterestDto> scrollList=interestDao.scrollSelect(id);
+			LogAspect.logger.info(LogAspect.logMsg + "리스트 출력!!!" + scrollList);
 			int scrollCount=scrollList.size();
 			if(scrollList.size() > 2) scrollCount=2;
 			mav.addObject("scrollList", scrollList);

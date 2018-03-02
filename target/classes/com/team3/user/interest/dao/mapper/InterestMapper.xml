@@ -37,7 +37,7 @@
 	  
 	  <select id="scrollSelect" parameterType="String" resultType="com.team3.user.interest.dto.InterestDto">
 	  	<![CDATA[
-		  	select b.image_path,b.title, c.cart_day
+		  	select b.image_path,b.title, c.cart_day, c.isbn
 			from book b, cart c
 			where b.isbn = c.isbn and c.state=1 and c.id=#{id}
 			order by c.cart_day desc
