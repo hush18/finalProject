@@ -62,8 +62,9 @@
 							<li>
 								<div>리뷰평점</div>
 								<div>
-									<span class="star-prototype">${bookDto.grade}</span>
-								</div><label>(${bookDto.grade})</label>
+									<fmt:formatNumber var="grade" value="${bookDto.grade}" pattern="0.0"></fmt:formatNumber>
+									<span class="star-prototype">${grade}</span> 
+								</div><label>(${grade})</label>
 							</li>
 						</ul>
 					</div>

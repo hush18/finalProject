@@ -126,8 +126,9 @@
 										${bookDto.price}원
 									</div>
 									<div>
-										<span class="star-prototype">${bookDto.grade}</span> 
-									</div><label>(${bookDto.grade})</label>
+										<fmt:formatNumber var="grade" value="${bookDto.grade}" pattern="0.0"></fmt:formatNumber>
+										<span class="star-prototype">${grade}</span> 
+									</div><label>(${grade})</label>
 									<div class="word_space_jm">
 										${bookDto.book_introduction}
 									</div>
