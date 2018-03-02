@@ -84,32 +84,14 @@
 						</div>
 						<div class="select_list_view_jm">
 							<select id="view_jm">
-								<c:if test="${view=='detail'}">
-									<option value="detail" selected="selected">자세히보기</option>
-									<option value="simply">간단히보기</option>
-								</c:if>
-								<c:if test="${view=='simply'}">
-									<option value="detail">자세히보기</option>
-									<option value="simply" selected="selected">간단히보기</option>
-								</c:if>
+								<option value="detail" ${view=='detail' ? 'selected' : ''}>자세히보기</option>
+								<option value="simply" ${view=='simply' ? 'selected' : ''}>간단히보기</option>
 							</select>
 							
 							<select id="list_count_jm">
-								<c:if test="${bookListSize=='10'}">
-									<option value="10" selected="selected">10개씩</option>
-									<option value="20">20개씩</option>
-									<option value="30">30개씩</option>
-								</c:if>
-								<c:if test="${bookListSize=='20'}">
-									<option value="10">10개씩</option>
-									<option value="20" selected="selected">20개씩</option>
-									<option value="30">30개씩</option>
-								</c:if>
-								<c:if test="${bookListSize=='30'}">
-									<option value="10">10개씩</option>
-									<option value="20">20개씩</option>
-									<option value="30" selected="selected">30개씩</option>
-								</c:if>
+								<option value="10" ${bookListSize=='10' ? 'selected' : ''}>10개씩</option>
+								<option value="20" ${bookListSize=='20' ? 'selected' : ''}>20개씩</option>
+								<option value="30" ${bookListSize=='30' ? 'selected' : ''}>30개씩</option>
 							</select>
 							<input type="hidden" name="view" value="${view}">
 							<input type="hidden" name="sortValue" value="${sortValue}">
