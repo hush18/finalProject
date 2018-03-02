@@ -7,9 +7,9 @@
 <title>1:1 상담하기</title>
 <link href="css/user/CustomerService_consulting.css" rel="stylesheet" type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script src="js/user/CustomerService_consulting.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type = "text/css" rel="stylesheet" href="css/user/sideCategory.css"/>
+<script src="js/user/CustomerService_consulting.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="widthline">
@@ -46,7 +46,7 @@
 									<ul>
 										<li><a href="nearestList.do">최근본 상품</a></li>
 										<li><a href="wishList.do">위시리스트</a></li>
-										<li><a href="buyList.do">장바구니</a></li>
+										<li><a href="cart.do">장바구니</a></li>
 									</ul>
 								</div>
 							</div>

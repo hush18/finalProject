@@ -25,6 +25,44 @@
 			self.close();
 		});
 	});
+	
+	function pwdFrom(obj){
+		if($("input[name=id]").val()==""){
+			alert("아이디을 입력해주세요.");
+			$("input[name=id]").focus();
+			return false;
+		}
+		
+		if($("input[name=name]").val()==""){
+			alert("이름을 입력해주세요.");
+			$("input[name=name]").focus();
+			return false;
+		}
+		
+		if($("input[name=phon_middle]").val()==""){
+			alert("전화번호를 입력해주세요.");
+			$("input[name=phon_middle]").focus();
+			return false;
+		}
+		
+		if($("input[name=phon_end]").val()==""){
+			alert("전화번호를 입력해주세요.");
+			$("input[name=phon_end]").focus();
+			return false;
+		}
+		
+		if($("input[name=email]").val()==""){
+			alert("이메일을 입력해주세요.");
+			$("input[name=email]").focus();
+			return false;
+		}
+		
+		if($("input[name=email_address]").val()==""){
+			alert("이메일을 입력해주세요.");
+			$("input[name=email_address]").focus();
+			return false;
+		}
+	}
 </script>
 </head>
 <body>
@@ -45,7 +83,7 @@
 			</div>
 			
 			<!-- 회원정보 입력란 -->
-			<form action="searchPwd.do" method="get">
+			<form action="searchPwd.do" method="get" onsubmit="return pwdFrom(this)">
 				<div class="fp_input_mh">
 					<div class="input_title_mh">
 						<div>아이디</div>
@@ -91,11 +129,13 @@
 								<option value="017">017</option>
 								<option value="018">018</option>
 								<option value="019">019</option>
-							</select> &nbsp; <span>-</span> &nbsp; <input class="phone_m" type="text"
-								name="phon_middle" maxlength="4" size="3" /> &nbsp; <span>-</span>
-							&nbsp; <input class="phone_e" type="text" name="phon_end"
-								maxlength="4" size="3" /> &nbsp;&nbsp; <span
-								style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 번호</span>
+							</select> &nbsp; <span>-</span> &nbsp; 
+							<input class="phone_m" type="text"
+								name="phon_middle" maxlength="4" size="3" /> &nbsp; 
+							<span>-</span>
+							&nbsp;
+							<input class="phone_e" type="text" name="phon_end"	maxlength="4" size="3" /> &nbsp;&nbsp; 
+							<span style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 번호</span>
 						</div>
 						<div class="input_email_mh">
 							<input type="text" name="email"> &nbsp; &nbsp; <span>@</span>
@@ -124,13 +164,13 @@
 						</div>
 					</div>
 				</div>
+				<!-- 입력버튼 -->
+				<div class="fp_btn_mh" align="center">
+					<input class="btn-all" style="width: 17%;" type="submit" value="확인" />
+					<input class="btn-all" style="width: 17%;" type="reset" value="다시입력" />
+				</div>
 			</form>
 
-			<!-- 입력버튼 -->
-			<div class="fp_btn_mh" align="center">
-				<input class="btn-all" style="width: 17%;" type="submit" value="확인" />
-				<input class="btn-all" style="width: 17%;" type="reset" value="다시입력" />
-			</div>
 		</div>
 	</div>
 

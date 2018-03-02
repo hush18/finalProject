@@ -72,7 +72,7 @@
 				<div class="list1-iy">
 					<img src="${list.image_path}" />
 					<div class="contents1-iy">
-						<p id="book-name">${list.title}</p>
+						<b id="book-name">${list.title}</b>
 						<p id="book-writer">${list.name}</p>
 						<p id="book-publisher">${list.publisher}</p>
 					</div>
@@ -88,7 +88,7 @@
 				<div class="list1-iy">
 					<img src="${list.image_path}" />
 					<div class="contents1-iy">
-						<p id="book-name">${list.title}</p>
+						<b id="book-name">${list.title}</b>
 						<p id="book-writer">${list.name}</p>
 						<p id="book-publisher">${list.publisher}</p>
 					</div>
@@ -104,7 +104,7 @@
 				<div class="list1-iy">
 					<img src="${list.image_path}" />
 					<div class="contents1-iy">
-						<p id="book-name">${list.title}</p>
+						<b id="book-name">${list.title}</b>
 						<p id="book-writer">${list.name}</p>
 						<p id="book-publisher">${list.publisher}</p>
 					</div>

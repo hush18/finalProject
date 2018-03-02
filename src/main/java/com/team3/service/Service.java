@@ -306,6 +306,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("searchPwd.empty");
 	}
 
+					
 	// 회원로그인하기
 	@Override
 	public void memberLoginOK(ModelAndView mav) {
@@ -331,7 +332,7 @@ public class Service implements ServiceInterface {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 7);
+				cal.add(Calendar.YEAR, 1);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 				System.out.println(loginYear);
 
@@ -1091,7 +1092,7 @@ public class Service implements ServiceInterface {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 1);
+				cal.add(Calendar.YEAR, 1);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 				System.out.println(loginYear);
 
@@ -1114,6 +1115,7 @@ public class Service implements ServiceInterface {
 		LogAspect.logger.info(LogAspect.logMsg + memberList.size());
 		int check = 0;
 
+					
 		for (int i = 0; i < memberList.size(); i++) {
 			Date last_login = memberList.get(i).getLast_login();
 
@@ -1124,7 +1126,7 @@ public class Service implements ServiceInterface {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(last_login);
-				cal.add(Calendar.DATE, 7);
+				cal.add(Calendar.YEAR, 1);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
 				System.out.println(loginYear);
 

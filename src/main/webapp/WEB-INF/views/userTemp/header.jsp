@@ -102,7 +102,7 @@
 					<a href="Map.do">영업점안내</a>
 				</li>
 				
-				<%-- <c:if test="${member_number!=null && member_number<1000}"> --%>
+				<c:if test="${member_number!=null && member_number<1000}">
 					<li><a href="adminBookSearch.do">(관리자메뉴)</a>
 						<ul class="ul-iy">
 							<li><a href="adminBookSearch.do">도서관리</a></li>
@@ -111,7 +111,8 @@
 							<li><a href="adminFaqMain.do">고객문의관리</a></li>
 							<li><a href="adminOrderSearch.do">주문관리</a></li>
 						</ul></li>
-				<%-- </c:if> --%>
+				</c:if>
+				
 			</ul>
 		</div>
 	</div>

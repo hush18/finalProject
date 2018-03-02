@@ -14,6 +14,8 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
 		$("#array").change(function(){
 			var url="orderSearch.do?list_id="+$(this).val();
 			$(location).attr('href', url);
@@ -63,7 +65,7 @@
 						<ul>
 							<li><a href="nearestList.do">최근본 상품</a></li>
 							<li><a href="wishList.do">위시리스트</a></li>
-							<li><a href="buyList.do">장바구니</a></li>
+							<li><a href="cart.do">장바구니</a></li>
 						</ul>
 					</div>
 				</div>
