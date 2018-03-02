@@ -17,12 +17,12 @@
 <body>
 	<div class="container">
 		<h2 class="h2-hr" style="margin-left: 20px;">회원정보수정</h2>
-		<form action="updateAccount.do" method="post" onsubmit="">
+		<form action="updateAccount.do" method="post" onsubmit="" id="updateForm">
 			<div class="col-iy">
 				<label id="icon" for="name">
 					<i class="fa fa-user fa-lg"></i>
 				</label>
-				<input type="text" name="name" id="name" placeholder="Name" value="${memberDto.name}"/>
+				<input type="text" name="name" id="name" placeholder="Name" value="${memberDto.name}" required/>
 			</div>
 
 			<div class="col-iy">
@@ -36,24 +36,24 @@
 				<label id="icon" for="password">
 					<i class="fa fa-key fa-lg"></i>
 				</label>
-				<input type="password" name="password" id="password" placeholder="Password" />
+				<input type="password" name="password" id="password" placeholder="Password" required />
 			</div>
 
 			<div class="col-iy">
 				<label id="icon" for="passwordCheck">
 					<i class="fa fa-check-circle fa-lg"></i>
 				</label>
-				<input type="password" name="passwordCheck" id="passwordCheck" placeholder="Password Check" />
+				<input type="password" name="passwordCheck" id="passwordCheck" placeholder="Password Check" required />
 			</div>
 
 			<div class="col-iy">
 				<label id="icon" for="address">
 					<i class="fa fa-map-marker fa-lg"></i>
 				</label>
-				<input type="text" name="member_zipcode" id="member_zipcode" placeholder="Zipcode" value="${memberDto.member_zipcode}"/>
-				<input type="text" name="member_address" id="member_address" placeholder="Address" value="${memberDto.member_address}"/>
+				<input type="text" name="member_zipcode" id="member_zipcode" placeholder="Zipcode" value="${memberDto.member_zipcode}" required/>
+				<input type="text" name="member_address" id="member_address" placeholder="Address" value="${memberDto.member_address}" required/>
 				<br />
-				<input type="text" name="member_detail_address" id="member_detail_address" placeholder="DetailAddress" value="${memberDto.member_detail_address}"/>
+				<input type="text" name="member_detail_address" id="member_detail_address" placeholder="DetailAddress" value="${memberDto.member_detail_address}" required/>
 				<a href="#" class="button" onclick="zipcode('${root}')">주소찾기</a>
 			</div>
 
@@ -61,11 +61,11 @@
 				<label id="icon" for="email">
 					<i class="fa fa-envelope-o fa-lg"></i>
 				</label>
-				<input type="text" name="email" id="email" placeholder="Email" value="${memberDto.email}"/>
+				<input type="text" name="email" id="email" placeholder="Email" value="${memberDto.email}" required/>
 			</div>
 			<div class="btn-iy">
-				<button id="reset" class="button" style="margin-left: 30px;">수정취소</button>
-				<button id="confirmUpdate" class="button">정보수정</button>
+				<button type="reset" class="button" style="margin-left: 30px;">수정취소</button>
+				<button type="submit" class="button">정보수정</button>
 			</div>
 		</form>
 	</div>

@@ -233,6 +233,8 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 
+		memberDao.deleteDataOfCart(memberDto);
+		memberDao.deleteDataOfDel(memberDto);
 		int check = memberDao.deleteAccount(memberDto);
 
 		if (check > 0) {
