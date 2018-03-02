@@ -55,7 +55,7 @@
 							</li>
 							<li>
 								<div>적립금</div>
-								<c:set var="point" value="${bookDto.price/100}"/>
+								<c:set var="point" value="${bookDto.price/10}"/>
 								<fmt:formatNumber var="pointFmt" value="${point}" pattern="###,###"></fmt:formatNumber>
 								<div>${pointFmt}원</div>
 							</li>
