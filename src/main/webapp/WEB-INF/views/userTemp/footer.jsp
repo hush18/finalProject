@@ -68,7 +68,7 @@
 		<label><a href="nearestList.do">최근본상품</a></label>
 <!-- 		<div class="bookReco_sc">최근본상품이 없습니다.</div> -->
 		<c:forEach end="1" var="interestDto" items="${scrollList }">
-			<img id="image" src="${interestDto.image_path}" width="90px" height="110px" />
+			<img id="image" src="${interestDto.image_path}" width="90px" height="110px" onclick="javascript:location.href='bookInfo.do?isbn=${interestDto.isbn}'"/>
 			<div class="bookReco_sc">${interestDto.title}</div>
 		</c:forEach>
 	</div>

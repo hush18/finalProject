@@ -1030,16 +1030,16 @@ public class Service implements ServiceInterface {
 
 	@Override
 	public void scrollBanner(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
-		HttpSession session = request.getSession(); // 세션받기 ID
-		if (session.getAttribute("mbId") != null) {
-			String id = (String) session.getAttribute("mbId");
-			List<InterestDto> scrollList = interestDao.scrollSelect(id);
-			int scrollCount = scrollList.size();
-			if (scrollList.size() > 2)
-				scrollCount = 2;
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();		//세션받기 ID
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			List<InterestDto> scrollList=interestDao.scrollSelect(id);
+			LogAspect.logger.info(LogAspect.logMsg + "리스트 출력!!!" + scrollList);
+			int scrollCount=scrollList.size();
+			if(scrollList.size() > 2) scrollCount=2;
 			mav.addObject("scrollList", scrollList);
 		}
 	}

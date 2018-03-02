@@ -118,9 +118,12 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("isbn", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
+			hMap.put("state", 2);
+			LogAspect.logger.info(LogAspect.logMsg + "이게 찍히는거냐?" + hMap.toString());
 			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
 			if(dto==null) {
+				chk=sqlSession.insert("wishListInsert",hMap);
+			}else if(dto!=null && dto.getState()!=2) {
 				chk=sqlSession.insert("wishListInsert",hMap);
 			}
 		}
@@ -131,10 +134,13 @@ public class InterestDaoImp implements InterestDao {
 		Map<String, Object> hMap=new HashMap<String, Object>();
 		hMap.put("id", id);
 		hMap.put("isbn", isbn);
+		hMap.put("state", 1);
 		int check=0;
 		LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
 		InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
 		if(dto==null) {
+			check=sqlSession.insert("nearestInsert",hMap);
+		}else if(dto!=null && dto.getState()!=1) {
 			check=sqlSession.insert("nearestInsert",hMap);
 		}
 		return check;
