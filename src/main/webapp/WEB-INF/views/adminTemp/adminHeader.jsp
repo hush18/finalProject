@@ -19,7 +19,7 @@
 						</div>
 						<div class="profile_info">
 							<span>반갑습니다.</span>
-							<h2>OOO관리자님</h2>
+							<h2>${ mbName} 관리자님</h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -90,7 +90,7 @@
 					</div>
 
 					<ul class="nav navbar-nav navbar-right">
-						<li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="images/adminTemplate/admin.jpg" alt=""> OOO관리자님 <span class=" fa fa-angle-down"></span>
+						<li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="images/adminTemplate/admin.jpg" alt=""> ${mbName } 관리자님 <span class=" fa fa-angle-down"></span>
 						</a>
 							<ul class="dropdown-menu dropdown-usermenu pull-right">
 								<li><a href="javascript:;"> Profile</a></li>

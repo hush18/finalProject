@@ -13,6 +13,7 @@
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
 		
 		$("#array").change(function(){
 			var url="orderSearch.do?list_id="+$(this).val();

@@ -14,6 +14,8 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
 		$("#array").change(function(){
 			var url="orderSearch.do?list_id="+$(this).val();
 			$(location).attr('href', url);

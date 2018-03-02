@@ -16,6 +16,8 @@
 <link type = "text/css" rel="stylesheet" href="css/user/sideCategory.css"/>
 <script type="text/javascript">
 	$(function(){
+		$(".wishList_mh > .title_mh").trigger('click');
+		
 		$(".checkAll_sc").click(function(){
 			if($(".checkAll_sc").prop("checked")){
 				$(".checkBook_sc").each(function(){

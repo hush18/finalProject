@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/user/Introduction.css">
-<script type="text/javascript" src="js/user/Introduction.js"></script>
 <link rel="stylesheet" type="text/css" href="css/user/sideCategory.css">
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
+<script type="text/javascript" src="js/user/Introduction.js"></script>
 </head>
 <body>
 	<div class="widthline_yk">

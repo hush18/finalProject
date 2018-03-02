@@ -9,9 +9,9 @@
 <link href="css/user/CustomerService_consultingList.css" rel="stylesheet"
 	type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script src="js/user/CustomerService.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
+<script src="js/user/CustomerService.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="widthline">

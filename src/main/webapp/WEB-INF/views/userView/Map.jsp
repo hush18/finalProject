@@ -9,11 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/user/map.css">
-<script type="text/javascript" src="js/user/map.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9eb7abeb2fc9f320722ec7633170e3ef"></script>
 <link rel="stylesheet" type="text/css" href="css/user/sideCategory.css">
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
+<script type="text/javascript" src="js/user/map.js"></script>
 </head>
 <body>
 	<div class="div_yk"></div>
