@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/user/Introduction.css">
-<script type="text/javascript" src="js/user/Introduction.js"></script>
 <link rel="stylesheet" type="text/css" href="css/user/sideCategory.css">
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
+<script type="text/javascript" src="js/user/Introduction.js"></script>
 </head>
 <body>
 	<div class="widthline_yk">
@@ -42,7 +42,7 @@
 								<ul>
 									<li><a href="nearestList.do">최근본 상품</a></li>
 									<li><a href="wishList.do">위시리스트</a></li>
-									<li><a href="buyList.do">장바구니</a></li>
+									<li><a href="cart.do">장바구니</a></li>
 								</ul>
 							</div>
 						</div>

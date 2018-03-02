@@ -27,6 +27,12 @@
 	
 	$(function(){ 
 		$("button[name=submit]").click(function() {
+			if($("input[type=text]").val() == ""){
+				alert("인증번호를 입력해주세요.");
+				$("input[type=text]").focus();
+				return false;
+			}
+			
 			if ($("input[type=text]").val() == $("input[type=hidden]").val()) {
 				location.href="searchPwdOK.do?id="+id;
 			}else{

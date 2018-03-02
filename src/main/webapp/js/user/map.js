@@ -1,3 +1,6 @@
+$(function(){
+	$(".map_mh > .title_mh").trigger('click');
+});
 
 var lat=37.517492;
 var lng=126.747840;

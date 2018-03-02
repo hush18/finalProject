@@ -27,6 +27,39 @@
 		});
 	});
 	
+	//유효성검사
+	function idForm(obj){
+		if($("input[name=name]").val()==""){
+			alert("이름을 입력해주세요.");
+			$("input[name=name]").focus();
+			return false;
+		}
+		
+		if($("input[name=phon_middle]").val()==""){
+			alert("전화번호를 입력해주세요.");
+			$("input[name=phon_middle]").focus();
+			return false;
+		}
+		
+		if($("input[name=phon_end]").val()==""){
+			alert("전화번호를 입력해주세요.");
+			$("input[name=phon_end]").focus();
+			return false;
+		}
+		
+		if($("input[name=email]").val()==""){
+			alert("이메일을 입력해주세요.");
+			$("input[name=email]").focus();
+			return false;
+		}
+		
+		if($("input[name=email_address]").val()==""){
+			alert("이메일을 입력해주세요.");
+			$("input[name=email_address]").focus();
+			return false;
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -133,13 +166,13 @@
 						</div>
 					</div>
 				</div>
+				<!-- 입력버튼 -->
+					<div class="fi_btn_mh" align="center">
+						<input class="btn-all" style="width: 17%;" type="submit" value="확인" />
+						<input class="btn-all" style="width: 17%;" type="reset" value="다시입력" />
+					</div>
 			</form>
 
-			<!-- 입력버튼 -->
-				<div class="fi_btn_mh" align="center">
-					<input class="btn-all" style="width: 17%;" type="submit" value="확인" />
-					<input class="btn-all" style="width: 17%;" type="reset" value="다시입력" />
-				</div>
 			</div>
 		</div>
 	
