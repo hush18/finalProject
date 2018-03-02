@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
@@ -84,32 +85,14 @@
 						</div>
 						<div class="select_list_view_jm">
 							<select id="view_jm">
-								<c:if test="${view=='detail'}">
-									<option value="detail" selected="selected">자세히보기</option>
-									<option value="simply">간단히보기</option>
-								</c:if>
-								<c:if test="${view=='simply'}">
-									<option value="detail">자세히보기</option>
-									<option value="simply" selected="selected">간단히보기</option>
-								</c:if>
+								<option value="detail" ${view=='detail' ? 'selected' : ''}>자세히보기</option>
+								<option value="simply" ${view=='simply' ? 'selected' : ''}>간단히보기</option>
 							</select>
 							
 							<select id="list_count_jm">
-								<c:if test="${bookListSize=='10'}">
-									<option value="10" selected="selected">10개씩</option>
-									<option value="20">20개씩</option>
-									<option value="30">30개씩</option>
-								</c:if>
-								<c:if test="${bookListSize=='20'}">
-									<option value="10">10개씩</option>
-									<option value="20" selected="selected">20개씩</option>
-									<option value="30">30개씩</option>
-								</c:if>
-								<c:if test="${bookListSize=='30'}">
-									<option value="10">10개씩</option>
-									<option value="20">20개씩</option>
-									<option value="30" selected="selected">30개씩</option>
-								</c:if>
+								<option value="10" ${bookListSize=='10' ? 'selected' : ''}>10개씩</option>
+								<option value="20" ${bookListSize=='20' ? 'selected' : ''}>20개씩</option>
+								<option value="30" ${bookListSize=='30' ? 'selected' : ''}>30개씩</option>
 							</select>
 							<input type="hidden" name="view" value="${view}">
 							<input type="hidden" name="sortValue" value="${sortValue}">
@@ -143,15 +126,9 @@
 										${bookDto.price}원
 									</div>
 									<div>
-										<p class="star_rating">
-											<c:forEach begin="1" end="${bookDto.grade}">
-												<label class="on">★</label>
-											</c:forEach>
-											<c:forEach begin="${bookDto.grade}" end="4">
-												<label>★</label>
-											</c:forEach>
-										</p>
-									</div><label>(${bookDto.grade}.0)</label>
+										<fmt:formatNumber var="grade" value="${bookDto.grade}" pattern="0.0"></fmt:formatNumber>
+										<span class="star-prototype">${grade}</span> 
+									</div><label>(${grade})</label>
 									<div class="word_space_jm">
 										${bookDto.book_introduction}
 									</div>

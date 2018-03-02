@@ -38,7 +38,7 @@ public class BookDaoImp implements BookDao {
 	}
 	
 	@Override
-	public long getGrade(String isbn) {
+	public float getGrade(String isbn) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.team3.user.book.dao.mapper.getGrade", isbn);
 	}

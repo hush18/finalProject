@@ -1,4 +1,11 @@
 $(function () {
+		$.fn.generateStars = function() {
+		    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+		};
+	
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+	
 		if($("#view_jm").val()=="simply"){
 			$("#detail *").hide();
 			$("#simply_list_jm *").show();

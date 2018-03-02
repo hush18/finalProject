@@ -1347,7 +1347,7 @@ public class Service implements ServiceInterface {
 			for (int i = startRow - 1; i < endRow; i++) {
 				BookDto bookDto = searchList.get(i);
 				String isbn = bookDto.getIsbn();
-				long grade = bookDao.getGrade(isbn);
+				float grade = bookDao.getGrade(isbn);
 				
 				bookDto.setGrade(grade);
 				
@@ -1532,7 +1532,7 @@ public class Service implements ServiceInterface {
 			for (int i = startRow - 1; i < endRow; i++) {
 				BookDto bookDto = bookListSearch.get(i);
 				String isbn = bookDto.getIsbn();
-				long grade = bookDao.getGrade(isbn);
+				float grade = bookDao.getGrade(isbn);
 				
 				bookDto.setGrade(grade);
 				
@@ -1577,7 +1577,7 @@ public class Service implements ServiceInterface {
 		String isbn = request.getParameter("isbn");
 
 		BookDto bookDto = bookDao.getBookInfo(isbn);
-		long grade = bookDao.getGrade(isbn);
+		float grade = bookDao.getGrade(isbn);
 		LogAspect.logger.info(LogAspect.logMsg + "읽어온 책의 평점 : " + grade);
 		bookDto.setGrade(grade);
 		
