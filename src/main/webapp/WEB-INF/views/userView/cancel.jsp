@@ -28,7 +28,6 @@
  		
  		$("#change_exchange").click(function(){
 			alert("이미 환불 처리 요청이된 주문입니다.");
-				
 		});
 	 		
  		$("#change_cancel").click(function(){
@@ -36,8 +35,29 @@
  			var order_number=$(this).parents().find("#order_number").text();
 			var url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=4";
 			$(location).attr('href', url);
-			
  		});
+ 		
+ 		$(".block_btn_hy").click(function() {
+			var dateValue=$(this).val();
+			var url="cancel.do?dateValue="+dateValue;
+			$(location).attr('href', url);
+			
+		});
+ 		
+ 		$("#button").click(function() {
+			var fromYear=$("#fromYear").val();
+			var fromMonth=$("#fromMonth").val();
+			var fromDay=$("#fromDay").val();
+			var toYear=$("#toYear").val();
+			var toMonth=$("#toMonth").val();
+			var toDay=$("#toDay").val();
+			
+			var from_date=$("#fromYear").val()+"."+$("#fromMonth").val()+"."+$("#fromDay").val();
+			var to_date=$("#toYear").val()+"."+$("#toMonth").val()+"."+$("#toDay").val();
+			var dateValueList=from_date+"/"+to_date+"/";
+			var url="cancel.do?dateValueList="+dateValueList;
+			$(location).attr('href', url);
+		})
 	});
 		
 </script>
@@ -78,7 +98,7 @@
 						<ul>
 							<li><a href="nearestList.do">최근본 상품</a></li>
 							<li><a href="wishList.do">위시리스트</a></li>
-							<li><a href="buyList.do">장바구니</a></li>
+							<li><a href="cart.do">장바구니</a></li>
 						</ul>
 					</div>
 				</div>
@@ -166,22 +186,23 @@
 					<div><span>기간별 조회</span></div>
 					<div>
 						<span class="block_hy">
-							<button class="block_btn_hy">15일이내</button>
-							<button class="block_btn_hy">1개월</button>
-							<button class="block_btn_hy">3개월</button>
-							<button class="block_btn_hy">6개월</button>
+							<button class="block_btn_hy" value="1">15일이내</button>
+							<button class="block_btn_hy" value="2">1개월</button>
+							<button class="block_btn_hy" value="3">3개월</button>
+							<button class="block_btn_hy" value="4">6개월</button>
 						</span>
 					</div>
 					<div>
+					<div style="margin-top: 5px;">
 						<span class="block_day_hy">
-							<span id="fromYear"><select id="fromYear" name="fromYear" ><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="selected">2018</option></select></span>
-							<span id="fromMonth"><select id="fromMonth" name="fromMonth"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
-							<span id="fromDay"><select id="fromDay" name="fromDay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected="selected">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span> 
+							<span><select id="fromYear" name="fromYear" ><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="selected">2018</option></select></span>
+							<span><select id="fromMonth" name="fromMonth"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
+							<span><select id="fromDay" name="fromDay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected="selected">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span> 
 							<span>-</span>
-							<span id="toYear"><select id="toYear" name="toYear"><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="selected">2018</option></select></span>
-							<span id="toMonth"><select id="toMonth" name="toMonth"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
-							<span id="toDay"><select id="toDay" name="toDay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23" selected="selected">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span>
-							<span><button class="block_btn_hy">조회</button></span>
+							<span><select id="toYear" name="toYear"><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="selected">2018</option></select></span>
+							<span><select id="toMonth" name="toMonth"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
+							<span><select id="toDay" name="toDay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23" selected="selected">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span>
+							<span><button class="block_btn_hy" id="button">조회</button></span>
 						</span>
 					</div>
 					<p>조회기간은 최대  6개월 단위로 설정하실 수 있으며, 주문번호를 클릭하시면 주문에 대한 상세정보를 보실 수 있습니다.</p>
@@ -206,18 +227,18 @@
 				</div>
 				
 				<c:if test="${cancelCount==0}">
-					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+					<p style="text-align: center; font-size: 1.17em; color: #8c8c8c; line-height: 5">고객님의 주문내역이 존재하지 않습니다</p>
 				</c:if>
 				<c:if test="${cancelCount>0 }">
 					<div class="recentOrder_hy">
 						<div class="list_hy">
 							<c:forEach var="cancelList" items="${cancelList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do">${cancelList.order_number }</a></div>
-									<div><a href="detailOrder.do">${cancelList.goods_name }</a></div>
+									<div id="order_number"><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.order_number }</a></div>
+									<div><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.title }</a></div>
 									<div>${cancelList.goods_account }권</div><!-- search_list_size_hy -->
-									<div class=""><fmt:formatDate value="${cancelList.order_date}" pattern="yyyy-MM-dd"/></div>
-									<div class=""><fmt:formatDate value="${cancelList.maybe_date}" pattern="yyyy-MM-dd"/></div>
+									<div class=""><fmt:formatDate value="${cancelList.order_date}" pattern="yyyy.MM.dd"/></div>
+									<div class=""><fmt:formatDate value="${cancelList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<div class="">${cancelList.status }</div>
 									<div class=""><strong>${cancelList.total_price }원</strong></div>
 									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>

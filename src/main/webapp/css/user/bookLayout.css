@@ -213,3 +213,6 @@ body {
 	cursor: pointer;
 }
 
+textarea{
+	resize: none;
+}

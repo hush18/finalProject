@@ -4,7 +4,6 @@ public class BookDto {
 	private String isbn;
 	private String title;
 	private long writer_number;
-	private String name;
 	private String publisher;
 	private String write_date;
 	private String image_path;
@@ -15,6 +14,7 @@ public class BookDto {
 	private String stock;
 	
 	//저자명 가져오기
+	private String name;
 	public String getName() {
 		return name;
 	}
@@ -22,6 +22,14 @@ public class BookDto {
 		this.name = name;
 	}
 	
+	//리뷰평점 가져오기
+	private long grade;
+	public long getGrade() {
+		return grade;
+	}
+	public void setGrade(long grade) {
+		this.grade = grade;
+	}
 	
 	public String getIsbn() {
 		return isbn;

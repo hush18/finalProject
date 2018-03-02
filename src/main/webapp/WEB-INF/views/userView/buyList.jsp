@@ -65,7 +65,7 @@
 						<ul>
 							<li><a href="nearestList.do">최근본 상품</a></li>
 							<li><a href="wishList.do">위시리스트</a></li>
-							<li><a href="buyList.do">장바구니</a></li>
+							<li><a href="cart.do">장바구니</a></li>
 						</ul>
 					</div>
 				</div>
@@ -191,7 +191,7 @@
 					<div class="search_list_size_hy">주문금액</div>
 				</div>
 				<c:if test="${buyListCount==0}">
-					<h3 style="text-align: center;">고객님의 주문내역이 존재하지 않습니다</h3>
+					<p style="text-align: center; font-size: 1.17em; color: #8c8c8c; line-height: 5">고객님의 주문내역이 존재하지 않습니다</p>
 				</c:if>
 				<c:if test="${buyListCount>0 }">
 					<div class="recentOrder_hy">
@@ -199,10 +199,10 @@
 							<c:forEach var="buyListList" items="${buyListList}">
 								<div class="search_list_con_hy table_jm">
 									<div><a href="detailOrder.do">${buyListList.order_number }</a></div>
-									<div><a href="detailOrder.do">${buyListList.goods_name }</a></div>
+									<div><a href="detailOrder.do">${buyListList.title }</a></div>
 									<div>${buyListList.goods_account }권</div><!-- search_list_size_hy -->
-									<div class=""><fmt:formatDate value="${buyListList.order_date}" pattern="yyyy-MM-dd"/></div>
-									<div class=""><fmt:formatDate value="${buyListList.maybe_date}" pattern="yyyy-MM-dd"/></div>
+									<div class=""><fmt:formatDate value="${buyListList.order_date}" pattern="yyyy.MM.dd"/></div>
+									<div class=""><fmt:formatDate value="${buyListList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<div class="">${buyListList.status }</div>
 									<div class=""><strong>${buyListList.total_price }원</strong></div>
 								</div>

@@ -95,3 +95,24 @@
 	color: #5cb38b;
 }
 
+	.star_rating {font-size:0; letter-spacing:-4px;}
+.star_rating label {
+    font-size:16px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:0px;
+    color:#9c9c9c;
+    text-decoration:none;
+}
+.star_rating label:first-child {margin-left:0;}
+.star_rating label.on {color:#ffc107;}
+.centent_route_jm a{
+	color: black;
+}
+
+.word_space_jm{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    height: 110px !important;
+}

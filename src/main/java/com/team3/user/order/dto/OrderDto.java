@@ -15,18 +15,19 @@ public class OrderDto {
 	private String receive_home;
 	private String receive_addr;
 	private String delivery_msg;
-	private String title;
+	private String isbn;
 	private long member_number;
 	private Date maybe_date;
 	private String goods_name;
 	private long goods_account;
 	private String status;
+	private String title;
 	
 	public OrderDto() {}
 	
 	public OrderDto(String order_number, String goods, String order_account, long total_price, int order_status,
 			String id, Date order_date, String receive_name, String receive_phone, String receive_home,
-			String receive_addr, String delivery_msg, String title, long member_number, Date maybe_date, String goods_name, long goods_account, String status) {
+			String receive_addr, String delivery_msg, String isbn, long member_number, Date maybe_date, String goods_name, long goods_account, String status, String title) {
 		this.order_number = order_number;
 		this.goods = goods;
 		this.order_account = order_account;
@@ -39,12 +40,13 @@ public class OrderDto {
 		this.receive_home = receive_home;
 		this.receive_addr = receive_addr;
 		this.delivery_msg = delivery_msg;
-		this.title = title;
+		this.isbn = isbn;
 		this.member_number = member_number;
 		this.maybe_date = maybe_date;
 		this.goods_name = goods_name;
 		this.goods_account = goods_account;
 		this.status = status;
+		this.title = title;
 	}
 
 	public String getOrder_number() {
@@ -119,11 +121,11 @@ public class OrderDto {
 	public void setDelivery_msg(String delivery_msg) {
 		this.delivery_msg = delivery_msg;
 	}
-	public String getTitle() {
-		return title;
+	public String getIsbn() {
+		return isbn;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 	public long getMember_number() {
 		return member_number;
@@ -155,15 +157,21 @@ public class OrderDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	@Override
 	public String toString() {
 		return "OrderDto [order_number=" + order_number + ", goods=" + goods + ", order_account=" + order_account
 				+ ", total_price=" + total_price + ", order_status=" + order_status + ", id=" + id + ", order_date="
 				+ order_date + ", receive_name=" + receive_name + ", receive_phone=" + receive_phone + ", receive_home="
-				+ receive_home + ", receive_addr=" + receive_addr + ", delivery_msg=" + delivery_msg + ", title="
-				+ title + ", member_number=" + member_number + ", maybe_date=" + maybe_date + ", goods_name="
-				+ goods_name + ", goods_account=" + goods_account + ", status=" + status + "]";
+				+ receive_home + ", receive_addr=" + receive_addr + ", delivery_msg=" + delivery_msg + ", isbn=" + isbn
+				+ ", member_number=" + member_number + ", maybe_date=" + maybe_date + ", goods_name=" + goods_name
+				+ ", goods_account=" + goods_account + ", status=" + status + ", title=" + title + "]";
 	}
 
 }

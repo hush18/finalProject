@@ -58,7 +58,7 @@
 											<a href="wishList.do">위시리스트</a>
 										</li>
 										<li>
-											<a href="buyList.do">장바구니</a>
+											<a href="cart.do">장바구니</a>
 										</li>
 									</ul>
 								</div>
