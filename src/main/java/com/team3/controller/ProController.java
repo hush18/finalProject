@@ -907,7 +907,7 @@ public class ProController {
 	@RequestMapping(value = "adminMemberDelete.do", method = RequestMethod.GET)
 	public ModelAndView adminMemberDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("member_number", request.getParameter("member_number"));
+		mav.addObject("id", request.getParameter("id"));
 		service.adminMemberDelete(mav);
 		return mav;
 	}

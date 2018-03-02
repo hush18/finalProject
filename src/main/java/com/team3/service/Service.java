@@ -1147,7 +1147,7 @@ public class Service implements ServiceInterface {
 	@Override
 	public void adminMemberDelete(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
-		mav.addObject(map.get("member_number"));
+		mav.addObject(map.get("id"));
 		mav.setViewName("adminMemberDelete.adminEmpty");
 	}
 
@@ -1156,7 +1156,7 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-		int member_number = Integer.parseInt(request.getParameter("member_number"));
+		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		int check = 0;
 
@@ -1164,7 +1164,7 @@ public class Service implements ServiceInterface {
 
 		for (int i = 0; i < abminPassword.size(); i++) {
 			if (password.equals(abminPassword.get(i).getPassword())) {
-				check = memberManageDao.adminMemberDelete(member_number);
+				check = memberManageDao.adminMemberDelete(id);
 			}
 		}
 
