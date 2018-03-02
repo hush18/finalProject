@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
@@ -125,15 +126,8 @@
 										${bookDto.price}원
 									</div>
 									<div>
-										<p class="star_rating">
-											<c:forEach begin="1" end="${bookDto.grade}">
-												<label class="on">★</label>
-											</c:forEach>
-											<c:forEach begin="${bookDto.grade}" end="4">
-												<label>★</label>
-											</c:forEach>
-										</p>
-									</div><label>(${bookDto.grade}.0)</label>
+										<span class="star-prototype">${bookDto.grade}</span> 
+									</div><label>(${bookDto.grade})</label>
 									<div class="word_space_jm">
 										${bookDto.book_introduction}
 									</div>

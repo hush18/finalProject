@@ -62,15 +62,8 @@
 							<li>
 								<div>리뷰평점</div>
 								<div>
-									<p class="star_rating">
-										<c:forEach begin="1" end="${bookDto.grade}">
-											<label class="on">★</label>
-										</c:forEach>
-										<c:forEach begin="${bookDto.grade}" end="4">
-											<label>★</label>
-										</c:forEach>
-									</p>
-								</div><label>(${bookDto.grade}.0)</label>
+									<span class="star-prototype">${bookDto.grade}</span>
+								</div><label>(${bookDto.grade})</label>
 							</li>
 						</ul>
 					</div>
@@ -158,19 +151,21 @@
 							<c:if test="${mbId==null}">
 								<label style="display: inline-block; margin-right: 40px;">아이디</label>
 							</c:if>
-							<p class="star_rating" style="display: inline-block;">
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-								<a href="#" class="on">★</a>
-							</p>
+							<span id="starCheck" class="star-prototype">5.0</span>
+							<script type="text/javascript">
+								$(function () {
+									$("#starCheck").click(function (e) {
+										 $("input[name='grade']").val(e.offsetX/16);
+										 $("#starCheck").find("span").attr("style","width: "+e.offsetX+"px;");
+									})
+								})
+							</script>
 						</div>
 						<div id="reviewline">
 							<!-- 입력창 -->
 							<input type="hidden" name="isbn" value="${bookDto.isbn}"/>
 							<input type="hidden" name="id" value="${mbId}"/>
-							<input type="hidden" name="grade" value="5"/>
+							<input type="hidden" name="grade" value="5.0"/>
 							<textarea name="content"></textarea>
 							<button id="reviewInsert" class="btn-all re_btn">등록</button>
 						</div>
@@ -183,14 +178,8 @@
 									<div class="">${reviewDto.id}</div>
 									<div style="white-space: pre-line; word-break: break-all; overflow: hidden;" class="test">${reviewDto.content}</div>
 									<div>
-										<p class="star_rating">
-											<c:forEach begin="1" end="${reviewDto.grade}">
-												<label class="on">★</label>
-											</c:forEach>
-											<c:forEach begin="${reviewDto.grade}" end="4">
-												<label>★</label>
-											</c:forEach>
-										</p>
+										<fmt:formatNumber var="grade" value="${reviewDto.grade}" pattern=".0"/>
+										<span class="star-prototype">${grade}</span>
 									</div>
 									<fmt:formatDate pattern="YY-MM-dd" var="fmt_writer_date" value="${reviewDto.writer_date}"/>
 									<div>${fmt_writer_date}</div>
