@@ -25,17 +25,6 @@ body {
 	width: 500px !important;
 }
 </style>
-<script type="text/javascript">
-	$(function() {
-		$("#single_cal3").change(function() {
-			var date = $(this).val().split("/");
-			var y = date[2] + "-";
-			var m = date[0] + "-";
-			var d = date[1];
-			$(this).val(y + m + d);
-		})
-	})
-</script>
 </head>
 <div class="right_col" role="main">
 	<div class="row" style="width: 550px;">
@@ -45,19 +34,19 @@ body {
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form action="" method="get" class="form-horizontal WriterForm">
+				<form action="adminWriterInsertOk.do" method="post" class="form-horizontal WriterForm">
 					<div class="insert_layout_writer book_info_insert_area_jm">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">작가명</label>
 							<div class="col-sm-10">
-								<input type="text" name="" placeholder="작가명을 입력하세요" class="form-control">
+								<input type="text" name="name" placeholder="작가명을 입력하세요" class="form-control">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-sm-2 control-label">국적</label>
 							<div class="col-sm-10">
-								<input type="text" name="" placeholder="국적을 입력하세요" class="form-control">
+								<input type="text" name="nationality" placeholder="국적을 입력하세요" class="form-control">
 							</div>
 						</div>
 
@@ -67,7 +56,7 @@ body {
 							<div class="control-group">
 								<div class="controls">
 									<div class="col-md-11 xdisplay_inputx form-group has-feedback style_0_jm date_input_jm">
-										<input type="text" class="form-control has-feedback-left active" id="single_cal3" value="">
+										<input name="debut_year" type="text" class="form-control has-feedback-left active" id="single_cal3" value="">
 										<!-- 날짜를 value에 삽입(월/일/년) -->
 										<span class="fa fa-calendar-o form-control-feedback left"></span>
 										<span id="inputSuccess2Status3" class="sr-only">(success)</span>
@@ -80,7 +69,7 @@ body {
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">소개</label>
 							<div class="col-md-6 col-sm-6 col-xs-12 area_jm">
-								<textarea rows="15" cols="30" id="" name="" placeholder="소개를 입력하세요" class="form-control col-md-7 col-xs-12"></textarea>
+								<textarea rows="15" cols="30" id="" name="writer_introduction" placeholder="소개를 입력하세요" class="form-control col-md-7 col-xs-12"></textarea>
 							</div>
 						</div>
 					</div>
@@ -99,7 +88,7 @@ body {
 </div>
 
 <!-- DateJS -->
-<script src="vendors/DateJS/build/date.js"></script>
+<!-- <script src="vendors/DateJS/build/date.js"></script> -->
 <!-- bootstrap-daterangepicker -->
-<script src="vendors/moment/min/moment.min.js"></script>
+<script src="vendors/moment/moment.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>

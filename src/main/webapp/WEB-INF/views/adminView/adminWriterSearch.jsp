@@ -38,7 +38,6 @@ $(function() {
 
 	function writerInsert() {
 		window.open("adminWriterInsert.do", "", "width=570, height=600");
-		$(opener.document).close();
 		return false;
 	}
 	
@@ -62,10 +61,10 @@ $(function() {
 					<div class="col-md-9 col-sm-9 col-xs-12 writer_select_area">
 						<div id="datatable_filter" class="dataTables_filter filter_area_right_jm writer_select">
 							<div>
-								<input name="name" value="${name}" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
+								<input id="name" name="name" value="${name}" type="text" class="form-control input-sm" placeholder="저자의 이름을 입력하세요" aria-controls="datatable" size="19">
 							</div>
 							<div>
-								<button id="writer_search" class="btn-all btn-all_jm" onclick="">검색</button>
+								<button id="writer_search" class="btn-all btn-all_jm" onclick="writerSearch()">검색</button>
 							</div>
 						</div>
 					</div>

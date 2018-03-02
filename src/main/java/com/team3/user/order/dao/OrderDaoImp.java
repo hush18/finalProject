@@ -20,81 +20,118 @@ public class OrderDaoImp implements OrderDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int getOrderSearchCount() {
-		String id="tlsghdyd93";
+	public int getOrderSearchCount(String id) {
 		return sqlSession.selectOne("orderSearchCount", id);
 	}
 	
 	@Override
-	public int getOrderingCount() {
-		String id="tlsghdyd93";
+	public int getOrderingCount(String id) {
 		return sqlSession.selectOne("orderingCount", id);
 	}
 
 	@Override
-	public int getDeliveryCount() {
-		String id="tlsghdyd93";
+	public int getDeliveryCount(String id) {
 		return sqlSession.selectOne("deliveryCount", id);
 	}
 
 	@Override
-	public int getCancelCount() {
-		String id="tlsghdyd93";
+	public int getCancelCount(String id) {
 		return sqlSession.selectOne("cancelCount", id);
 	}
 
 	@Override
-	public int getPoint() {
-		String id="tlsghdyd93";
+	public int getPoint(String id) {
 		return sqlSession.selectOne("point", id);
 	}
 	
 	@Override
-	public List<OrderDto> orderSearchList(int startRow, int endRow, int list_id) {
+	public List<OrderDto> orderSearchList(int startRow, int endRow, int list_id, String id, String dateValue, String dateValueList) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
-		if(list_id==0) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
-			str=sqlSession.selectList("orderSearchList0", map);
-		}
-		if(list_id==1) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
-			str=sqlSession.selectList("orderSearchList1", map);
-		}
-		if(list_id==2) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
-			str=sqlSession.selectList("orderSearchList2", map);
+		if(dateValueList.equals("0")) {				
+			String value=null;
+			switch(Integer.parseInt(dateValue)) {
+				case 0: value="10000"; break;
+				case 1: value="15"; break;
+				case 2: value="90"; break;
+				case 3: value="180"; break;
+				default: break;
+			}
+			if(list_id==0) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("value", value);
+				str=sqlSession.selectList("orderSearchList0", map);
+			}
+			if(list_id==1) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("value", value);
+				str=sqlSession.selectList("orderSearchList1", map);
+			}
+			if(list_id==2) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("value", value);
+				str=sqlSession.selectList("orderSearchList2", map);
+			}
+		}else {
+			String[] valueList=dateValueList.split("/");
+			String from_date=valueList[0];
+			String to_date=valueList[1];
+			
+			if(list_id==0) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("from_date", from_date);
+				map.put("to_date", to_date);
+				str=sqlSession.selectList("orderSearchList3", map);
+			}
+			if(list_id==1) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("from_date", from_date);
+				map.put("to_date", to_date);
+				str=sqlSession.selectList("orderSearchList4", map);
+			}
+			if(list_id==2) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("from_date", from_date);
+				map.put("to_date", to_date);
+				str=sqlSession.selectList("orderSearchList5", map);
+			}
 		}
 		
 		return str;
 	}
 
 	@Override
-	public List<OrderDto> orderingList(int startRow, int endRow, int list_id) {
+	public List<OrderDto> orderingList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
 		if(list_id==0) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("orderingList0", map);
 		}
 		if(list_id==1) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("orderingList1", map);
 		}
 		if(list_id==2) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("orderingList2", map);
 		}
 		
@@ -102,25 +139,25 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public List<OrderDto> deliveryList(int startRow, int endRow, int list_id) {
+	public List<OrderDto> deliveryList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
 		if(list_id==0) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("deliveryList0", map);
 		}
 		if(list_id==1) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("deliveryList1", map);
 		}
 		if(list_id==2) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("deliveryList2", map);
 		}
 		
@@ -128,57 +165,97 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public List<OrderDto> cancelList(int startRow, int endRow, int list_id) {
+	public List<OrderDto> cancelList(int startRow, int endRow, int list_id, String id, String dateValue, String dateValueList) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
-		if(list_id==0) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
-			str=sqlSession.selectList("cancelList0", map);
+		if(dateValueList.equals("0")) {
+			String value=null;
+			switch(Integer.parseInt(dateValue)) {
+				case 0: value="10000"; break;
+				case 1: value="15"; break;
+				case 2: value="90"; break;
+				case 3: value="180"; break;
+				default: break;
+			}
+			if(list_id==0) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("value", value);
+				str=sqlSession.selectList("cancelList0", map);
+			}
+			if(list_id==1) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("value", value);
+				str=sqlSession.selectList("cancelList1", map);
+			}
+			if(list_id==2) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("value", value);
+				str=sqlSession.selectList("cancelList2", map);
+			}
+		}else {
+			String[] valueList=dateValueList.split("/");
+			String from_date=valueList[0];
+			String to_date=valueList[1];
+			
+			if(list_id==0) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("from_date", from_date);
+				map.put("to_date", to_date);
+				str=sqlSession.selectList("cancelList3", map);
+			}
+			if(list_id==1) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("from_date", from_date);
+				map.put("to_date", to_date);
+				str=sqlSession.selectList("cancelList4", map);
+			}
+			if(list_id==2) {
+				map.put("startRow", startRow);
+				map.put("endRow", endRow);
+				map.put("id", id);
+				map.put("from_date", from_date);
+				map.put("to_date", to_date);
+				str=sqlSession.selectList("cancelList5", map);
+			}
 		}
-		if(list_id==1) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
-			str=sqlSession.selectList("cancelList1", map);
-		}
-		if(list_id==2) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
-			str=sqlSession.selectList("cancelList2", map);
-		}
-		
 		return str;
 	}
 
 	@Override
-	public int getBuyListCount() {
-		String id="tlsghdyd93";
+	public int getBuyListCount(String id) {
 		return sqlSession.selectOne("buyListCount", id);
 	}
 
 	@Override
-	public List<OrderDto> buyListList(int startRow, int endRow, int list_id) {
+	public List<OrderDto> buyListList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
 		if(list_id==0) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("buyListList0", map);
 		}
 		if(list_id==1) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("buyListList1", map);
 		}
 		if(list_id==2) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("buyListList2", map);
 		}
 		
@@ -186,31 +263,30 @@ public class OrderDaoImp implements OrderDao {
 	}
 	
 	@Override
-	public int getCartCount() {
-		String id="tlsghdyd93";
+	public int getCartCount(String id) {
 		return sqlSession.selectOne("cartCount", id);
 	}
 	
 	@Override
-	public List<CartDto> cartList(int startRow, int endRow, int list_id) {
+	public List<CartDto> cartList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<CartDto> str=null;
 		if(list_id==0) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("cartList0", map);
 		}
 		if(list_id==1) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("cartList1", map);
 		}
 		if(list_id==2) {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
-			map.put("id", "tlsghdyd93");
+			map.put("id", id);
 			str=sqlSession.selectList("cartList2", map);
 		}
 		
@@ -218,11 +294,11 @@ public class OrderDaoImp implements OrderDao {
 	}
 	
 	@Override
-	public int insertCart(String isbn, String cart_amount) {
+	public int insertCart(String isbn, String cart_amount, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("isbn", isbn);
 		map.put("cart_amount", cart_amount);
-		map.put("id", "tlsghdyd93");
+		map.put("id", id);
 		
 		int count=sqlSession.selectOne("cartSelect", map);
 		LogAspect.logger.info(LogAspect.logMsg+"count:" + count);
@@ -237,42 +313,36 @@ public class OrderDaoImp implements OrderDao {
 	}
 	
 	@Override
-	public int cartListDelete(String isbn) {
+	public int cartListDelete(String isbn, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("isbn", isbn);
-		map.put("id", "tlsghdyd93");
+		map.put("id", id);
 		return sqlSession.delete("cartListDelete", map);
 	}
 	
 	@Override
-	public int statusChange(String order_number, String status) {
+	public int statusChange(String order_number, String status, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
 		map.put("status", status);
-		map.put("id", "tlsghdyd93");
+		map.put("id", id);
 		return sqlSession.update("statusChange", map);
 	}
 	
 	@Override
-	public int orderDelete(String order_number) {
+	public int orderDelete(String order_number, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
-		map.put("id", "tlsghdyd93");
+		map.put("id", id);
 		return sqlSession.delete("orderDelete", map);
 	}
 	
 	@Override
-	public OrderDto getDetailOrder(String order_number) {
+	public List<OrderDto> getDetailOrder(String order_number, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
-		map.put("id", "tlsghdyd93");
-		return (OrderDto) sqlSession.selectList("getDetailOrder", map);
-	}
-	
-	@Override
-	public String getDetailTitle(String isbn) {
-		
-		return sqlSession.selectOne("getDetailTitle", isbn);
+		map.put("id", id);
+		return sqlSession.selectList("getDetailOrder", map);
 	}
 	
 	@Override
@@ -281,7 +351,25 @@ public class OrderDaoImp implements OrderDao {
 	}
 	
 	@Override
-	public Date getorderDate(String order_number) {
-		return sqlSession.selectOne("getorderDate", order_number);
+	public Date getOrderDate(String order_number) {
+		return sqlSession.selectOne("getOrderDate", order_number);
+	}
+	
+	@Override
+	public String getTitle(String isbn) {
+		return sqlSession.selectOne("getOrderTitle", isbn);
+	}
+	
+	@Override
+	public String getOrder_name(String id) {
+		return sqlSession.selectOne("getOrder_name", id);
+	}
+	
+	@Override
+	public OrderDto getOrderInfo(String order_number, String id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("order_number", order_number);
+		map.put("id", id);
+		return sqlSession.selectOne("getOrderInfo", map);
 	}
 }

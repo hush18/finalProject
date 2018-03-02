@@ -2,6 +2,7 @@ package com.team3.admin.book.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,18 @@ public class AdminBookImp implements AdminBook{
 	public List<BookDto> getAdminBookSearch() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.team3.admin.book.dao.mapper.getAdminBookSearch");
+	}
+	
+	@Override
+	public int adminBookInsert(BookDto bookDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("com.team3.admin.book.dao.mapper.adminBookInsert", bookDto);
+	}
+	
+	@Override
+	public int updateWriter(WriterDto writerDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("com.team3.admin.book.dao.mapper.updateWriter", writerDto);
 	}
 	
 	@Override
@@ -48,15 +61,9 @@ public class AdminBookImp implements AdminBook{
 	}
 	
 	@Override
-	public WriterDto getWriter(String isbn) {
+	public WriterDto getWriter(long writer_number) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("com.team3.admin.book.dao.mapper.getWriter", isbn);
-	}
-	
-	@Override
-	public int adminBookUpdateFile(BookDto bookDto) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("com.team3.admin.book.dao.mapper.adminBookUpdateFile", bookDto);
+		return sqlSession.selectOne("com.team3.admin.book.dao.mapper.getWriter", writer_number);
 	}
 	
 	@Override
@@ -66,8 +73,20 @@ public class AdminBookImp implements AdminBook{
 	}
 	
 	@Override
-	public int writerListUpdate(HashMap<String, Object> hashMap) {
+	public int adminWriterInsert(WriterDto writerDto) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("writerListUpdate",hashMap);
+		return sqlSession.insert("com.team3.admin.book.dao.mapper.adminWriterInsert", writerDto);
+	}
+	
+	@Override
+	public int adminBookDelete(String isbn) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("com.team3.admin.book.dao.mapper.adminBookDelete", isbn);
+	}
+	
+	@Override
+	public int adminWriterBookListUpdate(WriterDto writerDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("com.team3.admin.book.dao.mapper.adminWriterBookListUpdate", writerDto);
 	}
 }

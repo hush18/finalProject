@@ -120,7 +120,7 @@ public class InterestDaoImp implements InterestDao {
 			hMap.put("isbn", strArr[i]);
 			LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
 			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
-			if(dto==null) {
+			if(dto.getState()!=2) {
 				chk=sqlSession.insert("wishListInsert",hMap);
 			}
 		}
@@ -134,7 +134,7 @@ public class InterestDaoImp implements InterestDao {
 		int check=0;
 		LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
 		InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
-		if(dto==null) {
+		if(dto.getState()!=1) {
 			check=sqlSession.insert("nearestInsert",hMap);
 		}
 		return check;

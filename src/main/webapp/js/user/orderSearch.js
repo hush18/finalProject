@@ -129,12 +129,12 @@ $(function(){
 		$("#selectDelete").click(function() {
 			var isbnList="";
 			$(".checkBook_sc:checked").each(function(){
-				var isbn=$(this).parents().find('input[name="isbn"]').val();
+				var isbn=$(this).parent().parent().find('input[name="isbn"]').val();
 				isbnList+=isbn;
 			});
 			var list_id=$('input[name="listId"]').val();
 			var cart_pageNumber=$('input[name="cart_pageNumber"]').val();
-			
+			alert(isbnList);
 			var url="cartListDelete.do?isbnList="+isbnList+"&list_id="+list_id+"&cart_pageNumber="+cart_pageNumber;
 			$(location).attr('href', url);
 		})

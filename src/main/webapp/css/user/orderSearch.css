@@ -446,6 +446,15 @@ body {
 
 .detail_list_con_hy div:nth-child(1) {
 	width:348px;
+	/* line-height: 17px;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	white-space: nowrap; */
+}
+
+.title_hy:hover{
+	cursor: pointer;
+	color: #5cb38b;
 }
 
 .detail_list_con_hy div:nth-child(2) {

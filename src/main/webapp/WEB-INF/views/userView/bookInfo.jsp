@@ -12,79 +12,7 @@
 <link href="css/user/bookLayout.css" type="text/css" rel="stylesheet" />
 <!-- 제민(영역 스타일 및 사이드 카테고리) -->
 <link href="css/user/bookInfo.css" type="text/css" rel="stylesheet" />
-<!-- 제민(책정보 스타일) -->
-<script type="text/javascript" src="js/user/bookScript.js"></script>
-<!-- 스크립트(수량Up&Down) -->
-<style type="text/css">
-	.star_rating {font-size:0; letter-spacing:-4px;}
-.star_rating a, .star_rating label {
-    font-size:16px;
-    letter-spacing:0;
-    display:inline-block;
-    margin-left:0px;
-    color:#9c9c9c;
-    text-decoration:none;
-}
-.star_rating a:first-child , .star_rating label:first-child {margin-left:0;}
-.star_rating a.on, .star_rating label.on {color:#ffc107;}
-.centent_route_jm a{
-	color: black;
-}
-</style>
-<script type="text/javascript">
-	$(function () {
-		
-		$( ".star_rating a" ).click(function() {
-		    $(this).parent().children("a").removeClass("on");
-		    $(this).addClass("on").prevAll("a").addClass("on");
-		    return false;
-		});
-		
-		$(".quantity_up_jm").click(function() {
-			var target = $(this).children("input").val();
-			var value = $(this).parent().parent().find("input[id='"+target+"']").val();
-			$(this).parent().parent().find("input[id='"+target+"']").val(Number(value)+1);
-		})
-		$(".quantity_down_jm").click(function() {
-			var target = $(this).children("input").val();
-			var value = $(this).parent().parent().find("input[id='"+target+"']").val();
-			if(value!=1){
-				$(this).parent().parent().find("input[id='"+target+"']").val(Number(value)-1);
-			}
-		})
-		
-		$(".imgBook_jm").mousemove(function() {
-			$(this).addClass("hover");
-		}).mouseout(function() {
-			$(this).removeClass("hover");
-		}).click(function() {
-			var parent = $(this).parent();
-			var isbn = parent.find("input[name='isbn']").val();
-			var pageNumber = parent.find("input[name='pageNumber']").val();
-			var category_path = parent.find("input[name='category_path']").val();
-			
-			$(location).attr("href", "bookInfo.do?isbn="+isbn+"&pageNumber="+pageNumber+"&category_path="+category_path);
-		})
-	})
-	
-	function cart(isbn) {
-		var quantity = $("input[id='"+isbn+"']").val();
-		
-		$(location).attr("href", "cart.do?isbn="+isbn+"&quantity="+quantity);
-	}
-	
-	function payment(isbn) {
-		var quantity = $("input[id='"+isbn+"']").val();
-		
-		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
-	}
-	
-	function wishList(isbn) {
-		var quantity = $("input[id='"+isbn+"']").val();
-		
-		$(location).attr("href", "wishList.do?isbn="+isbn);
-	}
-</script>
+<script type="text/javascript" src="js/user/bookInfo.js"></script>
 </head>
 <body>
 	<div class="widthline">
@@ -135,13 +63,14 @@
 								<div>리뷰평점</div>
 								<div>
 									<p class="star_rating">
-										<label class="on">★</label>
-										<label class="on">★</label>
-										<label class="on">★</label>
-										<label class="on">★</label>
-										<label >★</label>
+										<c:forEach begin="1" end="${bookDto.grade}">
+											<label class="on">★</label>
+										</c:forEach>
+										<c:forEach begin="${bookDto.grade}" end="4">
+											<label>★</label>
+										</c:forEach>
 									</p>
-								</div><label>(4.0)</label>
+								</div><label>(${bookDto.grade}.0)</label>
 							</li>
 						</ul>
 					</div>
@@ -155,9 +84,9 @@
 							</span>
 						</div>
 						<br>
-						<button class="btn-all btn_info" value="" onclick="cart('${bookDto.isbn}')">장바구니</button>
-						<button class="btn-all btn_info" value="" onclick="payment('${bookDto.isbn}')">즉시구매</button>
-						<button class="btn-all btn_info" value="" onclick="wishList('${bookDto.isbn}')">위시리스트</button>
+						<button class="btn-all btn_info" value="" onclick="cart('${bookDto.isbn}','${mbId}')">장바구니</button><!-- mbId가 null일때 이용불가 -->
+						<button class="btn-all btn_info" value="" onclick="payment('${bookDto.isbn}','${mbId}')">즉시구매</button><!-- mbId가 null일때 이용불가 -->
+						<button class="btn-all btn_info" value="" onclick="wishList('${bookDto.isbn}','${mbId}')">위시리스트</button><!-- mbId가 null일때 이용불가 -->
 					</div>
 				</div>
 				<!-- 상품정보, 리뷰정보, 환불정보 -->
@@ -188,27 +117,26 @@
 							<p>${writerDto.writer_introduction}</p>
 						</div>
 						<div class="info_writer_otherBook_jm">
-								<div>
-									저자의 다른 책<a href="">더보기</a>
-								</div>
-								<div class="book_list_jm">
-									<c:forEach var="writerBookDto" items="${writerBookList}">
-										<c:if test="${writerBookDto!=null}">
-											<div>
-												<img id="${writerBookDto.isbn}" class="imgBook_jm" alt="" src="${writerBookDto.image_path}" style="box-shadow: 1px 1px 2px 0px #9c9c9c;">
-												<input type="hidden" name="isbn" value="${writerBookDto.isbn}">
-												<input type="hidden" name="pageNumber" value="${pageNumber}">
-												<input type="hidden" name="category_path" value="${path}">
-												<div class="book_list_content_jm" style="margin-top: 5px;">
-													<div title="${writerBookDto.title}" style="text-overflow: ellipsis; overflow: hidden;">${writerBookDto.title}</div>
-													<div title="${writerBookDto.name} 저 | ${writerBookDto.publisher}" style="text-overflow: ellipsis; overflow: hidden;">${writerBookDto.name} 저 | ${writerBookDto.publisher}</div>
-												</div>
-											</div>
-										</c:if>
-										
-									</c:forEach>
-								</div>
+							<div>
+								저자의 다른 책
 							</div>
+							<div class="book_list_jm">
+								<c:forEach var="writerBookDto" items="${writerBookList}">
+									<c:if test="${writerBookDto!=null}">
+										<div>
+											<img id="${writerBookDto.isbn}" class="imgBook_jm" alt="" src="${writerBookDto.image_path}" style="box-shadow: 1px 1px 2px 0px #9c9c9c;">
+											<input type="hidden" name="isbn" value="${writerBookDto.isbn}">
+											<input type="hidden" name="pageNumber" value="${pageNumber}">
+											<input type="hidden" name="category_path" value="${path}">
+											<div class="book_list_content_jm" style="margin-top: 5px;">
+												<div title="${writerBookDto.title}" style="text-overflow: ellipsis; overflow: hidden;">${writerBookDto.title}</div>
+												<div title="${writerBookDto.name} 저 | ${writerBookDto.publisher}" style="text-overflow: ellipsis; overflow: hidden;">${writerBookDto.name} 저 | ${writerBookDto.publisher}</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
 					</div>
 
 					<div class="info_menu_list_jm">
@@ -222,9 +150,14 @@
 							<h2>환불정보</h2>
 						</div>
 					</div>
-					<div class="info_review_jm">
+					<div id="reviewValueDiv" class="info_review_jm" style="box-sizing: border-box;">
 						<div style="display: block;">
-							<label style="display: inline-block; margin-right: 40px;">아이디</label>
+							<c:if test="${mbId!=null}">
+								<label style="display: inline-block; margin-right: 40px;">${mbId}</label>
+							</c:if>
+							<c:if test="${mbId==null}">
+								<label style="display: inline-block; margin-right: 40px;">아이디</label>
+							</c:if>
 							<p class="star_rating" style="display: inline-block;">
 								<a href="#" class="on">★</a>
 								<a href="#" class="on">★</a>
@@ -233,47 +166,51 @@
 								<a href="#" class="on">★</a>
 							</p>
 						</div>
-						<div>
+						<div id="reviewline">
 							<!-- 입력창 -->
-							<textarea rows="" cols=""></textarea>
-							<button class="btn-all re_btn" value="">등록</button>
+							<input type="hidden" name="isbn" value="${bookDto.isbn}"/>
+							<input type="hidden" name="id" value="${mbId}"/>
+							<input type="hidden" name="grade" value="5"/>
+							<textarea name="content"></textarea>
+							<button id="reviewInsert" class="btn-all re_btn">등록</button>
 						</div>
-						<!-- for -->
-						<c:forEach begin="1" end="5">
-							<div id="" class="info_review_centent_table">
+						
+						<div id="reviewStandard" class="info_review_centent_table" style="border-bottom: 0px;margin: 0px;padding: 0px;"></div><!-- 리뷰기준점 -->
+						<!-- 기존리뷰 출력 -->
+						<c:forEach var="reviewDto" items="${reviewList}">
+							<div class="info_review_centent_table">
 								<div>
-									<div class="">아이디</div>
-									<div class="test">서로 잘 알지 못하던 두 남자아이가 우연찮게 미국 대륙을 횡단하는 험난한
-										길에 올라 만나는 세상은 친절하거나 희망차지만은 않다.</div>
+									<div class="">${reviewDto.id}</div>
+									<div style="white-space: pre-line; word-break: break-all; overflow: hidden;" class="test">${reviewDto.content}</div>
 									<div>
 										<p class="star_rating">
-											<label class="on">★</label>
-											<label class="on">★</label>
-											<label class="on">★</label>
-											<label class="on">★</label>
-											<label class="on">★</label>
+											<c:forEach begin="1" end="${reviewDto.grade}">
+												<label class="on">★</label>
+											</c:forEach>
+											<c:forEach begin="${reviewDto.grade}" end="4">
+												<label>★</label>
+											</c:forEach>
 										</p>
 									</div>
-									<div>18-01-24</div>
-									<input type="hidden" value="false" name="check">
+									<fmt:formatDate pattern="YY-MM-dd" var="fmt_writer_date" value="${reviewDto.writer_date}"/>
+									<div>${fmt_writer_date}</div>
 								</div>
 							</div>
 						</c:forEach>
 
 						<div class="page_area_jm">
-							<ul>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><a href="">4</a></li>
-								<li><a href="">5</a></li>
-								<li><a href="">6</a></li>
-								<li><a href="">7</a></li>
-								<li><a href="">8</a></li>
-								<li><a href="">9</a></li>
-								<li><a href="">10</a></li>
-							</ul>
+							<ul id="page_ul_jm" style="padding-left: 0px;"></ul>
 						</div>
+						<script type="text/javascript">
+							function paging(num) {
+								//alert(num);
+								$(".info_review_centent_table").show();
+								if(num!=1){
+									$(".info_review_centent_table:eq("+((num-1)*10+1)+")").prevAll(".info_review_centent_table").hide();
+								}
+								$(".info_review_centent_table:eq("+((num)*10)+")").nextAll(".info_review_centent_table").hide();
+							}
+						</script>
 					</div>
 
 					<div class="info_menu_list_jm">
