@@ -79,8 +79,8 @@
 					<div class="select_list_jm">
 						<div>
 							<input id="checkAll" type="checkbox" value="" />전체
-							<button class="btn-all btn_list_1_jm" value="" onclick="cartAll()">장바구니</button>
-							<button class="btn-all btn_list_1_jm" value="" onclick="wishListAll()">위시리스트</button>
+							<button class="btn-all btn_list_1_jm" value="" onclick="cartAll('${mbId}')">장바구니</button>
+							<button class="btn-all btn_list_1_jm" value="" onclick="wishListAll('${mbId}')">위시리스트</button>
 						</div>
 						<div class="select_list_view_jm">
 							<select id="view_jm">
@@ -165,9 +165,9 @@
 											<span class="quantity_down_jm">▼<input type="hidden" value="${bookDto.isbn}"/></span>
 										</span>
 									</div>
-									<button class="btn-all btn_list_2_jm" value="" onclick="cart('${bookDto.isbn}','${id}')">장바구니</button>
-									<button class="btn-all btn_list_2_jm" value="" onclick="payment('${bookDto.isbn}')">즉시구매</button>
-									<button class="btn-all btn_list_2_jm" value="" onclick="wishList('${bookDto.isbn}')">위시리스트</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="cart('${bookDto.isbn}','${mbId}')">장바구니</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="payment('${bookDto.isbn}','${mbId}')">즉시구매</button>
+									<button class="btn-all btn_list_2_jm" value="" onclick="wishList('${bookDto.isbn}','${mbId}')">위시리스트</button>
 								</div>
 							</div>
 						</c:forEach>

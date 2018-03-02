@@ -42,7 +42,7 @@
   	</select>
   	
   	<select id="getBookInfo" parameterType="String" resultType="com.team3.user.book.dto.BookDto">
-  		select w.*, b.* from book b,writer w where isbn=#{isbn} and w.WRITER_BOOKLIST LIKE CONCAT(CONCAT('%',#{isbn}),'%')
+  		select w.*, b.* from book b,writer w where isbn=#{isbn} and w.WRITER_NUMBER=b.WRITER_NUMBER
   	</select>
   	
   	<select id="getWriterInfo" parameterType="long" resultType="com.team3.user.book.dto.WriterDto">

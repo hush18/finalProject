@@ -429,7 +429,12 @@ public class ProController {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
-
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("mbId");
+		if(id!=null) {
+			service.nearestInsert(mav);
+		}
 		service.bookInfo(mav);
 		service.reviewList(mav);
 

@@ -124,25 +124,41 @@ $(function () {
 		});
 	}
 	
-	function cart(isbn, id) {
+	function cart(isbn, mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
 		$(location).attr("href", "cart.do?isbnList="+isbn+"&quantityList="+quantity);
 	}
 	
-	function payment(isbn) {
+	function payment(isbn, mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
 		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
 	}
 	
-	function wishList(isbn) {
+	function wishList(isbn, mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		alert(isbn);
 		$(location).attr("href", "wishListInsert.do?isbn="+isbn);
 	}
 	
-	function wishListAll() {
+	function wishListAll(mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var view = $("#view_jm").val();
 		var isbnList="";
 		if(view=="detail"){
@@ -160,10 +176,14 @@ $(function () {
 				}
 			})
 		}
-		$(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
+		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
 	}
 	
-	function cartAll() {
+	function cartAll(mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var view = $("#view_jm").val();
 		var isbnList="";
 		var quantityList="";
@@ -183,5 +203,5 @@ $(function () {
 				}
 			})
 		}
-		$(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
+		if(mbId!=null) $(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
 	}

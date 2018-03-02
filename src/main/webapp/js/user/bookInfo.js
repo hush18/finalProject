@@ -102,7 +102,7 @@ $(function () {
 		var newReviewText = "<div class='info_review_centent_table'>"+
 								"<div>"+
 									"<div class=''>"+id+"</div>"+
-									"<div class='test'>"+content+"</div>"+
+									"<div style='word-break: break-all; overflow: hidden; white-space: pre-line;' class='test'>"+content+"</div>"+
 									"<div>"+
 										"<p class='star_rating'>"+gradeText+"</p>"+
 									"</div>"+
@@ -133,19 +133,31 @@ $(function () {
 	}
 	
 	
-	function cart(isbn) {
+	function cart(isbn,mbId) {//mbId
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
 		$(location).attr("href", "cart.do?isbn="+isbn+"&quantity="+quantity);
 	}
 	
-	function payment(isbn) {
+	function payment(isbn,mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
 		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
 	}
 	
-	function wishList(isbn) {
+	function wishList(isbn,mbId) {
+		if(mbId==null||mbId==""){
+			alert("로그인이 필요한 서비스입니다.");
+			return false;
+		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
 		$(location).attr("href", "wishListInsert.do?isbn="+isbn);

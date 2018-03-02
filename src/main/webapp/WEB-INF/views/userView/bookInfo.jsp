@@ -84,9 +84,9 @@
 							</span>
 						</div>
 						<br>
-						<button class="btn-all btn_info" value="" onclick="cart('${bookDto.isbn}')">장바구니</button>
-						<button class="btn-all btn_info" value="" onclick="payment('${bookDto.isbn}')">즉시구매</button>
-						<button class="btn-all btn_info" value="" onclick="wishList('${bookDto.isbn}')">위시리스트</button>
+						<button class="btn-all btn_info" value="" onclick="cart('${bookDto.isbn}','${mbId}')">장바구니</button><!-- mbId가 null일때 이용불가 -->
+						<button class="btn-all btn_info" value="" onclick="payment('${bookDto.isbn}','${mbId}')">즉시구매</button><!-- mbId가 null일때 이용불가 -->
+						<button class="btn-all btn_info" value="" onclick="wishList('${bookDto.isbn}','${mbId}')">위시리스트</button><!-- mbId가 null일때 이용불가 -->
 					</div>
 				</div>
 				<!-- 상품정보, 리뷰정보, 환불정보 -->
@@ -181,7 +181,7 @@
 							<div class="info_review_centent_table">
 								<div>
 									<div class="">${reviewDto.id}</div>
-									<div class="test textHide_jm" title="${reviewDto.content}">${reviewDto.content}</div>
+									<div style="white-space: pre-line; word-break: break-all; overflow: hidden;" class="test">${reviewDto.content}</div>
 									<div>
 										<p class="star_rating">
 											<c:forEach begin="1" end="${reviewDto.grade}">

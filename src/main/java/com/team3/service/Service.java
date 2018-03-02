@@ -1574,6 +1574,7 @@ public class Service implements ServiceInterface {
 
 		BookDto bookDto = bookDao.getBookInfo(isbn);
 		long grade = bookDao.getGrade(isbn);
+		LogAspect.logger.info(LogAspect.logMsg + "읽어온 책의 평점 : " + grade);
 		bookDto.setGrade(grade);
 		
 		LogAspect.logger.info(LogAspect.logMsg + "읽어온 책의 정보 : " + bookDto.toString());
@@ -1588,15 +1589,17 @@ public class Service implements ServiceInterface {
 		LogAspect.logger.info(LogAspect.logMsg + "읽어온 책의 저자정보 : " + writerDto.toString());
 
 		ArrayList<BookDto> writerBookList = new ArrayList<BookDto>();
-		String searchBook = writerDto.getWriter_bookList().replace(isbn, "");
-		LogAspect.logger
-				.info(LogAspect.logMsg + "해당 저자의 다른 책 번호 : " + searchBook + "," + writerDto.getWriter_bookList());
-		String[] bookNumberList = searchBook.split("/");
+		String searchBook = null;
+		if(writerDto.getWriter_bookList()!=null) {
+			searchBook = writerDto.getWriter_bookList().replace(isbn, "");
+			LogAspect.logger.info(LogAspect.logMsg + "해당 저자의 다른 책 번호 : " + searchBook + "," + writerDto.getWriter_bookList());
+			String[] bookNumberList = searchBook.split("/");
 
-		for (int i = 0; i < bookNumberList.length; i++) {
-			writerBookList.add(bookDao.getBookInfo(bookNumberList[i] + "/"));
+			for (int i = 0; i < bookNumberList.length; i++) {
+				writerBookList.add(bookDao.getBookInfo(bookNumberList[i] + "/"));
+			}
 		}
-
+		
 		LogAspect.logger.info(LogAspect.logMsg + "해당 저자의 다른 책 갯수 : " + writerBookList.size());
 
 		CategoryDto categoryDto = bookDao.getCategoryPath(bookDto.getCategory_number());
