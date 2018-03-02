@@ -30,10 +30,15 @@ public class InterestDaoImp implements InterestDao {
 		for(int i=0;i<strArr.length; i++) {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
-			hMap.put("str", strArr[i]);
+			hMap.put("isbn", strArr[i]);
+			hMap.put("state", 0);
 			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
-			chk=sqlSession.update("nearestUp",hMap);
-			LogAspect.logger.info(LogAspect.logMsg + "chk값 : " + chk);
+			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
+			if(dto==null) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}else if(dto!=null && dto.getState()!=0) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}
 			if(chk==0) {
 				check=0;
 			}else {
@@ -52,7 +57,6 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("str", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
 			chk=sqlSession.delete("nearestDel",hMap);
 			if(chk==0) {
 				check=0;
@@ -77,10 +81,14 @@ public class InterestDaoImp implements InterestDao {
 		for(int i=0;i<strArr.length; i++) {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
-			hMap.put("str", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
-			chk=sqlSession.update("nearestUp",hMap);
-			LogAspect.logger.info(LogAspect.logMsg + "chk값 : " + chk);
+			hMap.put("isbn", strArr[i]);
+			hMap.put("state", 0);
+			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
+			if(dto==null) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}else if(dto!=null && dto.getState()!=0) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}
 			if(chk==0) {
 				check=0;
 			}else {

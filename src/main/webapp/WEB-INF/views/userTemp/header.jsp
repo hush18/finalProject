@@ -103,7 +103,7 @@
 				</li>
 				
 				<c:if test="${member_number!=null && member_number<1000}">
-					<li><a href="adminBookSearch.do">(관리자메뉴)</a>
+					<li><a href="adminBookSearch.do">관리자메뉴</a>
 						<ul class="ul-iy">
 							<li><a href="adminBookSearch.do">도서관리</a></li>
 							<li><a href="adminMemberManage.do">회원관리</a></li>

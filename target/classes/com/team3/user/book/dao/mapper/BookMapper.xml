@@ -7,7 +7,7 @@
   
   	<select id="getMainList" resultType="com.team3.user.book.dto.BookDto">
 		  <![CDATA[
-		  	select * from (select b.title, b.publisher, b.image_path, w.NAME from book b, writer w order by dbms_random.value) where rownum < 4
+		  	SELECT * FROM (SELECT b.isbn, b.title, b.publisher, b.image_path, w.NAME FROM book b, writer w where b.writer_number = w.writer_number ORDER BY dbms_random.VALUE) WHERE ROWNUM < 4
 		  ]]>
 	</select>
 	

@@ -28,6 +28,18 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteDataOfCart" parameterType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[
+			delete from cart where id = #{id}
+		]]>
+	</delete>
+	
+	<delete id="deleteDataOfDel" parameterType="com.team3.user.member.dto.MemberDto">
+		<![CDATA[
+			delete from order_delivery where id = #{id}
+		]]>
+	</delete>
+	
 	<select id="memberDate" parameterType="java.util.Map" resultType="java.util.Date">
 		select last_login from member where id=#{id} and password=#{password}
 	</select>

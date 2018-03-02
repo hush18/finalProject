@@ -17,7 +17,7 @@
 	</c:if>
 	<c:if test="${check==0 }">
 		<script type="text/javascript">
-			alert("장바구니로 이동 실패.");
+			alert("장바구니에 이미 담겨있습니다.");
 			location.href="nearestList.do";
 		</script> 
 	</c:if>
