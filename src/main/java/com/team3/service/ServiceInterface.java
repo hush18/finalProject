@@ -60,7 +60,7 @@ public interface ServiceInterface {
 	public void wishList(ModelAndView mav);
 	public void wishListUp(ModelAndView mav);
 	public void wishListDel(ModelAndView mav);
-	public void createAccountOk(ModelAndView mav);
+	public int createAccountOk(ModelAndView mav);
 	public void myPage(ModelAndView mav);
 	public void updateAccount(ModelAndView mav);
 	public void updateAccountOk(ModelAndView mav);

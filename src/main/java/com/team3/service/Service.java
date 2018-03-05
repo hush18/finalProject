@@ -958,7 +958,7 @@ public class Service implements ServiceInterface {
 
 	}
 
-	public void createAccountOk(ModelAndView mav) {
+	public int createAccountOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
@@ -966,9 +966,12 @@ public class Service implements ServiceInterface {
 		// LogAspect.logger.info(LogAspect.logMsg + "맴버 디티오 : " + memberDto);
 		int check = memberDao.insertAccount(memberDto);
 		LogAspect.logger.info(LogAspect.logMsg + "인서트 체크 값 : " + check);
+		
+		mav.setViewName("createAccount.users");
+		mav.addObject("check", check);
 
-		mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
-		// mav.setViewName("userMain.users");
+		//mav.setViewName("redirect:http://localhost:8081/mountainBooks/index.jsp");
+		return check;
 	}
 
 	// 회원 아이디 찾기
@@ -2752,12 +2755,18 @@ public class Service implements ServiceInterface {
 			
 			int value=2;
 			String isbnList=request.getParameter("isbnList");
+			if(isbnList==null) {
+				isbnList=request.getParameter("isbn");
+			}
 			String[] isbnArr=null;
 			if(isbnList!=null) {
 				isbnArr=isbnList.split("/");
 			}
 		
 			String quantityList=request.getParameter("quantityList");
+			if(quantityList==null) {
+				quantityList=request.getParameter("quantity");
+			}
 			String[] quantityArr=null;
 			if(quantityList!=null) {
 				quantityArr=quantityList.split("/");

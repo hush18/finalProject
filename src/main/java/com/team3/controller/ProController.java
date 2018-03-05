@@ -189,10 +189,11 @@ public class ProController {
 	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
 	public ModelAndView loginMember(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		mav.addObject("session", session);
 		service.loginMember(mav);
 
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/naverCreateAccount.do", method = RequestMethod.GET)
@@ -219,7 +220,10 @@ public class ProController {
 
 	@RequestMapping(value = "/createAccount.do", method = RequestMethod.GET)
 	public ModelAndView createAccount(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("createAccount.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.setViewName("createAccount.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/createAccount.do", method = RequestMethod.POST)
@@ -227,8 +231,9 @@ public class ProController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("memberDto", memberDto);
-		service.createAccountOk(mav);
-
+		int check = service.createAccountOk(mav);
+		
+		
 		// LogAspect.logger.info(LogAspect.logMsg + request.getParameter("id"));
 		// LogAspect.logger.info(LogAspect.logMsg + "멤버 디티오 : " + memberDto);
 		return mav;
@@ -269,7 +274,7 @@ public class ProController {
 		mav.addObject("request", request);
 		service.cartListDelete(mav);
 		
-		return mav;
+		return scroll(mav);
 	}
 		
 	@RequestMapping(value="/orderSearch.do", method=RequestMethod.GET)
