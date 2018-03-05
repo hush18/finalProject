@@ -12,7 +12,7 @@
 		]]>
 	  </select>
 	  <update id="nearestUp" parameterType="java.util.Map">
-	  	update cart set state=0, cart_day=sysdate where id=#{id} and isbn=#{isbn}
+	  	update cart set state=0, cart_day=sysdate where id=#{id} and isbn=#{isbn} and state=#{sta}
 	  </update>
 	  <delete id="nearestDel" parameterType="java.util.Map">
 	  	delete from cart where id=#{id} and isbn=#{str}
