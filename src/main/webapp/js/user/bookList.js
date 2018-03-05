@@ -157,7 +157,7 @@ $(function () {
 			return false;
 		}
 		var quantity = $("input[id='"+isbn+"']").val();
-		alert(isbn);
+		
 		$(location).attr("href", "wishListInsert.do?isbn="+isbn);
 	}
 	
@@ -182,6 +182,10 @@ $(function () {
 					isbnList += isbn;
 				}
 			})
+		}
+		if(isbnList==null||isbnList==""){
+			alert("체크된 상품이 없습니다.");
+			return false;
 		}
 		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbn="+isbnList);
 	}
@@ -211,5 +215,11 @@ $(function () {
 				}
 			})
 		}
+		if(isbnList==null||isbnList==""){
+			alert("체크된 상품이 없습니다.");
+			return false;
+		}
+		
+		
 		if(mbId!=null) $(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
 	}
