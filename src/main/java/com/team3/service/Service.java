@@ -2719,12 +2719,18 @@ public class Service implements ServiceInterface {
 			
 			int value=2;
 			String isbnList=request.getParameter("isbnList");
+			if(isbnList==null) {
+				isbnList=request.getParameter("isbn");
+			}
 			String[] isbnArr=null;
 			if(isbnList!=null) {
 				isbnArr=isbnList.split("/");
 			}
 		
 			String quantityList=request.getParameter("quantityList");
+			if(quantityList==null) {
+				quantityList=request.getParameter("quantity");
+			}
 			String[] quantityArr=null;
 			if(quantityList!=null) {
 				quantityArr=quantityList.split("/");
