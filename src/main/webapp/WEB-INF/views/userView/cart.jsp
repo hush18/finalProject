@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
@@ -13,6 +23,14 @@
 <link href="css/user/cart.css" type="text/css" rel="stylesheet" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
+	$(function() {
+		$(".wishList_mh > .title_mh").trigger('click');
+		
+		$("#array").change(function(){
+			var url="cart.do?list_id="+$(this).val();
+			$(location).attr('href', url);
+		})
+	})
 	
 </script>
 </head>
@@ -222,16 +240,16 @@
 
 						<c:if test="${startPage> pageBlock }">
 							<a
-								href="cart.do?cart_pageNumber=${startPage-pageBlock }&list_id=${list_id}">[이전]</a>
+								href="cart.do?cart_pageNumber=${startPage-pageBlock }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">[이전]</a>
 						</c:if>
 
 						<c:forEach var="i" begin="${startPage}" end="${endPage }">
-							<a href="cart.do?cart_pageNumber=${i }&list_id=${list_id}">${i }</a>
+							<a href="cart.do?cart_pageNumber=${i }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">${i }</a>
 						</c:forEach>
 
 						<c:if test="${endPage< pageCount }">
 							<a
-								href="cart.do?cart_pageNumber=${startPage + pageBlock }&list_id=${list_id}">[다음]</a>
+								href="cart.do?cart_pageNumber=${startPage + pageBlock }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">[다음]</a>
 						</c:if>
 
 					</c:if>
@@ -261,7 +279,7 @@
 				</div>
 
 				<div class="main_order_hy">
-					<button class="btn-all">메인</button>
+					<button class="btn-all" onclick="window.location.href='userMain.do'">메인</button>
 					<button class="btn-all" id="order">주문하기</button>
 				</div>
 			</div>

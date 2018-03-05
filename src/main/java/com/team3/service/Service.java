@@ -2261,14 +2261,18 @@ public class Service implements ServiceInterface {
 			int list_id=Integer.parseInt(list_value);
 			LogAspect.logger.info(LogAspect.logMsg + "list_id:" +list_id);
 			
+			String dateValue=null;
+			String dateValueList=null;
 			List<OrderDto> orderSearchList=null;
 			if(count >0) {
-				String dateValue=request.getParameter("dateValue");
+				dateValue=request.getParameter("dateValue");
 				if(dateValue==null) dateValue="0";
 				
-				String dateValueList=request.getParameter("dateValueList");
+				dateValueList=request.getParameter("dateValueList");
 				if(dateValueList==null) dateValueList="0";
 				
+				LogAspect.logger.info(LogAspect.logMsg + "dateValue:" +dateValue);
+				LogAspect.logger.info(LogAspect.logMsg + "dateValueList:" +dateValueList);
 				orderSearchList=orderDao.orderSearchList(startRow, endRow, list_id, id, dateValue, dateValueList);
 				LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList.size());
 				for(int i=0; i<orderSearchList.size(); i++) {
@@ -2317,56 +2321,29 @@ public class Service implements ServiceInterface {
 			mav.addObject("orderSearchList", orderSearchList);
 			mav.addObject("list_id", list_id);
 			mav.addObject("check", Integer.parseInt(check));
+			mav.addObject("dateValueList", dateValueList);
+			mav.addObject("dateValue", dateValue);
 		}
 		mav.setViewName("orderSearch.users");
 	}
 
 	public String status(int order_status, String status) {
 		switch (order_status) {
-		case 0:
-			status = "입금 대기중";
-			break;
-		case 1:
-			status = "상품준비완료";
-			break;
-		case 2:
-			status = "출고 준비중";
-			break;
-		case 3:
-			status = "출고 완료";
-			break;
-		case 4:
-			status = "배송중";
-			break;
-		case 5:
-			status = "배송완료";
-			break;
-		case 11:
-			status = "환불요청";
-			break;
-		case 12:
-			status = "환불요청배송";
-			break;
-		case 13:
-			status = "환불처리완료";
-			break;
-		case 21:
-			status = "교환요청";
-			break;
-		case 22:
-			status = "교환요청배송";
-			break;
-		case 23:
-			status = "교환처리완료";
-			break;
-		case 31:
-			status = "취소요청";
-			break;
-		case 32:
-			status = "취소처리완료";
-			break;
-		default:
-			break;
+		case 0 : status="입금대기중";	break;
+		case 1 : status="상품준비완료";	break;
+		case 2 : status="출고준비중";	break;
+		case 3 : status="출고완료";	break;
+		case 4 : status="배송중";	break;
+		case 5 : status="배송완료";	break;
+		case 11 : status="환불요청";	break;
+		case 12 : status="환불요청배송";	break;
+		case 13 : status="환불처리완료";	break;
+		case 21 : status="교환요청";	break;
+		case 22 : status="교환요청배송";	break;
+		case 23 : status="교환처리완료";	break;
+		case 31 : status="취소요청";	break;
+		case 32 : status="취소처리완료";	break;
+		default : break;
 		}
 
 		return status;
@@ -2575,12 +2552,14 @@ public class Service implements ServiceInterface {
 			
 			LogAspect.logger.info(LogAspect.logMsg + "list_id:" +list_id);
 			
+			String dateValue=null;
+			String dateValueList=null;
 			List<OrderDto> cancelList=null;
 			if(cancelCount >0) {
-				String dateValue=request.getParameter("dateValue");
+				dateValue=request.getParameter("dateValue");
 				if(dateValue==null) dateValue="0";
 				
-				String dateValueList=request.getParameter("dateValueList");
+				dateValueList=request.getParameter("dateValueList");
 				if(dateValueList==null) dateValueList="0";
 				
 				cancelList=orderDao.cancelList(startRow, endRow, list_id, id, dateValue, dateValueList);
@@ -2626,6 +2605,8 @@ public class Service implements ServiceInterface {
 			mav.addObject("point", point);
 			mav.addObject("cancelList", cancelList);
 			mav.addObject("list_id", list_id);
+			mav.addObject("dateValueList", dateValueList);
+			mav.addObject("dateValue", dateValue);
 		}
 		mav.setViewName("cancel.users");
 	}
@@ -2666,9 +2647,17 @@ public class Service implements ServiceInterface {
 			
 			LogAspect.logger.info(LogAspect.logMsg + "list_id:" +list_id);
 			
+			String dateValue=null;
+			String dateValueList=null;
 			List<OrderDto> buyListList=null;
 			if(buyListCount >0) {
-				buyListList=orderDao.buyListList(startRow, endRow, list_id, id);
+				dateValue=request.getParameter("dateValue");
+				if(dateValue==null) dateValue="0";
+				
+				dateValueList=request.getParameter("dateValueList");
+				if(dateValueList==null) dateValueList="0";
+				
+				buyListList=orderDao.buyListList(startRow, endRow, list_id, id, dateValue, dateValueList);
 				for(int i=0; i<buyListList.size(); i++) {
 					OrderDto orderDto=buyListList.get(i);
 					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
@@ -2713,6 +2702,8 @@ public class Service implements ServiceInterface {
 			mav.addObject("buyListList", buyListList);
 			mav.addObject("list_id", list_id);
 			mav.addObject("buyListCount", buyListCount);
+			mav.addObject("dateValueList", dateValueList);
+			mav.addObject("dateValue", dateValue);
 		}
 		mav.setViewName("buyList.users");
 	}
@@ -2728,14 +2719,12 @@ public class Service implements ServiceInterface {
 			
 			int value=2;
 			String isbnList=request.getParameter("isbnList");
-			/*String isbnList="9788934977346/9788970655499/";*/
 			String[] isbnArr=null;
 			if(isbnList!=null) {
 				isbnArr=isbnList.split("/");
 			}
 		
 			String quantityList=request.getParameter("quantityList");
-			/*String quantityList="4/3/";*/
 			String[] quantityArr=null;
 			if(quantityList!=null) {
 				quantityArr=quantityList.split("/");
@@ -2867,27 +2856,25 @@ public class Service implements ServiceInterface {
 			int page=Integer.parseInt(pageStatus);
 			LogAspect.logger.info(LogAspect.logMsg + "page:" + page);
 			String order_number=request.getParameter("order_number");
+			LogAspect.logger.info(LogAspect.logMsg + "order_number:" + order_number);
 			String status=request.getParameter("status");
+			LogAspect.logger.info(LogAspect.logMsg + "status:" + status);
 			int orderCheck=2;
 			int orderingCheck=2;
 			int deliveryCheck=2;
 			int cancelCheck=2;
-			int detailCheck=2;
 			switch(page) {
 			case 1:orderCheck=orderDao.statusChange(order_number, status, id); break;
 			case 2:orderingCheck=orderDao.statusChange(order_number, status, id); break;
 			case 3:deliveryCheck=orderDao.statusChange(order_number, status, id); break;
 			case 4:cancelCheck=orderDao.statusChange(order_number, status, id); break;
-			case 5:detailCheck=orderDao.statusChange(order_number, status, id); break;
 			default : break;
 			}
-			
-			LogAspect.logger.info(LogAspect.logMsg + "cancelCheck:" + cancelCheck);
+			LogAspect.logger.info(LogAspect.logMsg + "orderCheck:" + orderCheck);
 			mav.addObject("orderCheck", orderCheck);
 			mav.addObject("orderingCheck", orderingCheck);
 			mav.addObject("deliveryCheck", deliveryCheck);
 			mav.addObject("cancelCheck", cancelCheck);
-			mav.addObject("detailCheck", detailCheck);
 		}
 		mav.setViewName("returnPoint.users");
 	}
@@ -2907,16 +2894,19 @@ public class Service implements ServiceInterface {
 			String order_number=request.getParameter("order_number");
 			int orderDeleteCheck=2;
 			int orderingDeleteCheck=2;
+			int deliveryDeleteCheck=2;
 			int detailDeleteCheck=2;
 			switch(page) {
 			case 1:orderDeleteCheck=orderDao.orderDelete(order_number, id); break;
 			case 2:orderingDeleteCheck=orderDao.orderDelete(order_number, id); break;
-			case 5:detailDeleteCheck=orderDao.orderDelete(order_number, id); break;
+			case 5:deliveryDeleteCheck=orderDao.orderDelete(order_number, id); break;
+			case 6:detailDeleteCheck=orderDao.orderDelete(order_number, id); break;
 			default : break;
 			}
 			
 			mav.addObject("orderDeleteCheck", orderDeleteCheck);
 			mav.addObject("orderingDeleteCheck", orderingDeleteCheck);
+			mav.addObject("deliveryDeleteCheck", deliveryDeleteCheck);
 			mav.addObject("detailDeleteCheck", detailDeleteCheck);
 		}
 		mav.setViewName("returnPoint.users");
@@ -2941,6 +2931,19 @@ public class Service implements ServiceInterface {
 			String receive_name=orderDto.getReceive_name();
 			String receive_phone=orderDto.getReceive_phone();
 			String receive_addr=orderDto.getReceive_addr();
+			int order_status=orderDto.getOrder_status();
+			long total_price=orderDto.getTotal_price();
+			
+			int use_point=orderDao.getUse_point(order_number);
+			
+			//결제방법 뽑아오기
+			String payment_way="";
+			if(orderDto.getCredit_card()!=null) payment_way="신용카드";
+			if(orderDto.getPhone_payment()!=null) payment_way="휴대폰결제";
+			if(orderDto.getRealtime_account_transfer()!=null) payment_way="실시간계좌이체";
+			if(orderDto.getDirect_deposit()!=null) payment_way="직접입금";
+			orderDto.setPayment_way(payment_way);
+			
 			Date maybe_date=null;
 			String goods=orderDto.getGoods();
 			String order_amount=orderDto.getOrder_account();
@@ -2971,6 +2974,11 @@ public class Service implements ServiceInterface {
 			int cancelCount=orderDao.getCancelCount(id);
 			int point=orderDao.getPoint(id);
 			
+			mav.addObject("use_point", use_point);
+			mav.addObject("payment_way", payment_way);
+			mav.addObject("total_price", total_price);
+			mav.addObject("order_number", order_number);
+			mav.addObject("order_status", order_status);
 			mav.addObject("order_name", order_name);
 			mav.addObject("receive_name", receive_name);
 			mav.addObject("receive_phone", receive_phone);
@@ -3004,52 +3012,273 @@ public class Service implements ServiceInterface {
 				adminOrderList=adminOrderDao.adminOrderList();
 				LogAspect.logger.info(LogAspect.logMsg + "adminOrderList:" +adminOrderList.size());
 				for(int i=0; i<adminOrderList.size(); i++) {
-					OrderDto orderDto=adminOrderList.get(i);
-					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
-					String[] str=orderDto.getGoods().split("/");
+					OrderDto adminOrderDto=adminOrderList.get(i);
+					adminOrderDto.setMaybe_date(new Date(adminOrderDto.getOrder_date().getTime() + 1000*60*60*24*2));
+					String[] str=adminOrderDto.getGoods().split("/");
 					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
 					
-					String title=orderDto.getTitle();
+					String title=adminOrderDto.getTitle();
 					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
 					if(str.length>1) {
-						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
+						adminOrderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
 					}else if(str.length==1) {
-						orderDto.setGoods_name(title);
+						adminOrderDto.setGoods_name(title);
 					}
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.getGoods_name():" +adminOrderDto.getGoods_name());
 					
-					String[] str1=orderDto.getOrder_account().split("/");
+					String[] str1=adminOrderDto.getOrder_account().split("/");
 					int account=0;  
 					for(int j=0; j<str.length; j++) {
 						account+=Integer.parseInt(str1[j]);
 					}
 					
-					int order_status=orderDto.getOrder_status();
+					String payment_way="";
+					if(adminOrderDto.getCredit_card()!=null) payment_way="신용카드";
+					if(adminOrderDto.getPhone_payment()!=null) payment_way="휴대폰결제";
+					if(adminOrderDto.getRealtime_account_transfer()!=null) payment_way="실시간이체";
+					if(adminOrderDto.getDirect_deposit()!=null) payment_way="직접입금";
+					adminOrderDto.setPayment_way(payment_way);
+					
+					int order_status=adminOrderDto.getOrder_status();
 					String status="";
 					status=status(order_status, status);
-					orderDto.setStatus(status);
+					adminOrderDto.setStatus(status);
 					
 					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
 					
-					orderDto.setGoods_account(account);
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
+					adminOrderDto.setGoods_account(account);
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.getGoods_account():" +adminOrderDto.getGoods_account());
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.toString():" +adminOrderDto.toString());
 					
 				}
-//				LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList.toString());
+				LogAspect.logger.info(LogAspect.logMsg + "adminOrderList:" +adminOrderList.toString());
 			}		
 			
-//			mav.addObject("orderSearch_pageNumber", orderSearch_pageNumber);
-//			mav.addObject("pageSize", pageSize);
-//			mav.addObject("count", count);
-//			mav.addObject("orderingCount", orderingCount);
-//			mav.addObject("deliveryCount", deliveryCount);
-//			mav.addObject("cancelCount", cancelCount);
-//			mav.addObject("point", point);
-//			mav.addObject("orderSearchList", orderSearchList);
-//			mav.addObject("list_id", list_id);
-//			mav.addObject("check", Integer.parseInt(check));
+			mav.addObject("count", count);
+			mav.addObject("adminOrderList", adminOrderList);
 		}
+		mav.setViewName("adminOrderSearch.admin");
+	}
+	
+	@Override
+	public void adminChange(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			
+			int count=adminOrderDao.getAdminChangeCount();
+			LogAspect.logger.info(LogAspect.logMsg + "count:" + count);
+			
+			List<OrderDto> adminChangeList=null;
+			if(count >0) {
+				adminChangeList=adminOrderDao.adminChangeList();
+				LogAspect.logger.info(LogAspect.logMsg + "adminChangeList:" +adminChangeList.size());
+				for(int i=0; i<adminChangeList.size(); i++) {
+					OrderDto adminOrderDto=adminChangeList.get(i);
+					adminOrderDto.setMaybe_date(new Date(adminOrderDto.getOrder_date().getTime() + 1000*60*60*24*2));
+					String[] str=adminOrderDto.getGoods().split("/");
+					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
+					
+					String title=adminOrderDto.getTitle();
+					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
+					if(str.length>1) {
+						adminOrderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
+					}else if(str.length==1) {
+						adminOrderDto.setGoods_name(title);
+					}
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.getGoods_name():" +adminOrderDto.getGoods_name());
+					
+					String[] str1=adminOrderDto.getOrder_account().split("/");
+					int account=0;  
+					for(int j=0; j<str.length; j++) {
+						account+=Integer.parseInt(str1[j]);
+					}
+					
+					String payment_way="";
+					if(adminOrderDto.getCredit_card()!=null) payment_way="신용카드";
+					if(adminOrderDto.getPhone_payment()!=null) payment_way="휴대폰결제";
+					if(adminOrderDto.getRealtime_account_transfer()!=null) payment_way="실시간이체";
+					if(adminOrderDto.getDirect_deposit()!=null) payment_way="직접입금";
+					adminOrderDto.setPayment_way(payment_way);
+					
+					int order_status=adminOrderDto.getOrder_status();
+					String status="";
+					status=status(order_status, status);
+					adminOrderDto.setStatus(status);
+					
+					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
+					
+					adminOrderDto.setGoods_account(account);
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.getGoods_account():" +adminOrderDto.getGoods_account());
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.toString():" +adminOrderDto.toString());
+					
+				}
+				LogAspect.logger.info(LogAspect.logMsg + "adminChangeList:" +adminChangeList.toString());
+			}		
+			
+			mav.addObject("count", count);
+			mav.addObject("adminChangeList", adminChangeList);
+		}
+		mav.setViewName("adminChange.admin");
+	}
+	
+	@Override
+	public void adminDelivery(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			
+			int count=adminOrderDao.getAdminDeliveryCount();
+			LogAspect.logger.info(LogAspect.logMsg + "count:" + count);
+			
+			List<OrderDto> adminDeliveryList=null;
+			if(count >0) {
+				adminDeliveryList=adminOrderDao.adminDeliveryList();
+				LogAspect.logger.info(LogAspect.logMsg + "adminDeliveryList:" +adminDeliveryList.size());
+				for(int i=0; i<adminDeliveryList.size(); i++) {
+					OrderDto adminOrderDto=adminDeliveryList.get(i);
+					adminOrderDto.setMaybe_date(new Date(adminOrderDto.getOrder_date().getTime() + 1000*60*60*24*2));
+					String[] str=adminOrderDto.getGoods().split("/");
+					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
+					
+					String title=adminOrderDto.getTitle();
+					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
+					if(str.length>1) {
+						adminOrderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
+					}else if(str.length==1) {
+						adminOrderDto.setGoods_name(title);
+					}
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.getGoods_name():" +adminOrderDto.getGoods_name());
+					
+					String[] str1=adminOrderDto.getOrder_account().split("/");
+					int account=0;  
+					for(int j=0; j<str.length; j++) {
+						account+=Integer.parseInt(str1[j]);
+					}
+					
+					String payment_way="";
+					if(adminOrderDto.getCredit_card()!=null) payment_way="신용카드";
+					if(adminOrderDto.getPhone_payment()!=null) payment_way="휴대폰결제";
+					if(adminOrderDto.getRealtime_account_transfer()!=null) payment_way="실시간계좌이체";
+					if(adminOrderDto.getDirect_deposit()!=null) payment_way="직접입금";
+					adminOrderDto.setPayment_way(payment_way);
+					
+					int order_status=adminOrderDto.getOrder_status();
+					String status="";
+					status=status(order_status, status);
+					adminOrderDto.setStatus(status);
+					
+					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
+					
+					adminOrderDto.setGoods_account(account);
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.getGoods_account():" +adminOrderDto.getGoods_account());
+					LogAspect.logger.info(LogAspect.logMsg + "adminOrderDto.toString():" +adminOrderDto.toString());
+					
+				}
+				LogAspect.logger.info(LogAspect.logMsg + "adminDeliveryList:" +adminDeliveryList.toString());
+			}		
+			
+			mav.addObject("count", count);
+			mav.addObject("adminDeliveryList", adminDeliveryList);
+		}
+		mav.setViewName("adminDelivery.admin");
+	}
+	
+	@Override
+	public void adminDetail(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			String order_number=request.getParameter("order_number");
+			String order_id=adminOrderDao.getOrder_id(order_number);
+			String order_name=adminOrderDao.getOrder_name(order_id);
+			Date order_date=orderDao.getOrderDate(order_number);
+			LogAspect.logger.info(LogAspect.logMsg+ "order_date:" + order_date);
+			
+			OrderDto orderDto=adminOrderDao.getAdminDetail(order_number);
+			LogAspect.logger.info(LogAspect.logMsg+ "orderDto:" + orderDto.toString());
+			
+			String receive_name=orderDto.getReceive_name();
+			String receive_phone=orderDto.getReceive_phone();
+			String receive_addr=orderDto.getReceive_addr();
+			
+			String goods=orderDto.getGoods();
+			String order_amount=orderDto.getOrder_account();
+			String[] isbnArr=goods.split("/");
+			String[] amountArr=order_amount.split("/");
+			int count=isbnArr.length;
+			
+			List<OrderDto> adminDetailList=new ArrayList<OrderDto>();
+			if(count>0) {
+				for(int i=0; i<isbnArr.length; i++) {
+					OrderDto adminDetailDto=new OrderDto();
+					String isbn=isbnArr[i]+"/";
+					adminDetailDto.setIsbn(isbn);
+					LogAspect.logger.info(LogAspect.logMsg+ "isbn:" + isbn);
+					String publisher=adminOrderDao.getPublisher(isbn);
+					adminDetailDto.setPublisher(publisher);
+					String author=adminOrderDao.getAuthor(isbn);
+					adminDetailDto.setAuthor(author);
+					String amount=amountArr[i];
+					String title=orderDao.getTitle(isbn);
+					adminDetailDto.setGoods_name(title);
+					adminDetailDto.setOrder_account(amount);
+					long price=orderDao.getDetailPrice(isbn);
+					adminDetailDto.setTotal_price(price);
+					adminDetailDto.setOrder_date(order_date);
+					adminDetailDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
+					adminDetailList.add(adminDetailDto);
+				}
+			}
+			LogAspect.logger.info(LogAspect.logMsg+ "adminDetailList:" + adminDetailList.size());
+			
+			mav.addObject("order_number", order_number);
+			mav.addObject("order_id", order_id);
+			mav.addObject("order_name", order_name);
+			mav.addObject("receive_name", receive_name);
+			mav.addObject("receive_phone", receive_phone);
+			mav.addObject("receive_addr", receive_addr);
+			mav.addObject("count", count);
+			mav.addObject("adminDetailList", adminDetailList);
+		}
+		mav.setViewName("adminDetail.admin");
+	}
+	
+	public void adminStatusChange(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			
+			String pageStatus=request.getParameter("pageStatus");
+			int page=Integer.parseInt(pageStatus);
+			LogAspect.logger.info(LogAspect.logMsg + "page:" + page);
+			String order_number=request.getParameter("order_number");
+			String status=request.getParameter("status");
+			
+			int adminOrderCheck=2;
+			int adminChangeCheck=2;
+			switch(page) {
+			case 1:adminOrderCheck=orderDao.statusChange(order_number, status, id); break;
+			case 2:adminChangeCheck=orderDao.statusChange(order_number, status, id); break;
+			default : break;
+			}
+			
+			mav.addObject("adminOrderCheck", adminOrderCheck);
+			mav.addObject("adminChangeCheck", adminChangeCheck);
+		}
+		mav.setViewName("adminReturnPoint.admin");
 	}
 
 	@Override
