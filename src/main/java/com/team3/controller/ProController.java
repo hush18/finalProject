@@ -7,25 +7,21 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.team3.admin.cst.dto.AdminCstDto;
 import com.team3.admin.faq.dto.AdminFaqDto;
 import com.team3.admin.nct.dto.AdminNctDto;
-import com.team3.aop.LogAspect;
 import com.team3.admin.map.dto.MapDto;
 import com.team3.service.ServiceInterface;
-import com.team3.user.book.dao.BookDao;
 import com.team3.user.cst.dto.CstDto;
-import com.team3.admin.map.dto.MapDto;
 import com.team3.user.book.dto.BookDto;
 import com.team3.user.book.dto.WriterDto;
-
+import com.team3.user.map.dto.PaymentPointDto;
+import com.team3.user.member.dto.MemberAddressDto;
 import com.team3.user.member.dto.MemberDto;
+import com.team3.user.order.dto.OrderDto;
 import com.team3.user.review.dto.ReviewDto;
 
 @Controller
@@ -68,9 +64,13 @@ public class ProController {
 
 	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
 	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
-
-//		return scroll(new ModelAndView("userPointView.users"));
-		return new ModelAndView("userPointView.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.userPoint(mav);
+		
+		return scroll(mav);
+		//return null;
 	}
 
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
@@ -392,14 +392,18 @@ public class ProController {
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
 		service.userMapRead(mav);
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
 	public ModelAndView Introduction(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("Introduction.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		mav.setViewName("Introduction.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
@@ -460,20 +464,38 @@ public class ProController {
 	@RequestMapping(value = "/newsfeed.do", method = RequestMethod.GET)
 	public ModelAndView newsfeed(HttpServletRequest request, HttpServletResponse response) {
 		service.newsfeedParsing(request, response);
-
+		
 		return null;
 	}
 
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("payment.users");
+		ModelAndView mav=new ModelAndView();
+		
+		mav.addObject("request",request);
+		service.payment(mav);
+		
+		return scroll(mav);
+	}
+	
+	@RequestMapping(value="/paymentOk.do", method=RequestMethod.POST)
+	public ModelAndView paymentOk(HttpServletRequest request, HttpServletResponse response,PaymentPointDto paymentPointDto,OrderDto orderDto) {
+		ModelAndView mav=new ModelAndView();
+		
+		mav.addObject("request",request);
+		mav.addObject("paymentPointDto",paymentPointDto);
+		mav.addObject("orderDto",orderDto);
+		service.paymentOk(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/addressList.do", method = RequestMethod.GET)
 	public ModelAndView addressList(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("addressList.empty");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request",request);
+		service.addressList(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/searchPwd.do", method = RequestMethod.GET)
@@ -482,7 +504,26 @@ public class ProController {
 
 		mav.addObject("req", request);
 		service.searchPwd(mav);
-
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/addAddress.do",method=RequestMethod.GET)
+	public ModelAndView addAddress(HttpServletRequest request, HttpServletResponse response,MemberAddressDto memberAddressDto) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("memberAddressDto",memberAddressDto);
+		mav.addObject("request",request);
+		service.addAddress(mav);
+		return mav;
+	}
+	@RequestMapping(value="/addressDelete.do",method=RequestMethod.GET)
+	public ModelAndView addressDelete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
+		service.deleteAddress(mav);
+		
 		return mav;
 	}
 
@@ -663,6 +704,8 @@ public class ProController {
 		service.readMap(mav);
 		return mav;
 	}
+	
+	
 
 	@RequestMapping(value = "adminChange.do", method = RequestMethod.GET)
 	public ModelAndView adminChange(HttpServletRequest request, HttpServletResponse response) {
@@ -919,6 +962,5 @@ public class ProController {
 		service.adminMemberDeleteOK(mav);
 		return mav;
 	}
-	
 
 }
