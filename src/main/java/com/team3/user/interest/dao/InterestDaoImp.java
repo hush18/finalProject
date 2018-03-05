@@ -56,6 +56,8 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("str", strArr[i]);
+			hMap.put("state", 0);
+			hMap.put("sta", 1);
 			chk=sqlSession.delete("nearestDel",hMap);
 			if(chk==0) {
 				check=0;
@@ -106,6 +108,8 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("str", strArr[i]);
+			hMap.put("state", 0);
+			hMap.put("sta", 2);
 			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
 			chk=sqlSession.delete("nearestDel",hMap);
 			if(chk==0) {
