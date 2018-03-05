@@ -21,27 +21,27 @@ public class OrderDaoImp implements OrderDao {
 
 	@Override
 	public int getOrderSearchCount(String id) {
-		return sqlSession.selectOne("orderSearchCount", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.orderSearchCount", id);
 	}
 	
 	@Override
 	public int getOrderingCount(String id) {
-		return sqlSession.selectOne("orderingCount", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.orderingCount", id);
 	}
 
 	@Override
 	public int getDeliveryCount(String id) {
-		return sqlSession.selectOne("deliveryCount", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.deliveryCount", id);
 	}
 
 	@Override
 	public int getCancelCount(String id) {
-		return sqlSession.selectOne("cancelCount", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.cancelCount", id);
 	}
 
 	@Override
 	public int getPoint(String id) {
-		return sqlSession.selectOne("point", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.point", id);
 	}
 	
 	@Override
@@ -65,13 +65,13 @@ public class OrderDaoImp implements OrderDao {
 			map.put("value", value);
 			
 			if(list_id==0) {
-				str=sqlSession.selectList("orderSearchList0", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderSearchList0", map);
 			}
 			if(list_id==1) {
-				str=sqlSession.selectList("orderSearchList1", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderSearchList1", map);
 			}
 			if(list_id==2) {
-				str=sqlSession.selectList("orderSearchList2", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderSearchList2", map);
 			}
 		}else {
 			String[] valueList=dateValueList.split("/");
@@ -84,13 +84,13 @@ public class OrderDaoImp implements OrderDao {
 			map.put("from_date", from_date);
 			map.put("to_date", to_date);
 			if(list_id==0) {
-				str=sqlSession.selectList("orderSearchList3", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderSearchList3", map);
 			}
 			if(list_id==1) {
-				str=sqlSession.selectList("orderSearchList4", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderSearchList4", map);
 			}
 			if(list_id==2) {
-				str=sqlSession.selectList("orderSearchList5", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderSearchList5", map);
 			}
 		}
 		
@@ -106,13 +106,13 @@ public class OrderDaoImp implements OrderDao {
 		map.put("id", id);
 		
 		if(list_id==0) {
-			str=sqlSession.selectList("orderingList0", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderingList0", map);
 		}
 		if(list_id==1) {
-			str=sqlSession.selectList("orderingList1", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderingList1", map);
 		}
 		if(list_id==2) {
-			str=sqlSession.selectList("orderingList2", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.orderingList2", map);
 		}
 		
 		return str;
@@ -128,13 +128,13 @@ public class OrderDaoImp implements OrderDao {
 		map.put("id", id);
 		
 		if(list_id==0) {
-			str=sqlSession.selectList("deliveryList0", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.deliveryList0", map);
 		}
 		if(list_id==1) {
-			str=sqlSession.selectList("deliveryList1", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.deliveryList1", map);
 		}
 		if(list_id==2) {
-			str=sqlSession.selectList("deliveryList2", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.deliveryList2", map);
 		}
 		
 		return str;
@@ -160,13 +160,13 @@ public class OrderDaoImp implements OrderDao {
 			map.put("value", value);
 			
 			if(list_id==0) {
-				str=sqlSession.selectList("cancelList0", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.cancelList0", map);
 			}
 			if(list_id==1) {
-				str=sqlSession.selectList("cancelList1", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.cancelList1", map);
 			}
 			if(list_id==2) {
-				str=sqlSession.selectList("cancelList2", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.cancelList2", map);
 			}
 		}else {
 			String[] valueList=dateValueList.split("/");
@@ -180,13 +180,13 @@ public class OrderDaoImp implements OrderDao {
 			map.put("to_date", to_date);
 			
 			if(list_id==0) {
-				str=sqlSession.selectList("cancelList3", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.cancelList3", map);
 			}
 			if(list_id==1) {
-				str=sqlSession.selectList("cancelList4", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.cancelList4", map);
 			}
 			if(list_id==2) {
-				str=sqlSession.selectList("cancelList5", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.cancelList5", map);
 			}
 		}
 		return str;
@@ -218,13 +218,13 @@ public class OrderDaoImp implements OrderDao {
 			map.put("value", value);
 			
 			if(list_id==0) {
-				str=sqlSession.selectList("buyListList0", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.buyListList0", map);
 			}
 			if(list_id==1) {
-				str=sqlSession.selectList("buyListList1", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.buyListList1", map);
 			}
 			if(list_id==2) {
-				str=sqlSession.selectList("buyListList2", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.buyListList2", map);
 			}
 		}else {
 			String[] valueList=dateValueList.split("/");
@@ -238,13 +238,13 @@ public class OrderDaoImp implements OrderDao {
 			map.put("to_date", to_date);
 			
 			if(list_id==0) {
-				str=sqlSession.selectList("buyListList3", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.buyListList3", map);
 			}
 			if(list_id==1) {
-				str=sqlSession.selectList("buyListList4", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.buyListList4", map);
 			}
 			if(list_id==2) {
-				str=sqlSession.selectList("buyListList5", map);
+				str=sqlSession.selectList("com.team3.user.order.dao.mapper.buyListList5", map);
 			}
 		}
 		
@@ -253,7 +253,7 @@ public class OrderDaoImp implements OrderDao {
 	
 	@Override
 	public int getCartCount(String id) {
-		return sqlSession.selectOne("cartCount", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.cartCount", id);
 	}
 	
 	@Override
@@ -265,13 +265,13 @@ public class OrderDaoImp implements OrderDao {
 		map.put("id", id);
 		
 		if(list_id==0) {
-			str=sqlSession.selectList("cartList0", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.cartList0", map);
 		}
 		if(list_id==1) {
-			str=sqlSession.selectList("cartList1", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.cartList1", map);
 		}
 		if(list_id==2) {
-			str=sqlSession.selectList("cartList2", map);
+			str=sqlSession.selectList("com.team3.user.order.dao.mapper.cartList2", map);
 		}
 		
 		return str;
@@ -284,12 +284,12 @@ public class OrderDaoImp implements OrderDao {
 		map.put("cart_amount", cart_amount);
 		map.put("id", id);
 		
-		int count=sqlSession.selectOne("cartSelect", map);
+		int count=sqlSession.selectOne("com.team3.user.order.dao.mapper.cartSelect", map);
 		LogAspect.logger.info(LogAspect.logMsg+"count:" + count);
 		int check=0;
 		
 		if(count==0) {
-			check=sqlSession.insert("insertCart", map);
+			check=sqlSession.insert("com.team3.user.order.dao.mapper.insertCart", map);
 		}else if(count>0) {
 			check=0;
 		}
@@ -301,7 +301,7 @@ public class OrderDaoImp implements OrderDao {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("isbn", isbn);
 		map.put("id", id);
-		return sqlSession.delete("cartListDelete", map);
+		return sqlSession.delete("com.team3.user.order.dao.mapper.cartListDelete", map);
 	}
 	
 	@Override
@@ -314,9 +314,9 @@ public class OrderDaoImp implements OrderDao {
 		int value=0;
 		LogAspect.logger.info(LogAspect.logMsg + id);
 		if(id.equals("admin")) {
-			value=sqlSession.update("adminStatusChange",map);
+			value=sqlSession.update("com.team3.admin.order.dao.mapper.adminStatusChange",map);
 		}else {
-			value=sqlSession.update("statusChange", map);			
+			value=sqlSession.update("com.team3.user.order.dao.mapper.statusChange", map);			
 		}
 		return value;
 	}
@@ -326,7 +326,7 @@ public class OrderDaoImp implements OrderDao {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
 		map.put("id", id);
-		return sqlSession.delete("orderDelete", map);
+		return sqlSession.delete("com.team3.user.order.dao.mapper.orderDelete", map);
 	}
 	
 	@Override
@@ -334,27 +334,27 @@ public class OrderDaoImp implements OrderDao {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
 		map.put("id", id);
-		return sqlSession.selectList("getDetailOrder", map);
+		return sqlSession.selectList("com.team3.user.order.dao.mapper.getDetailOrder", map);
 	}
 	
 	@Override
 	public long getDetailPrice(String isbn) {
-		return sqlSession.selectOne("getDetailPrice", isbn);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.getDetailPrice", isbn);
 	}
 	
 	@Override
 	public Date getOrderDate(String order_number) {
-		return sqlSession.selectOne("getOrderDate", order_number);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.getOrderDate", order_number);
 	}
 	
 	@Override
 	public String getTitle(String isbn) {
-		return sqlSession.selectOne("getOrderTitle", isbn);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.getOrderTitle", isbn);
 	}
 	
 	@Override
 	public String getOrder_name(String id) {
-		return sqlSession.selectOne("getOrder_name", id);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.getOrder_name", id);
 	}
 	
 	@Override
@@ -362,12 +362,12 @@ public class OrderDaoImp implements OrderDao {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("order_number", order_number);
 		map.put("id", id);
-		return sqlSession.selectOne("getOrderInfo", map);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.getOrderInfo", map);
 	}
 	
 	@Override
 	public int getUse_point(String order_number) {
-		return sqlSession.selectOne("getUse_point", order_number);
+		return sqlSession.selectOne("com.team3.user.order.dao.mapper.getUse_point", order_number);
 	}
 }
 

@@ -233,7 +233,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }p</a></span></div>
+						<div class="info_box_hy"><span><a href="userPointView.do">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -288,8 +288,8 @@
 						<div class="list_hy">
 							<c:forEach var="buyListList" items="${buyListList}">
 								<div class="search_list_con_hy table_jm">
-									<div><a href="detailOrder.do">${buyListList.order_number }</a></div>
-									<div><a href="detailOrder.do">${buyListList.title }</a></div>
+									<div><a href="detailOrder.do?order_number=${buyListList.order_number}">${buyListList.order_number }</a></div>
+									<div><a href="detailOrder.do?order_number=${buyListList.order_number}">${buyListList.title }</a></div>
 									<div>${buyListList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${buyListList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${buyListList.maybe_date}" pattern="yyyy.MM.dd"/></div>
