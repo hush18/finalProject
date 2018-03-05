@@ -107,6 +107,7 @@
 						<ul class="ul-iy">
 							<li><a href="adminBookSearch.do">도서관리</a></li>
 							<li><a href="adminMemberManage.do">회원관리</a></li>
+							<li><a href="adminMap.do">영업점관리</a></li>
 							<li><a href="adminSales.do?value=1">매출관리</a></li>
 							<li><a href="adminFaqMain.do">고객문의관리</a></li>
 							<li><a href="adminOrderSearch.do">주문관리</a></li>
