@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="nctList" resultType="com.team3.admin.nct.dto.AdminNctDto">
-  		<![CDATA[select * from(select rownum rnum, a.* from notice a)]]>
+  		<![CDATA[select * from(select rownum rnum, a.* from notice a order by write_date desc)]]>
   	</select>
   	
   	<delete id="nctDeleteOk" parameterType="String">

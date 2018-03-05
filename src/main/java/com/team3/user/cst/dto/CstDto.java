@@ -74,10 +74,9 @@ public class CstDto {
 	public void setWrite_date(Date write_date) {
 		this.write_date = write_date;
 	}
-	
 	@Override
 	public String toString() {
-		return "UserCstDto [counsel_number=" + counsel_number + ", id=" + id + ", title=" + title + ", counsel_product="
+		return "CstDto [counsel_number=" + counsel_number + ", id=" + id + ", title=" + title + ", counsel_product="
 				+ counsel_product + ", order_number=" + order_number + ", content=" + content + ", email=" + email
 				+ ", up_category=" + up_category + ", down_category=" + down_category + ", write_date=" + write_date
 				+ "]";

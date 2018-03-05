@@ -26,7 +26,12 @@ import com.team3.admin.nct.dao.AdminNctDao;
 import com.team3.admin.nct.dto.AdminNctDto;
 import com.team3.admin.order.dao.AdminOrderDao;
 import com.team3.aop.LogAspect;
+import com.team3.user.cst.dao.CstDao;
 import com.team3.user.cst.dto.CstDto;
+import com.team3.user.cst.dto.CstOrderDto;
+import com.team3.user.cst.dto.CstQuestionDto;
+import com.team3.user.cstList.dao.CstListDao;
+import com.team3.user.cstList.dto.CstListDto;
 import com.team3.user.member.dao.MemberDao;
 import com.team3.admin.book.dao.AdminBook;
 import com.team3.user.book.dao.BookDao;
@@ -100,6 +105,12 @@ public class Service implements ServiceInterface {
 
 	@Autowired
 	private FaqDao faqDao;
+	
+	@Autowired
+	private CstDao cstDao;
+	
+	@Autowired
+	private CstListDao cstListDao;
 
 	/* NaverLoginBO */
 	@Autowired
@@ -375,15 +386,6 @@ public class Service implements ServiceInterface {
 	}
 
 	@Override
-	public void cstOk(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		CstDto cstDto = (CstDto) map.get("cstDto");
-
-		LogAspect.logger.info(LogAspect.logMsg);
-	}
-
-	@Override
 	public void adminFaqInsertOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -417,10 +419,6 @@ public class Service implements ServiceInterface {
 	public void adminFaqMain(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
-		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null)pageNumber = "1";
-		int currentPage = Integer.parseInt(pageNumber);
 
 		int count = adminFaqDao.faqCount();
 		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -513,12 +511,6 @@ public class Service implements ServiceInterface {
 	public void adminNctMain(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
-		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null)
-			pageNumber = "1";
-
-		int currentPage = Integer.parseInt(pageNumber);
 
 		int count = adminNctDao.nctCount();
 		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
@@ -627,7 +619,7 @@ public class Service implements ServiceInterface {
 
 		mav.addObject("check", check);
 
-		mav.setViewName("adminNctInsertOk.admin");
+		mav.setViewName("adminCstInsertOk.admin");
 	}
 
 	@Override
@@ -1437,7 +1429,8 @@ public class Service implements ServiceInterface {
 			}
 		}
 	}
-	
+
+	// 고객센터 메인 TOP10
 	@Override
 	public void payment(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1499,21 +1492,261 @@ public class Service implements ServiceInterface {
 
 	public void getTopTen(ModelAndView mav) {
 		List<FaqDto> faqDtoTTList = faqDao.getTopTenList();
+		
+		for (int i = 0; i < faqDtoTTList.size(); i++) {
+			faqDtoTTList.get(i).setContent(faqDtoTTList.get(i).getContent().replace("\r\n", "<br />"));
+		}
+		
 		mav.addObject("faqDtoTTList", faqDtoTTList);
 		mav.setViewName("CustomerService_main.users");
 	}
 
+	// 고객센터 FAQ
 	@Override
 	public void getFaq(ModelAndView mav) {
-		List<FaqDto> faqDtoList = faqDao.getTopTenList();
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String upCategory = request.getParameter("up_category");
+		String downCategory = request.getParameter("down_category");
+		String search = request.getParameter("search");
 		
-		for (int i = 0; i < faqDtoList.size(); i++) {
-			faqDtoList.get(i).setContent(faqDtoList.get(i).getContent().replace("\r\n", "<br />"));
+		int boardSize = 10;
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber==null)pageNumber="1";
+		
+		int currentPage = Integer.parseInt(pageNumber);
+		int startNum = (currentPage-1)*boardSize+1;
+		int endNum = currentPage*boardSize;
+		
+		int faqListCount = faqDao.faqListCount(upCategory,downCategory,search);
+		
+		List<FaqDto> faqUpList = new ArrayList<FaqDto>();
+		List<FaqDto> faqDownList = new ArrayList<FaqDto>();
+		List<FaqDto> faqSearchList = new ArrayList<FaqDto>();
+		
+		if(upCategory!=null && downCategory==null && search==null) {
+			faqUpList = faqDao.faqList(upCategory,startNum,endNum);
+			for (int i = 0; i < faqUpList.size(); i++) {
+				faqUpList.get(i).setContent(faqUpList.get(i).getContent().replace("\r\n", "<br />"));
+			}
+		}else if(upCategory!=null && downCategory!=null && search==null) {
+			faqDownList = faqDao.faqDownList(downCategory,startNum,endNum);
+			for (int i = 0; i < faqDownList.size(); i++) {
+				faqDownList.get(i).setContent(faqDownList.get(i).getContent().replace("\r\n", "<br />"));
+			}
+		}else if(search!=null) {
+			faqSearchList = faqDao.faqSearchList(upCategory,search,startNum,endNum);
 		}
-
-		mav.addObject("faqDtoList", faqDtoList);
+		
+		mav.addObject("faqUpList", faqUpList);
+		mav.addObject("faqDownList", faqDownList);
+		mav.addObject("faqSearchList", faqSearchList);
+		mav.addObject("upCategory", upCategory);
+		mav.addObject("downCategory", downCategory);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("faqListCount", faqListCount);
+		mav.addObject("search", search);
 		mav.setViewName("CustomerService_faq.users");
 	}
+	
+	// 고객센터 1:1문의내역
+	@Override
+	public void cstList(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("mbId");
+		String date = request.getParameter("date");
+		if(date==null) {
+			date="7";
+		}
+		
+		if(id==null) {
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
+
+			mav.addObject("naverAuthUrl", naverAuthUrl);
+			mav.addObject("facebookUrl", facebookUrl);
+			mav.setViewName("loginMember.users");
+		}
+		
+		if(id!=null) {
+			int boardSize = 10;
+			String pageNumber = request.getParameter("pageNumber");
+			if(pageNumber==null)pageNumber="1";
+			
+			int currentPage = Integer.parseInt(pageNumber);
+			int startNum = (currentPage-1)*boardSize+1;
+			int endNum = currentPage*boardSize;
+			int listCount = cstListDao.cstListCount(id);
+			
+			List<CstListDto> cstList = new ArrayList<CstListDto>();
+			if(listCount>0) {
+				cstList = cstListDao.cstList(id,startNum,endNum,date);
+			}
+			
+			for (int i = 0; i < cstList.size(); i++) {
+				cstList.get(i).setContent(cstList.get(i).getContent().replace("\r\n", "<br/>"));
+				if (cstList.get(i).getAdmin_content() != null) {
+					cstList.get(i).setAdmin_content(cstList.get(i).getAdmin_content().replace("\r\n", "<br/>"));
+				}
+			}
+			
+			LogAspect.logger.info(LogAspect.logMsg + cstList.toString());
+			
+			mav.addObject("pageNumber",pageNumber);
+			mav.addObject("boardSize",boardSize);
+			mav.addObject("cstList",cstList);
+			mav.addObject("listCount",listCount);
+			mav.addObject("date",date);
+			
+			mav.setViewName("CustomerService_consultingList.users");
+		}
+	}
+	
+	// 고객센터 1:1문의
+	@Override
+	public void cstConsulting(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("mbId");
+		
+		if(id==null) {
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
+
+			mav.addObject("naverAuthUrl", naverAuthUrl);
+			mav.addObject("facebookUrl", facebookUrl);
+			mav.setViewName("loginMember.users");
+		}
+		
+		if(id!=null) {
+			mav.setViewName("CustomerService_consulting.users");
+			List<FaqDto> faqDtoList = faqDao.getTopTenList();
+			
+			for (int i = 0; i < faqDtoList.size(); i++) {
+				faqDtoList.get(i).setContent(faqDtoList.get(i).getContent().replace("\r\n", "<br />"));
+			}
+		}
+	}
+
+	// 고객센터 1:1문의 입력
+	@Override
+	public void cstOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		CstDto cstDto = (CstDto) map.get("cstDto");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("mbId");
+		cstDto.setId(id);
+		int emailing = Integer.parseInt(request.getParameter("emailing"));
+		cstDto.setUp_category(cstDto.getUp_category().replace(",", ""));
+		cstDto.setDown_category(cstDto.getDown_category().replace(",", ""));
+		
+		if(id==null) {
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
+
+			mav.addObject("naverAuthUrl", naverAuthUrl);
+			mav.addObject("facebookUrl", facebookUrl);
+			mav.setViewName("loginMember.users");
+		}
+		
+		if(id!=null) {
+			if(emailing==0) {
+				cstDto.setEmail("X");
+			}
+			if(cstDto.getCounsel_product()==null) {
+				cstDto.setCounsel_product("X");
+			}
+			if(cstDto.getOrder_number()==null) {
+				cstDto.setOrder_number("X");
+			};
+			
+			int check = cstDao.userInsert(cstDto);
+			mav.addObject("check",check);
+			mav.setViewName("CustomerService_cstOk.users");
+		}
+	}
+	
+	// 고객센터 1:1문의 상품팝업창
+	@Override
+	public void cstProduct(ModelAndView mav) {
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		String search = request.getParameter("search");
+		
+		int boardSize = 5;
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber==null)pageNumber="1";
+		
+		int currentPage = Integer.parseInt(pageNumber);
+		int startNum = (currentPage-1)*boardSize+1;
+		int endNum = currentPage*boardSize;
+		int producCount=0;
+		List<CstQuestionDto> cstProductList = new ArrayList<CstQuestionDto>();
+		int count = 0;
+		if(search!=null) {
+			producCount = cstDao.cstProductCount(search);
+			cstProductList = cstDao.cstProductList(search,startNum,endNum);
+			count++;
+			mav.addObject("cstProductList",cstProductList);
+		}
+		
+		mav.addObject("count",count);
+		mav.addObject("producCount",producCount);
+		mav.addObject("pageNumber",currentPage);
+		mav.addObject("boardSize",boardSize);
+		mav.addObject("search",search);
+		mav.setViewName("CustomerService_question_search.empty");
+	}
+	
+	// 고객센터 1:1문의 주문팝업창
+	@Override
+	public void cstOrder(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("mbId");
+		String date = request.getParameter("date");
+		if(date==null)date="7";
+		
+		if(id==null) {
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			String facebookUrl = facebookLoginBO.getAuthorizationUrl(session);
+
+			mav.addObject("naverAuthUrl", naverAuthUrl);
+			mav.addObject("facebookUrl", facebookUrl);
+			mav.setViewName("loginMember.users");
+		}
+		
+		if(id!=null) {
+			List<CstOrderDto> cstOrNumberList = cstDao.cstOrNumberList(id);
+			List<CstOrderDto> cstOrderList = new ArrayList<CstOrderDto>(); 
+			CstOrderDto cstOrderDto = new CstOrderDto();
+			String[] goods = null;
+			String[] account = null;
+			String order_number = null;
+			if(cstOrNumberList.size()>0) {
+				for(int i=0; i<cstOrNumberList.size(); i++) {
+					goods = cstOrNumberList.get(i).getGoods().split("/");
+					account = cstOrNumberList.get(i).getOrder_account().split("/");
+					order_number = cstOrNumberList.get(i).getOrder_number();
+					for(int j=0; j<goods.length; j++) {
+						cstOrderDto = cstDao.cstOrderList(goods[j]+"/",order_number,date);
+						cstOrderDto.setOrder_account(account[j]);
+						cstOrderList.add(cstOrderDto); 
+					}
+				}
+				mav.addObject("cstOrderList",cstOrderList);
+				mav.addObject("date",date);
+			}
+			mav.setViewName("CustomerService_order_search.empty");
+		}
+	}
+		
 
 	@Override
 	public void paymentOk(ModelAndView mav) {
