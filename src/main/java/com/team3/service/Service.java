@@ -3266,7 +3266,7 @@ public class Service implements ServiceInterface {
 				for(int i=0; i<isbnArr.length; i++) {
 					OrderDto adminDetailDto=new OrderDto();
 					String isbn=isbnArr[i]+"/";
-					adminDetailDto.setIsbn(isbn);
+					adminDetailDto.setIsbn(isbnArr[i]);
 					LogAspect.logger.info(LogAspect.logMsg+ "isbn:" + isbn);
 					String publisher=adminOrderDao.getPublisher(isbn);
 					adminDetailDto.setPublisher(publisher);

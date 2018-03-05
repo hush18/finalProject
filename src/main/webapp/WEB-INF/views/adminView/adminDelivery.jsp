@@ -49,13 +49,13 @@
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
 													aria-label="Name: activate to sort column ascending"
-													style="width: 240px;">주문번호</th>
+													style="width: 180px;">주문번호</th>
 													
 									
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
 													aria-label="Office: activate to sort column ascending"
-													style="width: 300px;">도서명</th>
+													style="width: 360px;">도서명</th>
 													
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
@@ -92,16 +92,16 @@
 
 										<tbody>
 											<c:forEach var="adminDeliveryList" items="${adminDeliveryList }">
-												<tr role="row" class="odd">
-													<td><a href="adminDetail.do?order_number=${adminDeliveryList.order_number }">${adminDeliveryList.order_number }</a></td>
-													<td class="text_left_hy"><a href="adminDetail.do?order_number=${adminDeliveryList.order_number }">${adminDeliveryList.title }</a></td>
-													<td class="text_right_hy">${adminDeliveryList.goods_account }권</td>
-													<td><fmt:formatDate value="${adminDeliveryList.order_date}" pattern="yyyy.MM.dd"/></td>
-													<td class="text_right_hy"><fmt:formatNumber value="${adminDeliveryList.total_price }" pattern="#,###,###"/>원</td>
-													<td>${adminDeliveryList.payment_way }</td>
-													<td><fmt:formatDate value="${adminDeliveryList.maybe_date}" pattern="yyyy.MM.dd"/></td>
+												<tr role="row" class="list">
+													<td class="tb_hy"><a href="adminDetail.do?order_number=${adminDeliveryList.order_number }">${adminDeliveryList.order_number }</a></td>
+													<td class="text_left_hy tb_hy"><a href="adminDetail.do?order_number=${adminDeliveryList.order_number }">${adminDeliveryList.title }</a></td>
+													<td class="text_right_hy tb_hy">${adminDeliveryList.goods_account }권</td>
+													<td class="tb_hy"><fmt:formatDate value="${adminDeliveryList.order_date}" pattern="yyyy.MM.dd"/></td>
+													<td class="text_right_hy tb_hy"><fmt:formatNumber value="${adminDeliveryList.total_price }" pattern="#,###,###"/>원</td>
+													<td class="tb_hy">${adminDeliveryList.payment_way }</td>
+													<td class="tb_hy"><fmt:formatDate value="${adminDeliveryList.maybe_date}" pattern="yyyy.MM.dd"/></td>
 													<td>
-														<input type="text" class="text_hy" size="6" value="배송완료"/>
+														<input type="text" style="text-align: center;" size="6" value="배송완료"/>
 													</td>
 												</tr>
 											</c:forEach>
