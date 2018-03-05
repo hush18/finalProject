@@ -9,4 +9,34 @@
   			select * from faq where is_top_ten = '1'
   		]]>
   	</select>
+  	
+  	<select id="faqList" parameterType="java.util.Map" resultType="com.team3.user.faq.dto.FaqDto">
+  		<![CDATA[
+  			SELECT * FROM(SELECT ROWNUM rnum, A.* FROM(SELECT * FROM faq WHERE up_category=#{upCategory} ORDER BY up_category, down_category)A) WHERE rnum >= #{startNum} AND rnum <= #{endNum}
+  		]]>
+  	</select>
+  	
+  	<select id="faqDownList" parameterType="java.util.Map" resultType="com.team3.user.faq.dto.FaqDto">
+  		<![CDATA[
+  			SELECT * FROM(SELECT ROWNUM rnum, A.* FROM(SELECT * FROM faq WHERE down_category=#{downCategory} ORDER BY up_category, down_category)A) WHERE rnum >= #{startNum} AND rnum <= #{endNum}
+  		]]>
+  	</select>
+  	
+  	<select id="faqSearchList" parameterType="java.util.Map" resultType="com.team3.user.faq.dto.FaqDto">
+  		<![CDATA[
+  			select * from(select rownum rnum, A.* from(select * from faq where up_category=#{upCategory} and title like '%'||#{search}||'%' order by down_category)A) WHERE rnum >= #{startNum} AND rnum <= #{endNum}
+  		]]>
+  	</select>
+  	
+  	<select id="upCount" parameterType="String" resultType="int">
+  		select count(*) from faq where up_category=#{upCategory}
+  	</select>
+  	
+  	<select id="downCount" parameterType="String" resultType="int">
+  		select count(*) from faq where down_category=#{downCategory}
+  	</select>
+  	
+  	<select id="searchCount" parameterType="java.util.Map" resultType="int">
+  		select count(*) from faq where up_category=#{upCategory} and title like '%'||#{search}||'%'
+  	</select>
   </mapper>

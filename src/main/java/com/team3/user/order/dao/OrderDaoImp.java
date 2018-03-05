@@ -48,34 +48,29 @@ public class OrderDaoImp implements OrderDao {
 	public List<OrderDto> orderSearchList(int startRow, int endRow, int list_id, String id, String dateValue, String dateValueList) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
+	
 		if(dateValueList.equals("0")) {				
 			String value=null;
 			switch(Integer.parseInt(dateValue)) {
 				case 0: value="10000"; break;
 				case 1: value="15"; break;
-				case 2: value="90"; break;
-				case 3: value="180"; break;
+				case 2: value="30"; break;
+				case 3: value="90"; break;
+				case 4: value="180"; break;
 				default: break;
 			}
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			map.put("id", id);
+			map.put("value", value);
+			
 			if(list_id==0) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("value", value);
 				str=sqlSession.selectList("orderSearchList0", map);
 			}
 			if(list_id==1) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("value", value);
 				str=sqlSession.selectList("orderSearchList1", map);
 			}
 			if(list_id==2) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("value", value);
 				str=sqlSession.selectList("orderSearchList2", map);
 			}
 		}else {
@@ -83,28 +78,18 @@ public class OrderDaoImp implements OrderDao {
 			String from_date=valueList[0];
 			String to_date=valueList[1];
 			
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			map.put("id", id);
+			map.put("from_date", from_date);
+			map.put("to_date", to_date);
 			if(list_id==0) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("from_date", from_date);
-				map.put("to_date", to_date);
 				str=sqlSession.selectList("orderSearchList3", map);
 			}
 			if(list_id==1) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("from_date", from_date);
-				map.put("to_date", to_date);
 				str=sqlSession.selectList("orderSearchList4", map);
 			}
 			if(list_id==2) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("from_date", from_date);
-				map.put("to_date", to_date);
 				str=sqlSession.selectList("orderSearchList5", map);
 			}
 		}
@@ -116,22 +101,17 @@ public class OrderDaoImp implements OrderDao {
 	public List<OrderDto> orderingList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id", id);
+		
 		if(list_id==0) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("orderingList0", map);
 		}
 		if(list_id==1) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("orderingList1", map);
 		}
 		if(list_id==2) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("orderingList2", map);
 		}
 		
@@ -142,22 +122,18 @@ public class OrderDaoImp implements OrderDao {
 	public List<OrderDto> deliveryList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
+		
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id", id);
+		
 		if(list_id==0) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("deliveryList0", map);
 		}
 		if(list_id==1) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("deliveryList1", map);
 		}
 		if(list_id==2) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("deliveryList2", map);
 		}
 		
@@ -173,29 +149,23 @@ public class OrderDaoImp implements OrderDao {
 			switch(Integer.parseInt(dateValue)) {
 				case 0: value="10000"; break;
 				case 1: value="15"; break;
-				case 2: value="90"; break;
-				case 3: value="180"; break;
+				case 2: value="30"; break;
+				case 3: value="90"; break;
+				case 4: value="180"; break;
 				default: break;
 			}
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			map.put("id", id);
+			map.put("value", value);
+			
 			if(list_id==0) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("value", value);
 				str=sqlSession.selectList("cancelList0", map);
 			}
 			if(list_id==1) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("value", value);
 				str=sqlSession.selectList("cancelList1", map);
 			}
 			if(list_id==2) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("value", value);
 				str=sqlSession.selectList("cancelList2", map);
 			}
 		}else {
@@ -203,28 +173,19 @@ public class OrderDaoImp implements OrderDao {
 			String from_date=valueList[0];
 			String to_date=valueList[1];
 			
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			map.put("id", id);
+			map.put("from_date", from_date);
+			map.put("to_date", to_date);
+			
 			if(list_id==0) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("from_date", from_date);
-				map.put("to_date", to_date);
 				str=sqlSession.selectList("cancelList3", map);
 			}
 			if(list_id==1) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("from_date", from_date);
-				map.put("to_date", to_date);
 				str=sqlSession.selectList("cancelList4", map);
 			}
 			if(list_id==2) {
-				map.put("startRow", startRow);
-				map.put("endRow", endRow);
-				map.put("id", id);
-				map.put("from_date", from_date);
-				map.put("to_date", to_date);
 				str=sqlSession.selectList("cancelList5", map);
 			}
 		}
@@ -237,26 +198,54 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public List<OrderDto> buyListList(int startRow, int endRow, int list_id, String id) {
+	public List<OrderDto> buyListList(int startRow, int endRow, int list_id, String id, String dateValue, String dateValueList) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<OrderDto> str=null;
-		if(list_id==0) {
+		if(dateValueList.equals("0")) {
+			String value=null;
+			switch(Integer.parseInt(dateValue)) {
+				case 0: value="10000"; break;
+				case 1: value="15"; break;
+				case 2: value="30"; break;
+				case 3: value="90"; break;
+				case 4: value="180"; break;
+				default: break;
+			}
+			
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
 			map.put("id", id);
-			str=sqlSession.selectList("buyListList0", map);
-		}
-		if(list_id==1) {
+			map.put("value", value);
+			
+			if(list_id==0) {
+				str=sqlSession.selectList("buyListList0", map);
+			}
+			if(list_id==1) {
+				str=sqlSession.selectList("buyListList1", map);
+			}
+			if(list_id==2) {
+				str=sqlSession.selectList("buyListList2", map);
+			}
+		}else {
+			String[] valueList=dateValueList.split("/");
+			String from_date=valueList[0];
+			String to_date=valueList[1];
+			
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
 			map.put("id", id);
-			str=sqlSession.selectList("buyListList1", map);
-		}
-		if(list_id==2) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
-			str=sqlSession.selectList("buyListList2", map);
+			map.put("from_date", from_date);
+			map.put("to_date", to_date);
+			
+			if(list_id==0) {
+				str=sqlSession.selectList("buyListList3", map);
+			}
+			if(list_id==1) {
+				str=sqlSession.selectList("buyListList4", map);
+			}
+			if(list_id==2) {
+				str=sqlSession.selectList("buyListList5", map);
+			}
 		}
 		
 		return str;
@@ -271,22 +260,17 @@ public class OrderDaoImp implements OrderDao {
 	public List<CartDto> cartList(int startRow, int endRow, int list_id, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<CartDto> str=null;
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id", id);
+		
 		if(list_id==0) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("cartList0", map);
 		}
 		if(list_id==1) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("cartList1", map);
 		}
 		if(list_id==2) {
-			map.put("startRow", startRow);
-			map.put("endRow", endRow);
-			map.put("id", id);
 			str=sqlSession.selectList("cartList2", map);
 		}
 		
@@ -323,10 +307,18 @@ public class OrderDaoImp implements OrderDao {
 	@Override
 	public int statusChange(String order_number, String status, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
+		
 		map.put("order_number", order_number);
 		map.put("status", status);
 		map.put("id", id);
-		return sqlSession.update("statusChange", map);
+		int value=0;
+		LogAspect.logger.info(LogAspect.logMsg + id);
+		if(id.equals("admin")) {
+			value=sqlSession.update("adminStatusChange",map);
+		}else {
+			value=sqlSession.update("statusChange", map);			
+		}
+		return value;
 	}
 	
 	@Override
@@ -372,4 +364,10 @@ public class OrderDaoImp implements OrderDao {
 		map.put("id", id);
 		return sqlSession.selectOne("getOrderInfo", map);
 	}
+	
+	@Override
+	public int getUse_point(String order_number) {
+		return sqlSession.selectOne("getUse_point", order_number);
+	}
 }
+

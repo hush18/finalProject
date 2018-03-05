@@ -8,7 +8,43 @@
 		select nvl(count(*),0) from order_delivery
 	</select>
 	
-	<select id="adminOrderList">
-		select * from order_delivery
+	<select id="adminOrderList" resultType="com.team3.user.order.dto.OrderDto">
+		select O.*, P.CREDIT_CARD, P.PHONE_PAYMENT, P.REALTIME_ACCOUNT_TRANSFER, P.DIRECT_DEPOSIT from order_delivery O, payment_point P where O.order_number=P.order_number
+	</select>
+	
+	<select id="getAdminChangeCount" resultType="int">
+		select count(*) from order_delivery where order_status between 10 and 33
+	</select>
+	
+	<select id="adminChangeList" resultType="com.team3.user.order.dto.OrderDto">
+		select O.*, P.CREDIT_CARD, P.PHONE_PAYMENT, P.REALTIME_ACCOUNT_TRANSFER, P.DIRECT_DEPOSIT from order_delivery O, payment_point P where O.order_number=P.order_number and order_status between 10 and 33 
+	</select>
+	
+	<select id="getAdminDeliveryCount" resultType="int">
+		select count(*) from order_delivery where order_status=5
+	</select>
+	
+	<select id="adminDeliveryList" resultType="com.team3.user.order.dto.OrderDto">
+		select O.*, P.CREDIT_CARD, P.PHONE_PAYMENT, P.REALTIME_ACCOUNT_TRANSFER, P.DIRECT_DEPOSIT from order_delivery O, payment_point P where O.order_number=P.order_number and order_status=5
+	</select>
+	
+	<select id="getAdminOrder_id" parameterType="String" resultType="String">
+		select id from order_delivery where order_number=#{order_number}
+	</select>
+	
+	<select id="getAdminDetail" parameterType="String" resultType="com.team3.user.order.dto.OrderDto">
+		select * from order_delivery where order_number=#{order_number}
+	</select>
+	
+	<select id="getAdminOrder_name" parameterType="String" resultType="String">
+		select name from member where id=#{order_id}
+	</select>
+	
+	<select id="getPublisher" parameterType="String" resultType="String">
+		select publisher from book where isbn=#{isbn}
+	</select>
+	
+	<select id="getAuthor" parameterType="String" resultType="String">
+		select name from writer where writer_number=(select writer_number from book where isbn=#{isbn})
 	</select>
   </mapper>

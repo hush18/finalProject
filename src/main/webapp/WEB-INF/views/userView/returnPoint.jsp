@@ -57,21 +57,11 @@
 		</script>
 	</c:if>
 	
-	<c:if test="${detailCheck==1 }">
-		<script type="text/javascript">
-			$(location).attr('href','');
-		</script>
-	</c:if>
-	<c:if test="${detailCheck<1 }">
-		<script type="text/javascript">
-			history.back();
-		</script>
-	</c:if>
 	
 	<c:if test="${orderDeleteCheck==1 }">
 		<script type="text/javascript">
 			alert("요청 삭제에 성공하셨습니다.");
-			$(location).attr('href','');
+			$(location).attr('href','orderSearch.do');
 		</script>
 	</c:if>
 	<c:if test="${orderDeleteCheck<1 }">
@@ -84,7 +74,7 @@
 	<c:if test="${orderingDeleteCheck==1 }">
 		<script type="text/javascript">
 			alert("요청 삭제에 성공하셨습니다.");
-			$(location).attr('href','');
+			$(location).attr('href','ordering.do');
 		</script>
 	</c:if>
 	<c:if test="${orderingDeleteCheck<1 }">
@@ -106,5 +96,7 @@
 			history.back();
 		</script>
 	</c:if>
+	
+	
 </body>
 </html>

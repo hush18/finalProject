@@ -3,12 +3,6 @@
  */
 
 $(function() {
-	$(this).css("display", "none");
-	$("#list_ej2").css("display", "inline-block");
-	$("#list_ej3").css("display", "inline-block");
-	$(".checkbox_ej").show();
-	$(".child_ej").attr("colspan", 3);
-
 	$("#list_ej2").click(function() {
 		if ($("input[type=checkbox]").is(":checked") == false) {
 			alert("하나 이상 선택해 주세요.");
@@ -25,33 +19,26 @@ $(function() {
 	$(".paginate_button").click(function(){
 		$(".floatgreen_ej").show();
 		$(".floatred_ej").hide();
-//		$(".checkbox_ej").hide();
 	});
 	
 	$(".column-title").click(function(){
 		$(".floatgreen_ej").show();
 		$(".floatred_ej").hide();
-//		$(".checkbox_ej").hide();
 		$("#list_ej").show();
 		$("#list_ej2").hide();
 	});
-	
-	$("#datatable_previous").click(function(){
-		$(".checkbox_ej").remove();
-	});
 });
 
-function adminFaqUpdate(faq_number, pageNumber) {
-	$(location).attr("href","adminFaqUpdate.do?faq_number=" + faq_number + "&pageNumber="+ pageNumber);
+function topInsert(faq_number){
+	if($(".ttcount_ej").length>=10){
+		alert("더이상 추가 할 수 없습니다.");
+		$(location).attr("href","adminFaqMain.do");
+		return false;
+	}
+	$(location).attr("href","adminFaqTopInsert.do?faq_number=" + faq_number);
 }
 
-//function faqDelete(){
-//	var checkbox = $("<th class='checkbox_ej' style='width: 3%;'></th>");
-//		checkbox.append("<input type='checkbox' id='check-all' class='flat' name='check_ej'>");	
-//	$("#ftr").prepend(checkbox);
-//}
-
-function adminFaqDelete(pageNumber) {
+function adminFaqDelete() {
 	var checked = [];
 	$('input:checkbox[name="table_records"]').each(function() {
 		$('input:checkbox[name="table_records"]').is(":checked") == true; // checked
@@ -60,11 +47,7 @@ function adminFaqDelete(pageNumber) {
 			checked.push(this.value);
 		}
 	});
-	$(location).attr("href","adminFaqDeleteOk.do?checked=" + checked + "&pageNumber="+ pageNumber);
-}
-
-function adminFaqPage(pageNumber) {
-	$(location).attr("href","adminFaqMain.do?pageNumber=" + pageNumber);
+	$(location).attr("href","adminFaqDeleteOk.do?checked=" + checked);
 }
 
 function plus(content, id) {

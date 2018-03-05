@@ -46,7 +46,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form class="form-horizontal form-label-left" action="adminFaqUpdateOk.do" method="post">
+								<form class="form-horizontal form-label-left" action="adminFaqUpdateOk.do" method="post" onsubmit="return faqEdit(this)">
 								<input type="hidden" name="faq_number" value="${param.faq_number}"/>
 								<input type="hidden" name="pageNumber" value="${param.pageNumber}"/>
 									<div class="form-group">

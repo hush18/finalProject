@@ -10,14 +10,14 @@
 	<c:if test="${check>0 }">
 		<script type="text/javascript">
 			alert("문의가 완료 되었습니다.");
-			$(location).attr("href","adminCstMain.do");
+			$(location).attr("href","CustomerService_consulting.do");
 		</script>
 	</c:if>
 	
 	<c:if test="${check==0 }">
 		<script type="text/javascript">
 			alert("오류가 발생하였습니다. 다시 문의해 주세요");
-			$(location).attr("href","adminCstMain.do");
+			$(location).attr("href","CustomerService_consulting.do");
 		</script>
 	</c:if>
 </body>

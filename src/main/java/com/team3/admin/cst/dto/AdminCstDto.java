@@ -16,7 +16,7 @@ public class AdminCstDto {
 	private String reply_check;
 	private int rnum;
 	private String admin_content;
-	private Date Awrite_date;
+	private Date admin_write_date;
 	
 	public int getCounsel_number() {
 		return counsel_number;
@@ -96,11 +96,11 @@ public class AdminCstDto {
 	public void setAdmin_content(String admin_content) {
 		this.admin_content = admin_content;
 	}
-	public Date getAwrite_date() {
-		return Awrite_date;
+	public Date getAdmin_write_date() {
+		return admin_write_date;
 	}
-	public void setAwrite_date(Date awrite_date) {
-		Awrite_date = awrite_date;
+	public void setAdmin_write_date(Date admin_write_date) {
+		this.admin_write_date = admin_write_date;
 	}
 	
 	@Override
@@ -109,6 +109,6 @@ public class AdminCstDto {
 				+ ", counsel_product=" + counsel_product + ", order_number=" + order_number + ", content=" + content
 				+ ", email=" + email + ", up_category=" + up_category + ", down_category=" + down_category
 				+ ", write_date=" + write_date + ", reply_check=" + reply_check + ", rnum=" + rnum + ", admin_content="
-				+ admin_content + ", Awrite_date=" + Awrite_date + "]";
+				+ admin_content + ", admin_write_date=" + admin_write_date + "]";
 	}
 }
