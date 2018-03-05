@@ -26,7 +26,7 @@ public class AdminFaqDaoImp implements AdminFaqDao {
 
 	@Override
 	public List<AdminFaqDto> adminFaqList() {
-		return sqlSession.selectList("faqList");
+		return sqlSession.selectList("com.team3.admin.faq.dao.mapper.faqList");
 	}
 
 	@Override

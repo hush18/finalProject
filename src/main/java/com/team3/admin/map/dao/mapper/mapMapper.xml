@@ -27,10 +27,15 @@
   		address=#{address},
   		business_hours=#{business_hours},
   		directions=#{directions},
-  		store_explanation=#{store_explanation},
-  		img_path=#{img_path}
+  		store_explanation=#{store_explanation}
+  		<if test="img_path!=null">
+	  		,img_path=#{img_path}			
+  		</if>
   		where store_name=#{store_name}
   	</update>
+  	<select id="adminCheck" parameterType="String" resultType="int">
+  		
+  	</select>
   </mapper>
   
   

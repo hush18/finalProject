@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
@@ -14,6 +24,8 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
 		$("#array").change(function(){
 			var url="delivery.do?list_id="+$(this).val();
 			$(location).attr('href', url);
@@ -23,7 +35,10 @@
 		if(list_id=="") list_id="0";
 		$("#array option:selected").removeAttr("selected"); 
  		$("#array").val(list_id).attr("selected", "selected");
-		
+ 		
+ 		$(".change_exchange, .change_cancel").click(function(){
+ 			alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+		});
 	});
 		
 </script>
@@ -142,7 +157,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="userPointView.do">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -173,14 +188,14 @@
 						<div class="list_hy">
 							<c:forEach var="deliveryList" items="${deliveryList}">
 								<div class="search_list_con_hy table_jm">
-									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.order_number }</a></div>
+									<div class="order_number"><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${deliveryList.order_number}">${deliveryList.title }</a></div>
 									<div>${deliveryList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${deliveryList.order_date }" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${deliveryList.maybe_date }" pattern="yyyy.MM.dd"/></div>
-									<div class="">${deliveryList.status }</div>
-									<div class=""><strong>${deliveryList.total_price }원</strong></div>
-									<div class=""><button class="block_btn_hy">환불</button><button class="block_btn_hy">취소</button></div>
+									<div class="status">${deliveryList.status }</div>
+									<div class=""><strong><fmt:formatNumber value="${deliveryList.total_price }" pattern="#,###,###"/>원</strong></div>
+									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel" >취소</button></div>
 								</div>
 							</c:forEach>
 						</div>

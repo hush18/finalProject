@@ -18,7 +18,7 @@ public interface OrderDao {
 	public List<OrderDto> deliveryList(int startRow, int endRow, int list_id, String id);
 	public List<OrderDto> cancelList(int startRow, int endRow, int list_id, String id, String dateValue, String dateValueList);
 	public int getBuyListCount(String id);
-	public List<OrderDto> buyListList(int startRow, int endRow, int list_id, String id);
+	public List<OrderDto> buyListList(int startRow, int endRow, int list_id, String id , String dateValue, String dateValueList);
 	public int getCartCount(String id);
 	public List<CartDto> cartList(int startRow, int endRow, int list_id, String id);
 	public int insertCart(String isbn, String cart_amount, String id);
@@ -30,4 +30,5 @@ public interface OrderDao {
 	public String getTitle(String isbn);
 	public String getOrder_name(String id);
 	public OrderDto getOrderInfo(String order_number, String id);
+	public int getUse_point(String order_number);
 }

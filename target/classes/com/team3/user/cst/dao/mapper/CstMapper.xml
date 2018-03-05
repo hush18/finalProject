@@ -4,6 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.team3.user.cst.dao.mapper">
-
-  	
+	<insert id="userInsert" parameterType="com.team3.user.cst.dto.CstDto">
+		insert into counsel(counsel_number,id,title,counsel_product,order_number,content,email,up_category,down_category,write_date) values(counsel_counsel_number_seq.nextval,#{id},#{title},#{counsel_product},#{order_number},#{content},#{email},#{up_category},#{down_category},sysdate)
+	</insert>	
+	
+	<select id="cstProductList" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstQuestionDto">
+		<![CDATA[
+			select * from(select rownum rnum, A.* from(select e.title,e.write_date,e.price,d.name from book e, writer d where e.writer_number = d.writer_number and e.title like '%'||#{search}||'%' order by e.title)a) where rnum >= #{startNum} AND rnum <= #{endNum}
+		]]>
+	</select>
+	
+	<select id="cstProductCount" parameterType="String" resultType="int">
+		<![CDATA[select count(*) from book where title like '%'||#{search}||'%']]>
+	</select>
+	
+	<select id="cstOrNumberList" parameterType="String" resultType="com.team3.user.cst.dto.CstOrderDto">
+		select goods,order_account,order_number from order_delivery where id=#{id}
+	</select>
+	
+	<select id="cstOrderList" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstOrderDto">
+		SELECT o.order_date, b.title, b.price FROM book b, order_delivery o WHERE b.isbn = #{goods} and order_number=#{order_number} AND o.order_date>=SYSDATE-#{date}
+	</select>
+	
+	<select id="cstOrderList2" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstOrderDto">
+		SELECT o.order_date, b.title, b.price FROM book b, order_delivery o WHERE b.isbn = #{goods} and order_number=#{order_number} AND o.order_date>=add_months(SYSDATE,-#{date})
+	</select>
   </mapper>

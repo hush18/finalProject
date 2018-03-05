@@ -89,4 +89,10 @@ public class AdminBookImp implements AdminBook{
 		// TODO Auto-generated method stub
 		return sqlSession.update("com.team3.admin.book.dao.mapper.adminWriterBookListUpdate", writerDto);
 	}
+	
+	@Override
+	public List<String> getWriterNameList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.team3.admin.book.dao.mapper.getWriterNameList");
+	}
 }

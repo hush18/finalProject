@@ -158,4 +158,9 @@ public class InterestDaoImp implements InterestDao {
 	public List<InterestDto> scrollSelect(String id) {
 		return sqlSession.selectList("scrollSelect", id);
 	}
+
+	@Override
+	public InterestDto scrollRecommend() {
+		return sqlSession.selectOne("scrollRecommend");
+	}
 }

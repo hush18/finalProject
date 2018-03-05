@@ -75,7 +75,7 @@
 									<p class="faq_sc">FAQ</p>
 									<ul>
 										<li>
-											<a href="CustomerService_faq.do">회원</a>
+											<a href="CustomerService_faq.do?up_category=회원">회원</a>
 										</li>
 										<li>
 											<a href="CustomerService_faq.do">상품</a>
@@ -143,23 +143,23 @@
 				</div>
 				<div class="content_ej">
 					<div class="search_ej">
-						<form>
+						<form action="CustomerService_faq.do" method="get" onsubmit="return up_search(this)">
 							<div class="search_choice_ej">
-								<select>
-									<option>FAQ 분류</option>
-									<option>회원</option>
-									<option>상품</option>
-									<option>입금/결제</option>
-									<option>취소/교환/환불</option>
-									<option>주문</option>
-									<option>배송</option>
-									<option>적립</option>
+								<select name="up_category">
+									<option value="default">FAQ 분류</option>
+									<option value="회원">회원</option>
+									<option value="상품">상품</option>
+									<option value="입금/결제">입금/결제</option>
+									<option value="취소/교환/환불">취소/교환/환불</option>
+									<option value="주문">주문</option>
+									<option value="배송">배송</option>
+									<option value="적립">적립</option>
 								</select>
 							</div>
 
 							<div class="search_sub_ej">
 								<input type="text" name="search" size="40" />
-								<a href="#" class="btn-all btn_ej">검색</a>
+								<button type="submit" class="btn-all btn_ej" style="height: 27px; padding-top: 0px;">검색</button>
 							</div>
 						</form>
 					</div>

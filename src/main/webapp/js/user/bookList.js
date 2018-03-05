@@ -148,7 +148,7 @@ $(function () {
 		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
-		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
+		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity+"&val=1");
 	}
 	
 	function wishList(isbn, mbId) {
@@ -183,7 +183,7 @@ $(function () {
 				}
 			})
 		}
-		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
+		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbn="+isbnList);
 	}
 	
 	function cartAll(mbId) {
@@ -207,6 +207,7 @@ $(function () {
 				if($(this).prop("checked")==true) {
 					var isbn = $(this).val();
 					isbnList += isbn;
+					quantityList+="1/";
 				}
 			})
 		}

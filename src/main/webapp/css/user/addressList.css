@@ -14,30 +14,31 @@ body{
 	width: 500px;
 }
 
-.address_content >div{
+.address_content div{
 	display: inline-block;
 	text-align: center;
 }
 
-.address_list>div>div{
+.address_list div>div{
 	display: inline-block;
 	text-align: center;
+	height: 30px;
 }
 
-.address_list>div>div:nth-child(1){
-	width: 6%;
+.address_list div>div:nth-child(1){
+	width: 5%;
 }
 
-.address_list>div>div:nth-child(2){
+.address_list div>div:nth-child(2){
 	width: 20%;
 }
 
-.address_list>div>div:nth-child(3){
-	width: 35%;
+.address_list div>div:nth-child(3){
+	width: 50%;
 }
 
-.address_list>div>div:nth-child(4){
-	width: 35%;
+.address_list div>div:nth-child(4){
+	width: 20%;
 }
 
 .address_list{
@@ -48,8 +49,6 @@ body{
 .address_list >div{
 	margin-bottom: 10px;	
 }
-
-
 .sub_yk{
 	height: 40px;
 	margin-bottom: 10px;

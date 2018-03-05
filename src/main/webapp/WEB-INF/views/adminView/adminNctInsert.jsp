@@ -52,7 +52,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form class="form-horizontal form-label-left" action="adminNctInsertOk.do" method="post">
+								<form class="form-horizontal form-label-left" action="adminNctInsertOk.do" method="post" onsubmit="return nctEdit(this)">
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">제목</label>
 										<div class="col-md-9 col-sm-9 col-xs-12">
@@ -71,7 +71,7 @@
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-md-9_ej">
 											<button type="submit" class="btn btn-success">등록</button>
-											<button type="button" class="btn btn-primary">취소</button>
+											<button type="button" class="btn btn-primary" onclick="location.href='adminNctMain.do'">취소</button>
 											<button type="reset" class="btn btn-primary">내용 초기화</button>
 										</div>
 									</div>
@@ -94,5 +94,7 @@
 <!-- bootstrap-daterangepicker -->
 <script src="vendors/moment/min/moment.min.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- FAQ Scripts -->
+<script src="js/admin/ntcMain.js"></script>
 </body>
 </html>

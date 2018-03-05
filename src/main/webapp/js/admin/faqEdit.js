@@ -39,3 +39,44 @@ $(function(){
 	});
 });
 
+function faqEdit(obj){
+	
+	if(obj.title.value == ""){
+		alert("제목을 입력해 주세요.");
+		obj.title.focus();
+		return false;
+	}
+	
+	if(obj.up_category.value == "default"){
+		alert("문의유형을 선택해 주세요.");
+		obj.up_category.focus();
+		return false;
+	}
+	
+	if(obj.down_category.value == "default"){
+		alert("문의유형을 선택해 주세요.");
+		obj.down_category.focus();
+		return false;
+	}
+	
+	if(obj.content.value == ""){
+		alert("내용을 입력해 주세요.");
+		obj.content.focus();
+		return false;
+	}
+	
+	var limit = /["']/;
+	title = obj.title.value.match(limit);
+	if(title!=null){
+		alert("특수문자(\",\')는 입력할 수 없습니다.");
+		obj.title.focus();
+		return false;
+	}
+	
+	content = obj.content.value.match(limit);
+	if(content!=null){
+		alert("특수문자(\",\')는 입력할 수 없습니다.");
+		obj.content.focus();
+		return false;
+	}
+}

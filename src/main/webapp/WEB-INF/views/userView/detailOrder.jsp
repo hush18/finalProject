@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
@@ -13,12 +23,40 @@
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 	$(function() {
-		$("#titleClick").click(function() {
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
+		$(".titleClick").click(function() {
 			var isbn=$(this).next().next().val();
 			var url="bookInfo.do?isbn="+isbn;
 			alert(url);
 			$(location).attr('href', url);
 		});
+		
+		
+		
+		$(".change_cancel").click(function(){
+			var order_status=$('input[name="order_status"]').val();
+			var order_number=$('input[name="order_number"]').val();
+			var url="";
+			
+ 			if(order_status == 0){
+ 				alert("주문을 취소하겠습니다.");
+ 				url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
+				$(location).attr('href', url); 				
+ 			}else if(order_status == 31){
+ 				alert("이미 취소요청된 주문입니다. 다시 주문하시려면 취소/반품/교환 목록으로 가세요");
+ 				history.back();
+ 			}else if(order_status == 11 || order_status == 21){
+ 				alert("배송을 처음부터 다시 시작하겠습니다.");
+ 				url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=1";
+ 				$(location).attr('href', url);	
+ 			}else if(order_status == 3 || order_status == 4){
+ 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");	
+ 			}else{
+ 				url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
+				$(location).attr('href', url);
+ 			}
+ 		});
 	});
 </script>
 </head>
@@ -30,6 +68,8 @@
 		<div class="side_mh">
 		<div class="category_mh">
 			<div>
+			<input type="hidden" name="order_status" value="${order_status }"/>
+			<input type="hidden" name="order_number" value="${order_number }"/>
 				<!-- 주문관리 -->
 				<div class="orderManager_mh">
 					<div class="title_mh">
@@ -135,7 +175,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="userPointView.do">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -160,16 +200,16 @@
 						<div class="list_hy">
 							<c:forEach var="detailList" items="${detailList}">
 								<div class="detail_list_con_hy">
-									<div class="title_hy" id="titleClick">${detailList.goods_name }</div>
+									<div class="title_hy titleClick" >${detailList.goods_name }</div>
 									<div>${detailList.order_account }권</div>
 									<input type="hidden" name="isbn" value="${detailList.isbn }"/>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class="detail_list_size_hy"><fmt:formatDate value="${detailList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<fmt:parseNumber var="price"
 											value="${detailList.total_price*detailList.order_account}"
-											integerOnly="true" />
-									<div class="detail_list_size_hy"><strong>${price }</strong></div>
-									<div class="detail_list_size_hy"><button class="block_btn_hy" id="change_cancel">취소</button></div>
+											integerOnly="true" pattern="#,###,###"/>
+									<div class="detail_list_size_hy"><strong><fmt:formatNumber value="${price }" pattern="#,###,###"/></strong></div>
+									<div class="detail_list_size_hy"><button class="block_btn_hy change_cancel" >취소</button></div>
 								</div>
 							</c:forEach>
 						</div>
@@ -212,9 +252,9 @@
 			<div class="payment_info_hy">
 				<h2 class="h2_hy">결제 정보</h2>
 				<div class="payment_con_hy">
-					<div class="payment_info1_hy"><div>결제방법</div><div>카드</div></div>
-					<div class="payment_info1_hy"><div>총금액</div><div>80,000</div><div>할인금액</div><div>8,000</div></div>
-					<div class="payment_info1_hy"><div>실 결제금액</div><div>72,000</div></div>
+					<div class="payment_info1_hy"><div>결제방법</div><div>${payment_way }</div></div>
+					<div class="payment_info1_hy"><div>총금액</div><div><fmt:formatNumber value="${total_price }" pattern="#,###,###"/></div><div>사용포인트</div><div><fmt:formatNumber value="${use_point }" pattern="#,###,###"/></div></div>
+					<div class="payment_info1_hy"><div>실 결제금액</div><div><fmt:formatNumber value="${total_price-use_point }" pattern="#,###,###"/></div></div>
 				</div>
 			</div>
 			

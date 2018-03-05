@@ -5,37 +5,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
 		$("#ordering_array").change(function(){
 			var url="ordering.do?list_id="+$(this).val();
 			$(location).attr('href', url);
 		})
-		
-		var list_id=$('input[type="hidden"]').val();
-		if(list_id=="") list_id="0";
-		$("#ordering_array option:selected").removeAttr("selected"); 
- 		$("#ordering_array").val(list_id).attr("selected", "selected");
  		
- 		$("#change_exchange").click(function(){
-			var order_number=$(this).parents().find("#order_number").text();
-			var url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=2";
-			$(location).attr('href', url);
-				
-		});
-	 		
- 		$("#change_cancel").click(function(){
- 			var order_number=$(this).parents().find("#order_number").text();
-			var url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=2";
-			$(location).attr('href', url);
+ 		$(".change_exchange").click(function(){
+ 			var status=$(this).parent().parent().find(".status").text();
+			var order_number=$(this).parents().find(".order_number").text();
 			
+			if(status=="출고완료" || status=="배송중"){
+				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+			}else if(status=="입금대기중"){
+				alert("입금을 하지 않은 상태이므로 요청이 불가합니다.");
+			}else{
+				alert("환불요청을 진행하겠습니다.")
+				var url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=2";
+				$(location).attr('href', url);
+			}
+		});
+	 	
+ 		$(".change_cancel").click(function(){
+ 			var order_number=$(this).parents().find(".order_number").text();
+			var url="";
+			if(status=="입금대기중"){
+ 				alert("상품 주문을 취소하겠습니다.");
+ 				url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
+				$(location).attr('href', url);
+ 			}else if(status=="출고완료" || status=="배송중"){
+ 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+ 			}else{
+ 				alert("선택하신 주문을 취소요청으로 변경하겠습니다.");
+ 				url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=2";
+				$(location).attr('href', url);
+ 			}
  		});
 	});
 		
@@ -155,7 +178,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="userPointView.do">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -188,14 +211,14 @@
 						<div class="list_hy">
 							<c:forEach var="orderingList" items="${orderingList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do?order_number=${orderingList.order_number}">${orderingList.order_number }</a></div>
+									<div class="order_number"><a href="detailOrder.do?order_number=${orderingList.order_number}">${orderingList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${orderingList.order_number}">${orderingList.title }</a></div>
 									<div>${orderingList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${orderingList.order_date }" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${orderingList.maybe_date }" pattern="yyyy.MM.dd"/></div>
-									<div class="">${orderingList.status }</div>
-									<div class=""><strong>${orderingList.total_price }원</strong></div>
-									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>
+									<div class="status">${orderingList.status }</div>
+									<div class=""><strong><fmt:formatNumber value="${orderingList.total_price }" pattern="#,###,###"/>원</strong></div>
+									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel">취소</button></div>
 								</div>
 							</c:forEach>
 						</div>
