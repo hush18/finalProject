@@ -77,8 +77,6 @@ $(function(){
 				alert("선택된 상품이 없습니다.");
 				return false;
 			}else{
-				alert(isbnList);
-				alert(amountList);
 				var url="payment.do?isbn="+isbnList+"&quantity="+amountList+"&val=2";
 				$(location).attr('href', url);
 			}

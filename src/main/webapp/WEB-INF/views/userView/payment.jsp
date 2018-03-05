@@ -255,7 +255,14 @@
 							var point=$("input[name='point_history']").val();
 							$("input[name='total_price']").attr("value",finalPrice);
 							$(".final_price").text(finalPrice+"원");
+							var idPoint=${memberDto.point }
 							$("input[name='point_history']").change(function() {
+								if($("input[name='point_history']").val()>idPoint){
+									alert("포인트가 부족합니다.");
+									$("input[name='point_history']").val(0);
+									return false
+								}
+								
 								point=$("input[name='point_history']").val();
 								$(".final_price").text(finalPrice-point+"원");
 								$("input[name='total_price']").attr("value",finalPrice-point);
@@ -270,7 +277,14 @@
 							$(".final_price").text(finalPrice+"원");
 							var point=$("input[name='point_history']").val();
 							$("input[name='total_price']").attr("value",finalPrice-point);
+							var idPoint=${memberDto.point }
 							$("input[name='point_history']").change(function() {
+								if($("input[name='point_history']").val()>idPoint){
+									alert("포인트가 부족합니다.");
+									$("input[name='point_history']").val(0);
+									return false
+								}
+								
 								point=$("input[name='point_history']").val();
 								$(".final_price").text(finalPrice-point+"원");
 								$("input[name='total_price']").attr("value",finalPrice-point);
