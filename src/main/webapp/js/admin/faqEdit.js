@@ -9,7 +9,7 @@ $(function(){
 			$("#sub_advice").append("<option value='회원가입'>회원가입</option>");
 			$("#sub_advice").append("<option value='회원정보확인/수정'>회원정보확인/수정</option>");
 			$("#sub_advice").append("<option value='회원탈퇴'>회원탈퇴</option>");
-			$("#sub_advice").append("<option value='휴먼계정'>휴먼계정</option>");
+			$("#sub_advice").append("<option value='휴면계정'>휴면계정</option>");
 		}else if($("#advice option:selected").val()=="상품"){
 			$("#sub_advice").append("<option value='상품불량'>상품불량</option>");
 			$("#sub_advice").append("<option value='입고/품절/절판'>입고/품절/절판</option>");
@@ -31,10 +31,8 @@ $(function(){
 			$("#sub_advice").append("<option value='배송문의'>배송문의</option>");
 			$("#sub_advice").append("<option value='배송/출고예정일'>배송/출고예정일</option>");
 		}else if($("#advice option:selected").val()=="적립"){
-			$("#sub_advice").append("<option value='포인트문의'>포인트문의</option>");
 			$("#sub_advice").append("<option value='포인트적립'>포인트적립</option>");
-			$("#sub_advice").append("<option value='포인트사용'>포인트사용</option>");
-			$("#sub_advice").append("<option value='포인트소멸'>포인트소멸</option>");
+			$("#sub_advice").append("<option value='포인트사용/소멸'>포인트사용/소멸</option>");
 		}
 	});
 });
