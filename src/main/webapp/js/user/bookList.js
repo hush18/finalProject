@@ -183,7 +183,7 @@ $(function () {
 				}
 			})
 		}
-		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
+		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbn="+isbnList);
 	}
 	
 	function cartAll(mbId) {
@@ -207,6 +207,7 @@ $(function () {
 				if($(this).prop("checked")==true) {
 					var isbn = $(this).val();
 					isbnList += isbn;
+					quantityList+="1/";
 				}
 			})
 		}

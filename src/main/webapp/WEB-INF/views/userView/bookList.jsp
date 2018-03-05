@@ -135,7 +135,12 @@
 								</div>
 								<div class="book_list_button_jm">
 									<div class="quantity_div_jm">
-										<input class="check" type="checkbox" value="${bookDto.isbn}"/> 수량
+										<c:if test="${search==null}">
+											<input class="check" type="checkbox" value="${bookDto.isbn}"/><label style="margin-left: 5px;">수량</label>
+										</c:if>
+										<c:if test="${search!=null}">
+											<label style="margin-left: 25px;">수량</label>
+										</c:if>
 										<input id="${bookDto.isbn}" class="quantity_input_jm" type="text" size="1" value="1"><!-- id값 뒤에 도서 고유번호 출력 -->
 										<span class="quantity_jm">
 											<span class="quantity_up_jm">▲<input type="hidden" value="${bookDto.isbn}"/></span><!-- 히든의 값에 도서 고유번호 입력 -->
