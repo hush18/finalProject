@@ -108,8 +108,8 @@ $(function(){
 		})
 	
 		//장바구니 삭제
-		$("#cart_delete").click(function(){
-			var isbn=$(this).parents().find(".quantity_up_jm").children().val();
+		$(".cart_delete").click(function(){
+			var isbn=$(this).parent().parent().find(".quantity_hy").find(".quantity_up_jm").children().val();
 			var list_id=$('input[name="listId"]').val();
 			var cart_pageNumber=$('input[name="cart_pageNumber"]').val();
 			

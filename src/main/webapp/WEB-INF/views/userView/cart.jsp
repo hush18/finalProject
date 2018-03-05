@@ -215,7 +215,7 @@
 										<input type="hidden" name="isbn_price" value="${price}" />
 
 										<div class="cart_list_size_hy">
-											<button id="cart_delete" class="block_btn_hy">취소</button>
+											<button class="block_btn_hy cart_delete">취소</button>
 										</div>
 										<input type="hidden" name="isbn" value="${cartList.isbn }" />
 									</div>
