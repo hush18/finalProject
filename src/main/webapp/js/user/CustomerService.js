@@ -62,11 +62,12 @@ $(function(){
     nowAddress = decodeURIComponent(nowAddress)
 	nowAddress = nowAddress.slice(nowAddress.indexOf('=') + 1);
     var param = nowAddress.split("&");
+    var category = param[0].split("/");
     
-    var consulting = ["회원","상품","입금/결제","취소/교환/환불","주문","배송","적립"];
+    var consulting = ["회원","상품","입금","취소","주문","배송","적립"];
     $.each(consulting, function(i,e){
-    	if(param[0]==e){
-    		$("#"+e.substring(0,2)).show();
+    	if(category[0]==e){
+    		$("#"+e).show();
     	}
     });
 });
