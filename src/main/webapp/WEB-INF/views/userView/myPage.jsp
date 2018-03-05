@@ -8,6 +8,11 @@
 <link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
 <link type="text/css" rel="stylesheet" href="css/user/myPage.css" />
 <script type="text/javascript">
+
+	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+	});
+	
 	function deleteMember() {
 		window
 				.open("deleteAccount.do", "",

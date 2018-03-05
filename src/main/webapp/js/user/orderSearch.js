@@ -3,6 +3,8 @@
  */
 
 $(function(){
+	$(".wishList_mh > .title_mh").trigger('click');
+	
 		//정렬 방식 변경 이벤트
 		$("#array").change(function(){
 			var url="cart.do?list_id="+$(this).val();

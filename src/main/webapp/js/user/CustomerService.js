@@ -1,3 +1,7 @@
+$(function(){
+	$(".client_mh > .title_mh").trigger('click');
+});
+
 function faqTTList(i, con) {
 	$(function(){
 		$(".number"+i+"_ej").each(function(i,e){
