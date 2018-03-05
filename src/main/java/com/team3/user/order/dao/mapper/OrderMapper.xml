@@ -5,7 +5,7 @@
   
   <mapper namespace="com.team3.user.order.dao.mapper">
   	<select id="orderSearchCount" parameterType="String" resultType="int">
-  		<![CDATA[select nvl(count(*), 0) from order_delivery where id=#{id} and order_status between 0 and 5 ]]>
+  		<![CDATA[select nvl(count(*), 0) from order_delivery where id=#{id}]]>
   	</select>
   	
   	<select id="orderSearchList0" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
