@@ -38,7 +38,7 @@ public class ProController {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession();		//세션받기 ID
-		
+		service.recommend(mav);
 		if(session.getAttribute("mbId")!=null) {
 			service.scrollBanner(mav);
 		}
@@ -428,8 +428,10 @@ public class ProController {
 
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
 	public ModelAndView Introduction(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("Introduction.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		mav.setViewName("Introduction.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
@@ -451,7 +453,7 @@ public class ProController {
 		service.searchList(mav);
 		
 		mav.setViewName("bookList.users");
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/bookInfo.do", method = RequestMethod.GET)

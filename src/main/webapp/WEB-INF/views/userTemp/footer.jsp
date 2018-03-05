@@ -60,9 +60,9 @@
 
 <div id="serviceWrap">
 	<div class="recommend_sc">
-		<label>추천도서</label> <img id="image" src="images/4088478.jpg"
-			width="90px" height="110px" />
-		<div class="bookReco_sc">오늘부터 내인생, 내가 결정합니다.</div>
+		<label>추천도서</label> 
+		<img id="image" src="${scrollDto.image_path }" width="90px" height="110px" onclick="javascript:location.href='bookInfo.do?isbn=${scrollDto.isbn}'"/>
+		<div class="bookReco_sc">${scrollDto.title}</div>
 	</div>
 	<div class="nearest_sc">
 		<label><a href="nearestList.do">최근본상품</a></label>

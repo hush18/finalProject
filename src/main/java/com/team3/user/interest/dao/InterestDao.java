@@ -14,4 +14,5 @@ public interface InterestDao {
 	public int wishListInsert(String id, String[] strArr);
 	public int nearestInsert(String id, String isbn);
 	public List<InterestDto> scrollSelect(String id);
+	public InterestDto scrollRecommend();
 }
