@@ -41,6 +41,11 @@ public class MemberManageDaoImp implements MemberManageDao {
 		sqlSession.delete("adminCartDelete", id);
 		return sqlSession.delete("adminMemberDelete", id);
 	}
+
+	@Override
+	public int memberDiapChecking() {
+		return  sqlSession.update("diapChecking");
+	}
 	
 	
 }
