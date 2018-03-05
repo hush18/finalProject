@@ -16,6 +16,7 @@
 <!-- 관리자 도서검색 -->
 <link href="css/admin/adminContents_BookWriterInsert.css" type="text/css" rel="stylesheet">
 <link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
+
 <style type="text/css">
 body {
 	background-color: white !important;

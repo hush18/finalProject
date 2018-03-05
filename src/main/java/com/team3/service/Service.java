@@ -1122,7 +1122,6 @@ public class Service implements ServiceInterface {
 	public void memberManage(ModelAndView mav) {
 		List<MemberDto> memberList = memberManageDao.memberManage();
 		LogAspect.logger.info(LogAspect.logMsg + memberList.size());
-		int check = 0;
 
 					
 		for (int i = 0; i < memberList.size(); i++) {
@@ -1137,17 +1136,20 @@ public class Service implements ServiceInterface {
 				cal.setTime(last_login);
 				cal.add(Calendar.YEAR, 1);
 				Date loginYear = sdf.parse(sdf.format(cal.getTime()));
-				System.out.println(loginYear);
 
 				if (now.compareTo(loginYear) > 0) {
-					check = memberManageDao.memberDiapCheck();
+					memberManageDao.memberDiapCheck();
+				}else {
+					memberManageDao.memberDiapChecking();
 				}
+				
+				memberList = memberManageDao.memberManage();
 
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
-
+		
 		mav.addObject("memberList", memberList);
 		mav.setViewName("adminMemberManage.admin");
 	}
@@ -1572,6 +1574,9 @@ public class Service implements ServiceInterface {
 			mav.addObject("faqList", faqDownList);
 		}else if(search!=null) {
 			faqSearchList = faqDao.faqSearchList(upCategory,search,startNum,endNum);
+			for (int i = 0; i < faqSearchList.size(); i++) {
+				faqSearchList.get(i).setContent(faqSearchList.get(i).getContent().replace("\r\n", "<br />"));
+			}
 			mav.addObject("faqList", faqSearchList);
 		}
 		
@@ -2753,12 +2758,18 @@ public class Service implements ServiceInterface {
 			
 			int value=2;
 			String isbnList=request.getParameter("isbnList");
+			if(isbnList==null) {
+				isbnList=request.getParameter("isbn");
+			}
 			String[] isbnArr=null;
 			if(isbnList!=null) {
 				isbnArr=isbnList.split("/");
 			}
 		
 			String quantityList=request.getParameter("quantityList");
+			if(quantityList==null) {
+				quantityList=request.getParameter("quantity");
+			}
 			String[] quantityArr=null;
 			if(quantityList!=null) {
 				quantityArr=quantityList.split("/");

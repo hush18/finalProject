@@ -216,30 +216,6 @@
 					</div>
 				</c:if>
 			</div>
-			<!-- <div class="delivery_info_hy">
-				<h2 class="h2_hy">가격정보</h2>
-				<div class="payment_Information_yk">
-					<div class="payment_subject_yk">
-						<div>주문합계 금액</div>
-						<div>배송/포장비</div>
-						<div style="padding: 0px 25px;">적립금 사용</div>
-						<div style="border-right: 0px; width: 170px;">결제 금액</div>
-					</div>
-					<div class="payment_detail_yk" style="position: relative;">
-						<div>11,700원</div>
-						<img src="images/plus.png" class="icon_yk" style="z-index: 0; top: 68px; left: 167px;">
-						<div>0원</div>
-						<img src="images/negative.png" class="icon_yk" style="z-index: 0; top: 68px; left: 360px;">
-						<div style="padding: 0px 25px;">
-							<input type="text" name="point" value="1000" style="width: 80px; text-align: center;">
-							/
-							<span>누적 적립금</span>
-						</div>
-						<img src="images/equal.png" class="icon_yk" style="z-index: 0; top: 68px; left: 603px;">
-						<div style="border-right: 0px; width: 170px;">11,700원</div>
-					</div>
-				</div>
-			</div> -->
 			<div class="delivery_info_hy">
 				<h2 class="h2_hy">배송 정보</h2>
 				<div class="delivery_con_hy">
@@ -253,8 +229,8 @@
 				<h2 class="h2_hy">결제 정보</h2>
 				<div class="payment_con_hy">
 					<div class="payment_info1_hy"><div>결제방법</div><div>${payment_way }</div></div>
-					<div class="payment_info1_hy"><div>총금액</div><div><fmt:formatNumber value="${total_price }" pattern="#,###,###"/></div><div>사용포인트</div><div><fmt:formatNumber value="${use_point }" pattern="#,###,###"/></div></div>
-					<div class="payment_info1_hy"><div>실 결제금액</div><div><fmt:formatNumber value="${total_price-use_point }" pattern="#,###,###"/></div></div>
+					<div class="payment_info1_hy"><div>총금액</div><div><fmt:formatNumber value="${total_price+use_point}" pattern="#,###,###"/></div><div>사용포인트</div><div><fmt:formatNumber value="${use_point }" pattern="#,###,###"/></div></div>
+					<div class="payment_info1_hy"><div>실 결제금액</div><div><fmt:formatNumber value="${total_price }" pattern="#,###,###"/></div></div>
 				</div>
 			</div>
 			

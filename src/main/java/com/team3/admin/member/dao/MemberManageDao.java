@@ -8,5 +8,6 @@ public interface MemberManageDao {
 	public List<MemberDto> memberManage();
 	public int adminMemberDelete(String id);
 	public int memberDiapCheck();
+	public int memberDiapChecking();
 	public List<MemberDto> adminGetPassword();
 }

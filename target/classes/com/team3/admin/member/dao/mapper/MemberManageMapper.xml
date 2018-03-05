@@ -13,6 +13,10 @@
 		update member set diap='0'
 	</update>
 	
+	<update id="diapChecking">
+		update member set diap='1'
+	</update>
+	
 	<select id="getPassword" resultType="com.team3.user.member.dto.MemberDto">
 		<![CDATA[
 			select * from member where member_number<1000
