@@ -602,6 +602,16 @@ public class ProController {
 		return null;
 	}
 	
+	//searchWriter
+	@RequestMapping(value = "/searchWriter.do", method = RequestMethod.POST)
+	public ModelAndView searchWriter(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		service.searchWriter(mav);
+		return null;
+	}
+	
 	// 여기부터 관리자
 	// ================================================================================================================================================
 	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)

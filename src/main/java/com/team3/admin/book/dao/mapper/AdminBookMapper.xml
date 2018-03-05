@@ -56,5 +56,8 @@
 		update WRITER set WRITER_BOOKLIST=#{writer_bookList} where WRITER_NUMBER=#{writer_number}
 	</update>
 	
+	<select id="getWriterNameList" resultType="String">
+		select DISTINCT name from WRITER ORDER BY NAME
+	</select>
 	
 </mapper>

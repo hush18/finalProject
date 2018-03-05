@@ -16,6 +16,8 @@
 
 <!-- jQuery -->
 <script src="vendors/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="jquery_ui/jquery-ui.css">
+<script type="text/javascript" src="jquery_ui/jquery-ui.js"></script>
 </head>
 <body class="nav-md">
 	<!-- header -->
