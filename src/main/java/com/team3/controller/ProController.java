@@ -40,7 +40,7 @@ public class ProController {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession();		//세션받기 ID
-		
+		service.recommend(mav);
 		if(session.getAttribute("mbId")!=null) {
 			service.scrollBanner(mav);
 		}

@@ -2654,4 +2654,14 @@ public class Service implements ServiceInterface {
 //			mav.addObject("check", Integer.parseInt(check));
 		}
 	}
+
+	@Override
+	public void recommend(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		InterestDto scrollDto=interestDao.scrollRecommend();
+		LogAspect.logger.info(LogAspect.logMsg + "리스트 출력!!!" + scrollDto);
+		mav.addObject("scrollDto", scrollDto);
+	}
 }

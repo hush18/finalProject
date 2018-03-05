@@ -88,5 +88,6 @@ public interface ServiceInterface {
 	public void reviewInsert(ModelAndView mav);
 	public void reviewList(ModelAndView mav);
 	public void adminOrderSearch(ModelAndView mav);
+	public void recommend(ModelAndView mav);
 }
 
