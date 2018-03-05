@@ -1563,18 +1563,18 @@ public class Service implements ServiceInterface {
 			for (int i = 0; i < faqUpList.size(); i++) {
 				faqUpList.get(i).setContent(faqUpList.get(i).getContent().replace("\r\n", "<br />"));
 			}
+			mav.addObject("faqList", faqUpList);
 		}else if(upCategory!=null && downCategory!=null && search==null) {
 			faqDownList = faqDao.faqDownList(downCategory,startNum,endNum);
 			for (int i = 0; i < faqDownList.size(); i++) {
 				faqDownList.get(i).setContent(faqDownList.get(i).getContent().replace("\r\n", "<br />"));
 			}
+			mav.addObject("faqList", faqDownList);
 		}else if(search!=null) {
 			faqSearchList = faqDao.faqSearchList(upCategory,search,startNum,endNum);
+			mav.addObject("faqList", faqSearchList);
 		}
 		
-		mav.addObject("faqUpList", faqUpList);
-		mav.addObject("faqDownList", faqDownList);
-		mav.addObject("faqSearchList", faqSearchList);
 		mav.addObject("upCategory", upCategory);
 		mav.addObject("downCategory", downCategory);
 		mav.addObject("boardSize", boardSize);

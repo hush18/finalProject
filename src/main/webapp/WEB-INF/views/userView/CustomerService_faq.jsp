@@ -179,46 +179,19 @@
 								<div>질문유형</div>
 								<div>제목</div>
 							</div>
-
-							<c:choose>
-								<c:when test="${faqUpList.size()>0}">
-									<c:set var="i" value="1" />
-									<c:forEach items="${faqUpList}" var="list">
-										<div class="jlist_ej faqlist_ej">
-											<div class="faqlistrow_ej">
-												<span class="faqlistcell1_ej">${list.rNum}</span> 
-												<span class="faqlistcell2_ej">${list.up_category}&nbsp;&gt;&nbsp;${list.down_category}</span> 
-												<span class="faqlistcell3_ej number${i}_ej" onclick="content('${i}','${list.content}')">${list.title}</span>
-											</div>
+							<c:if test="${faqList.size()>0}">
+								<c:set var="i" value="1" />
+								<c:forEach items="${faqList}" var="list">
+									<div class="jlist_ej faqlist_ej">
+										<div class="faqlistrow_ej">
+											<span class="faqlistcell1_ej">${list.rNum}</span> 
+											<span class="faqlistcell2_ej">${list.up_category}&nbsp;&gt;&nbsp;${list.down_category}</span> 
+											<span class="faqlistcell3_ej number${i}_ej" onclick="content('${i}','${list.content}')">${list.title}</span>
 										</div>
-										<c:set var="i" value="${i+1}" />
-									</c:forEach>
-								</c:when>
-
-								<c:when test="${faqDownList.size()>0}">
-									<c:set var="i" value="1" />
-									<c:forEach items="${faqDownList}" var="list">
-										<div class="jlist_ej faqlist_ej">
-											<div class="faqlistrow_ej">
-												<span class="faqlistcell1_ej">${list.rNum}</span> <span class="faqlistcell2_ej">${list.up_category}&nbsp;&lt;&nbsp;${list.down_category}</span> <span class="faqlistcell3_ej number${i}_ej" onclick="content('${i}','${content}')">${list.title}</span>
-											</div>
-										</div>
-										<c:set var="i" value="${i+1}" />
-									</c:forEach>
-								</c:when>
-								
-								<c:when test="${faqSearchList.size()>0}">
-									<c:set var="i" value="1" />
-									<c:forEach items="${faqSearchList}" var="list">
-										<div class="jlist_ej faqlist_ej">
-											<div class="faqlistrow_ej">
-												<span class="faqlistcell1_ej">${list.rNum}</span> <span class="faqlistcell2_ej">${list.up_category}&nbsp;&lt;&nbsp;${list.down_category}</span> <span class="faqlistcell3_ej number${i}_ej" onclick="content('${i}','${content}')">${list.title}</span>
-											</div>
-										</div>
-										<c:set var="i" value="${i+1}" />
-									</c:forEach>
-								</c:when>
-							</c:choose>
+									</div>
+									<c:set var="i" value="${i+1}" />
+								</c:forEach>
+							</c:if>
 							
 							<c:if test="${faqListCount==0}">
 								<div style="text-align: center;padding-top: 20px;">검색하신 질문이 존재하지 않습니다.</div>
