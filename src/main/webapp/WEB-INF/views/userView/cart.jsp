@@ -36,12 +36,17 @@
 </head>
 
 <body>
-	<c:if test="${check==0 }">
+	<c:if test="${check<1}">
 		<script type="text/javascript">
 			alert("장바구니에 중복된 도서가 추가될 수 없습니다.");
 			history.back();
 		</script>
 	</c:if>
+	<c:if test="${check==1}">
+		<script type="text/javascript">
+			alert("장바구니에 담았습니다.");
+		</script>
+	</c:if>	
 	<c:if test="${value<1}">
 		<script type="text/javascript">
 			location.href="cart.do";
