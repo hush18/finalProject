@@ -109,27 +109,28 @@
 						<div style="text-align: center;">(토요일,일요일,공휴일 휴무)</div>
 					</div>
 				</div>
-				<div class="content_ej">
+				<div class="content_ej" style="display: block;">
+					<form action="CustomerService_faq.do" method="get" onsubmit="return up_search(this)">
 					<div class="search_ej">
-						<form>
 							<div class="search_choice_ej">
-								<select>
-									<option>FAQ 분류</option>
-									<option>회원</option>
-									<option>상품</option>
-									<option>입금/결제</option>
-									<option>취소/교환/환불</option>
-									<option>주문</option>
-									<option>배송</option>
-									<option>적립</option>
+								<select name="up_category">
+									<option value="default">FAQ 분류</option>
+									<option value="회원">회원</option>
+									<option value="상품">상품</option>
+									<option value="입금/결제">입금/결제</option>
+									<option value="취소/교환/환불">취소/교환/환불</option>
+									<option value="주문">주문</option>
+									<option value="배송">배송</option>
+									<option value="적립">적립</option>
 								</select>
 							</div>
 
 							<div class="search_sub_ej">
-								<input type="text" name="search" size="40" /> <a href="#" class="btn-all btn_ej">검색</a>
+								<input type="text" name="search" size="40" />
+								<button type="submit" class="btn-all btn_ej" style="height: 27px; padding-top: 0px;">검색</button>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 
 					<div class="FAQ_TOP_ej">
 						<div class="FAQ_TOP_1_ej">
@@ -199,63 +200,99 @@
 										<c:set var="i" value="${i+1}" />
 									</c:forEach>
 								</c:when>
+								
+								<c:when test="${faqSearchList.size()>0}">
+									<c:set var="i" value="1" />
+									<c:forEach items="${faqSearchList}" var="list">
+										<div class="jlist_ej faqlist_ej">
+											<div class="faqlistrow_ej">
+												<span class="faqlistcell1_ej">${list.rNum}</span> <span class="faqlistcell2_ej">${list.up_category}&nbsp;&lt;&nbsp;${list.down_category}</span> <span class="faqlistcell3_ej number${i}_ej" onclick="content('${i}','${content}')">${list.title}</span>
+											</div>
+										</div>
+										<c:set var="i" value="${i+1}" />
+									</c:forEach>
+								</c:when>
 							</c:choose>
-
+							
+							<c:if test="${faqListCount==0}">
+								<div style="text-align: center;padding-top: 20px;">검색하신 질문이 존재하지 않습니다.</div>
+							</c:if>							
+							<c:if test="${faqListCount>0}">
 							<div class="page_ej">
-								<c:if test="${faqListCount>0}">
-									<fmt:parseNumber var="pageCount" value="${faqListCount / boardSize + (faqListCount%boardSize==0 ? 0:1)}" integerOnly="true" />
-									<c:set var="pageBlock" value="${5}" />
-									<fmt:parseNumber var="startPage" value="${((pageNumber-1)/pageBlock) }" integerOnly="true" />
-									<c:set var="startPage" value="${startPage*pageBlock+1}" />
-									<c:set var="endPage" value="${startPage+pageBlock-1 }" />
+								
+								<fmt:parseNumber var="pageCount" value="${faqListCount / boardSize + (faqListCount%boardSize==0 ? 0:1)}" integerOnly="true" />
+								<c:set var="pageBlock" value="${10}" />
+								<fmt:parseNumber var="startPage" value="${((pageNumber-1)/pageBlock) }" integerOnly="true" />
+								<c:set var="startPage" value="${startPage*pageBlock+1}" />
+								<c:set var="endPage" value="${startPage+pageBlock-1 }" />
 
-									<c:if test="${endPage > pageCount }">
-										<c:set var="endPage" value="${endPage=pageCount }" />
-									</c:if>
-									
-									<c:choose>
-									<c:when test="${downCategory eq null || downCategory==''}">
-									<c:if test="${startPage > pageBlock }">
-										<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${startPage-pageBlock}" style="color: #5cb38b;">&nbsp;&lt;&nbsp;</a>
-									</c:if>
-										<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
-											<c:choose>
-												<c:when test="${pageNumber==i}">
-													<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${i}" style="color: #5cb38b;">${i}</a>
-												</c:when>
-												<c:otherwise>
-													<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${i}" style="color: black">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-
-										<c:if test="${endPage < pageCount}">
-											<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${startPage+pageBlock }" style="color: #5cb38b;">&nbsp;&gt;&nbsp;</a>
-										</c:if>
-									</c:when>
-
-									<c:when test="${downCategory!='' || downCategory ne null}">
-									<c:if test="${startPage > pageBlock }">
-										<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${startPage-pageBlock}" style="color: #5cb38b;">&nbsp;&lt;&nbsp;</a>
-									</c:if>
-										<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
-											<c:choose>
-												<c:when test="${pageNumber==i}">
-													<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${i}" style="color: #5cb38b;">${i}</a>
-												</c:when>
-												<c:otherwise>
-													<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${i}" style="color: black">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-
-										<c:if test="${endPage < pageCount}">
-											<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${startPage+pageBlock }" style="color: #5cb38b;">&nbsp;&gt;&nbsp;</a>
-										</c:if>
-									</c:when>
-									</c:choose>
+								<c:if test="${endPage > pageCount }">
+									<c:set var="endPage" value="${endPage=pageCount }" />
 								</c:if>
+								
+								<c:choose>
+								<c:when test="${(downCategory eq null || downCategory=='')&&(search eq null || search=='')}">
+								<c:if test="${startPage > pageBlock }">
+									<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${startPage-pageBlock}" style="color: #5cb38b;">&nbsp;&lt;&nbsp;</a>
+								</c:if>
+									<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
+										<c:choose>
+											<c:when test="${pageNumber==i}">
+												<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${i}" style="color: #5cb38b;">${i}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${i}" style="color: black">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+									<c:if test="${endPage < pageCount}">
+										<a href="CustomerService_faq.do?up_category=${upCategory}&pageNumber=${startPage+pageBlock }" style="color: #5cb38b;">&nbsp;&gt;&nbsp;</a>
+									</c:if>
+								</c:when>
+								
+								<c:when test="${search ne null || search!=''}">
+								<c:if test="${startPage > pageBlock }">
+									<a href="CustomerService_faq.do?up_category=${upCategory}&search=${search}&pageNumber=${startPage-pageBlock}" style="color: #5cb38b;">&nbsp;&lt;&nbsp;</a>
+								</c:if>
+									<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
+										<c:choose>
+											<c:when test="${pageNumber==i}">
+												<a href="CustomerService_faq.do?up_category=${upCategory}&search=${search}&pageNumber=${i}" style="color: #5cb38b;">${i}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="CustomerService_faq.do?up_category=${upCategory}&search=${search}&pageNumber=${i}" style="color: black">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+									<c:if test="${endPage < pageCount}">
+										<a href="CustomerService_faq.do?up_category=${upCategory}&search=${search}&pageNumber=${startPage+pageBlock }" style="color: #5cb38b;">&nbsp;&gt;&nbsp;</a>
+									</c:if>
+								</c:when>
+
+								<c:when test="${downCategory!='' || downCategory ne null}">
+								<c:if test="${startPage > pageBlock }">
+									<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${startPage-pageBlock}" style="color: #000;">&nbsp;&lt;&nbsp;</a>
+								</c:if>
+									<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
+										<c:choose>
+											<c:when test="${pageNumber==i}">
+												<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${i}" style="color: #5cb38b;">${i}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${i}" style="color: black">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+									<c:if test="${endPage < pageCount}">
+										<a href="CustomerService_faq.do?up_category=${upCategory}&down_category=${downCategory}&pageNumber=${startPage+pageBlock }" style="color: #000;">&nbsp;&gt;&nbsp;</a>
+									</c:if>
+								</c:when>
+								</c:choose>
 							</div>
+							</c:if>
 						</div>
 					</div>
 				</div>

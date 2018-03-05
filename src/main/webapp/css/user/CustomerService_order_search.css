@@ -95,14 +95,14 @@ body {
 }
 
 .sub4_ej div:nth-child(2) {
-	width: 26%;
+	width: 49%;
 }
 
 .sub4_ej div:nth-child(3) {
 	background-image: url("../../images/CustomerService/minus5.png");
 	background-repeat: no-repeat;
 	background-position: 1px 4px;
-	width: 42%;
+	width: 19%;
 }
 
 .sub4_ej div:nth-child(4) {
@@ -121,6 +121,10 @@ body {
 	color: #000;
 	line-height: 25px;
 	text-align: center;
+}
+
+.page2_ej a:hover{
+	font-weight: bold;
 }
 
 .sub5_ej{
@@ -142,7 +146,7 @@ body {
 }
 
 .sub5_li1_ej{
-	width: 15%;
+	width: 16%;
     padding-left: 26px;
     cursor: pointer;
 }
@@ -153,15 +157,15 @@ body {
 }
 
 .sub5_li2_ej{
-    width: 22%;
+    width: 46%;
 }
 
 .sub5_li3_ej{
-	width: 38%;
+	width: 14%;
 }
 
 .sub5_li4_ej{
-    width: 13%;
+    width: 15%;
 }
 
 .sub_title_ej:hover{

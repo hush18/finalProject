@@ -338,59 +338,69 @@ public class ProController {
 		
 		return mav;
 	}
-
+	
+	// 고객센터 메인(TOP10) 이동
 	@RequestMapping(value = "/CustomerService_main.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_main(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		service.getTopTen(mav);
-		return mav;
+		return scroll(mav);
 	}
 
+	// 고객센터 1:1문의 이동
 	@RequestMapping(value = "/CustomerService_consulting.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_consulting(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("CustomerService_consulting.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.cstConsulting(mav);
+		return scroll(mav);
 	}
 
+	// 고객센터 1:1문의 데이터 입력
 	@RequestMapping(value = "/CustomerService_cstOk.do", method = RequestMethod.POST)
 	public ModelAndView CustomerService_cstOk(HttpServletRequest request, HttpServletResponse response, CstDto cstDto) {
 		ModelAndView mav = new ModelAndView();
-
 		mav.addObject("request", request);
 		mav.addObject("cstDto", cstDto);
 		service.cstOk(mav);
 
-		return mav;
+		return scroll(mav);
 	}
 
+	// 고객센터 1:1문의내역
 	@RequestMapping(value = "/CustomerService_consultingList.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_consultingList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.cstList(mav);
-		return mav;
+		return scroll(mav);
 	}
 
+	// 고객센터 FAQ 이동
 	@RequestMapping(value = "/CustomerService_faq.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_faq(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.getFaq(mav);
-		return mav;
+		return scroll(mav);
 	}
 
+	// 고객센터 1:1문의 주문 팝업창
 	@RequestMapping(value = "/CustomerService_order_search.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_order_search(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("CustomerService_order_search.empty");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.cstOrder(mav);
+		return scroll(mav);
 	}
 
+	// 고객센터 1:1문의 상품 팝업창
 	@RequestMapping(value = "/CustomerService_question_search.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_question_search(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.cstProduct(mav);
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
@@ -429,7 +439,6 @@ public class ProController {
 		mav.setViewName("bookInfo.users");
 		return scroll(mav);
 	}
-		
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -439,7 +448,6 @@ public class ProController {
 		
 		return mav;
 	}
-
 	@RequestMapping(value = "/eventPopup.do", method = RequestMethod.GET)
 	public ModelAndView popup(HttpServletRequest request, HttpServletResponse response) {
 
@@ -607,7 +615,11 @@ public class ProController {
 
 	@RequestMapping(value = "adminOrderSearch.do", method = RequestMethod.GET)
 	public ModelAndView adminOrderSearch(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminOrderSearch.admin");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.adminOrderSearch(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "adminSales.do", method = RequestMethod.GET)
@@ -621,6 +633,7 @@ public class ProController {
 		
 	}
 
+	// 관리자 1:1문의
 	@RequestMapping(value = "adminCstMain.do", method = RequestMethod.GET)
 	public ModelAndView adminCstMain(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -629,6 +642,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 1:1문의 답변
 	@RequestMapping(value = "adminCstInsertOk.do", method = RequestMethod.POST)
 	public ModelAndView adminCstInsertOk(HttpServletRequest request, HttpServletResponse response,
 			AdminCstDto adminCstDto) {
@@ -642,6 +656,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 1:1문의 답변수정
 	@RequestMapping(value = "adminCstUpdateOk.do", method = RequestMethod.POST)
 	public ModelAndView adminCstUpdateOk(HttpServletRequest request, HttpServletResponse response,
 			AdminCstDto adminCstDto) {
@@ -654,6 +669,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 1:1문의 삭제
 	@RequestMapping(value = "adminCstDeleteOk.do", method = RequestMethod.GET)
 	public ModelAndView adminCstDeleteOk(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -664,6 +680,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ 입력
 	@RequestMapping(value = "adminFaqInsertOk.do", method = RequestMethod.POST)
 	public ModelAndView adminFaqInsertOk(HttpServletRequest request, HttpServletResponse response,
 			AdminFaqDto adminFaqDto) {
@@ -677,6 +694,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 메인 FAQ 이동
 	@RequestMapping(value = "adminFaqMain.do", method = RequestMethod.GET)
 	public ModelAndView adminFaqMain(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -685,6 +703,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ수정
 	@RequestMapping(value = "adminFaqUpdate.do", method = RequestMethod.GET)
 	public ModelAndView adminFaqUpdate(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -695,6 +714,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ수정 입력
 	@RequestMapping(value = "adminFaqUpdateOk.do", method = RequestMethod.POST)
 	public ModelAndView adminFaqUpdateOk(HttpServletRequest request, HttpServletResponse response,
 			AdminFaqDto adminFaqDto) {
@@ -707,6 +727,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ TOP10
 	@RequestMapping(value = "adminFaqTopInsert.do", method = RequestMethod.GET)
 	public ModelAndView adminFaqTopInsert(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -717,6 +738,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ TOP10 삭제
 	@RequestMapping(value = "adminFaqTopDelete.do", method = RequestMethod.GET)
 	public ModelAndView adminFaqTopDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -727,6 +749,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ 삭제 완료
 	@RequestMapping(value = "adminFaqDeleteOk.do", method = RequestMethod.GET)
 	public ModelAndView adminFaqDeleteOk(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -735,16 +758,19 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 FAQ 입력
 	@RequestMapping(value = "adminFaqInsert.do", method = RequestMethod.GET)
 	public ModelAndView adminFaqInsert(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminFaqInsert.admin");
 	}
 
+	// 관리자 고객센터 공지사항 입력
 	@RequestMapping(value = "adminNctInsert.do", method = RequestMethod.GET)
 	public ModelAndView adminNctInsert(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("adminNctInsert.admin");
 	}
 
+	// 관리자 고객센터 공지사항 입력완료
 	@RequestMapping(value = "adminNctInsertOk.do", method = RequestMethod.POST)
 	public ModelAndView adminNctInsertOk(HttpServletRequest request, HttpServletResponse response,
 			AdminNctDto adminNctDto) {
@@ -758,6 +784,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 공지사항 메인
 	@RequestMapping(value = "adminNctMain.do", method = RequestMethod.GET)
 	public ModelAndView adminNctMain(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -768,6 +795,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 공지사항 삭제 완료
 	@RequestMapping(value = "adminNctDeleteOk.do", method = RequestMethod.GET)
 	public ModelAndView adminNctDeleteOk(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -778,6 +806,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 공지사항 수정
 	@RequestMapping(value = "adminNctUpdate.do", method = RequestMethod.GET)
 	public ModelAndView adminNctUpdate(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -788,6 +817,7 @@ public class ProController {
 		return mav;
 	}
 
+	// 관리자 고객센터 공지사항 수정 완료
 	@RequestMapping(value = "adminNctUpdateOk.do", method = RequestMethod.POST)
 	public ModelAndView adminNctUpdateOk(HttpServletRequest request, HttpServletResponse response,
 			AdminNctDto adminNctDto) {

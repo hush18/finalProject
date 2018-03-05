@@ -40,13 +40,27 @@ public class FaqDaoImp implements FaqDao {
 	}
 
 	@Override
-	public int faqListCount(String upCategory, String downCategory) {
-		System.out.println(upCategory+downCategory);
-		if(downCategory==null) {
+	public int faqListCount(String upCategory, String downCategory, String search) {
+		if(downCategory==null && search==null) {
 			return sqlSession.selectOne("upCount",upCategory);
-		}else{
+		}else if(downCategory!=null && search==null){
 			return sqlSession.selectOne("downCount",downCategory);
+		}else {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("upCategory", upCategory);
+			map.put("search", search);
+			return sqlSession.selectOne("searchCount",map);
 		}
+	}
+
+	@Override
+	public List<FaqDto> faqSearchList(String upCategory, String search,int startNum,int endNum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("upCategory", upCategory);
+		map.put("search", search);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		return sqlSession.selectList("faqSearchList",map);
 	}
 
 }

@@ -45,7 +45,7 @@
 						<c:forEach items="${cstProductList}" var="list">
 							<div class="qsub5_ej">
 								<ul>
-									<li class="qsub5_li1_ej"><a class="qsub_title_ej" style="color: #000;" href="javascript:cstPopValue('${list.title}')">${list.title}</a></li>
+									<li class="qsub5_li1_ej"><a class="qsub_title_ej" style="color: #000;" href="javascript:cstPopValue('${list.title}','product')">${list.title}</a></li>
 									<li class="qsub5_li2_ej">${list.name}</li>
 									<li class="qsub5_li3_ej">${list.write_date}</li>
 									<li class="qsub5_li4_ej">${list.price}</li>
@@ -69,7 +69,7 @@
 				</c:if>
 
 				<c:if test="${startPage > pageBlock }">
-					<a href="CustomerService_question_search.do?pageNumber=${startPage-pageBlock }&search=${search}" style="color: #5cb38b; text-decoration: none;">&nbsp;&lt;&nbsp;</a>
+					<a href="CustomerService_question_search.do?pageNumber=${startPage-pageBlock }&search=${search}" style="color: #000; text-decoration: none;">&nbsp;&lt;&nbsp;</a>
 				</c:if>
 				<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
 					<c:choose>
@@ -83,7 +83,7 @@
 				</c:forEach>
 
 				<c:if test="${endPage < pageCount}">
-					<a href="CustomerService_question_search.do?pageNumber=${startPage+pageBlock }&search=${search}" style="color: #5cb38b; text-decoration: none;">&nbsp;&gt;&nbsp;</a>
+					<a href="CustomerService_question_search.do?pageNumber=${startPage+pageBlock }&search=${search}" style="color: #000; text-decoration: none;">&nbsp;&gt;&nbsp;</a>
 				</c:if>
 			</c:if>
 		</div>

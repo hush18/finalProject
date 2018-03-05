@@ -58,9 +58,7 @@
 							<form action="adminCstDeleteOk.do" style="overflow-x: hidden; overflow-y: hidden;" method="post">
 								<div class="x_content" style="color: #000;">
 									<div class="button_div_ej">
-<!-- 										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej">삭제</button> -->
-<!-- 										<button type="button" class="btn btn-primary btn_ej" id="list_ej3" style="display: none;">취소</button> -->
-										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">삭제</button>
+										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2">삭제</button>
 									</div>
 									<table id="datatable" class="table table-striped table-bordered bulk_action jambo_table" style="width: 100%;">
 										<thead>
@@ -105,7 +103,7 @@
 														<a href="javascript:minus('${count}')" id="minus_ej${count}" class="float float_ej floatred_ej">
 															<i id="minus2_ej${count}" class="fa fa-minus my-float"></i>
 														</a>
-														<a onclick="insert('${list.counsel_number}')" class="paint-brush_ej brush2_ej" data-toggle="modal" data-target=".bs-example-modal-lg2">
+														<a onclick="insert('${list.counsel_number}','${list.admin_content}')" class="paint-brush_ej brush2_ej cstNumber${list.counsel_number}" data-target=".bs-example-modal-lg2">
 															<i class="fa fa-comment fa-comment_ej"></i>
 														</a>
 													</td>
@@ -124,7 +122,7 @@
 								</div>
 							</form>
 							<!-- 1:1상담 답변 dialog -->
-							<form class="form-horizontal form-label-left" action="adminCstInsertOk.do" method="post">
+							<form class="form-horizontal form-label-left" action="adminCstInsertOk.do" method="post" onsubmit="return cstEdit(this)">
 								<div id="dialog" class="modal fade bs-example-modal-lg2 in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-right: 17px;">
 									<div class="modal-dialog modal-lg modal-lg2_ej">
 										<div class="modal-content">
@@ -155,7 +153,7 @@
 							</form>
 
 							<!-- 1:1상담 답변수정 dialog -->
-							<form class="form-horizontal form-label-left" action=adminCstUpdateOk.do method="POST">
+							<form class="form-horizontal form-label-left" action=adminCstUpdateOk.do method="POST" onsubmit="return cstEdit(this)">
 								<div id="dialog" class="modal fade bs-example-modal-lg3 in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-right: 17px;">
 									<div class="modal-dialog modal-lg modal-lg2_ej">
 										<div class="modal-content">

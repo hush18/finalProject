@@ -19,18 +19,23 @@ public class CstListDaoImp implements CstListDao {
 
 	@Override
 	public int cstListCount(String id) {
-		LogAspect.logger.info(LogAspect.logMsg + "id: " +id);
 		return sqlSession.selectOne("cstListCount",id);
 	}
 
 	@Override
-	public List<CstListDto> cstList(String id, int startNum,int endNum) {
+	public List<CstListDto> cstList(String id, int startNum,int endNum,String date) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
+		map.put("date", date);
 		
-		return sqlSession.selectList("userCstList",map);
+		if(date.equals("7")|| date.equals("15")) {
+			return sqlSession.selectList("userCstList",map);
+		}else {
+			return sqlSession.selectList("userCstList2",map);
+		}
+		
 	}
 
 }

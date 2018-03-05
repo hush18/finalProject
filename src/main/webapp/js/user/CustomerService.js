@@ -26,7 +26,7 @@ function cstReply(i,con, Acon, Adate){
 		
 		if(Acon!=""){
 			var divap = $("<div class='top_content_ej'></div>").css("overflow","hidden");
-			var p = $("<p>"+Acon+"</p>").after("<p class='date_ej'>답변 날짜:nbsp;"+Adate+"</p>");
+			var p = $("<p>"+Acon+"</p>").append("<p class='date_ej'>답변 날짜:&nbsp;"+Adate+"</p>");
 			div.append(divap.append(p));
 		}
 		$(".number"+i+"_ej").parent().after(div);
@@ -38,6 +38,18 @@ function content(i,con){
 		var div = $("<div class='top_content_ej'></div>").append("<p>"+con+"</p>");
 		$(".number"+i+"_ej").parent().after(div);
 	});
+}
+
+function up_search(obj){
+	if(obj.up_category.value=="default"){
+		alert("FAQ분류를 선택해 주세요.");
+		return false;
+	}
+	
+	if(obj.search.value==""){
+		alert("질문명을 입력해 주세요.");
+		return false;
+	}
 }
 
 $(function(){

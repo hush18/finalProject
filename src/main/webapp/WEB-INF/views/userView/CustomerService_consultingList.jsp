@@ -106,28 +106,27 @@
 					</div>
 				</div>
 				<div class="content_ej">
+					<form action="CustomerService_faq.do" method="get" onsubmit="return up_search(this)">
 					<div class="search_ej">
-						<form>
 							<div class="search_choice_ej">
-								<select>
-									<option>FAQ 분류</option>
-									<option>회원</option>
-									<option>상품</option>
-									<option>입금/결제</option>
-									<option>취소/교환/환불</option>
-									<option>주문</option>
-									<option>배송</option>
-									<option>적립</option>
+								<select name="up_category">
+									<option value="default">FAQ 분류</option>
+									<option value="회원">회원</option>
+									<option value="상품">상품</option>
+									<option value="입금/결제">입금/결제</option>
+									<option value="취소/교환/환불">취소/교환/환불</option>
+									<option value="주문">주문</option>
+									<option value="배송">배송</option>
+									<option value="적립">적립</option>
 								</select>
 							</div>
 
 							<div class="search_sub_ej">
 								<input type="text" name="search" size="40" />
-								<button type="submit" class="btn-all btn_ej" style="height: 27px; padding-top: 0px;">검색</button>
-								>
+								<button type="submit" class="btn-all btn_ej up_search_ej" style="height: 27px; padding-top: 0px;">검색</button>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 
 					<div class="FAQ_TOP_ej">
 						<div class="FAQ_TOP_1_ej">
@@ -140,7 +139,10 @@
 						<div class="sub3_ej">
 							<div>기간별 조회&nbsp;&nbsp;&nbsp;|</div>
 							<div>
-								<a href="#">15일</a> <a href="#">1개월</a> <a href="#">2개월</a> <a href="#">3개월</a>
+								<a href="CustomerService_consultingList.do?date=15">15일</a> 
+								<a href="CustomerService_consultingList.do?date=1">1개월</a> 
+								<a href="CustomerService_consultingList.do?date=2">2개월</a> 
+								<a href="CustomerService_consultingList.do?date=3">3개월</a>
 							</div>
 						</div>
 						<div class="sub4_ej">
@@ -149,6 +151,12 @@
 							<div>상담명</div>
 							<div>답변유무</div>
 						</div>
+						
+						<c:if test="${cstList.size()==0}">
+							<div style="text-align: center; font-size: 15px; padding: 10px;">${date}일동안의 문의가 존재하지 않습니다.</div>
+						</c:if>
+						
+						<c:if test="${cstList.size()>0}">
 						<c:set value="0" var="count" />
 						<c:forEach items="${cstList}" var="list">
 							<fmt:formatDate value="${list.admin_write_date}" pattern="yyyy-MM-dd" var="Awrite_date"/>
@@ -164,6 +172,7 @@
 							</div>
 							<c:set var="count" value="${count + 1}" />
 						</c:forEach>
+						
 						<div class="page_ej">
 							<c:if test="${listCount>10 }">
 								<fmt:parseNumber var="pageCount" value="${listCount / boardSize + (listCount%boardSize==0 ? 0:1)}" integerOnly="true" />
@@ -195,6 +204,7 @@
 								</c:if>
 							</c:if>
 						</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

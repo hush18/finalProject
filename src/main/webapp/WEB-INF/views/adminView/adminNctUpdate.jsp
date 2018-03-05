@@ -47,7 +47,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="form-horizontal form-label-left" action="adminNctUpdateOk.do" method="post">
+									<form class="form-horizontal form-label-left" action="adminNctUpdateOk.do" method="post" onsubmit="return nctEdit(this)">
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">제목</label>
 											<div class="col-md-9 col-sm-9 col-xs-12">
@@ -88,19 +88,21 @@
 		</div>
 	</div>
 
-	<!-- FastClick -->
-	<script src="vendors/fastclick/lib/fastclick.js"></script>
-	<!-- iCheck -->
-	<script src="vendors/iCheck/icheck.min.js"></script>
-	<!-- DateJS -->
-	<script src="vendors/DateJS/build/date.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="vendors/moment/min/moment.min.js"></script>
-	<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<script type="text/javascript">
-		$("#reset_ej").click(function() {
-			$("#textContent_ej").val('');
-		});
-	</script>
+<!-- FastClick -->
+<script src="vendors/fastclick/lib/fastclick.js"></script>
+<!-- iCheck -->
+<script src="vendors/iCheck/icheck.min.js"></script>
+<!-- DateJS -->
+<script src="vendors/DateJS/build/date.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="vendors/moment/min/moment.min.js"></script>
+<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript">
+	$("#reset_ej").click(function() {
+		$("#textContent_ej").val('');
+	});
+</script>
+<!-- FAQ Scripts -->
+<script src="js/admin/ntcMain.js"></script>
 </body>
 </html>

@@ -101,6 +101,10 @@ body {
 	text-align: center;
 }
 
+.page2_ej a:hover{
+	font-weight: bold;
+}
+
 .qsearch_sub_ej {
 	float: left;
 	margin: 13px 0 0 175px;

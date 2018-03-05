@@ -64,19 +64,18 @@
 								<div class="x_content" style="color: #000;">
 									<div class="button_div_ej">
 										<button type="button" class="btn btn-primary btn_ej" onclick="location.href='adminFaqInsert.do'">추가</button>
-<!-- 										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej" onclick="javascript:faqDelete()">삭제</button> -->
-										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">삭제</button>
+										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2">삭제</button>
 									</div>
 									<table id="datatable" class="table table-striped table-bordered bulk_action jambo_table" style="width: 100%;">
 										<thead>
 											<tr id="ftr">
-												<th class="checkbox_ej" style="width: 3%;">
+												<th class="checkbox_ej" style="width: 10px;">
 													<input type="checkbox" id="check-all" class="flat" name="check_ej">
 												</th>
-												<th class="column-title" style="width: 8%; text-align: center;">번호</th>
-												<th class="column-title" style="width: 10%; text-align: center;">질문유형</th>
-												<th class="column-title" style="width: 64%; text-align: center;">제목</th>
-												<th class="column-title" style="width: 8%; text-align: center;">TOP10</th>
+												<th class="column-title" style="width: 50px; text-align: center;">번호</th>
+												<th class="column-title" style="width: 100px; text-align: center;">질문유형</th>
+												<th class="column-title" style="width: 400px; text-align: center;">제목</th>
+												<th class="column-title" style="width: 10px; text-align: center;">TOP10</th>
 												<th class="bulk-actions" colspan="7">
 													<a class="antoo" style="color: #5cb38b; font-weight: 500;">
 														체크 (
@@ -107,16 +106,16 @@
 														<a href="javascript:minus('${count}')" id="minus_ej${count}" class="float float_ej floatred_ej">
 															<i id="minus2_ej${count}" class="fa fa-minus my-float"></i>
 														</a>
-														<a href="javascript:adminFaqUpdate('${list.faq_number}','${pageNumber}')" class="paint-brush_ej">
+														<a href="adminFaqUpdate.do?faq_number=${list.faq_number}" class="paint-brush_ej">
 															<i class="fa fa-paint-brush brush_ej"></i>
 														</a>
 													</td>
 													<td class="">
 														<c:if test="${list.is_top_ten eq '0'}">
-															<button type="button" class="btn btn-success btn-xs topten_ej" onclick="location.href='adminFaqTopInsert.do?faq_number=${list.faq_number}'">추가</button>
+															<button type="button" class="btn btn-success btn-xs topten_ej" onclick="topInsert('${list.faq_number}')">추가</button>
 														</c:if>
 														<c:if test="${list.is_top_ten eq '1'}">
-															<button type="button" class="btn btn-success btn-xs topten_ej" onclick="location.href='adminFaqTopDelete.do?faq_number=${list.faq_number}'">삭제</button>
+															<button type="button" class="btn btn-success btn-xs topten_ej ttcount_ej" onclick="location.href='adminFaqTopDelete.do?faq_number=${list.faq_number}'">삭제</button>
 														</c:if>
 													</td>
 												</tr>
@@ -152,7 +151,7 @@
 				</div>
 				<div class="modal-footer">
 					<button id="btn_no" type="button" class="btn" data-dismiss="modal" onclick="adminFaqMain.do">NO</button>
-					<button type="button" class="btn btn-primary btn_ej" onclick="javascript:adminFaqDelete('${pageNumber}')">YES</button>
+					<button type="button" class="btn btn-primary btn_ej" onclick="javascript:adminFaqDelete()">YES</button>
 				</div>
 			</div>
 		</div>

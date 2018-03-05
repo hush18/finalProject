@@ -77,10 +77,13 @@ public interface ServiceInterface {
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
 	public void cstProduct(ModelAndView mav);
+	public void cstOrder(ModelAndView mav);
+	public void cstConsulting(ModelAndView mav);
 	public void cstOk(ModelAndView mav);
 	public void cstList(ModelAndView mav);
 	public void loginMember(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
+	public void adminOrderSearch(ModelAndView mav);
 }
 

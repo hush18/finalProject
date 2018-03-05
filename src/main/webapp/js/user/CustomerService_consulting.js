@@ -31,9 +31,85 @@ $(function(){
 			}
 		});
 	});
+	
+	$("input[name=up_category]").click(function(){
+			$("input[name=order_number]").val("");
+			$("input[name=counsel_product]").val("");
+	});
+	
+	$(".up_search_ej").click(function(){
+    	
+    });
 });
 
-function cstPopValue(title){
-	$(opener.document).find("input[name=counsel_product]").val(title);
+function cstPopValue(title,popName){
+	if(popName=="product"){
+		$(opener.document).find("input[name=counsel_product]").val(title);
+	}else{
+		$(opener.document).find("input[name=order_number]").val(title);
+	}
 	self.close();
+}
+
+function userCst(obj){
+	if(obj.up_category.value==""){
+		alert("문의유형을 선택해 주세요.");
+		return false;
+	}
+	
+	if(obj.down_category.value==""){
+		alert("세부유형을 선택해 주세요.");
+		return false;
+	}
+	
+	if(obj.title.value == ""){
+		alert("제목을 입력해 주세요.");
+		obj.title.focus();
+		return false;
+	}
+	
+	if(obj.content.value == ""){
+		alert("내용을 입력해 주세요.");
+		obj.content.focus();
+		return false;
+	}
+	
+	if(obj.emailing.value==""){
+		alert("답변 여부를 확인해 주세요.");
+		return false;
+	}
+	
+	if(obj.emailing.value==1){
+		if(obj.email.value==""){
+			alert("이메일을 작성해 주세요.");
+			return false;
+		}
+	}
+	
+	var limit = /["']/;
+	title = obj.title.value.match(limit);
+	if(title!=null){
+		alert("특수문자(\",\')는 입력할 수 없습니다.");
+		obj.title.focus();
+		return false;
+	}
+	
+	content = obj.content.value.match(limit);
+	if(content!=null){
+		alert("특수문자(\",\')는 입력할 수 없습니다.");
+		obj.content.focus();
+		return false;
+	}
+}
+
+function up_search(obj){
+	if(obj.up_category.value=="default"){
+		alert("FAQ분류를 선택해 주세요.");
+		return false;
+	}
+	
+	if(obj.search.value==""){
+		alert("질문명을 입력해 주세요.");
+		return false;
+	}
 }
