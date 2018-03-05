@@ -38,7 +38,7 @@
 
 	
 	//유효성 검사
-	/* function diapForm(obj){
+	 function diapForm(obj){
 	//	alert("OK");
 		if($("input[name=id]").val()=="" || $("input[name=id]").val()=="아이디" || $("input[name=id]").val()=="아이디를 입력하세요."){
 			alert("아이디를 입력하세요.")
@@ -51,7 +51,7 @@
 			$("input[name=password]").focus();
 			return false;
 		}
-	} */
+	} 
 </script>
 <script type="text/javascript" src="script/scrollBanner.js"></script>
 </head>

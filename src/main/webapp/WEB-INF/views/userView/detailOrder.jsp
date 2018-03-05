@@ -37,23 +37,25 @@
 		$(".change_cancel").click(function(){
 			var order_status=$('input[name="order_status"]').val();
 			var order_number=$('input[name="order_number"]').val();
- 			if(order_status > 3){
- 				var url="orderDelete.do?order_number="+order_number+"&pageStatus=6";
- 			}
+			var url="";
 			
-			/* var status=$(this).parents().find("#status").text();
- 			alert(status);
- 			var order_number=$(this).parents().find("#order_number").text();
- 			if(status=="1"){
- 				var url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
- 				alert(url);
-				//$(location).attr('href', url);
+ 			if(order_status == 0){
+ 				alert("주문을 취소하겠습니다.");
+ 				url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
+				$(location).attr('href', url); 				
+ 			}else if(order_status == 31){
+ 				alert("이미 취소요청된 주문입니다. 다시 주문하시려면 취소/반품/교환 목록으로 가세요");
+ 				history.back();
+ 			}else if(order_status == 11 || order_status == 21){
+ 				alert("배송을 처음부터 다시 시작하겠습니다.");
+ 				url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=1";
+ 				$(location).attr('href', url);	
+ 			}else if(order_status == 3 || order_status == 4){
+ 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");	
  			}else{
-				var url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
-				alert(url);
+ 				url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
 				$(location).attr('href', url);
- 				
- 			} */
+ 			}
  		});
 	});
 </script>

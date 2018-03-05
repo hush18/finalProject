@@ -21,7 +21,6 @@
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
 		$(".orderManager_mh > .title_mh").trigger('click');
@@ -30,11 +29,6 @@
 			var url="ordering.do?list_id="+$(this).val();
 			$(location).attr('href', url);
 		})
-		
-		var list_id=$('input[type="hidden"]').val();
-		if(list_id=="") list_id="0";
-		$("#ordering_array option:selected").removeAttr("selected"); 
- 		$("#ordering_array").val(list_id).attr("selected", "selected");
  		
  		$(".change_exchange").click(function(){
  			var status=$(this).parent().parent().find(".status").text();

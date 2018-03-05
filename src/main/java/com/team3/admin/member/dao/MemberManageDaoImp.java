@@ -7,6 +7,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.team3.user.member.dto.MemberDto;
 
@@ -31,10 +33,13 @@ public class MemberManageDaoImp implements MemberManageDao {
 	public List<MemberDto> adminGetPassword() {
 		return sqlSession.selectList("getPassword");
 	}
-
+	
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	@Override
-	public int adminMemberDelete(int member_number) {
-		return sqlSession.delete("adminMemberDelete", member_number);
+	public int adminMemberDelete(String id) {
+		sqlSession.delete("adminOrderDelete", id);
+		sqlSession.delete("adminCartDelete", id);
+		return sqlSession.delete("adminMemberDelete", id);
 	}
 	
 	

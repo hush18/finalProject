@@ -3,6 +3,8 @@
  */
 
 $(function(){
+	$(".client_mh > .title_mh").trigger('click');
+	
 	$("#orderSearch").click(function(){
 		window.open("CustomerService_order_search.do","","width=500 ,height=450");
 	});

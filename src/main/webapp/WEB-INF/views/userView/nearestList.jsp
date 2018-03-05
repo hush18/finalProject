@@ -17,6 +17,8 @@
 <c:set var="root" value="${pageContext.request.contextPath }"/>
 <script type="text/javascript">
 	$(function(){
+		$(".wishList_mh > .title_mh").trigger('click');
+		
 		$(".checkAll_sc").click(function(){
 			if($(".checkAll_sc").prop("checked")){
 				$(".checkBook_sc").each(function(){
@@ -105,7 +107,7 @@
 						<ul>
 							<li><a href="nearestList.do">최근본 상품</a></li>
 							<li><a href="wishList.do">위시리스트</a></li>
-							<li><a href="buyList.do">장바구니</a></li>
+							<li><a href="cart.do">장바구니</a></li>
 						</ul>
 					</div>
 				</div>

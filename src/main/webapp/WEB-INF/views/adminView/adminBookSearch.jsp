@@ -8,7 +8,7 @@
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
-<title>㈜산책 도서 검색</title>
+<title>㈜산책 도서검색</title>
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 관리자 도서검색 -->

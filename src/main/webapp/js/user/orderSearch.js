@@ -2,13 +2,8 @@
  * 
  */
 
-$(function(){
-		//정렬 방식 변경 이벤트
-		$("#array").change(function(){
-			var url="cart.do?list_id="+$(this).val();
-			$(location).attr('href', url);
-		})
-		
+$(function(){	
+		//정렬방식 변경
 		var list_id=$('input[name="listId"]').val();
 		if(list_id=="") list_id="0";
 		$("#array option:selected").removeAttr("selected"); 
@@ -72,8 +67,6 @@ $(function(){
 			var isbnList="";
 			var amountList="";
 			$(".checkBook_sc:checked").each(function() {
-				/*var isbn="";
-				var amount="";*/
 				var amount=$(this).parent().parent().children().find('input[name="cart_amount"]').val();
 				amountList+=amount+",";
 				
@@ -135,7 +128,6 @@ $(function(){
 			});
 			var list_id=$('input[name="listId"]').val();
 			var cart_pageNumber=$('input[name="cart_pageNumber"]').val();
-			alert(isbnList);
 			var url="cartListDelete.do?isbnList="+isbnList+"&list_id="+list_id+"&cart_pageNumber="+cart_pageNumber;
 			$(location).attr('href', url);
 		})

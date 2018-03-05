@@ -77,7 +77,7 @@
 </head>
 <body>
 	<div class="box_line_mh">
-		<input type="hidden" name="member_number" value="${member_number }"/>
+		<input type="hidden" name="id" value="${id }"/>
 		<div class="sub_mh">
 			<c:if test="${member_number<1000 }">
 				<p>본 계정은 관리자 계정입니다. 삭제 시 유의해주십시오.</p>
@@ -99,12 +99,12 @@
 <script type="text/javascript">
 $(function(){ 
 	$("button[name=submit]").click(function() {
-		var member_number=$("input[name=member_number]").val();
+		var id=$("input[name=id]").val();
 		var password=$("input[name=password]").val();
 		
 		var value=confirm("삭제할 경우 재사용 및 복구가 불가능합니다. 정말로 삭제하시겠습니까?");
 		if(value==true){
-			location.href="adminMemberDeleteOK.do?member_number="+member_number+"&password="+password;
+			location.href="adminMemberDeleteOK.do?id="+id+"&password="+password;
 		}else{
 			return false;
 		}
