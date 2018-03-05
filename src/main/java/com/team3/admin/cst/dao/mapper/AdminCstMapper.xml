@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="cstList" resultType="com.team3.admin.cst.dto.AdminCstDto">
-  		<![CDATA[select * from(select rownum rnum, a.* from counsel a)]]>
+  		select * from counsel order by write_date desc
   	</select>
   	
   	<update id="cstInsert" parameterType="com.team3.admin.cst.dto.AdminCstDto">
