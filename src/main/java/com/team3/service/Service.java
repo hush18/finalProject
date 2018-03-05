@@ -5,9 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -54,6 +51,7 @@ import com.team3.user.interest.dto.InterestDto;
 import com.team3.user.map.dao.PaymentDao;
 import com.team3.user.map.dto.PaymentDto;
 import com.team3.user.map.dto.PaymentPointDto;
+import com.team3.user.map.dto.PointDto;
 import com.team3.user.member.dto.MemberAddressDto;
 import com.team3.user.member.dto.MemberDto;
 import com.team3.user.order.dao.OrderDao;
@@ -763,7 +761,7 @@ public class Service implements ServiceInterface {
 
 		check = adminMapDao.mapUpdate(mapDto);
 		LogAspect.logger.info(LogAspect.logMsg + check);
-		if (check > 0) {
+		if (check > 0&&mapDto.getImg_path()!=null) {
 			deleteFile(oldPathList);
 		}
 
@@ -1218,25 +1216,26 @@ public class Service implements ServiceInterface {
 			}
 			
 		}
-		
-
 	@Override
 	public void payment(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		String isbn=request.getParameter("isbn");
+		
 		String[] isbnList=isbn.split(",");
 		String trantIsbn="";
+		
 		for(int i=0;i<isbnList.length;i++) {
 			trantIsbn+=isbnList[i];
 		}
+		
 		HttpSession session = request.getSession(); //세션받기 ID
 		MemberDto memberDto=memberDao.updateAccount(session);
 		
 		LogAspect.logger.info(LogAspect.logMsg +isbnList.length);
 		
-		if(isbnList.length==1) {
+		if(request.getParameter("val").equals("1")) {
 			int quantity=Integer.parseInt(request.getParameter("quantity").split(",")[0]);
 			LogAspect.logger.info(LogAspect.logMsg +isbn+"\t"+quantity);
 			
@@ -1245,7 +1244,7 @@ public class Service implements ServiceInterface {
 			mav.addObject("quantity",quantity);
 			mav.addObject("length",isbnList.length);
 			mav.addObject("isbn",isbn);
-		}else if(isbnList.length>1) {
+		}else if(request.getParameter("val").equals("2")) {
 			String quantity=request.getParameter("quantity");
 			String[] quantityList=quantity.split(",");
 			String transQuantity="";
@@ -1286,7 +1285,7 @@ public class Service implements ServiceInterface {
 	@Override
 	public void getFaq(ModelAndView mav) {
 		List<FaqDto> faqDtoList = faqDao.getTopTenList();
-
+		
 		for (int i = 0; i < faqDtoList.size(); i++) {
 			faqDtoList.get(i).setContent(faqDtoList.get(i).getContent().replace("\r\n", "<br />"));
 		}
@@ -1295,11 +1294,14 @@ public class Service implements ServiceInterface {
 		mav.setViewName("CustomerService_faq.users");
 	}
 
-
 	@Override
 	public void paymentOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		int flag=0;
+		if(request.getParameter("flag")!=null)
+			flag=Integer.parseInt(request.getParameter("flag"));
 		
 		PaymentPointDto paymentPointDto=(PaymentPointDto)map.get("paymentPointDto");
 		OrderDto orderDto=(OrderDto) map.get("orderDto");
@@ -1325,8 +1327,24 @@ public class Service implements ServiceInterface {
 		hmap.put("sales_total", orderDto.getTotal_price()+paymentPointDto.getPoint_history());
 		hmap.put("save_point",(paymentPointDto.getSave_point()-paymentPointDto.getPoint_history()));
 		hmap.put("id",orderDto.getId());
+		hmap.put("goods",orderDto.getGoods());
 		
-		int check=paymentDao.paymentOk(paymentPointDto,orderDto,hmap);
+		String[] goods=((String)hmap.get("goods")).split("/");
+		if(flag==1)
+			LogAspect.logger.info(LogAspect.logMsg+goods.length);
+		
+		HashMap<String, Object> cartMap=new HashMap<String, Object>();
+		ArrayList<String>isbnList=null;
+		if(flag==1) {
+			isbnList=new ArrayList<String>();
+			for(int i=0;i<goods.length;i++) {
+				isbnList.add(goods[i]+"/");
+			}
+		}
+		cartMap.put("id", orderDto.getId());
+		cartMap.put("isbnList", isbnList);
+		
+		int check=paymentDao.paymentOk(paymentPointDto,orderDto,hmap,cartMap);
 		LogAspect.logger.info(LogAspect.logMsg+"paymentOk check : "+check);
 		mav.addObject("check",check);
 		mav.setViewName("paymentOk.users");
@@ -2482,5 +2500,36 @@ public class Service implements ServiceInterface {
 //			mav.addObject("list_id", list_id);
 //			mav.addObject("check", Integer.parseInt(check));
 		}
+	}
+	
+	@Override
+	public void userPoint(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		int point=0;
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			int check=1;
+			List<PointDto>list=paymentDao.selectPoint(id);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			for(int i=0;i<list.size();i++) {
+				list.get(i).setStr_order_date(sdf.format(list.get(i).getOrder_date()));
+			}
+			point=(int)list.get(0).getPoint();
+			
+			HashMap<String, Object> selectMap=paymentDao.selectState(id);
+			
+			mav.addObject("check",check);
+			mav.addObject("point",point);
+			mav.addObject("list",list);
+			mav.addObject("selectMap",selectMap);
+			mav.setViewName("userPointView.users");
+		}else {
+			int check=0;
+			mav.addObject("check",check);
+			mav.setViewName("userPointView.users");
+		}
+		
 	}
 }

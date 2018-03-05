@@ -86,7 +86,123 @@ $(function() {
 		}
 	});
 	
-	$("#payment_submit").click(function() {
+	$("div[class='btn_div_yk'] #payment_submit").click(function() {
+		if($("input[name='receive_name']").val()==""){
+			alert("받으실 분 이름을 입력하세요.")
+			$("input[name='receive_name']").focus();
+			return false;
+		}
+		if($("input[name='cellphone_second']").val()==""){
+			alert("휴대폰 첫번째 번호를 입력하세요.")
+			$("input[name='cellphone_second']").focus();
+			return false;
+		}
+		if($("input[name='cellphone_third']").val()==""){
+			alert("휴대폰 두번째 번호를 입력하세요.")
+			$("input[name='cellphone_third']").focus();
+			return false;
+		}
+		if($("input[name='telephone_second']").val()==""){
+			alert("집전화번호 첫번째 자리를 입력하세요.")
+			$("input[name='telephone_second']").focus();
+			return false;
+		}
+		if($("input[name='telephone_third']").val()==""){
+			alert("집전화번호 두번째 자리를 입력하세요.")
+			$("input[name='telephone_third']").focus();
+			return false;
+		}
+		if($("input[name='member_zipcode']").val()==""&&$("input[name='member_address']").val()==""&&$("input[name='member_detail_address']").val()==""){
+			alert("받으시는 분 주소를 입력하세요.")
+			return false;
+		}
+		if($("input[name='delivery_msg']").val()==""){
+			alert("배송메세지를 입력하세요.")
+			$("input[name='delivery_msg']").focus();
+			return false;
+		}
+		if(!$("input[name='payment']").is(':checked')){
+			alert("결제하실 방법을 선택하세요.")
+			return false;
+		}
+		if($("input[name='payment']:checked").val()=="direct_deposit"&& $("input[name='depositor']").val()==""){
+			alert("입금자명을 입력하세요.")
+			$("input[name='depositor']").focus();
+			return false;
+		}
+		
+		if($("input[name='payment']:checked").val()=="credit_card"){
+			if($("select[name='card']").val()=="카드사 선택"){
+				alert("카드사를 선택하세요.")
+				$("select[name='card']").focus();
+				return false;
+			}
+			if($("input[name='credit_card_1']").val()==""){
+				alert("카드번호를 입력하세요.")
+				$("input[name='credit_card_1']").focus();
+				return false;
+			}
+			if($("input[name='credit_card_2']").val()==""){
+				alert("카드번호를 입력하세요.")
+				$("input[name='credit_card_2']").focus();
+				return false;
+			}
+			if($("input[name='credit_card_3']").val()==""){
+				alert("카드번호를 입력하세요.")
+				$("input[name='credit_card_3']").focus();
+				return false;
+			}
+			if($("input[name='credit_card_4']").val()==""){
+				alert("카드번호를 입력하세요.")
+				$("input[name='credit_card_4']").focus();
+				return false;
+			}
+		}
+		if($("input[name='payment']:checked").val()=="phone_payment"){
+			if(!$("input[name='news_agency']").is(":checked")){
+				alert("통신사를 선택하세요.")
+				return false;
+			}
+			if($("input[name='phone_payment_second']").val()==""){
+				alert("가운데 번호를 입력하세요.")
+				$("input[name='phone_payment_second']").focus();
+				return false;
+			}
+			if($("input[name='phone_payment_third']").val()==""){
+				alert("끝 번호를 입력하세요.")
+				$("input[name='phone_payment_third']").focus();
+				return false;
+			}
+			if($("div[id='phone_payment'] input[name='Resident_registration_number_first']").val()==""){
+				alert("주민등록번호 앞자리를 입력하세요.")
+				$("div[id='phone_payment'] input[name='Resident_registration_number_first']").focus();
+				return false;
+			}
+			if($("div[id='phone_payment'] input[name='Resident_registration_number_second']").val()==""){
+				alert("주민등록번호 뒷자리를 입력하세요.")
+				$("div[id='phone_payment'] input[name='Resident_registration_number_second']").focus();
+				return false;
+			}
+		}
+		
+		if($("input[name='payment']:checked").val()=="realtime_account_transfer"){
+			if($("input[name='account_number']").val()==""){
+				alert("계좌번호를 입력하세요.")
+				$("input[name='account_number']").focus();
+				return false;
+			}
+			
+			if($("div[id='realtime_account_transfer'] input[name='Resident_registration_number_first']").val()==""){
+				alert("주민등록번호 앞자리를 입력하세요.")
+				$("div[id='realtime_account_transfer'] input[name='Resident_registration_number_first']").focus();
+				return false;
+			}
+			if($("div[id='realtime_account_transfer'] input[name='Resident_registration_number_second']").val()==""){
+				alert("주민등록번호 뒷자리를 입력하세요.")
+				$("div[id='realtime_account_transfer'] input[name='Resident_registration_number_second']").focus();
+				return false;
+			}
+		}
 		
 		if($("input[name='member_detail_address']").val()!=""){
 			var receive_addr=$("input[name='member_address']").val()+" "+$("input[name='member_detail_address']").val();

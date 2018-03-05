@@ -36,4 +36,38 @@
   	<update id="update_member" parameterType="java.util.HashMap">
   		update member set point=point+#{save_point} where id=#{id}
   	</update>
+  	
+  	<delete id="pay_delete_cart" parameterType="java.util.HashMap">
+  		delete from cart
+  		<where>
+  			id=#{id} and state=0 and isbn in
+	  		<foreach item="listval" collection="isbnList" open="(" close=")" separator=",">
+	  			#{listval}
+	  		</foreach>
+  		</where>
+  	</delete>
+  	
+  	<select id="selectPoint" parameterType="String" resultType="com.team3.user.map.dto.PointDto">
+  		SELECT m.id,p.order_number,o.title,o.total_price,o.order_date,p.point_history,p.save_point,m.point
+		FROM PAYMENT_POINT p,ORDER_DELIVERY o,MEMBER m
+		WHERE p.ORDER_NUMBER=o.ORDER_NUMBER AND o.ID=m.ID and m.id=#{id}
+  	</select>
+  	
+  	<select id="orderingCount" parameterType="String" resultType="int">
+  		select count(*) from order_delivery where id=#{id} and order_status in (0,1,2,3,4)
+  	</select>
+  	
+  	<select id="deliveryCount" parameterType="String" resultType="int">
+  		select count(*) from order_delivery where id=#{id} and order_status in (5)
+  	</select>
+  	
+  	<select id="cancelCount" parameterType="java.util.HashMap" resultType="int">
+  		select count(*) from order_delivery where id=#{id} and order_status in 
+  		<foreach collection="list" item="index" open="(" close=")" separator=",">
+  			#{index}
+  		</foreach>
+  	</select>
   </mapper>
+  
+  
+  

@@ -10,8 +10,17 @@
 <link rel="stylesheet" href="css/user/payment.css">
 <link rel="stylesheet" href="css/user/btn_yk.css">
 <script type="text/javascript" src="js/user/payment.js"></script>
+<c:set var="root" value="${pageContext.request.contextPath }"/>
 </head>
 <body>
+	<script type="text/javascript">
+		$(function () {
+			var root="${root}";
+			$("button[name='find_zipcode']").click(function() {
+				window.open(root+"/zipcode.do","", "width=400, height=400, scroll=yes");
+			});
+		});
+	</script>
 	<div class="widthline">
 		<h2 class="h2-hr">주문상품 확인</h2>
 		
@@ -27,7 +36,7 @@
 					<div style="width: 15%; border-right: 0px;">주문 금액 합계</div>
 				</div>
 			</c:if>
-			<c:if test="${count>1 }">
+			<c:if test="${count>=0 }">
 				<div class="order_item_subject_yk">
 					<div style="width: 36%;">주문상품</div>
 					<div style="width: 15%;">수량</div>
@@ -58,7 +67,7 @@
 					<div style="width: 15%; border-right: 0px;">${Allprice }원</div>
 				</div>
 			</c:if>
-			<c:if test="${count>1 }">
+			<c:if test="${count>=0 }">
 				<div class="order_item_list_yk">
 					<c:set var="shppingCharge"/>
 					<c:if test="${price>10000 }">
@@ -67,8 +76,14 @@
 					<c:if test="${price<=10000 }">
 						<c:set var="shppingCharge" value="3000"/>
 					</c:if>
-					<div id="title" style="width: 36%;">${bookDto.title } 외 ${bookListSize } 개</div>
-					<div style="width: 15%;">총 ${count } 개</div>
+					<c:if test="${count>1 }">
+						<div id="title" style="width: 36%;">${bookDto.title } 외 ${bookListSize } 개</div>
+						<div style="width: 15%;">총 ${count } 개</div>
+					</c:if>
+					<c:if test="${count==1 }">
+						<div id="title" style="width: 36%;">${bookDto.title }</div>
+						<div style="width: 15%;">${count } 개</div>
+					</c:if>
 					<fmt:formatNumber var="Allprice" value="${price }" pattern="#,###"/>
 					
 					<div style="width: 15%;"><fmt:formatNumber value="${shppingCharge }" pattern="#,###" />원</div>
@@ -82,6 +97,7 @@
 		</div>
 		
 		<form action="paymentOk.do" name="order" method="post">
+			
 			<input type="hidden" name="order_account" value="${quantity }">
 			<input type="hidden" name="goods" value="${isbn }">
 			<fmt:formatNumber var="save_point" value="${price*0.1}" pattern="#"/>
@@ -110,7 +126,7 @@
 					</div>
 					<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" name="receive_name">
+						<input type="text" name="receive_name" required />
 					</div>
 					<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -168,8 +184,8 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" name="member_zipcode" disabled="disabled" style="width: 50px;text-align: center;">
 						<input type="hidden" name="member_zipcode">
-						&nbsp;&nbsp;
-						<button name="find_zipcode" style="display: none;">주소찾기</button>
+						&nbsp;&nbsp;	
+						<button type="button" name="find_zipcode" style="display: none;">주소찾기</button>
 						<br>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" name="member_address" disabled="disabled" style="width: 215px; text-align: center;">
@@ -247,7 +263,8 @@
 							});
 						</script>
 					</c:if>
-					<c:if test="${count>1 }">
+					<c:if test="${count>=0 }">
+						<input type="hidden" name="flag" value="1">
 						<script type="text/javascript">
 							var finalPrice=${price};
 							$(".final_price").text(finalPrice+"원");

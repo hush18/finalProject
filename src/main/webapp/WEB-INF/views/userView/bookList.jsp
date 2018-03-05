@@ -113,7 +113,7 @@
 	function payment(isbn) {
 		var quantity = $("input[id='"+isbn+"']").val();
 		
-		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
+		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity+"&val=1");
 	}
 	
 	function wishList(isbn) {

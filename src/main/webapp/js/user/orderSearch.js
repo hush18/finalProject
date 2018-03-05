@@ -86,7 +86,7 @@ $(function(){
 			}else{
 				alert(isbnList);
 				alert(amountList);
-				var url="payment.do?isbn="+isbnList+"&quantity="+amountList;
+				var url="payment.do?isbn="+isbnList+"&quantity="+amountList+"&val=2";
 				$(location).attr('href', url);
 			}
 		})

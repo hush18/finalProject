@@ -72,8 +72,10 @@ public class ProController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		
-		mav.setViewName("userPointView.users");
+		service.userPoint(mav);
+		
 		return scroll(mav);
+		//return null;
 	}
 
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
@@ -630,6 +632,8 @@ public class ProController {
 		service.readMap(mav);
 		return mav;
 	}
+	
+	
 
 	@RequestMapping(value = "adminChange.do", method = RequestMethod.GET)
 	public ModelAndView adminChange(HttpServletRequest request, HttpServletResponse response) {
@@ -886,6 +890,5 @@ public class ProController {
 		service.adminMemberDeleteOK(mav);
 		return mav;
 	}
-	
 
 }

@@ -86,5 +86,6 @@ public interface ServiceInterface {
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
 	public void adminOrderSearch(ModelAndView mav);
+	public void userPoint(ModelAndView mav);
 }
 
