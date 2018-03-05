@@ -79,7 +79,7 @@
 				<div class="info-box-iy">
 					<p>
 						<strong>주소</strong>
-						${memberDto.member_address} ${memberDto.member_detail_address}
+						${memberDto.member_zipcode } ${memberDto.member_address} ${memberDto.member_detail_address}
 					</p>
 				</div>
 				<div class="info-box-iy">
