@@ -23,4 +23,5 @@ public interface AdminBook {
 	public int updateWriter(WriterDto writerDto);
 	public int adminBookDelete(String isbn);
 	public int adminWriterBookListUpdate(WriterDto writerDto);
+	public List<String> getWriterNameList();
 }

@@ -48,6 +48,7 @@ public interface ServiceInterface {
 	
 	public void adminWriterSearch(ModelAndView mav);
 	public void adminWriterInsertOk(ModelAndView mav);
+	public void searchWriter(ModelAndView mav);
 	
 	public void createMap(ModelAndView  mav);
 	public void readMap(ModelAndView mav);

@@ -16,6 +16,7 @@
 <link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/admin/adminBookInfo.js"></script>
 <script type="text/javascript" src="js/admin/adminBookCheck.js"></script>
+<script type="text/javascript" src="js/admin/adminWriterSearch.js"></script>
 </head>
 <div class="container body">
 	<div class="main_container">

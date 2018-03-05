@@ -29,6 +29,8 @@ public class ProController {
 	
 	@Autowired
 	private ServiceInterface service;
+	
+	
 
 	// 여기부터 사용자
 	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
@@ -627,6 +629,16 @@ public class ProController {
 		mav.addObject("request", request);
 		mav.addObject("reviewDto", reviewDto);
 		service.reviewInsert(mav);
+		return null;
+	}
+	
+	//searchWriter
+	@RequestMapping(value = "/searchWriter.do", method = RequestMethod.POST)
+	public ModelAndView searchWriter(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		service.searchWriter(mav);
 		return null;
 	}
 	
