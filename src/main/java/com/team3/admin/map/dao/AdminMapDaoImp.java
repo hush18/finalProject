@@ -46,4 +46,9 @@ public class AdminMapDaoImp implements AdminMapDao {
 	public int mapUpdate(MapDto mapDto) {
 		return sqlSessionTemplate.update("mapUpdate",mapDto);
 	}
+	
+	@Override
+	public int getMember_number(String id) {
+		return sqlSessionTemplate.selectOne("adminCheck",id);
+	}
 }

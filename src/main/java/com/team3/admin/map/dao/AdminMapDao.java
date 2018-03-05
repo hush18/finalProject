@@ -12,5 +12,5 @@ public interface AdminMapDao {
 	public MemberDto getMemberInfo(Map<String, String> infoMap);
 	public int mapDelete(String store_name);
 	public int mapUpdate(MapDto mapDto);
-	
+	public int getMember_number(String id);
 }

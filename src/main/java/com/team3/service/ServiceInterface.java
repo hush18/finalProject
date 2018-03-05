@@ -71,6 +71,11 @@ public interface ServiceInterface {
 	public void scrollBanner(ModelAndView mav);
 	public void adminSales(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
+	public void payment(ModelAndView mav);
+	public void addressList(ModelAndView mav);
+	public void addAddress(ModelAndView mav);
+	public void deleteAddress(ModelAndView mav);
+	public void paymentOk(ModelAndView mav);
 	public void diapOK(ModelAndView mav);
 	public void memberManage(ModelAndView mav);
 	public void adminMemberDelete(ModelAndView mav);
@@ -92,5 +97,6 @@ public interface ServiceInterface {
 	public void reviewInsert(ModelAndView mav);
 	public void reviewList(ModelAndView mav);
 	public void adminOrderSearch(ModelAndView mav);
+	public void userPoint(ModelAndView mav);
 }
 

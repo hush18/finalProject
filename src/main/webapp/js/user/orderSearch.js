@@ -80,7 +80,7 @@ $(function(){
 				amountList+=amount+",";
 				
 				var isbn=$(this).parent().parent().children().find(".quantity_up_jm").children("input").val();
-				isbnList+=isbn;
+				isbnList+=isbn+",";
 			})
 			if(isbnList==""){
 				alert("선택된 상품이 없습니다.");
@@ -88,7 +88,7 @@ $(function(){
 			}else{
 				alert(isbnList);
 				alert(amountList);
-				var url="payment.do?isbn="+isbnList+"&quantity="+amountList;
+				var url="payment.do?isbn="+isbnList+"&quantity="+amountList+"&val=2";
 				$(location).attr('href', url);
 			}
 		})
