@@ -47,4 +47,8 @@
 	<select id="getAuthor" parameterType="String" resultType="String">
 		select name from writer where writer_number=(select writer_number from book where isbn=#{isbn})
 	</select>
+	
+	<update id="adminStatusChange" parameterType="java.util.Map">
+  		update order_delivery set order_status=#{status} where order_number=#{order_number}
+  	</update>
   </mapper>

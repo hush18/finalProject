@@ -271,7 +271,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="userPointView.do">${point }p</a></span></div>
+						<div class="info_box_hy"><span><a href="userPoint.do">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>

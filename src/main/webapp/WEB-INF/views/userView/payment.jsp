@@ -76,11 +76,11 @@
 					<c:if test="${price<=10000 }">
 						<c:set var="shppingCharge" value="3000"/>
 					</c:if>
-					<c:if test="${count>1 }">
+					<c:if test="${bookCount>1 }">
 						<div id="title" style="width: 36%;">${bookDto.title } 외 ${bookListSize } 개</div>
 						<div style="width: 15%;">총 ${count } 개</div>
 					</c:if>
-					<c:if test="${count==1 }">
+					<c:if test="${bookCount==1 }">
 						<div id="title" style="width: 36%;">${bookDto.title }</div>
 						<div style="width: 15%;">${count } 개</div>
 					</c:if>

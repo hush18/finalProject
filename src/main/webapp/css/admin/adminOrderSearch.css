@@ -93,3 +93,14 @@
 .text_right_hy{
 	text-align: right !important;
 }
+
+a{
+	text-decoration: none;
+	color:#5cb38b;
+}
+
+a:hover{
+	text-decoration: none;
+	color:#5cb38b;
+	font-weight: bold;
+}

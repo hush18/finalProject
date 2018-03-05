@@ -1504,6 +1504,7 @@ public class Service implements ServiceInterface {
 			int count=0;
 			long price=0;
 			List<BookDto>bookList=new ArrayList<BookDto>();
+			int bookCount=quantityList.length;
 			for(int i=0;i<isbnList.length;i++) {
 				count+=Integer.parseInt(quantityList[i]);
 				BookDto bookDto=paymentDao.selectBook(isbnList[i]);
@@ -1513,6 +1514,7 @@ public class Service implements ServiceInterface {
 				price+=Integer.parseInt(quantityList[i])* bookDto.getPrice();
 				bookList.add(bookDto);
 			}
+			mav.addObject("bookCount",bookCount);
 			mav.addObject("quantity",transQuantity);
 			mav.addObject("isbn",trantIsbn);
 			mav.addObject("price",price);
