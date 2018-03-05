@@ -16,13 +16,13 @@ $(function(){
 			$("#sub_advice").append("<option value='상품정보/가격'>상품정보/가격</option>");
 		}else if($("#advice option:selected").val()=="입금/결제"){
 			$("#sub_advice").append("<option value='신용카드'>신용카드</option>");
-			$("#sub_advice").append("<option value='핸드폰 결제'>핸드폰 결제</option>");
-			$("#sub_advice").append("<option value='실시간 계좌이체'>실시간 계좌이체</option>");
-			$("#sub_advice").append("<option value='직접 입금'>직접 입금</option>");
+			$("#sub_advice").append("<option value='핸드폰결제'>핸드폰 결제</option>");
+			$("#sub_advice").append("<option value='실시간계좌이체'>실시간 계좌이체</option>");
+			$("#sub_advice").append("<option value='직접입금'>직접 입금</option>");
 		}else if($("#advice option:selected").val()=="취소/교환/환불"){
-			$("#sub_advice").append("<option value='취소/교환/환불 문의'>취소/교환/환불 문의</option>");
-			$("#sub_advice").append("<option value='취소/교환/환불 신청'>취소/교환/환불 신청</option>");
-			$("#sub_advice").append("<option value='취소/교환/환불 취소'>취소/교환/환불 취소</option>");
+			$("#sub_advice").append("<option value='취소/교환/환불문의'>취소/교환/환불 문의</option>");
+			$("#sub_advice").append("<option value='취소/교환/환불신청'>취소/교환/환불 신청</option>");
+			$("#sub_advice").append("<option value='취소/교환/환불취소'>취소/교환/환불 취소</option>");
 		}else if($("#advice option:selected").val()=="주문"){
 			$("#sub_advice").append("<option value='주문조회'>주문조회</option>");
 			$("#sub_advice").append("<option value='주문변경'>주문변경</option>");
