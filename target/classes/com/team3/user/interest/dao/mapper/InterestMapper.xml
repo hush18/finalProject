@@ -12,7 +12,7 @@
 		]]>
 	  </select>
 	  <update id="nearestUp" parameterType="java.util.Map">
-	  	update cart set state=0, cart_day=sysdate where id=#{id} and isbn=#{isbn}
+	  	update cart set state=0, cart_day=sysdate where id=#{id} and isbn=#{isbn} and state=#{sta}
 	  </update>
 	  <delete id="nearestDel" parameterType="java.util.Map">
 	  	delete from cart where id=#{id} and isbn=#{str}
@@ -46,6 +46,11 @@
 	  <select id="selectInsert" parameterType="java.util.Map" resultType="com.team3.user.interest.dto.InterestDto">
   		<![CDATA[
 		  	select * from cart where id=#{id} and isbn=#{isbn} and state=#{state}
+		]]>
+	  </select>
+	  <select id="scrollRecommend" resultType="com.team3.user.interest.dto.InterestDto">
+	  	<![CDATA[
+		  	SELECT * FROM (SELECT b.isbn, b.title, b.publisher, b.image_path, w.NAME FROM book b, writer w where b.writer_number = w.writer_number ORDER BY dbms_random.VALUE)WHERE ROWNUM =1
 		]]>
 	  </select>
   </mapper>

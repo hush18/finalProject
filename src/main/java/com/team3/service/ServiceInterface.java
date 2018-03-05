@@ -48,6 +48,7 @@ public interface ServiceInterface {
 	
 	public void adminWriterSearch(ModelAndView mav);
 	public void adminWriterInsertOk(ModelAndView mav);
+	public void searchWriter(ModelAndView mav);
 	
 	public void createMap(ModelAndView  mav);
 	public void readMap(ModelAndView mav);
@@ -97,6 +98,7 @@ public interface ServiceInterface {
 	public void reviewInsert(ModelAndView mav);
 	public void reviewList(ModelAndView mav);
 	public void adminOrderSearch(ModelAndView mav);
+	public void recommend(ModelAndView mav);
 	public void adminChange(ModelAndView mav);
 	public void adminDelivery(ModelAndView mav);
 	public void adminDetail(ModelAndView mav);

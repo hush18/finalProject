@@ -32,7 +32,7 @@ public class InterestDaoImp implements InterestDao {
 			hMap.put("id", id);
 			hMap.put("isbn", strArr[i]);
 			hMap.put("state", 0);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
+			hMap.put("sta", 1);
 			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
 			if(dto==null) {
 				chk=sqlSession.update("nearestUp",hMap);
@@ -45,7 +45,6 @@ public class InterestDaoImp implements InterestDao {
 				check=1;
 			}
 		}
-		LogAspect.logger.info(LogAspect.logMsg + "check값이 왜 0임" +check);
 		return check;
 	}
 	
@@ -83,6 +82,7 @@ public class InterestDaoImp implements InterestDao {
 			hMap.put("id", id);
 			hMap.put("isbn", strArr[i]);
 			hMap.put("state", 0);
+			hMap.put("sta", 2);
 			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
 			if(dto==null) {
 				chk=sqlSession.update("nearestUp",hMap);
@@ -95,7 +95,6 @@ public class InterestDaoImp implements InterestDao {
 				check=1;
 			}
 		}
-		LogAspect.logger.info(LogAspect.logMsg + "check값이 왜 0임" +check);
 		return check;
 	}
 	
@@ -157,5 +156,10 @@ public class InterestDaoImp implements InterestDao {
 	@Override
 	public List<InterestDto> scrollSelect(String id) {
 		return sqlSession.selectList("scrollSelect", id);
+	}
+
+	@Override
+	public InterestDto scrollRecommend() {
+		return sqlSession.selectOne("scrollRecommend");
 	}
 }

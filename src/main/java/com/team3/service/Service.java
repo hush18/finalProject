@@ -1248,7 +1248,38 @@ public class Service implements ServiceInterface {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void searchWriter(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletResponse response = (HttpServletResponse) map.get("response");
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		List<String> nameList = adminBook.getWriterNameList();
+		LogAspect.logger.info(LogAspect.logMsg +"저자 size : "+ nameList.size());
+		
+		try {
+			JSONArray arrName = new JSONArray();
+			String jsonStr = null;
+			/* HashMap<String, String> hmap=null; */
 
+			for (int i = 0; i < nameList.size(); i++) {
+				String name = nameList.get(i);
+				
+				arrName.add(name);
+			}
+
+			jsonStr = JSONValue.toJSONString(arrName);
+			response.setContentType("application/x-json;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(jsonStr);
+			out.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -3286,7 +3317,16 @@ public class Service implements ServiceInterface {
 		}
 		mav.setViewName("adminReturnPoint.admin");
 	}
-	
+
+	@Override
+	public void recommend(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		InterestDto scrollDto=interestDao.scrollRecommend();
+		LogAspect.logger.info(LogAspect.logMsg + "리스트 출력!!!" + scrollDto);
+		mav.addObject("scrollDto", scrollDto);
+	}	
 	@Override
 	public void userPoint(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();

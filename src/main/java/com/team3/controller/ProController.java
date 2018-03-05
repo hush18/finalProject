@@ -29,6 +29,8 @@ public class ProController {
 	
 	@Autowired
 	private ServiceInterface service;
+	
+	
 
 	// 여기부터 사용자
 	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
@@ -36,7 +38,7 @@ public class ProController {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession();		//세션받기 ID
-		
+		service.recommend(mav);
 		if(session.getAttribute("mbId")!=null) {
 			service.scrollBanner(mav);
 		}
@@ -426,8 +428,10 @@ public class ProController {
 
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
 	public ModelAndView Introduction(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("Introduction.users");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		mav.setViewName("Introduction.users");
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
@@ -449,7 +453,7 @@ public class ProController {
 		service.searchList(mav);
 		
 		mav.setViewName("bookList.users");
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/bookInfo.do", method = RequestMethod.GET)
@@ -625,6 +629,16 @@ public class ProController {
 		mav.addObject("request", request);
 		mav.addObject("reviewDto", reviewDto);
 		service.reviewInsert(mav);
+		return null;
+	}
+	
+	//searchWriter
+	@RequestMapping(value = "/searchWriter.do", method = RequestMethod.POST)
+	public ModelAndView searchWriter(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		service.searchWriter(mav);
 		return null;
 	}
 	

@@ -15,6 +15,7 @@
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 관리자 도서검색 -->
 <link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/admin/adminWriterSearch.js"></script>
 <style type="text/css">
 body {
 	background-color: white !important;
