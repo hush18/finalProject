@@ -148,31 +148,31 @@
 						<div class=FAQ_TOP_2_ej>
 							<h2 class="h2_hr_ej">${upCategory}FAQ</h2>
 							<div class="sub_category_ej" id="회원">
-								<a href="CustomerService_faq.do?up_category=회원">전체</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원가입">회원가입</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원정보확인">회원정보확인</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원정보수정">회원정보수정</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원탈퇴">회원탈퇴</a> <a href="CustomerService_faq.do?up_category=회원&down_category=휴먼계정">휴먼계정</a>
+								<a href="CustomerService_faq.do?up_category=회원">전체</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원가입">회원가입</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원정보확인/수정">회원정보확인/수정</a> <a href="CustomerService_faq.do?up_category=회원&down_category=회원탈퇴">회원탈퇴</a> <a href="CustomerService_faq.do?up_category=회원&down_category=휴면계정">휴면계정</a>
 							</div>
 
 							<div class="sub_category_ej" id="상품">
-								<a href="CustomerService_faq.do?up_category=상품">전체</a> <a href="CustomerService_faq.do?up_category=상품&up_category=상품불량">상품불량</a> <a href="CustomerService_faq.do?up_category=상품&up_category=입고/품절/절판">입고/품절/절판</a> <a href="CustomerService_faq.do?up_category=상품&up_category=상품정보/가격">상품정보/가격</a>
+								<a href="CustomerService_faq.do?up_category=상품">전체</a> <a href="CustomerService_faq.do?up_category=상품&down_category=상품불량">상품불량</a> <a href="CustomerService_faq.do?up_category=상품&down_category=입고/품절/절판">입고/품절/절판</a> <a href="CustomerService_faq.do?up_category=상품&down_category=상품정보/가격">상품정보/가격</a>
 							</div>
 
 							<div class="sub_category_ej" id="입금">
-								<a href="CustomerService_faq.do?up_category=입금/결제">전체</a> <a href="CustomerService_faq.do?up_category=입금&up_category=신용카드">신용카드</a> <a href="CustomerService_faq.do?up_category=입금&up_category=핸드폰결제">핸드폰결제</a> <a href="CustomerService_faq.do?up_category=입금&up_category=실시간계좌이체">실시간계좌이체</a> <a href="CustomerService_faq.do?up_category=입금&up_category=직접입금">직접입금</a>
+								<a href="CustomerService_faq.do?up_category=입금/결제">전체</a> <a href="CustomerService_faq.do?up_category=입금&down_category=신용카드">신용카드</a> <a href="CustomerService_faq.do?up_category=입금&down_category=핸드폰결제">핸드폰결제</a> <a href="CustomerService_faq.do?up_category=입금&down_category=실시간계좌이체">실시간계좌이체</a> <a href="CustomerService_faq.do?up_category=입금&down_category=직접입금">직접입금</a>
 							</div>
 
 							<div class="sub_category_ej" id="취소">
-								<a href="CustomerService_faq.do?up_category=취소/교환/환불">전체</a> <a href="CustomerService_faq.do?up_category=취소&up_category=취소/교환/환불 문의">취소/교환/환불 문의</a> <a href="CustomerService_faq.do?up_category=취소&up_category=취소/교환/환불 신청">취소/교환/환불 신청</a> <a href="CustomerService_faq.do?up_category=취소&up_category=취소/교환/환불 취소">취소/교환/환불 취소</a>
+								<a href="CustomerService_faq.do?up_category=취소/교환/환불">전체</a> <a href="CustomerService_faq.do?up_category=취소&down_category=취소/교환/환불문의">취소/교환/환불 문의</a> <a href="CustomerService_faq.do?up_category=취소&down_category=취소/교환/환불신청">취소/교환/환불 신청</a> <a href="CustomerService_faq.do?up_category=취소&down_category=취소/교환/환불취소">취소/교환/환불 취소</a>
 							</div>
 
 							<div class="sub_category_ej" id="주문">
-								<a href="CustomerService_faq.do?up_category=주문">전체</a> <a href="CustomerService_faq.do?up_category=주문&up_category=주문조회">주문조회</a> <a href="CustomerService_faq.do?up_category=주문&up_category=주문변경">주문변경</a> <a href="CustomerService_faq.do?up_category=주문&up_category=주문취소">주문취소</a>
+								<a href="CustomerService_faq.do?up_category=주문">전체</a> <a href="CustomerService_faq.do?up_category=주문&down_category=주문조회">주문조회</a> <a href="CustomerService_faq.do?up_category=주문&down_category=주문변경">주문변경</a> <a href="CustomerService_faq.do?up_category=주문&down_category=주문취소">주문취소</a>
 							</div>
 
 							<div class="sub_category_ej" id="배송">
-								<a href="CustomerService_faq.do?up_category=배송">전체</a> <a href="CustomerService_faq.do?up_category=배송&up_category=배송문의">배송문의</a> <a href="CustomerService_faq.do?up_category=배송&up_category=배송/출고예정일">배송/출고예정일</a>
+								<a href="CustomerService_faq.do?up_category=배송">전체</a> <a href="CustomerService_faq.do?up_category=배송&down_category=배송문의">배송문의</a> <a href="CustomerService_faq.do?up_category=배송&down_category=배송/출고예정일">배송/출고예정일</a>
 							</div>
 
 							<div class="sub_category_ej" id="적립">
-								<a href="CustomerService_faq.do?up_category=적립">전체</a> <a href="CustomerService_faq.do?up_category=적립&up_category=포인트문의">포인트문의</a> <a href="CustomerService_faq.do?up_category=적립&up_category=포인트적립">포인트적립</a> <a href="CustomerService_faq.do?up_category=적립&up_category=포인트사용">포인트사용</a> <a href="CustomerService_faq.do?up_category=적립&up_category=포인트소멸">포인트소멸</a>
+								<a href="CustomerService_faq.do?up_category=적립">전체</a><a href="CustomerService_faq.do?up_category=적립&down_category=포인트적립">포인트적립</a> <a href="CustomerService_faq.do?up_category=적립&down_category=포인트사용/소멸">포인트사용/소멸</a>
 							</div>
 							<div class="faqlist_header_ej">
 								<div>번호</div>
