@@ -85,7 +85,7 @@
 				<div class="info-box-iy">
 					<p>
 						<strong>이메일</strong>
-						${memberDto.member_address} ${memberDto.email}
+						${memberDto.email}
 					</p>
 				</div>
 			</div>

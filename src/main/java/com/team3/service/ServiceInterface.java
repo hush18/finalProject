@@ -21,7 +21,6 @@ public interface ServiceInterface {
 	public void cart(ModelAndView mav);
 	public void cartListDelete(ModelAndView mav);
 	public void detailOrder(ModelAndView mav);
-	public void cstOk(ModelAndView mav);
 	public void adminFaqInsertOk(ModelAndView mav);
 	public void adminFaqMain(ModelAndView mav);
 	public void adminFaqUpdate(ModelAndView mav);
@@ -72,6 +71,11 @@ public interface ServiceInterface {
 	public void scrollBanner(ModelAndView mav);
 	public void adminSales(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
+	public void payment(ModelAndView mav);
+	public void addressList(ModelAndView mav);
+	public void addAddress(ModelAndView mav);
+	public void deleteAddress(ModelAndView mav);
+	public void paymentOk(ModelAndView mav);
 	public void diapOK(ModelAndView mav);
 	public void memberManage(ModelAndView mav);
 	public void adminMemberDelete(ModelAndView mav);
@@ -80,6 +84,11 @@ public interface ServiceInterface {
 	public void searchTitle(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
+	public void cstProduct(ModelAndView mav);
+	public void cstOrder(ModelAndView mav);
+	public void cstConsulting(ModelAndView mav);
+	public void cstOk(ModelAndView mav);
+	public void cstList(ModelAndView mav);
 	public void loginMember(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
@@ -92,5 +101,6 @@ public interface ServiceInterface {
 	public void adminDelivery(ModelAndView mav);
 	public void adminDetail(ModelAndView mav);
 	public void adminStatusChange(ModelAndView mav);
+	public void userPoint(ModelAndView mav);
 }
 

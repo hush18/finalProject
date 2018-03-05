@@ -53,11 +53,11 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form class="form-horizontal form-label-left" action="adminFaqInsertOk.do" method="post">
+								<form id="form" class="form-horizontal form-label-left" action="adminFaqInsertOk.do" method="post" onsubmit="return faqEdit(this)">
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">제목</label>
 										<div class="col-md-9 col-sm-9 col-xs-12">
-											<input type="text" class="form-control" placeholder="제목 입력" name="title">
+											<input type="text" class="form-control" name="title">
 										</div>
 									</div>
 									<div class="form-group">
@@ -75,7 +75,7 @@
 											</select>
 
 											<select id="sub_advice" class="select2_single form-control" tabindex="-1" name="down_category">
-												<option>세부유형</option>
+												<option value="default">세부유형</option>
 											</select>
 										</div>
 									</div>
@@ -92,7 +92,7 @@
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-md-9_ej">
 											<button type="submit" class="btn btn-success">등록</button>
-											<button type="button" class="btn btn-primary">취소</button>
+											<button type="button" class="btn btn-primary" onclick="location.href='adminFaqMain.do'">취소</button>
 											<button type="reset" class="btn btn-primary">내용 초기화</button>
 										</div>
 									</div>

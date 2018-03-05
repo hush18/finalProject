@@ -16,7 +16,7 @@
 	
 	<c:if test="${check==0 }">
 		<script type="text/javascript">
-			alert("오류가 발생하였습니다.<br/> 다시 입력해 주세요");
+			alert("오류가 발생하였습니다. 다시 입력해 주세요");
 			$(location).attr("href","adminFaqMain.do");
 		</script>
 	</c:if>
