@@ -272,7 +272,31 @@
 	font-weight: bold;
 }
 
+.star_rating {font-size:0; letter-spacing:-4px;}
+.star_rating a, .star_rating label {
+    font-size:16px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:0px;
+    color:#9c9c9c;
+    text-decoration:none;
+}
+.star_rating a:first-child , .star_rating label:first-child {margin-left:0;}
+.star_rating a.on, .star_rating label.on {color:#ffc107;}
+.centent_route_jm a{
+	color: black;
+}
+.info_goods_jm p{
+line-height: 170%;}
 
+#page_ul_jm > li{
+	cursor: pointer;
+	margin: 0px 10px;
+}
 
-
+.textHide_jm{
+	overflow: hidden;
+	white-space: pre;
+	text-overflow: ellipsis;
+}
 

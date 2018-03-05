@@ -7,9 +7,9 @@
 <title>고객센터 회원</title>
 <link href="css/user/CustomerService_faq.css" rel="stylesheet" type="text/css" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-<script src="js/user/CustomerService.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
+<script src="js/user/CustomerService.js" type="text/javascript"></script>
 
 <!-- iCheck -->
 <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
@@ -49,9 +49,15 @@
 								</div>
 								<div class="sub_mh">
 									<ul>
-										<li><a href="nearestList.do">최근본 상품</a></li>
-										<li><a href="wishList.do">위시리스트</a></li>
-										<li><a href="buyList.do">장바구니</a></li>
+										<li>
+											<a href="nearestList.do">최근본 상품</a>
+										</li>
+										<li>
+											<a href="wishList.do">위시리스트</a>
+										</li>
+										<li>
+											<a href="cart.do">장바구니</a>
+										</li>
 									</ul>
 								</div>
 							</div>

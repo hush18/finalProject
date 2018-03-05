@@ -26,6 +26,7 @@ import com.team3.user.book.dto.BookDto;
 import com.team3.user.book.dto.WriterDto;
 
 import com.team3.user.member.dto.MemberDto;
+import com.team3.user.review.dto.ReviewDto;
 
 @Controller
 public class ProController {
@@ -343,6 +344,7 @@ public class ProController {
 	@RequestMapping(value = "/CustomerService_main.do", method = RequestMethod.GET)
 	public ModelAndView CustomerService_main(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		service.getTopTen(mav);
 		return scroll(mav);
 	}
@@ -391,7 +393,7 @@ public class ProController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.cstOrder(mav);
-		return scroll(mav);
+		return mav;
 	}
 
 	// 고객센터 1:1문의 상품 팝업창
@@ -400,7 +402,7 @@ public class ProController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.cstProduct(mav);
-		return scroll(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
@@ -427,18 +429,35 @@ public class ProController {
 		mav.setViewName("bookList.users");
 		return scroll(mav);
 	}
+	
+	@RequestMapping(value = "/searchList.do", method = RequestMethod.GET)
+	public ModelAndView searchList(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.searchList(mav);
+		
+		mav.setViewName("bookList.users");
+		return mav;
+	}
 
 	@RequestMapping(value = "/bookInfo.do", method = RequestMethod.GET)
 	public ModelAndView bookInfo(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
-
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("mbId");
+		if(id!=null) {
+			service.nearestInsert(mav);
+		}
 		service.bookInfo(mav);
+		service.reviewList(mav);
 
 		mav.setViewName("bookInfo.users");
 		return scroll(mav);
 	}
+	
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -539,7 +558,27 @@ public class ProController {
 		service.searchHeader(mav);
 		return null;
 	}
+	
+	@RequestMapping(value = "/searchTitle.do", method = RequestMethod.POST)
+	public ModelAndView searchTitle(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		service.searchTitle(mav);
+		return null;
+	}
+	
 
+	@RequestMapping(value = "/reviewInsert.do", method = RequestMethod.POST)
+	public ModelAndView reviewInsert(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("response", response);
+		mav.addObject("request", request);
+		mav.addObject("reviewDto", reviewDto);
+		service.reviewInsert(mav);
+		return null;
+	}
+	
 	// 여기부터 관리자
 	// ================================================================================================================================================
 	@RequestMapping(value = "adminBookSearch.do", method = RequestMethod.GET)
@@ -553,7 +592,21 @@ public class ProController {
 
 	@RequestMapping(value = "adminBookInsert.do", method = RequestMethod.GET)
 	public ModelAndView adminBookInsert(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminBookInsert.admin");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminBookInsert(mav);
+		mav.setViewName("adminBookInsert.admin");
+		return mav;
+	}
+	//adminBookInsertOk.do
+	@RequestMapping(value = "adminBookInsertOk.do", method = RequestMethod.POST)
+	public ModelAndView adminBookInsertOk(HttpServletRequest request, HttpServletResponse response, BookDto bookDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("bookDto", bookDto);
+		service.adminBookInsertOk(mav);
+		mav.setViewName("adminBookInsertOk.admin");
+		return mav;
 	}
 
 	@RequestMapping(value = "adminBookInfo.do", method = RequestMethod.GET)
@@ -575,8 +628,18 @@ public class ProController {
 		return mav;
 	}
 
-	@RequestMapping(value = "adminWriterSearch.do", method = RequestMethod.GET)
-	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {
+	
+	@RequestMapping(value="adminBookDelete.do", method=RequestMethod.GET)
+	public ModelAndView adminBookDelete(HttpServletRequest request, HttpServletResponse response,BookDto bookDto) {	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		service.adminBookDelete(mav);
+		mav.setViewName("adminBookDeleteOk.admin");
+		return mav;
+	}
+	
+	@RequestMapping(value="adminWriterSearch.do", method=RequestMethod.GET)
+	public ModelAndView adminWriterSearch(HttpServletRequest request, HttpServletResponse response) {		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		service.adminWriterSearch(mav);
@@ -584,9 +647,23 @@ public class ProController {
 		return mav;
 	}
 
+
 	@RequestMapping(value = "adminWriterInsert.do", method = RequestMethod.GET)
-	public ModelAndView adminWriterInsert(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminWriterInsert.adminEmpty");
+	public ModelAndView adminWriterInsert(HttpServletRequest request, HttpServletResponse response, WriterDto writerDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.setViewName("adminWriterInsert.adminEmpty");
+		return mav;
+	}
+	
+	@RequestMapping(value = "adminWriterInsertOk.do", method = RequestMethod.POST)
+	public ModelAndView adminWriterInsertOk(HttpServletRequest request, HttpServletResponse response, WriterDto writerDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("writerDto", writerDto);
+		service.adminWriterInsertOk(mav);
+		mav.setViewName("adminWriterInsertOk.adminEmpty");
+		return mav;
 	}
 
 	@RequestMapping(value = "adminMemberManage.do", method = RequestMethod.GET)
@@ -864,7 +941,7 @@ public class ProController {
 	@RequestMapping(value = "adminMemberDelete.do", method = RequestMethod.GET)
 	public ModelAndView adminMemberDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("member_number", request.getParameter("member_number"));
+		mav.addObject("id", request.getParameter("id"));
 		service.adminMemberDelete(mav);
 		return mav;
 	}

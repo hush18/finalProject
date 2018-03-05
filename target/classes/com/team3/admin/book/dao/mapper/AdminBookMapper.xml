@@ -8,6 +8,16 @@
 		SELECT b.*,w.name FROM book b, WRITER w where b.WRITER_NUMBER=w.WRITER_NUMBER
 	</select>
 	
+	<insert id="adminBookInsert" parameterType="com.team3.user.book.dto.BookDto">
+		<![CDATA[
+		insert into book values(#{isbn},#{title},#{writer_number},#{publisher},#{write_date},#{image_path},#{price},#{contents},#{book_introduction},#{category_number},#{stock})
+		]]>
+	</insert>
+	
+	<update id="updateWriter" parameterType="com.team3.user.book.dto.WriterDto">
+		update WRITER set WRITER_BOOKLIST=#{writer_bookList} where WRITER_NUMBER=#{writer_number}
+	</update>
+	
 	<select id="adminBookInfo" parameterType="String" resultType="com.team3.user.book.dto.BookDto">
 		select * from book where isbn=#{isbn}
 	</select>
@@ -24,19 +34,27 @@
 		select title from book where isbn=#{isbn}
 	</select>
 	
-	<select id="getWriter" parameterType="String" resultType="com.team3.user.book.dto.WriterDto">
-		SELECT * FROM writer WHERE WRITER_BOOKLIST LIKE CONCAT('%',CONCAT(#{isbn},'%'))
+	<select id="getWriter" parameterType="long" resultType="com.team3.user.book.dto.WriterDto">
+		select * from WRITER WHERE WRITER_NUMBER=#{writer_number}
 	</select>
 	
-	<update id="adminBookUpdateFile" parameterType="com.team3.user.book.dto.BookDto">
-		update book set WRITER_NUMBER=#{writer_number}, PUBLISHER=#{publisher}, WRITE_DATE=#{write_date}, IMAGE_PATH=#{image_path},PRICE=#{price},CONTENTS=#{contents},BOOK_INTRODUCTION=#{book_introduction},CATEGORY_NUMBER=#{category_number},STOCK=#{stock} where isbn=#{isbn}
-	</update>
-	
 	<update id="adminBookUpdate" parameterType="com.team3.user.book.dto.BookDto">
-		update book set WRITER_NUMBER=#{writer_number}, PUBLISHER=#{publisher}, WRITE_DATE=#{write_date},PRICE=#{price},CONTENTS=#{contents},BOOK_INTRODUCTION=#{book_introduction},CATEGORY_NUMBER=#{category_number},STOCK=#{stock} where isbn=#{isbn}
+		update book set title=#{title},WRITER_NUMBER=#{writer_number}, PUBLISHER=#{publisher}, WRITE_DATE=#{write_date},IMAGE_PATH=#{image_path},PRICE=#{price},CONTENTS=#{contents},BOOK_INTRODUCTION=#{book_introduction},CATEGORY_NUMBER=#{category_number},STOCK=#{stock} where isbn=#{isbn}
 	</update>
 	
-	<update id="writerListUpdate" parameterType="java.util.HashMap">
-		UPDATE writer SET WRITER_BOOKLIST=CONCAT(WRITER_BOOKLIST,#{isbn}) WHERE WRITER_NUMBER=#{writer_number}
+	<insert id="adminWriterInsert" parameterType="com.team3.user.book.dto.WriterDto">
+		<![CDATA[
+			insert into WRITER VALUES(WRITER_WRITER_NUMBER_seq.nextval,#{name},#{nationality},#{debut_year},#{writer_introduction},'')
+		]]>
+	</insert>
+	
+	<delete id="adminBookDelete" parameterType="String">
+		DELETE FROM book WHERE isbn=#{isbn}
+	</delete>
+	
+	<update id="adminWriterBookListUpdate" parameterType="com.team3.user.book.dto.WriterDto">
+		update WRITER set WRITER_BOOKLIST=#{writer_bookList} where WRITER_NUMBER=#{writer_number}
 	</update>
+	
+	
 </mapper>

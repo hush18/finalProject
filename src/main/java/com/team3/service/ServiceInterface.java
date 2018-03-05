@@ -1,13 +1,9 @@
 package com.team3.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-
-import com.team3.user.book.dto.BookDto;
 
 public interface ServiceInterface {
 	public void getMainList(ModelAndView mav);
@@ -43,10 +39,16 @@ public interface ServiceInterface {
 	public void adminCstDeleteOk(ModelAndView mav);
 	public void bookList(ModelAndView mav);
 	public void bookInfo(ModelAndView mav);
+	public void adminBookInsert(ModelAndView mav);
+	public void adminBookInsertOk(ModelAndView mav);
 	public void adminBookSearch(ModelAndView mav);
 	public void adminBookInfo(ModelAndView mav);
-	public void adminWriterSearch(ModelAndView mav);
 	public void adminBookUpdate(ModelAndView mav);
+	public void adminBookDelete(ModelAndView mav);
+	
+	public void adminWriterSearch(ModelAndView mav);
+	public void adminWriterInsertOk(ModelAndView mav);
+	
 	public void createMap(ModelAndView  mav);
 	public void readMap(ModelAndView mav);
 	public void updateMap(ModelAndView mav);
@@ -74,6 +76,7 @@ public interface ServiceInterface {
 	public void adminMemberDelete(ModelAndView mav);
 	public void adminMemberDeleteOK(ModelAndView mav);
 	public void searchHeader(ModelAndView mav);
+	public void searchTitle(ModelAndView mav);
 	public void getTopTen(ModelAndView mav);
 	public void getFaq(ModelAndView mav);
 	public void cstProduct(ModelAndView mav);
@@ -84,6 +87,10 @@ public interface ServiceInterface {
 	public void loginMember(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
+	
+	public void searchList(ModelAndView mav);
+	public void reviewInsert(ModelAndView mav);
+	public void reviewList(ModelAndView mav);
 	public void adminOrderSearch(ModelAndView mav);
 }
 

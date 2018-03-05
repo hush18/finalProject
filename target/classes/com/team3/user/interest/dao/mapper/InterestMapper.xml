@@ -8,11 +8,11 @@
 	  	<![CDATA[
 		  	SELECT n.image_path, publisher, title, NAME, id, isbn, cart_day, state
 			FROM (SELECT b.image_path, b.publisher, b.title, b.writer_number,c.state, c.id, c.isbn,c.cart_day FROM book b, cart C WHERE C.isbn=b.isbn) n, writer w
-			WHERE w.writer_number = n.writer_number and n.state = 1 and n.id=#{id}
+			WHERE w.writer_number = n.writer_number and n.state = 1 and n.id=#{id} order by cart_day desc
 		]]>
 	  </select>
 	  <update id="nearestUp" parameterType="java.util.Map">
-	  	update cart set state=0, cart_day=sysdate where id=#{id} and isbn=#{str}
+	  	update cart set state=0, cart_day=sysdate where id=#{id} and isbn=#{isbn}
 	  </update>
 	  <delete id="nearestDel" parameterType="java.util.Map">
 	  	delete from cart where id=#{id} and isbn=#{str}
@@ -21,7 +21,7 @@
 	  	<![CDATA[
 		  	SELECT image_path, publisher, title, NAME, id, isbn, cart_day, state
 			FROM (SELECT b.image_path, b.publisher, b.title, b.writer_number,c.state, c.id, c.isbn,c.cart_day FROM book b, cart C WHERE C.isbn=b.isbn) n, writer w
-			WHERE w.writer_number = n.writer_number and n.state = 2 and n.id=#{id}
+			WHERE w.writer_number = n.writer_number and n.state = 2 and n.id=#{id} order by cart_day desc
 		]]>
 	  </select>
 	  <insert id="wishListInsert" parameterType="java.util.Map">
@@ -37,7 +37,7 @@
 	  
 	  <select id="scrollSelect" parameterType="String" resultType="com.team3.user.interest.dto.InterestDto">
 	  	<![CDATA[
-		  	select b.image_path,b.title, c.cart_day
+		  	select b.image_path,b.title, c.cart_day, c.isbn
 			from book b, cart c
 			where b.isbn = c.isbn and c.state=1 and c.id=#{id}
 			order by c.cart_day desc
@@ -45,7 +45,7 @@
 	  </select>
 	  <select id="selectInsert" parameterType="java.util.Map" resultType="com.team3.user.interest.dto.InterestDto">
   		<![CDATA[
-		  	select * from cart where id=#{id} and isbn=#{isbn}
+		  	select * from cart where id=#{id} and isbn=#{isbn} and state=#{state}
 		]]>
 	  </select>
   </mapper>

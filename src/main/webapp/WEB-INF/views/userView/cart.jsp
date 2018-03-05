@@ -7,9 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="js/user/orderSearch.js"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/user/orderSearch.js"></script>
 <link href="css/user/cart.css" type="text/css" rel="stylesheet" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
@@ -68,7 +68,7 @@
 								<ul>
 									<li><a href="nearestList.do">최근본 상품</a></li>
 									<li><a href="wishList.do">위시리스트</a></li>
-									<li><a href="buyList.do">장바구니</a></li>
+									<li><a href="cart.do">장바구니</a></li>
 								</ul>
 							</div>
 						</div>
@@ -82,13 +82,13 @@
 							<div class="sub_mh">
 								<p class="faq_sc">FAQ</p>
 								<ul>
-									<li><a href="CustomerService_faq.do">회원</a></li>
-									<li><a href="CustomerService_faq.do">상품</a></li>
-									<li><a href="CustomerService_faq.do">입금/결제</a></li>
-									<li><a href="CustomerService_faq.do">취소/교환/환불</a></li>
-									<li><a href="CustomerService_faq.do">주문</a></li>
-									<li><a href="CustomerService_faq.do">배송</a></li>
-									<li><a href="CustomerService_faq.do">적립</a></li>
+									<li><a href="CustomerService_faq.do?up_category=회원">회원</a></li>
+									<li><a href="CustomerService_faq.do?up_category=상품">상품</a></li>
+									<li><a href="CustomerService_faq.do?up_category=입금/결제">입금/결제</a></li>
+									<li><a href="CustomerService_faq.do?up_category=취소/교환/환불">취소/교환/환불</a></li>
+									<li><a href="CustomerService_faq.do?up_category=주문">주문</a></li>
+									<li><a href="CustomerService_faq.do?up_category=배송">배송</a></li>
+									<li><a href="CustomerService_faq.do?up_category=적립">적립</a></li>
 								</ul>
 
 								<p class="consulting_sc">1:1 상담</p>

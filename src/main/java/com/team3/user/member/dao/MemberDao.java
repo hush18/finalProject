@@ -22,4 +22,6 @@ public interface MemberDao {
 	public String findPwd(String id);
 	public MemberDto memberSelect(String id);
 	public int diapOK(Map<String, Object> hmap);
+	public int deleteDataOfCart(MemberDto memberDto);
+	public int deleteDataOfDel(MemberDto memberDto);
 }

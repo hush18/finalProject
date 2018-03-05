@@ -68,7 +68,7 @@
 													</c:if>
 												</td>
 												<td>
-													<button type="button" class="btn btn-success btn-xs" onclick="deleteForm('${memberList.member_number}')" style="margin-left: 15px;">
+													<button type="button" class="btn btn-success btn-xs" onclick="deleteForm('${memberList.id}')" style="margin-left: 15px;">
 														삭제
 													</button>
 												</td>
@@ -183,8 +183,9 @@
 			TableManageButtons.init();
 		});
 		
-		function deleteForm(member_number){
-			var url="adminMemberDelete.do?member_number="+member_number;
+		function deleteForm(id){
+			//alert(id);
+			var url="adminMemberDelete.do?id="+id;
 			window.open(url,"","width=600, height=450, location=1, top=100px, left=500px");
 		}
 	</script>

@@ -70,9 +70,9 @@
 
 			<c:forEach var="list" items="${bestBookList}">
 				<div class="list1-iy">
-					<img src="${list.image_path}" />
+					<a href="bookInfo.do?isbn=${list.isbn}"><img src="${list.image_path}" /></a>
 					<div class="contents1-iy">
-						<p id="book-name">${list.title}</p>
+						<p id="book-name"><b>${list.title}</b></p>
 						<p id="book-writer">${list.name}</p>
 						<p id="book-publisher">${list.publisher}</p>
 					</div>
@@ -86,9 +86,9 @@
 
 			<c:forEach var="list" items="${hotBookList}">
 				<div class="list1-iy">
-					<img src="${list.image_path}" />
+					<a href="bookInfo.do?isbn=${list.isbn}"><img src="${list.image_path}" /></a>
 					<div class="contents1-iy">
-						<p id="book-name">${list.title}</p>
+						<p id="book-name"><b>${list.title}</b></p>
 						<p id="book-writer">${list.name}</p>
 						<p id="book-publisher">${list.publisher}</p>
 					</div>
@@ -102,9 +102,9 @@
 
 			<c:forEach var="list" items="${newBookList}">
 				<div class="list1-iy">
-					<img src="${list.image_path}" />
+					<a href="bookInfo.do?isbn=${list.isbn}"><img src="${list.image_path}" /></a>
 					<div class="contents1-iy">
-						<p id="book-name">${list.title}</p>
+						<p id="book-name"><b>${list.title}</b></p>
 						<p id="book-writer">${list.name}</p>
 						<p id="book-publisher">${list.publisher}</p>
 					</div>
@@ -180,7 +180,7 @@
 				<ol class="rectangle-list">
 					<c:forEach var="list" items="${nctList}">
 						<li>
-							<a href="">${list.title}</a>
+							<a style="cursor: default;">${list.title}</a>
 						</li>
 					</c:forEach>
 				</ol>
@@ -190,7 +190,7 @@
 				<ol class="rectangle-list">
 					<c:forEach var="list" items="${faqList}">
 						<li>
-							<a href="">${list.title}</a>
+							<a href="CustomerService_main.do">${list.title}</a>
 						</li>
 					</c:forEach>
 				</ol>

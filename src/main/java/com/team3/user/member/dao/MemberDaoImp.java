@@ -50,6 +50,16 @@ public class MemberDaoImp implements MemberDao {
 		return sqlSession.delete("deleteAccount", memberDto);
 	}
 
+	@Override
+	public int deleteDataOfCart(MemberDto memberDto) {
+		return sqlSession.delete("deleteDataOfCart", memberDto);
+	}
+
+	@Override
+	public int deleteDataOfDel(MemberDto memberDto) {
+		return sqlSession.delete("deleteDataOfDel", memberDto);
+	}
+
 	public Date memberDate(Map<String, Object> hmap) {
 		return sqlSession.selectOne("memberDate", hmap);
 	}

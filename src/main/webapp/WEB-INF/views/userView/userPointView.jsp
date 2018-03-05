@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="css/user/userPointView.css">
 <title>포인트</title>
 <script type="text/javascript">
+	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+	});
+
 	function deleteMember() {
 		window
 				.open("deleteAccount.do", "",

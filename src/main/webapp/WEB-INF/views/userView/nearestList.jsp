@@ -17,6 +17,8 @@
 <c:set var="root" value="${pageContext.request.contextPath }"/>
 <script type="text/javascript">
 	$(function(){
+		$(".wishList_mh > .title_mh").trigger('click');
+		
 		$(".checkAll_sc").click(function(){
 			if($(".checkAll_sc").prop("checked")){
 				$(".checkBook_sc").each(function(){
@@ -105,7 +107,7 @@
 						<ul>
 							<li><a href="nearestList.do">최근본 상품</a></li>
 							<li><a href="wishList.do">위시리스트</a></li>
-							<li><a href="buyList.do">장바구니</a></li>
+							<li><a href="cart.do">장바구니</a></li>
 						</ul>
 					</div>
 				</div>
@@ -120,13 +122,13 @@
 					<div class="sub_mh">
 						<p class="faq_sc">FAQ</p> 
 						<ul>
-							<li><a href="CustomerService_faq.do">회원</a></li>
-							<li><a href="CustomerService_faq.do">상품</a></li>
-							<li><a href="CustomerService_faq.do">입금/결제</a></li>
-							<li><a href="CustomerService_faq.do">취소/교환/환불</a></li>
-							<li><a href="CustomerService_faq.do">주문</a></li>
-							<li><a href="CustomerService_faq.do">배송</a></li>
-							<li><a href="CustomerService_faq.do">적립</a></li>
+							<li><a href="CustomerService_faq.do?up_category=회원">회원</a></li>
+							<li><a href="CustomerService_faq.do?up_category=상품">상품</a></li>
+							<li><a href="CustomerService_faq.do?up_category=입금/결제">입금/결제</a></li>
+							<li><a href="CustomerService_faq.do?up_category=취소/교환/환불">취소/교환/환불</a></li>
+							<li><a href="CustomerService_faq.do?up_category=주문">주문</a></li>
+							<li><a href="CustomerService_faq.do?up_category=배송">배송</a></li>
+							<li><a href="CustomerService_faq.do?up_category=적립">적립</a></li>
 						</ul>
 	
 						<p class="consulting_sc">1:1 상담</p>

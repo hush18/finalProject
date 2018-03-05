@@ -44,10 +44,19 @@ $(function(){
 	$(".input_alt_mh").find("input").focus(function(){
 		$(this).val("");
 	});
+	
 });
 
+//비밀번호 입력 타입 바꾸기 text->password
+function changePwd(){
+	if($("input[name=password]").val()=="비밀번호"){
+		$("input[name=password]").val("");
+		$("input[name=password]").attr("type", "password");
+	}
+}
+
 /*유효성 검사*/
-/*function loginForm(obj){
+function loginForm(obj){
 //	alert("OK");
 		if($("input[name=id]").val()=="아이디" || $("input[name=id]").val()=="아이디를 입력하세요." || $("input[name=id]").val()=="" ){
 			alert("아이디를 입력하세요.");
@@ -86,7 +95,7 @@ function inquiryForm(obj){
 		$("input[name=password]").focus();
 		return false;
 	}
-}*/
+}
 
 var url="";
 function idFind(){
@@ -110,7 +119,7 @@ $(function(){
 		$("input[name=id]").val(userInputId);
 	}
 	
-	if($("input[name=id]").val()!="아이디"||$("input[name=id]").val()!="아이디를 입력하세요."){
+	if($("input[name=id]").val()!="아이디" || $("input[name=id]").val()!="아이디를 입력하세요."){
 		$("input[name=id_remember]").attr("checked", true);
 	}
 		
@@ -161,11 +170,8 @@ $(function(){
 		}
 	});
 	
-	if($("input[name=password]").val()=="비밀번호"){
-		$("input[name=password]").attr("type","text");
-		$("input[name=password]").keyup(function(){
-			$("input[name=password]").attr("type","password");
-		});
+	if($("input[name=password]").val()!="비밀번호"){
+		$("input[name=password]").attr("type", "password");
 	}
 });
 

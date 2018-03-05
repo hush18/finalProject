@@ -7,56 +7,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <head>
-<title>㈜산책 도서등록</title>
+<link rel="icon" href="images/favicon.ico" type="image/ico" />
+<title>㈜산책 도서정보</title>
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- 관리자 도서검색 -->
 <link href="css/admin/adminContents_BookInsert.css" type="text/css" rel="stylesheet">
 <link href="css/admin/adminContents_BookSearch.css" type="text/css" rel="stylesheet">
-<script type="text/javascript">
-	$(function() {
-		$("#upload_image_jm").click(function() {
-			$("input[name='image']").click();
-		})
-
-		$("input[name='image']").change(function(event) {
-			var imagePath = $(this).val();
-			$("#upload_image_jm").val(imagePath);
-
-			var image = event.target.files;
-			var imageArr = Array.prototype.slice.call(image);
-
-			imageArr.forEach(function(f) {
-				var reader = new FileReader();
-				reader.onload = function(e) {
-
-					var check = imagePath.split(".")[1];
-
-					$("#imageView").attr("src", e.target.result);
-				}
-				reader.readAsDataURL(f);
-			})
-
-			if (imagePath == "") {
-				$("#imageView").attr("src", "images/testImg.jpg");
-			}
-		})
-
-		$("#writer_search").click(function() {
-			var name = $("#name").val();
-			
-			window.open("adminWriterSearch.do?name="+name, "", "width=570, height=600");
-			return false;
-		})
-		$("#single_cal3").change(function() {
-			var date = $(this).val().split("/");
-			var y = date[2] + ".";
-			var m = date[0] + ".";
-			var d = date[1];
-			$(this).val(y + m + d);
-		})
-	})
-</script>
+<script type="text/javascript" src="js/admin/adminBookInfo.js"></script>
+<script type="text/javascript" src="js/admin/adminBookCheck.js"></script>
 </head>
 <div class="container body">
 	<div class="main_container">
@@ -70,7 +29,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form action="adminBookUpdate.do" method="post" class="form-horizontal insert_area_jm" enctype="multipart/form-data">
+								<form action="adminBookUpdate.do" method="post" class="form-horizontal insert_area_jm">
 									
 									<div class="insert_layout book_image_insert_area_jm">
 										<img id="imageView" class="insert_image_jm" src="${bookDto.image_path}" alt="도서이미지를 업로드 해주세요">
@@ -130,7 +89,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
 											<div class="col-md-9 col-sm-9 col-xs-12 category_area_jm">
-												<select id="category_first" class="form-control category_jm" title="1차 카테고리">
+												<select id="category" class="form-control category_jm" title="1차 카테고리">
 													<option value="" selected="selected">카테고리를 선택하세요</option>
 													<c:forEach var="category" items="${categoryList}">
 														<c:set var="category_path" value="${fn:replace(category.category_path, ',', ' > ') }"/>
@@ -143,8 +102,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">도서 이미지</label>
 											<div class="col-sm-10">
-												<input id="upload_image_jm" type="text" value="${bookDto.image_path}" placeholder="도서이미지를 등록 하세요" class="form-control">
-												<input type="file" name="image" style="display: none;">
+												<input id="image_path" name="image_path" type="text" value="${bookDto.image_path}" placeholder="도서이미지를 등록 하세요" class="form-control">
 											</div>
 										</div>
 									</div>
@@ -180,10 +138,10 @@
 									</div>
 									<div class="button_area">
 										<div>
-											<button class="btn-all btn-all_jm btn_result" value="" type="submit">수정</button>
+											<button id="updateCheck" class="btn-all btn-all_jm btn_result" type="submit">수정</button>
 										</div>
 										<div>
-											<button class="btn-all btn-all_jm btn_result" value="" type="reset">삭제</button>
+											<button id="delete" class="btn-all btn-all_jm btn_result">삭제</button>
 										</div>
 									</div>
 								</form>
@@ -201,5 +159,5 @@
 <!-- DateJS -->
 <script src="vendors/DateJS/build/date.js"></script>
 <!-- bootstrap-daterangepicker -->
-<script src="vendors/moment/min/moment.min.js"></script>
+<script src="vendors/moment/moment.js"></script>
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
