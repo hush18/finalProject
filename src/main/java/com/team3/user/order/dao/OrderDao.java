@@ -30,4 +30,5 @@ public interface OrderDao {
 	public String getTitle(String isbn);
 	public String getOrder_name(String id);
 	public OrderDto getOrderInfo(String order_number, String id);
+	public int getUse_point(String order_number);
 }

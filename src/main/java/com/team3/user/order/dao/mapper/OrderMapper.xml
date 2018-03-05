@@ -216,12 +216,16 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   		update order_delivery set order_status=#{status} where id=#{id} and order_number=#{order_number}
   	</update>
   	
+  	<update id="adminStatusChange" parameterType="java.util.Map">
+  		update order_delivery set order_status=#{status} where order_number=#{order_number}
+  	</update>
+  	
   	<delete id="orderDelete" parameterType="java.util.Map">
   		delete from order_delivery where id=#{id} and order_number=#{order_number}
   	</delete>
   	
   	<select id="getDetailOrder" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
-  		select * from order_delivery where id=#{id} and order_number=#{order_number}
+  		SELECT O.*, P.credit_card, P.PHONE_PAYMENT, P.REALTIME_ACCOUNT_TRANSFER, P.DIRECT_DEPOSIT FROM order_delivery O, payment_point P WHERE O.order_number=#{order_number} and O.id=#{id}
   	</select>
   	
   	<select id="getDetailPrice" parameterType="String" resultType="long">
@@ -242,5 +246,9 @@ WHERE O.id=M.id ORDER BY total_price desc) A) where id=#{id} and rnum >=#{startR
   	
   	<select id="order_number" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
   		select * from order_delivery where id=#{id} and order_number=#{order_number}
+  	</select>
+  	
+  	<select id="getUse_point" parameterType="String" resultType="int">
+  		select nvl(point_history, 0) from payment_point where order_number=#{order_number}
   	</select>
   </mapper>

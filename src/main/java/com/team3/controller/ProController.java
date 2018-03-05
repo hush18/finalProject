@@ -289,6 +289,16 @@ public class ProController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/adminStatusChange.do", method=RequestMethod.GET)
+	public ModelAndView adminStatusChange(HttpServletRequest request,HttpServletResponse response) {
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		service.adminStatusChange(mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/orderDelete.do", method=RequestMethod.GET)
 	public ModelAndView orderDelete(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -590,12 +600,20 @@ public class ProController {
 
 	@RequestMapping(value = "adminChange.do", method = RequestMethod.GET)
 	public ModelAndView adminChange(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminChange.admin");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.adminChange(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "adminDelivery.do", method = RequestMethod.GET)
 	public ModelAndView adminDelivery(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("adminDelivery.admin");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.adminDelivery(mav);
+		return mav;
 	}
 
 	@RequestMapping(value = "adminOrderSearch.do", method = RequestMethod.GET)
@@ -604,6 +622,16 @@ public class ProController {
 		mav.addObject("request", request);
 		
 		service.adminOrderSearch(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "adminDetail.do", method = RequestMethod.GET)
+	public ModelAndView adminDetail(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		service.adminDetail(mav);
+//		new ModelAndView("adminDetail.admin");
 		return mav;
 	}
 

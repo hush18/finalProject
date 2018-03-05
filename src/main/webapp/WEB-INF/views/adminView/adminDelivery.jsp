@@ -4,6 +4,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
 <title>㈜산책 배송관리</title>
@@ -40,6 +41,7 @@
 								</div>
 								<div class="x_content">
 									<!-- x_content div 영역 안에서만 작업 하고 그 외에는 수정하지 말 것!!★★★★★ -->
+									<c:if test="${count >0 }">
 									<table id="datatable"
 										class="table table-striped table-bordered" style="word-break:break-all;">
 										<thead>
@@ -73,7 +75,7 @@
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
 													aria-label="Salary: activate to sort column ascending"
-													style="width: 100px;">결제방법</th>
+													style="width: 110px;">결제방법</th>
 													
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
@@ -83,29 +85,29 @@
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
 													aria-label="Salary: activate to sort column ascending"
-													style="width: 112px;">배송상태</th>
+													style="width: 102px;">배송상태</th>
 											</tr>
 										</thead>
 
 
 										<tbody>
-										<c:forEach var="i" begin="1" end="13">
-											<tr role="row" class="odd">
-												<td class="sorting_1">1234567890000_1234567890000</td>
-												<td class="text_left_hy"><a href="#">난생처음 히치하이킹</a></td>
-												<td class="text_right_hy">33권</td>
-												<td>2018-01-30</td>
-												<td class="text_right_hy">348,900원</td>
-												<td>카드결제</td>
-												<td>2018-02-01</td>
-												<td>
-													<input type="text" class="text_hy" size="6" value="배송완료"/>
-												</td>
-											</tr>
-										</c:forEach>
-											
+											<c:forEach var="adminDeliveryList" items="${adminDeliveryList }">
+												<tr role="row" class="odd">
+													<td class="sorting_1">${adminDeliveryList.order_number }</td>
+													<td class="text_left_hy">${adminDeliveryList.title }</td>
+													<td class="text_right_hy">${adminDeliveryList.goods_account }권</td>
+													<td><fmt:formatDate value="${adminDeliveryList.order_date}" pattern="yyyy.MM.dd"/></td>
+													<td class="text_right_hy"><fmt:formatNumber value="${adminDeliveryList.total_price }" pattern="#,###,###"/>원</td>
+													<td>${adminDeliveryList.payment_way }</td>
+													<td><fmt:formatDate value="${adminDeliveryList.maybe_date}" pattern="yyyy.MM.dd"/></td>
+													<td>
+														<input type="text" class="text_hy" size="6" value="배송완료"/>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
+									</c:if>
 								</div>
 							</div>
 						</div>

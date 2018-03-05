@@ -81,5 +81,9 @@ public interface ServiceInterface {
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
 	public void adminOrderSearch(ModelAndView mav);
+	public void adminChange(ModelAndView mav);
+	public void adminDelivery(ModelAndView mav);
+	public void adminDetail(ModelAndView mav);
+	public void adminStatusChange(ModelAndView mav);
 }
 

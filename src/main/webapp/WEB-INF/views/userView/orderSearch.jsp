@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
@@ -13,6 +23,7 @@
 <link href="css/user/orderSearch.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
 		
 		$("#array").change(function(){
 			var url="orderSearch.do?list_id="+$(this).val();
@@ -46,26 +57,49 @@
 			$(location).attr('href', url);
 		})
 		
-		$("#change_exchange").click(function(){
-			var order_number=$(this).parents().find("#order_number").text();
-			var url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=1";
-			$(location).attr('href', url);
+		$(".change_exchange").click(function(){
+			var order_number=$(this).parent().parent().find(".order_number").children().text();
+			var status=$(this).parent().parent().find(".status").text();
+			var url="";
+			if(status=="환불요청"){
+				alert("이미 환불요청된 주문입니다. 교환요청으로 변경하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=21&pageStatus=1";
+				$(location).attr('href', url);
+			}else if(status=="입금대기중"){
+				alert("입금을 하지 않은 상태이므로 요청이 불가합니다.");
+			}else if(status=="교환요청"){
+				alert("이미 교환요청된 주문입니다. 환불요청으로 변경하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=1";
+				$(location).attr('href', url);
+			}else if(status=="출고완료" || status=="배송중"){
+				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+			}else{
+				alert("환불요청을 진행하겠습니다.")
+				url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=1";
+				$(location).attr('href', url);
+			}
 				
 		});
 	 		
- 		$("#change_cancel").click(function(){
- 			var status=$(this).parents().find("#status").text();
- 			alert(status);
- 			var order_number=$(this).parents().find("#order_number").text();
- 			if(status=="1"){
- 				var url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
- 				alert(url);
-				//$(location).attr('href', url);
- 			}else{
-				var url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
-				alert(url);
+ 		$(".change_cancel").click(function(){
+ 			var status=$(this).parent().parent().find(".status").text();
+ 			var order_number=$(this).parents().find(".order_number").text();
+ 			var url="";
+ 			if(status=="입금대기중"){
+ 				alert("상품 주문을 취소하겠습니다.");
+ 				url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
 				$(location).attr('href', url);
- 				
+ 			}else if(status=="취소요청"){
+ 				alert("이미 취소요청된 주문입니다. 다시 주문하시려면 취소/반품/교환 목록으로 가세요");
+ 			}else if(status=="환불요청" || status=="교환요청"){
+ 				alert("배송을 처음부터 다시 시작하겠습니다.");
+ 				url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=1";
+ 				$(location).attr('href', url);
+ 			}else if(status=="출고완료" || status=="배송중"){
+ 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+ 			}else{
+ 				url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
+				$(location).attr('href', url);
  			}
  		});
 		
@@ -186,7 +220,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="userPointView.do">${point }</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -243,14 +277,14 @@
 						<div class="list_hy">
 							<c:forEach var="orderSearchList" items="${orderSearchList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
+									<div class="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.title }</a></div>
 									<div>${orderSearchList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${orderSearchList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${orderSearchList.maybe_date}" pattern="yyyy.MM.dd"/></div>
-									<div id="status">${orderSearchList.status }</div>
-									<div class=""><strong>${orderSearchList.total_price }원</strong></div>
-									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>
+									<div class="status">${orderSearchList.status }</div>
+									<div class=""><strong><fmt:formatNumber value="${orderSearchList.total_price }" pattern="#,###,###"/>원</strong></div>
+									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel" >취소</button></div>
 								</div>
 							</c:forEach>
 						</div>

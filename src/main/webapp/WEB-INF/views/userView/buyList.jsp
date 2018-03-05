@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
@@ -14,6 +24,8 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
 		$("#array").change(function(){
 			var url="orderSearch.do?list_id="+$(this).val();
 			$(location).attr('href', url);
@@ -141,7 +153,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -202,7 +214,7 @@
 									<div class=""><fmt:formatDate value="${buyListList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${buyListList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<div class="">${buyListList.status }</div>
-									<div class=""><strong>${buyListList.total_price }원</strong></div>
+									<div class=""><strong><fmt:formatNumber value="${buyListList.total_price }" pattern="#,###,###"/>원</strong></div>
 								</div>
 							</c:forEach>
 						</div>

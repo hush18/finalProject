@@ -323,10 +323,18 @@ public class OrderDaoImp implements OrderDao {
 	@Override
 	public int statusChange(String order_number, String status, String id) {
 		Map<String, Object> map=new HashMap<String, Object>();
+		
 		map.put("order_number", order_number);
 		map.put("status", status);
 		map.put("id", id);
-		return sqlSession.update("statusChange", map);
+		int value=0;
+		LogAspect.logger.info(LogAspect.logMsg + id);
+		if(id.equals("admin")) {
+			value=sqlSession.update("adminStatusChange",map);
+		}else {
+			value=sqlSession.update("statusChange", map);			
+		}
+		return value;
 	}
 	
 	@Override
@@ -371,5 +379,10 @@ public class OrderDaoImp implements OrderDao {
 		map.put("order_number", order_number);
 		map.put("id", id);
 		return sqlSession.selectOne("getOrderInfo", map);
+	}
+	
+	@Override
+	public int getUse_point(String order_number) {
+		return sqlSession.selectOne("getUse_point", order_number);
 	}
 }

@@ -1,8 +1,4 @@
-<!-- 
-작성자 : 신호용
- -->
- 
- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
@@ -15,17 +11,6 @@
 <!-- bootstrap-daterangepicker -->
 <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <link href="css/admin/adminOrderSearch.css" type="text/css" rel="stylesheet">
-<script type="text/javascript">
-	$(function() {
-		$(".update").click(function() {
-			var status=$(this).prev().val();
-			var order_number=$(this).parent().parent().parent().children(".text_left_hy").prev().text();
-			var url="adminStatusChange.do?order_number="+order_number+"&status="+status+"&pageStatus=1";
-			$(location).attr('href', url);
-		})
-		
-	})
-</script>
 </head>
 	<div class="container body">
 		<div class="main_container">
@@ -35,7 +20,7 @@
 						<div class="col-md-8 col-sm-8 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>주문내역</h2>
+									<h2>${order_number }의 상세정보</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 										</a></li>
@@ -51,76 +36,69 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<c:if test="${count > 0}">
-									<table id="datatable"
-										class="table table-striped table-bordered">
-										<thead>
-											<tr role="row" class="thead_hy">
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Name: activate to sort column ascending"
-													style="width: 240px;">주문번호</th>
-													
+									<c:if test="${count>0 }">
+										<div style="overflow: hidden;">
+											<table class="table table-striped dataTable no-footer" style="display: inline-block; max-width: 28% !important;" role="grid" aria-describedby="datatable_info">
+												
+												<thead style="border: 1px solid #ddd;">
+													<tr role="row" class="thead_hy" style="border: 1px solid #ddd;">
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 118px; border: 1px solid #ddd;">주문자 이름</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 137px; border: 1px solid #ddd;">주문자 ID</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr role="row" class="list">
+														<td style="border: 1px solid #ddd;">${order_name }</td>
+														<td style="border: 1px solid #ddd;">${order_id }</td>
+													</tr>
+												</tbody>
+											</table>
 									
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Office: activate to sort column ascending"
-													style="width: 300px;">도서명</th>
-													
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Age: activate to sort column ascending"
-													style="width: 70px;">수량</th>
-													
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Start date: activate to sort column ascending"
-													style="width: 100px;">주문일자</th>
-													
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Salary: activate to sort column ascending"
-													style="width: 110px;">가격</th>
-													
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Salary: activate to sort column ascending"
-													style="width: 110px;">결제방법</th>
-												<th class="sorting" tabindex="0"
-													aria-controls="datatable" rowspan="1" colspan="1"
-													aria-label="Salary: activate to sort column ascending"
-													style="width: 182px;">배송상태</th>
-											</tr>
-										</thead>
-
-
-										<tbody>
-											<c:forEach var="adminOrderList" items="${adminOrderList }">
-												<tr role="row" class="list">
-													<td><a href="adminDetail.do?order_number=${adminOrderList.order_number }">${adminOrderList.order_number }</a></td>
-													<td class="text_left_hy"><a href="adminDetail.do?order_number=${adminOrderList.order_number }">${adminOrderList.title }</a></td>
-													<td class="sorting_1 text_right_hy">${adminOrderList.goods_account }권</td>
-													<td><fmt:formatDate value="${adminOrderList.order_date}" pattern="yyyy.MM.dd"/></td>
-													<td class="text_right_hy"><fmt:formatNumber value="${adminOrderList.total_price }" pattern="#,###,###"/>원</td>
-													<td>${adminOrderList.payment_way }</td>
-													<td>
-														<span>
-															<select class="adminOrder_status">
-																<option value="0" ${adminOrderList.status=='입금대기중' ? 'selected' : ''}>입금대기중</option>
-																<option value="1" ${adminOrderList.status=='상품준비완료' ? 'selected' : ''}>상품준비완료</option>
-																<option value="2" ${adminOrderList.status=='출고준비중' ? 'selected' : ''}>출고준비중</option>
-																<option value="3" ${adminOrderList.status=='출고완료' ? 'selected' : ''}>출고완료</option>
-																<option value="4" ${adminOrderList.status=='배송중' ? 'selected' : ''}>배송중</option>
-																<option value="5" ${adminOrderList.status=='배송완료' ? 'selected' : ''}>배송완료</option>
-															</select>
-															<button class="block_btn_hy update">수정</button>
-														</span>
-													</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-									</c:if>
+											<table class="table table-striped " style="display: inline-block; max-width: 68% !important; float: right;">
+												<thead>
+													<tr role="row" class="thead_hy">
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 150px; border: 1px solid #ddd;">수령자 이름</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 200px; border: 1px solid #ddd;">수령자 연락처</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 366px; border: 1px solid #ddd;">수령자 주소</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr role="row" class="list">
+														<td style="border: 1px solid #ddd;">${receive_name }</td>
+														<td style="border: 1px solid #ddd;">${receive_phone }</td>
+														<td class="sorting_1 text_left_hy" style="border: 1px solid #ddd;">${receive_addr}</td>
+													</tr>
+												</tbody>
+											</table>
+										
+											<table class="table table-striped table-bordered">
+												<thead>
+													<tr role="row" class="thead_hy">
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 240px;">도서번호</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 352px;">도서명</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 160px;">저자</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 160px;">출판사</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">권당 가격</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">수량</th>
+													</tr>
+												</thead>
+	
+	
+												<tbody>
+													<c:forEach var="adminDetailList" items="${adminDetailList }">
+														<tr role="row" class="list">
+															<td>${adminDetailList.isbn }</td>
+															<td class="text_left_hy"><a href="adminBookInfo.do?isbn=${adminDetailList.isbn }">${adminDetailList.goods_name }</a></td>
+															<td class="text_left_hy">${adminDetailList.author }</td>
+															<td class="text_left_hy">${adminDetailList.publisher }</td>
+															<td class="text_right_hy"><fmt:formatNumber value="${adminDetailList.total_price }" pattern="#,###,###"/>원</td>
+															<td>${adminDetailList.order_account }권</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</c:if>									
 								</div>
 							</div>
 						</div>
@@ -129,7 +107,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- FastClick -->
 	<script src="vendors/fastclick/lib/fastclick.js"></script>
 	<!-- bootstrap-progressbar -->
@@ -142,7 +119,7 @@
 	<script src="vendors/moment/min/moment.min.js"></script>
 	<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<!-- Datatables -->
-    <script src="vendors/datatables.net/js/jquery.dataTables.js"></script>
+	<script src="vendors/datatables.net/js/jquery.dataTables.js"></script>
     <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>

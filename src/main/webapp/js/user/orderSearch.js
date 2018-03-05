@@ -116,7 +116,7 @@ $(function(){
 			
 		})
 	
-		
+		//장바구니 삭제
 		$("#cart_delete").click(function(){
 			var isbn=$(this).parents().find(".quantity_up_jm").children().val();
 			var list_id=$('input[name="listId"]').val();
@@ -126,6 +126,7 @@ $(function(){
 			$(location).attr('href', url);
 		})
 		
+		//장바구니 선택삭제
 		$("#selectDelete").click(function() {
 			var isbnList="";
 			$(".checkBook_sc:checked").each(function(){

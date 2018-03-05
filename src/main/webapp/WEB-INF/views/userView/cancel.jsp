@@ -14,6 +14,8 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+		
 		$("#array").change(function(){
 			var url="orderSearch.do?list_id="+$(this).val();
 			$(location).attr('href', url);
@@ -24,15 +26,41 @@
 		$("#array option:selected").removeAttr("selected"); 
  		$("#array").val(list_id).attr("selected", "selected");
  		
- 		$("#change_exchange").click(function(){
-			alert("이미 환불 처리 요청이된 주문입니다.");
+ 		$(".change_exchange").click(function(){
+ 			var status=$(this).parent().parent().find(".status").text();
+ 			var order_number=$(this).parents().find(".order_number").text();
+ 			var url="";
+ 			if(status=="환불요청"){			
+ 				alert("이미 환불요청된 주문입니다. 교환요청으로 변경하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=21&pageStatus=4";
+				$(location).attr('href', url);
+ 			}else if(status=="교환요청"){
+				alert("이미 교환요청된 주문입니다. 환불요청으로 변경하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=4";
+				$(location).attr('href', url);
+			}else{
+				alert("환불요청으로 변경하겠습니다.");
+				var url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=4";
+				$(location).attr('href', url);
+			} 			
 		});
 	 		
- 		$("#change_cancel").click(function(){
- 			alert("배송을 처음부터 다시 시작하겠습니다.");
- 			var order_number=$(this).parents().find("#order_number").text();
+ 		$(".change_cancel").click(function(){
+ 			var status=$(this).parent().parent().find(".status").text();
+ 			var order_number=$(this).parents().find(".order_number").text();
 			var url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=4";
 			$(location).attr('href', url);
+			
+			if(status=="취소요청"){
+				alert("배송을 처음부터 다시 시작하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=4";
+				$(location).attr('href', url);
+ 			}else if(status=="환불요청배송" || status=="교환요청배송"){
+ 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+ 			}else{
+ 				url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=4";
+				$(location).attr('href', url);
+ 			}
  		});
  		
  		$(".block_btn_hy").click(function() {
@@ -174,7 +202,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -232,14 +260,14 @@
 						<div class="list_hy">
 							<c:forEach var="cancelList" items="${cancelList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.order_number }</a></div>
+									<div class="order_number"><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${cancelList.order_number}">${cancelList.title }</a></div>
 									<div>${cancelList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${cancelList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${cancelList.maybe_date}" pattern="yyyy.MM.dd"/></div>
 									<div class="">${cancelList.status }</div>
-									<div class=""><strong>${cancelList.total_price }원</strong></div>
-									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>
+									<div class=""><strong><fmt:formatNumber value="${cancelList.total_price }" pattern="#,###,###"/>원</strong></div>
+									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel">취소</button></div>
 								</div>
 							</c:forEach>
 						</div>
@@ -276,6 +304,7 @@
 			</div>
 			<div class="underimg_hy"><img src="images/info2.png" style="width:85%;"/></div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
