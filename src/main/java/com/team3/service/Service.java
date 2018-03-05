@@ -1816,12 +1816,7 @@ public class Service implements ServiceInterface {
 	public void adminBookSearch(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String isbn = request.getParameter("isbn");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		LogAspect.logger.info(LogAspect.logMsg + isbn + "\t" + quantity);
-
 		List<BookDto> bookList = adminBook.getAdminBookSearch();
-
 		mav.addObject("bookList", bookList);
 	}
 
