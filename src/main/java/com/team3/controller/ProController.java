@@ -274,7 +274,7 @@ public class ProController {
 		mav.addObject("request", request);
 		service.cartListDelete(mav);
 		
-		return mav;
+		return scroll(mav);
 	}
 		
 	@RequestMapping(value="/orderSearch.do", method=RequestMethod.GET)

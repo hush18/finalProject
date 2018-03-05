@@ -44,7 +44,6 @@
 	</c:if>
 	<c:if test="${value<1}">
 		<script type="text/javascript">
-			alert("삭제에 실패한 도서가 있습니다.");
 			location.href="cart.do";
 		</script>
 	</c:if>
