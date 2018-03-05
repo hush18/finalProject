@@ -104,7 +104,7 @@
 
 			<div style="margin-left: 20px;">
 				<div style="text-align: center;margin-bottom: 40px;">
-					<img src="images/header/logo.png" width="50%"
+					<img src="images/header/logo1.jpg" width="50%"
 						style="margin: 0px; height: 200px;">
 				</div>
 				<h2 class="h2-hr">산책소개</h2>

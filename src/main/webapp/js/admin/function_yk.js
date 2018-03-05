@@ -50,11 +50,75 @@ $(function() {
 		});
 		
 		$("div[class='admin_map_yk'][id='"+id+"'] button[id='updateOk "+id+"']").click(function() {
+			if($("div[class='admin_map_yk'][id='"+id+"'] input[name='store_name']").val()==""){
+				alert("영업점 이름을 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] input[name='store_name']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] input[name='lat']").val()==""){
+				alert("위도를 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] input[name='lat']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] input[name='lng']").val()==""){
+				alert("경도를 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] input[name='lng']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] input[name='phone_fax']").val()==""){
+				alert("전화/FAX 번호를 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] input[name='phone_fax']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] input[name='address']").val()==""){
+				alert("주소를 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] input[name='address']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] input[name='business_hours']").val()==""){
+				alert("영업시간을 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] input[name='business_hours']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] textarea[name='directions']").val()==""){
+				alert("오시는길을 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] textarea[name='directions']").focus();
+				return false;
+			}
+			if($("div[class='admin_map_yk'][id='"+id+"'] textarea[name='store_explanation']").val()==""){
+				alert("매장설명을 입력하세요.")
+				$("div[class='admin_map_yk'][id='"+id+"'] textarea[name='store_explanation']").focus();
+				return false;
+			}
+			var imgCheck=confirm("영업점 이미지를 바꾸시겠습니까?")
+			if(imgCheck){
+				if($("div[class='admin_map_yk'] input[name='map_img_file']").val()==""||$("div[class='create_map_yk'] input[name='map_img_file']").val()==null){
+					alert("영업점 이미지를 입력하세요.")
+					return false;
+				}
+			}
+			
 			var check=confirm("수정하시겠습니까?");
 			if(check) $("form[name='update"+id+"']").submit();
 		});
 		
 		$("div[id='"+id+"'] button[id='deleteOk']").click(function() {
+			if($("form[name='delete"+id+"'] input[name='id']").val()==""){
+				alert("관리자 아이디를 입력하세요.")
+				$("form[name='delete"+id+"'] input[name='id']").focus();
+				return false;
+			}
+			if($("form[name='delete"+id+"'] input[name='password']").val()==""){
+				alert("관리자 비밀번호를 입력하세요.")
+				$("form[name='delete"+id+"'] input[name='password']").focus();
+				return false;
+			}
+			if($("form[name='delete"+id+"'] input[name='name']").val()==""){
+				alert("관리자 이름을 입력하세요.")
+				$("form[name='delete"+id+"'] input[name='name']").focus();
+				return false;
+			}
+			
 			var check=confirm("정말 삭제하시겠습니까?");
 			if(check)$("form[name='delete"+id+"']").submit();
 		});
@@ -66,6 +130,51 @@ $(function() {
 	});
 	
 	$("#addStore").click(function() {
+		if($("div[class='create_map_yk'] input[name='store_name']").val()==""){
+			alert("영업점 이름을 입력하세요.")
+			$("div[class='create_map_yk'] input[name='store_name']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] input[name='lat']").val()==""){
+			alert("영업점 위도를 입력하세요.")
+			$("div[class='create_map_yk'] input[name='lat']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] input[name='lng']").val()==""){
+			alert("영업점 경도를 입력하세요.")
+			$("div[class='create_map_yk'] input[name='lng']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] input[name='phone_fax']").val()==""){
+			alert("영업점 전화번호와 팩스번호를 입력하세요.")
+			$("div[class='create_map_yk'] input[name='phone_fax']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] input[name='address']").val()==""){
+			alert("영업점 주소를 입력하세요.")
+			$("div[class='create_map_yk'] input[name='address']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] input[name='business_hours']").val()==""){
+			alert("영업점 영업시간을 입력하세요.")
+			$("div[class='create_map_yk'] input[name='business_hours']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] textarea[name='directions']").val()==""){
+			alert("영업점 오시는 길을  입력하세요.")
+			$("div[class='create_map_yk'] textarea[name='directions']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] textarea[name='store_explanation']").val()==""){
+			alert("영업점 설명을 입력하세요.")
+			$("div[class='create_map_yk'] textarea[name='store_explanation']").focus();
+			return false;
+		}
+		if($("div[class='create_map_yk'] input[name='map_img_file']").val()==""||$("div[class='create_map_yk'] input[name='map_img_file']").val()==null){
+			alert("영업점 이미지를 입력하세요.")
+			return false;
+		}
+		
 		$(".create_map_yk form").submit();
 	});
 	
@@ -98,35 +207,3 @@ $(function() {
 		});
 	});
 });
-
-
-/*
-$(function() {
-	var fileTarget = $('.filebox .upload-hidden');
-
-	fileTarget.on('change',function() {
-		if (window.FileReader) {
-			var filename = '';
-			for (var i = 0; i < $(this)[0].files.length; i++) {
-				filename += $(this)[0].files[i].name + ", ";
-			}
-		} else {
-			var filename = $(this).val().split('/').pop().split('\\').pop();
-		}
-		$(this).siblings('.upload-name').val(filename);
-	});
-})
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
