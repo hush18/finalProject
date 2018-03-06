@@ -1859,9 +1859,9 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberAddressDto memberAddressDto = (MemberAddressDto) map.get("memberAddressDto");
-		String id = (String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("mbId");
 		memberAddressDto.setId(id);
-
+		
 		int check = paymentDao.insertZipcode(memberAddressDto);
 
 		mav.addObject("check", check);
