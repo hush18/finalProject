@@ -267,7 +267,8 @@
   	</delete>
   	
   	<select id="getDetailOrder" parameterType="java.util.Map" resultType="com.team3.user.order.dto.OrderDto">
-  		SELECT O.*, P.credit_card, P.PHONE_PAYMENT, P.REALTIME_ACCOUNT_TRANSFER, P.DIRECT_DEPOSIT FROM order_delivery O, payment_point P WHERE O.order_number=#{order_number} and O.id=#{id}
+  		SELECT O.*, P.credit_card, P.PHONE_PAYMENT, P.REALTIME_ACCOUNT_TRANSFER, P.DIRECT_DEPOSIT FROM order_delivery O, payment_point P 
+  		WHERE O.order_number=P.order_number and O.order_number=#{order_number} and O.id=#{id}
   	</select>
   	
   	<select id="getDetailPrice" parameterType="String" resultType="long">
