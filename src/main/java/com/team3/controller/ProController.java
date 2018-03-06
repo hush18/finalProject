@@ -215,7 +215,7 @@ public class ProController {
 		mav.addObject("session", session);
 		service.facebookCreateAccount(mav);
 
-		return mav;
+		return scroll(mav);
 	}
 
 	@RequestMapping(value = "/createAccount.do", method = RequestMethod.GET)
