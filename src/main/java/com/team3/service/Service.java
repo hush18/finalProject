@@ -1506,6 +1506,7 @@ public class Service implements ServiceInterface {
 			int count=0;
 			long price=0;
 			List<BookDto>bookList=new ArrayList<BookDto>();
+			int bookCount=quantityList.length;
 			for(int i=0;i<isbnList.length;i++) {
 				count+=Integer.parseInt(quantityList[i]);
 				BookDto bookDto=paymentDao.selectBook(isbnList[i]);
@@ -1515,6 +1516,7 @@ public class Service implements ServiceInterface {
 				price+=Integer.parseInt(quantityList[i])* bookDto.getPrice();
 				bookList.add(bookDto);
 			}
+			mav.addObject("bookCount",bookCount);
 			mav.addObject("quantity",transQuantity);
 			mav.addObject("isbn",trantIsbn);
 			mav.addObject("price",price);
@@ -1565,18 +1567,21 @@ public class Service implements ServiceInterface {
 			for (int i = 0; i < faqUpList.size(); i++) {
 				faqUpList.get(i).setContent(faqUpList.get(i).getContent().replace("\r\n", "<br />"));
 			}
+			mav.addObject("faqList", faqUpList);
 		}else if(upCategory!=null && downCategory!=null && search==null) {
 			faqDownList = faqDao.faqDownList(downCategory,startNum,endNum);
 			for (int i = 0; i < faqDownList.size(); i++) {
 				faqDownList.get(i).setContent(faqDownList.get(i).getContent().replace("\r\n", "<br />"));
 			}
+			mav.addObject("faqList", faqDownList);
 		}else if(search!=null) {
 			faqSearchList = faqDao.faqSearchList(upCategory,search,startNum,endNum);
+			for (int i = 0; i < faqSearchList.size(); i++) {
+				faqSearchList.get(i).setContent(faqSearchList.get(i).getContent().replace("\r\n", "<br />"));
+			}
+			mav.addObject("faqList", faqSearchList);
 		}
 		
-		mav.addObject("faqUpList", faqUpList);
-		mav.addObject("faqDownList", faqDownList);
-		mav.addObject("faqSearchList", faqSearchList);
 		mav.addObject("upCategory", upCategory);
 		mav.addObject("downCategory", downCategory);
 		mav.addObject("boardSize", boardSize);
@@ -3264,7 +3269,7 @@ public class Service implements ServiceInterface {
 				for(int i=0; i<isbnArr.length; i++) {
 					OrderDto adminDetailDto=new OrderDto();
 					String isbn=isbnArr[i]+"/";
-					adminDetailDto.setIsbn(isbn);
+					adminDetailDto.setIsbn(isbnArr[i]);
 					LogAspect.logger.info(LogAspect.logMsg+ "isbn:" + isbn);
 					String publisher=adminOrderDao.getPublisher(isbn);
 					adminDetailDto.setPublisher(publisher);
