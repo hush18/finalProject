@@ -25,7 +25,7 @@
 	<c:if test="${check==1 }">
 		<div class="widthline" style="overflow: hidden;">
 			<div class="path_sc">홈 > 마이페이지</div>
-			<div class="side_mh">
+			<div class="side_mh" style="margin-bottom: 275px;">
 				<div class="category_mh">
 					<!-- 마이페이지 -->
 					<div class="orderManager_mh">

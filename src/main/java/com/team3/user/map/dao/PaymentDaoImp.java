@@ -34,12 +34,12 @@ public class PaymentDaoImp implements PaymentDao {
 
 	@Override
 	public List<MemberAddressDto> getMemberAddress(String id) {
-		return sqlSessionTemplate.selectList("member_address_list", id);
+		return sqlSessionTemplate.selectList("com.team3.user.map.dao.mapper.member_address_list", id);
 	}
 
 	@Override
 	public int insertZipcode(MemberAddressDto memberAddressDto) {
-		return sqlSessionTemplate.insert("zipcodeInsert", memberAddressDto);
+		return sqlSessionTemplate.insert("com.team3.user.map.dao.mapper.zipcodeInsert", memberAddressDto);
 	}
 
 	@Override

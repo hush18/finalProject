@@ -50,7 +50,7 @@
   	<select id="selectPoint" parameterType="String" resultType="com.team3.user.map.dto.PointDto">
   		SELECT m.id,p.order_number,o.title,o.total_price,o.order_date,p.point_history,p.save_point,m.point
 		FROM PAYMENT_POINT p,ORDER_DELIVERY o,MEMBER m
-		WHERE p.ORDER_NUMBER=o.ORDER_NUMBER AND o.ID=m.ID and m.id=#{id}
+		WHERE p.ORDER_NUMBER=o.ORDER_NUMBER AND o.ID=m.ID and m.id=#{id} order by p.ORDER_NUMBER desc
   	</select>
   	
   	<select id="orderingCount" parameterType="String" resultType="int">

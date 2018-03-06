@@ -1864,9 +1864,9 @@ public class Service implements ServiceInterface {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberAddressDto memberAddressDto = (MemberAddressDto) map.get("memberAddressDto");
-		String id = (String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("mbId");
 		memberAddressDto.setId(id);
-
+		
 		int check = paymentDao.insertZipcode(memberAddressDto);
 
 		mav.addObject("check", check);
@@ -3269,7 +3269,7 @@ public class Service implements ServiceInterface {
 				for(int i=0; i<isbnArr.length; i++) {
 					OrderDto adminDetailDto=new OrderDto();
 					String isbn=isbnArr[i]+"/";
-					adminDetailDto.setIsbn(isbn);
+					adminDetailDto.setIsbn(isbnArr[i]);
 					LogAspect.logger.info(LogAspect.logMsg+ "isbn:" + isbn);
 					String publisher=adminOrderDao.getPublisher(isbn);
 					adminDetailDto.setPublisher(publisher);

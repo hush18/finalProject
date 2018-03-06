@@ -42,14 +42,14 @@
 												
 												<thead style="border: 1px solid #ddd;">
 													<tr role="row" class="thead_hy" style="border: 1px solid #ddd;">
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 118px; border: 1px solid #ddd;">주문자 이름</th>
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 137px; border: 1px solid #ddd;">주문자 ID</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 118px; border: 1px solid #ddd;" class="tb_hy">주문자 이름</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 137px; border: 1px solid #ddd;" class="tb_hy">주문자 ID</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr role="row" class="list">
-														<td style="border: 1px solid #ddd;">${order_name }</td>
-														<td style="border: 1px solid #ddd;">${order_id }</td>
+														<td class="tb_hy" style="border: 1px solid #ddd;">${order_name }</td>
+														<td class="tb_hy" style="border: 1px solid #ddd;">${order_id }</td>
 													</tr>
 												</tbody>
 											</table>
@@ -57,16 +57,16 @@
 											<table class="table table-striped " style="display: inline-block; max-width: 68% !important; float: right;">
 												<thead>
 													<tr role="row" class="thead_hy">
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 150px; border: 1px solid #ddd;">수령자 이름</th>
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 200px; border: 1px solid #ddd;">수령자 연락처</th>
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 366px; border: 1px solid #ddd;">수령자 주소</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 150px; border: 1px solid #ddd">수령자 이름</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 200px; border: 1px solid #ddd">수령자 연락처</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 366px; border: 1px solid #ddd">수령자 주소</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr role="row" class="list">
-														<td style="border: 1px solid #ddd;">${receive_name }</td>
-														<td style="border: 1px solid #ddd;">${receive_phone }</td>
-														<td class="sorting_1 text_left_hy" style="border: 1px solid #ddd;">${receive_addr}</td>
+														<td class="tb_hy" style="border: 1px solid #ddd;">${receive_name }</td>
+														<td class="tb_hy" style="border: 1px solid #ddd;">${receive_phone }</td>
+														<td class="tb_hy text_left_hy" style="border: 1px solid #ddd;">${receive_addr}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -74,8 +74,8 @@
 											<table class="table table-striped table-bordered">
 												<thead>
 													<tr role="row" class="thead_hy">
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 240px;">도서번호</th>
-														<th tabindex="0" rowspan="1" colspan="1" style="width: 352px;">도서명</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 180px;">도서번호</th>
+														<th tabindex="0" rowspan="1" colspan="1" style="width: 412px;">도서명</th>
 														<th tabindex="0" rowspan="1" colspan="1" style="width: 160px;">저자</th>
 														<th tabindex="0" rowspan="1" colspan="1" style="width: 160px;">출판사</th>
 														<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">권당 가격</th>
@@ -87,12 +87,12 @@
 												<tbody>
 													<c:forEach var="adminDetailList" items="${adminDetailList }">
 														<tr role="row" class="list">
-															<td>${adminDetailList.isbn }</td>
-															<td class="text_left_hy"><a href="adminBookInfo.do?isbn=${adminDetailList.isbn }">${adminDetailList.goods_name }</a></td>
-															<td class="text_left_hy">${adminDetailList.author }</td>
-															<td class="text_left_hy">${adminDetailList.publisher }</td>
-															<td class="text_right_hy"><fmt:formatNumber value="${adminDetailList.total_price }" pattern="#,###,###"/>원</td>
-															<td>${adminDetailList.order_account }권</td>
+															<td class="tb_hy"><a href="adminBookInfo.do?isbn=${adminDetailList.isbn }">${adminDetailList.isbn }</a></td>
+															<td class="text_left_hy tb_hy"><a href="adminBookInfo.do?isbn=${adminDetailList.isbn }">${adminDetailList.goods_name }</a></td>
+															<td class="text_left_hy tb_hy">${adminDetailList.author }</td>
+															<td class="text_left_hy tb_hy">${adminDetailList.publisher }</td>
+															<td class="text_right_hy tb_hy"><fmt:formatNumber value="${adminDetailList.total_price }" pattern="#,###,###"/>원</td>
+															<td class="tb_hy">${adminDetailList.order_account }권</td>
 														</tr>
 													</c:forEach>
 												</tbody>

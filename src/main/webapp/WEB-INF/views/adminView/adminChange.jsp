@@ -59,13 +59,13 @@
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
 													aria-label="Name: activate to sort column ascending"
-													style="width: 240px;">주문번호</th>
+													style="width: 180px;">주문번호</th>
 													
 									
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
 													aria-label="Office: activate to sort column ascending"
-													style="width: 300px;">도서명</th>
+													style="width: 360px;">도서명</th>
 													
 												<th class="sorting" tabindex="0"
 													aria-controls="datatable" rowspan="1" colspan="1"
@@ -97,12 +97,12 @@
 										<tbody>
 											<c:forEach var="adminChangeList" items="${adminChangeList }">
 												<tr role="row" class="list">
-													<td><a href="adminDetail.do?order_number=${adminChangeList.order_number }">${adminChangeList.order_number }</a></td>
-													<td class="text_left_hy"><a href="adminDetail.do?order_number=${adminChangeList.order_number }">${adminChangeList.title}</a></td>
-													<td class="text_right_hy">${adminChangeList.goods_account }권</td>
-													<td><fmt:formatDate value="${adminChangeList.order_date}" pattern="yyyy.MM.dd"/></td>
-													<td class="text_right_hy"><fmt:formatNumber value="${adminChangeList.total_price }" pattern="#,###,###"/>원</td>
-													<td>${adminChangeList.payment_way }</td>
+													<td class="tb_hy"><a href="adminDetail.do?order_number=${adminChangeList.order_number }">${adminChangeList.order_number }</a></td>
+													<td class="text_left_hy tb_hy"><a href="adminDetail.do?order_number=${adminChangeList.order_number }">${adminChangeList.title}</a></td>
+													<td class="text_right_hy tb_hy">${adminChangeList.goods_account }권</td>
+													<td class="tb_hy"><fmt:formatDate value="${adminChangeList.order_date}" pattern="yyyy.MM.dd"/></td>
+													<td class="text_right_hy tb_hy"><fmt:formatNumber value="${adminChangeList.total_price }" pattern="#,###,###"/>원</td>
+													<td class="tb_hy">${adminChangeList.payment_way }</td>
 													<td>
 														<span>
 															<select>
