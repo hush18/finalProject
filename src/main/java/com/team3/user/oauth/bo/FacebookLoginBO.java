@@ -17,7 +17,7 @@ import com.team3.user.oauth.model.FacebookLoginApi;
 public class FacebookLoginBO {
 	private final static String CLIENT_ID = "2057094877852501";
 	private final static String CLIENT_SECRET = "fee95ead5e4a22f4b1675257bf06a49b";
-	private final static String REDIRECT_URI = "http://localhost:8081/mountainBooks/facebookCreateAccount.do";
+	private final static String REDIRECT_URI = "http://211.63.89.123:8081/mountainBooks/facebookCreateAccount.do";
 	private final static String SESSION_STATE = "oauth_state";
 	private final static String PROFILE_API_URL = "https://graph.facebook.com/me";
 

@@ -185,7 +185,7 @@
 			<div>
 				<h2 class="h2_hy">진행중인 주문 상품</h2>	 				
 				<div class="downList_hy">
-					<select class="downList_sel_hy" id="ordering_array">
+					<select class="downList_sel_hy" id="array">
 						<option value="0" selected="selected">최근주문 순</option>
 						<option value="1" >상품이름 순</option>
 						<option value="2" >주문가격 순</option>
