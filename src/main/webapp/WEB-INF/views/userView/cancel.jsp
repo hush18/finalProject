@@ -93,6 +93,14 @@
 			$("#toDay").val(toDay).attr("selected", "selected");
 		}
 		
+
+ 		$(".block_btn_hy").click(function() {
+			var dateValue=$(this).val();
+			var url="cancel.do?dateValue="+dateValue;
+			$(location).attr('href', url);
+			
+		});
+		
  		$(".change_exchange").click(function(){
  			var status=$(this).parent().parent().find(".status").text();
  			var order_number=$(this).parent().parent().find(".order_number").children().text();
@@ -115,9 +123,7 @@
  		$(".change_cancel").click(function(){
  			var status=$(this).parent().parent().find(".status").text();
  			var order_number=$(this).parent().parent().find(".order_number").children().text();
-			var url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=4";
-			$(location).attr('href', url);
-			
+
 			if(status=="취소요청"){
 				alert("배송을 처음부터 다시 시작하겠습니다.");
 				url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=4";
@@ -130,12 +136,6 @@
  			}
  		});
  		
- 		$(".block_btn_hy").click(function() {
-			var dateValue=$(this).val();
-			var url="cancel.do?dateValue="+dateValue;
-			$(location).attr('href', url);
-			
-		});
  		
  		$("#button").click(function() {
 			var fromYear=$("#fromYear").val();
@@ -281,7 +281,7 @@
 					<div><span>기간별 조회</span></div>
 					<div>
 						<span class="block_hy">
-							<button class="block_btn_hy" value="1">15일이내</button>
+							<button class="block_btn_hy " value="1">15일이내</button>
 							<button class="block_btn_hy" value="2">1개월</button>
 							<button class="block_btn_hy" value="3">3개월</button>
 							<button class="block_btn_hy" value="4">6개월</button>
@@ -334,7 +334,7 @@
 									<div>${cancelList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${cancelList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${cancelList.maybe_date}" pattern="yyyy.MM.dd"/></div>
-									<div class="">${cancelList.status }</div>
+									<div class="status">${cancelList.status }</div>
 									<div class=""><strong><fmt:formatNumber value="${cancelList.total_price }" pattern="#,###,###"/>원</strong></div>
 									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel">취소</button></div>
 								</div>

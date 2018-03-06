@@ -2598,10 +2598,10 @@ public class Service implements ServiceInterface {
 			List<OrderDto> cancelList=null;
 			if(cancelCount >0) {
 				dateValue=request.getParameter("dateValue");
-				if(dateValue==null) dateValue="0";
+				if(dateValue==null || dateValue=="") dateValue="0";
 				
 				dateValueList=request.getParameter("dateValueList");
-				if(dateValueList==null) dateValueList="0";
+				if(dateValueList==null ||dateValueList=="") dateValueList="0";
 				
 				cancelList=orderDao.cancelList(startRow, endRow, list_id, id, dateValue, dateValueList);
 				for(int i=0; i<cancelList.size(); i++) {
