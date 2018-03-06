@@ -2264,111 +2264,36 @@ public class Service implements ServiceInterface {
 		mav.addObject("check", check);
 	}
 
-	@Override
-	public void orderSearch(ModelAndView mav) {
-		Map<String, Object> map=mav.getModelMap();
-		HttpServletRequest request=(HttpServletRequest) map.get("request");
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("mbId")!=null) {
-			String id=(String) session.getAttribute("mbId");
+	public void orderUtil(List<OrderDto> OrderList) {
+		for(int i=0; i<OrderList.size(); i++) {
+			OrderDto orderDto=OrderList.get(i);
+			orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
+			String[] str=orderDto.getGoods().split("/");
 			
-			String check=request.getParameter("check");
-			if(check==null)check="2";
+			String title=orderDto.getTitle();
 			
-			int orderingCount=orderDao.getOrderingCount(id);
-			int deliveryCount=orderDao.getDeliveryCount(id);
-			int cancelCount=orderDao.getCancelCount(id);
-			int point=orderDao.getPoint(id);
-			
-			String orderSearch_pageNumber=request.getParameter("orderSearch_pageNumber");
-			if(request.getParameter("orderSearch_pageNumber")==null) {
-				orderSearch_pageNumber="1";
+			if(str.length>1) {
+				orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
+			}else if(str.length==1) {
+				orderDto.setGoods_name(title);
 			}
-			LogAspect.logger.info(LogAspect.logMsg + "orderSearch_pageNumber:" +orderSearch_pageNumber);
 			
-			int pageSize=10;
+			String[] str1=orderDto.getOrder_account().split("/");
+			int account=0;  
+			for(int j=0; j<str.length; j++) {
+				account+=Integer.parseInt(str1[j]);
+			}
 			
-			int currentPage=Integer.parseInt(orderSearch_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			int order_status=orderDto.getOrder_status();
+			String status=status(order_status);
+			orderDto.setStatus(status);
 			
-			int count=orderDao.getOrderSearchCount(id);
-			LogAspect.logger.info(LogAspect.logMsg + "count:" + count);
-			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
-			int list_id=Integer.parseInt(list_value);
-			LogAspect.logger.info(LogAspect.logMsg + "list_id:" +list_id);
-			
-			String dateValue=null;
-			String dateValueList=null;
-			List<OrderDto> orderSearchList=null;
-			if(count >0) {
-				dateValue=request.getParameter("dateValue");
-				if(dateValue==null) dateValue="0";
-				
-				dateValueList=request.getParameter("dateValueList");
-				if(dateValueList==null) dateValueList="0";
-				
-				LogAspect.logger.info(LogAspect.logMsg + "dateValue:" +dateValue);
-				LogAspect.logger.info(LogAspect.logMsg + "dateValueList:" +dateValueList);
-				orderSearchList=orderDao.orderSearchList(startRow, endRow, list_id, id, dateValue, dateValueList);
-				LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList.size());
-				for(int i=0; i<orderSearchList.size(); i++) {
-					OrderDto orderDto=orderSearchList.get(i);
-					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
-					String[] str=orderDto.getGoods().split("/");
-					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-					
-					String title=orderDto.getTitle();
-					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
-					if(str.length>1) {
-						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
-					}else if(str.length==1) {
-						orderDto.setGoods_name(title);
-					}
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
-					
-					String[] str1=orderDto.getOrder_account().split("/");
-					int account=0;  
-					for(int j=0; j<str.length; j++) {
-						account+=Integer.parseInt(str1[j]);
-					}
-					
-					int order_status=orderDto.getOrder_status();
-					String status="";
-					status=status(order_status, status);
-					orderDto.setStatus(status);
-					
-					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
-					
-					orderDto.setGoods_account(account);
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
-					
-				}
-				LogAspect.logger.info(LogAspect.logMsg + "orderSearchList:" +orderSearchList.toString());
-			}		
-			
-			mav.addObject("orderSearch_pageNumber", orderSearch_pageNumber);
-			mav.addObject("pageSize", pageSize);
-			mav.addObject("count", count);
-			mav.addObject("orderingCount", orderingCount);
-			mav.addObject("deliveryCount", deliveryCount);
-			mav.addObject("cancelCount", cancelCount);
-			mav.addObject("point", point);
-			mav.addObject("orderSearchList", orderSearchList);
-			mav.addObject("list_id", list_id);
-			mav.addObject("check", Integer.parseInt(check));
-			mav.addObject("dateValueList", dateValueList);
-			mav.addObject("dateValue", dateValue);
+			orderDto.setGoods_account(account);
 		}
-		mav.setViewName("orderSearch.users");
 	}
 
-	public String status(int order_status, String status) {
+	public String status(int order_status) {
+		String status=null;
 		switch (order_status) {
 		case 0 : status="입금대기중";	break;
 		case 1 : status="상품준비완료";	break;
@@ -2386,10 +2311,81 @@ public class Service implements ServiceInterface {
 		case 32 : status="취소처리완료";	break;
 		default : break;
 		}
-
 		return status;
 	}
-
+	
+	public ArrayList<Integer> pageRow(String pageNumber){
+		ArrayList<Integer> pageRow = new ArrayList<Integer>();
+		
+		int pageSize=10;
+		
+		int currentPage=Integer.parseInt(pageNumber);
+		int startRow=(currentPage-1)*pageSize+1;
+		int endRow=currentPage*pageSize;
+		
+		pageRow.add(pageSize);
+		
+		pageRow.add(startRow);
+		pageRow.add(endRow);
+		
+		return pageRow;
+	}
+	
+	@Override
+	public void orderSearch(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mbId")!=null) {
+			String id=(String) session.getAttribute("mbId");
+			
+			String check=request.getParameter("check");
+			if(check==null)check="2";
+			
+			int orderingCount=orderDao.getOrderingCount(id);
+			int deliveryCount=orderDao.getDeliveryCount(id);
+			int cancelCount=orderDao.getCancelCount(id);
+			int point=orderDao.getPoint(id);
+			
+			String orderSearch_pageNumber=request.getParameter("orderSearch_pageNumber")==null ? "1":request.getParameter("orderSearch_pageNumber");
+			
+			ArrayList<Integer> pageRow = pageRow(orderSearch_pageNumber);
+			
+			int count=orderDao.getOrderSearchCount(id);
+			
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");
+			
+			int list_id=Integer.parseInt(list_value);
+			
+			String dateValue=null;
+			String dateValueList=null;
+			List<OrderDto> orderSearchList=null;
+			if(count > 0) {
+				dateValue=request.getParameter("dateValue")==null ? "0":request.getParameter("dateValue");
+				
+				dateValueList=request.getParameter("dateValueList")==null ? "0":request.getParameter("dateValueList");
+				
+				orderSearchList=orderDao.orderSearchList(pageRow.get(1), pageRow.get(2), list_id, id, dateValue, dateValueList);
+				
+				orderUtil(orderSearchList);
+			}
+			mav.addObject("orderSearch_pageNumber", orderSearch_pageNumber);
+			mav.addObject("pageSize", pageRow.get(0));
+			mav.addObject("count", count);
+			mav.addObject("orderingCount", orderingCount);
+			mav.addObject("deliveryCount", deliveryCount);
+			mav.addObject("cancelCount", cancelCount);
+			mav.addObject("point", point);
+			mav.addObject("orderSearchList", orderSearchList);
+			mav.addObject("list_id", list_id);
+			mav.addObject("check", Integer.parseInt(check));
+			mav.addObject("dateValueList", dateValueList);
+			mav.addObject("dateValue", dateValue);
+		}
+		mav.setViewName("orderSearch.users");
+	}
+	
 	@Override
 	public void ordering(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2407,13 +2403,8 @@ public class Service implements ServiceInterface {
 			if(request.getParameter("ordering_pageNumber")==null) {
 				ordering_pageNumber="1";
 			}
-			LogAspect.logger.info(LogAspect.logMsg + "ordering_pageNumber:" +ordering_pageNumber);
 			
-			int pageSize=10;
-			
-			int currentPage=Integer.parseInt(ordering_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			ArrayList<Integer> pageRow = pageRow(ordering_pageNumber);
 			
 			int orderingCount=orderDao.getOrderingCount(id);
 			LogAspect.logger.info(LogAspect.logMsg + "orderingCount:" + orderingCount);
@@ -2427,42 +2418,13 @@ public class Service implements ServiceInterface {
 			
 			List<OrderDto> orderingList=null;
 			if(orderingCount >0) {
-				orderingList=orderDao.orderingList(startRow, endRow, list_id, id);
-				for(int i=0; i<orderingList.size(); i++) {
-					OrderDto orderDto=orderingList.get(i);
-					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
-					String[] str=orderDto.getGoods().split("/");
-					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-					String title=orderDto.getTitle();
-					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
-					if(str.length>1) {
-						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
-					}else if(str.length==1) {
-						orderDto.setGoods_name(title);
-					}
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
-					
-					String[] str1=orderDto.getOrder_account().split("/");
-					int account=0;  
-					for(int j=0; j<str.length; j++) {
-						account+=Integer.parseInt(str1[j]);
-					}
-					
-					int order_status=orderDto.getOrder_status();
-					String status="";
-					status=status(order_status, status);
-					orderDto.setStatus(status);
-					
-					orderDto.setGoods_account(account);
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
-					
-				}
-				LogAspect.logger.info(LogAspect.logMsg + "orderingList:" +orderingList.toString());
+				orderingList=orderDao.orderingList(pageRow.get(1), pageRow.get(2), list_id, id);
+
+				orderUtil(orderingList);
 			}		
 			
 			mav.addObject("ordering_pageNumber", ordering_pageNumber);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageSize", pageRow.get(0));
 			mav.addObject("orderingCount", orderingCount);
 			mav.addObject("deliveryCount", deliveryCount);
 			mav.addObject("cancelCount", cancelCount);
@@ -2493,11 +2455,7 @@ public class Service implements ServiceInterface {
 			}
 			LogAspect.logger.info(LogAspect.logMsg + "delivery_pageNumber:" +delivery_pageNumber);
 			
-			int pageSize=10;
-			
-			int currentPage=Integer.parseInt(delivery_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			ArrayList<Integer> pageRow = pageRow(delivery_pageNumber);
 			
 			
 			LogAspect.logger.info(LogAspect.logMsg + "deliveryCount:" + deliveryCount);
@@ -2511,43 +2469,13 @@ public class Service implements ServiceInterface {
 			
 			List<OrderDto> deliveryList=null;
 			if(deliveryCount >0) {
-				deliveryList=orderDao.deliveryList(startRow, endRow, list_id, id);
-				for(int i=0; i<deliveryList.size(); i++) {
-					OrderDto orderDto=deliveryList.get(i);
-					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
-					String[] str=orderDto.getGoods().split("/");
-					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-					String title=orderDto.getTitle();
-					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
-					if(str.length>1) {
-						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
-					}else if(str.length==1) {
-						orderDto.setGoods_name(title);
-					}
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
-					
-					String[] str1=orderDto.getOrder_account().split("/");
-					int account=0;  
-					for(int j=0; j<str.length; j++) {
-						account+=Integer.parseInt(str1[j]);
-					}
-					
-					int order_status=orderDto.getOrder_status();
-					String status="";
-					status=status(order_status, status);
-					orderDto.setStatus(status);
-					
-					orderDto.setGoods_account(account);
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
-					
-				}
-				LogAspect.logger.info(LogAspect.logMsg + "deliveryList:" +deliveryList.toString());
+				deliveryList=orderDao.deliveryList(pageRow.get(1), pageRow.get(2), list_id, id);
+				
+				orderUtil(deliveryList);
 			}		
 			
-			
 			mav.addObject("delivery_pageNumber", delivery_pageNumber);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageSize", pageRow.get(0));
 			mav.addObject("orderingCount", orderingCount);
 			mav.addObject("deliveryCount", deliveryCount);
 			mav.addObject("cancelCount", cancelCount);
@@ -2577,11 +2505,7 @@ public class Service implements ServiceInterface {
 			}
 			LogAspect.logger.info(LogAspect.logMsg + "cancel_pageNumber:" +cancel_pageNumber);
 			
-			int pageSize=10;
-			
-			int currentPage=Integer.parseInt(cancel_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			ArrayList<Integer> pageRow = pageRow(cancel_pageNumber);
 			
 			
 			LogAspect.logger.info(LogAspect.logMsg + "cancelCount:" + cancelCount);
@@ -2603,43 +2527,14 @@ public class Service implements ServiceInterface {
 				dateValueList=request.getParameter("dateValueList");
 				if(dateValueList==null ||dateValueList=="") dateValueList="0";
 				
-				cancelList=orderDao.cancelList(startRow, endRow, list_id, id, dateValue, dateValueList);
-				for(int i=0; i<cancelList.size(); i++) {
-					OrderDto orderDto=cancelList.get(i);
-					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
-					String[] str=orderDto.getGoods().split("/");
-					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-					String title=orderDto.getTitle();
-					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
-					if(str.length>1) {
-						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
-					}else if(str.length==1) {
-						orderDto.setGoods_name(title);
-					}
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
-					
-					String[] str1=orderDto.getOrder_account().split("/");
-					int account=0;  
-					for(int j=0; j<str.length; j++) {
-						account+=Integer.parseInt(str1[j]);
-					}
-					
-					int order_status=orderDto.getOrder_status();
-					String status="";
-					status=status(order_status, status);
-					orderDto.setStatus(status);
-					
-					orderDto.setGoods_account(account);
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
-					
-				}
-				LogAspect.logger.info(LogAspect.logMsg + "cancelList:" +cancelList.toString());
+				cancelList=orderDao.cancelList(pageRow.get(1), pageRow.get(2), list_id, id, dateValue, dateValueList);
+				
+				orderUtil(cancelList);
 			}		
 			
 			
 			mav.addObject("cancel_pageNumber", cancel_pageNumber);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageSize", pageRow.get(0));
 			mav.addObject("orderingCount", orderingCount);
 			mav.addObject("deliveryCount", deliveryCount);
 			mav.addObject("cancelCount", cancelCount);
@@ -2672,11 +2567,7 @@ public class Service implements ServiceInterface {
 			}
 			LogAspect.logger.info(LogAspect.logMsg + "buyList_pageNumber:" +buyList_pageNumber);
 			
-			int pageSize=10;
-			
-			int currentPage=Integer.parseInt(buyList_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			ArrayList<Integer> pageRow = pageRow(buyList_pageNumber);
 			
 			int buyListCount=orderDao.getBuyListCount(id);
 			LogAspect.logger.info(LogAspect.logMsg + "buyListCount:" + buyListCount);
@@ -2698,44 +2589,14 @@ public class Service implements ServiceInterface {
 				dateValueList=request.getParameter("dateValueList");
 				if(dateValueList==null) dateValueList="0";
 				
-				buyListList=orderDao.buyListList(startRow, endRow, list_id, id, dateValue, dateValueList);
-				for(int i=0; i<buyListList.size(); i++) {
-					OrderDto orderDto=buyListList.get(i);
-					orderDto.setMaybe_date(new Date(orderDto.getOrder_date().getTime() + 1000*60*60*24*2));
-					String[] str=orderDto.getGoods().split("/");
-					LogAspect.logger.info(LogAspect.logMsg + "str.length:" +str.length);
-					String title=orderDto.getTitle();
-					LogAspect.logger.info(LogAspect.logMsg + "title:" +title);
-					if(str.length>1) {
-						orderDto.setGoods_name(title + " 외 " + (str.length-1) +"종");
-					}else if(str.length==1) {
-						orderDto.setGoods_name(title);
-					}
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_name():" +orderDto.getGoods_name());
-					
-					String[] str1=orderDto.getOrder_account().split("/");
-					int account=0;  
-					for(int j=0; j<str.length; j++) {
-						account+=Integer.parseInt(str1[j]);
-					}
-					
-					int order_status=orderDto.getOrder_status();
-					String status="";
-					status=status(order_status, status);
-					orderDto.setStatus(status);
-					
-					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
-					orderDto.setGoods_account(account);
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.getGoods_account():" +orderDto.getGoods_account());
-					LogAspect.logger.info(LogAspect.logMsg + "orderDto.toString():" +orderDto.toString());
-					
-				}
-				LogAspect.logger.info(LogAspect.logMsg + "buyListList:" +buyListList.toString());
+				buyListList=orderDao.buyListList(pageRow.get(1), pageRow.get(2), list_id, id, dateValue, dateValueList);
+				
+				orderUtil(buyListList);
 			}		
 			
 			
 			mav.addObject("buyList_pageNumber", buyList_pageNumber);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageSize", pageRow.get(0));
 			mav.addObject("orderingCount", orderingCount);
 			mav.addObject("deliveryCount", deliveryCount);
 			mav.addObject("cancelCount", cancelCount);
@@ -2791,11 +2652,7 @@ public class Service implements ServiceInterface {
 			}
 			LogAspect.logger.info(LogAspect.logMsg + "cart_pageNumber:" +cart_pageNumber);
 			
-			int pageSize=10;
-			
-			int currentPage=Integer.parseInt(cart_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			ArrayList<Integer> pageRow = pageRow(cart_pageNumber);
 			
 			int cartCount=orderDao.getCartCount(id);
 			LogAspect.logger.info(LogAspect.logMsg + "cartCount:" + cartCount);
@@ -2809,13 +2666,12 @@ public class Service implements ServiceInterface {
 			int point=orderDao.getPoint(id);
 			List<CartDto> cartList=null;
 			if(cartCount >0) {
-				cartList=orderDao.cartList(startRow, endRow, list_id, id);
+				cartList=orderDao.cartList(pageRow.get(1), pageRow.get(2), list_id, id);
 				LogAspect.logger.info(LogAspect.logMsg + "cartList:" +cartList.toString());
 			}		
 			
-			
 			mav.addObject("cart_pageNumber", cart_pageNumber);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageSize", pageRow.get(0));
 			mav.addObject("cartList", cartList);
 			mav.addObject("list_id", list_id);
 			mav.addObject("cartCount", cartCount);
@@ -3088,7 +2944,7 @@ public class Service implements ServiceInterface {
 					
 					int order_status=adminOrderDto.getOrder_status();
 					String status="";
-					status=status(order_status, status);
+					status=status(order_status);
 					adminOrderDto.setStatus(status);
 					
 					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
@@ -3153,7 +3009,7 @@ public class Service implements ServiceInterface {
 					
 					int order_status=adminOrderDto.getOrder_status();
 					String status="";
-					status=status(order_status, status);
+					status=status(order_status);
 					adminOrderDto.setStatus(status);
 					
 					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
@@ -3218,7 +3074,7 @@ public class Service implements ServiceInterface {
 					
 					int order_status=adminOrderDto.getOrder_status();
 					String status="";
-					status=status(order_status, status);
+					status=status(order_status);
 					adminOrderDto.setStatus(status);
 					
 					LogAspect.logger.info(LogAspect.logMsg + "status:" +status);
