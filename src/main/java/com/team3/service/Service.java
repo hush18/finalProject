@@ -2985,12 +2985,12 @@ public class Service implements ServiceInterface {
 			
 			//결제방법 뽑아오기
 			String payment_way="";
-			if(orderDto.getCredit_card()!=null) payment_way="신용카드";
+			if(orderDto.getCredit_card()!=null)	payment_way="신용카드";
 			if(orderDto.getPhone_payment()!=null) payment_way="휴대폰결제";
-			if(orderDto.getRealtime_account_transfer()!=null) payment_way="실시간계좌이체";
+			if(orderDto.getRealtime_account_transfer()!=null) payment_way="실시간이체";
 			if(orderDto.getDirect_deposit()!=null) payment_way="직접입금";
-			orderDto.setPayment_way(payment_way);
 			
+			LogAspect.logger.info(LogAspect.logMsg+ "보기보기보기payment_way:" + payment_way);
 			Date maybe_date=null;
 			String goods=orderDto.getGoods();
 			String order_amount=orderDto.getOrder_account();
@@ -3212,7 +3212,7 @@ public class Service implements ServiceInterface {
 					String payment_way="";
 					if(adminOrderDto.getCredit_card()!=null) payment_way="신용카드";
 					if(adminOrderDto.getPhone_payment()!=null) payment_way="휴대폰결제";
-					if(adminOrderDto.getRealtime_account_transfer()!=null) payment_way="실시간계좌이체";
+					if(adminOrderDto.getRealtime_account_transfer()!=null) payment_way="실시간이체";
 					if(adminOrderDto.getDirect_deposit()!=null) payment_way="직접입금";
 					adminOrderDto.setPayment_way(payment_way);
 					

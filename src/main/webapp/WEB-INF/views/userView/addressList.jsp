@@ -22,6 +22,21 @@
 		});
 		
 		$("#new_address_add").click(function() {
+			if($("input[name='member_zipcode']").val()==""){
+				alert("주소를 입력하세요.")
+				return false
+			}
+			
+			if($("input[name='member_address']").val()==""){
+				alert("주소를 입력하세요.")
+				return false
+			}
+			
+			if($("input[name='member_detail_address']").val()==""){
+				alert("주소를 입력하세요.")
+				return false
+			}
+			
 			$("form[name='new_address']").submit();
 		});
 	})
