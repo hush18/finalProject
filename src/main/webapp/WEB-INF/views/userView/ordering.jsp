@@ -32,7 +32,7 @@
  		
  		$(".change_exchange").click(function(){
  			var status=$(this).parent().parent().find(".status").text();
-			var order_number=$(this).parents().find(".order_number").text();
+			var order_number=$(this).parent().parent().find(".order_number").text();
 			
 			if(status=="출고완료" || status=="배송중"){
 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
@@ -46,7 +46,8 @@
 		});
 	 	
  		$(".change_cancel").click(function(){
- 			var order_number=$(this).parents().find(".order_number").text();
+ 			var status=$(this).parent().parent().find(".status").text();
+ 			var order_number=$(this).parent().parent().find(".order_number").text();
 			var url="";
 			if(status=="입금대기중"){
  				alert("상품 주문을 취소하겠습니다.");
@@ -218,7 +219,10 @@
 									<div class=""><fmt:formatDate value="${orderingList.maybe_date }" pattern="yyyy.MM.dd"/></div>
 									<div class="status">${orderingList.status }</div>
 									<div class=""><strong><fmt:formatNumber value="${orderingList.total_price }" pattern="#,###,###"/>원</strong></div>
-									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel">취소</button></div>
+									<div class="">
+										<button class="block_btn_hy change_exchange">환불</button>
+										<button class="block_btn_hy change_cancel">취소</button>
+									</div>
 								</div>
 							</c:forEach>
 						</div>
