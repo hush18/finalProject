@@ -15,6 +15,16 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 </head>
 <body>
+	<script type="text/javascript">
+		$(function () {
+			var check = "<c:out value="${check}"/>";
+			if(check!=0){
+				alert("회원가입이 완료되었습니다.");
+				$(location).attr("href", "userMain.do");
+			}
+		})
+	</script>
+	
 	<div class="container">
 		<h2 class="h2-hr" style="margin-left: 20px;">회원가입</h2>
 		<form action="createAccount.do" method="post" onsubmit="">

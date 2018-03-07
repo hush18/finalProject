@@ -3,51 +3,36 @@ package com.team3.user.order.dto;
 import java.util.Date;
 
 public class OrderDto {
-	private String order_number;
-	private String goods;
-	private String order_account;
-	private long total_price;
-	private int order_status;
-	private String id;
-	private Date order_date;
-	private String receive_name;
-	private String receive_phone;
-	private String receive_home;
-	private String receive_addr;
-	private String delivery_msg;
-	private String isbn;
-	private long member_number;
-	private Date maybe_date;
-	private String goods_name;
-	private long goods_account;
-	private String status;
-	private String title;
+	private String order_number;	//주문번호
+	private String goods;			//isbn+isbn
+	private String order_account;	//주문수량
+	private long total_price;		//주문 총가격
+	private int order_status;		//주문상태
+	private String id;				//아이디
+	private Date order_date;		//주문날짜
+	private String receive_name;	//수령자이름
+	private String receive_phone;	//수령자폰번호
+	private String receive_home;	//수령자집번호
+	private String receive_addr;	//수령자주소
+	private String delivery_msg;	//배달메세지
+	private String isbn;			//isbn
+	private long member_number;		//회원번호
+	private Date maybe_date;		//예정날짜
+	private String goods_name;		//도서명
+	private long goods_account;		//도서수량
+	private String status;			//주문상태 문자화
+	private String title;			//리스트출력상품명
 	
-	public OrderDto() {}
+	//결제방법
+	private String credit_card;
+	private String phone_payment;
+	private String realtime_account_transfer;
+	private String direct_deposit;
+	private String payment_way;
 	
-	public OrderDto(String order_number, String goods, String order_account, long total_price, int order_status,
-			String id, Date order_date, String receive_name, String receive_phone, String receive_home,
-			String receive_addr, String delivery_msg, String isbn, long member_number, Date maybe_date, String goods_name, long goods_account, String status, String title) {
-		this.order_number = order_number;
-		this.goods = goods;
-		this.order_account = order_account;
-		this.total_price = total_price;
-		this.order_status = order_status;
-		this.id = id;
-		this.order_date = order_date;
-		this.receive_name = receive_name;
-		this.receive_phone = receive_phone;
-		this.receive_home = receive_home;
-		this.receive_addr = receive_addr;
-		this.delivery_msg = delivery_msg;
-		this.isbn = isbn;
-		this.member_number = member_number;
-		this.maybe_date = maybe_date;
-		this.goods_name = goods_name;
-		this.goods_account = goods_account;
-		this.status = status;
-		this.title = title;
-	}
+	//저자, 출판사
+	private String author;
+	private String publisher;	
 
 	public String getOrder_number() {
 		return order_number;
@@ -163,6 +148,48 @@ public class OrderDto {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getCredit_card() {
+		return credit_card;
+	}
+	public void setCredit_card(String credit_card) {
+		this.credit_card = credit_card;
+	}
+	public String getPhone_payment() {
+		return phone_payment;
+	}
+	public void setPhone_payment(String phone_payment) {
+		this.phone_payment = phone_payment;
+	}
+	public String getRealtime_account_transfer() {
+		return realtime_account_transfer;
+	}
+	public void setRealtime_account_transfer(String realtime_account_transfer) {
+		this.realtime_account_transfer = realtime_account_transfer;
+	}
+	public String getDirect_deposit() {
+		return direct_deposit;
+	}
+	public void setDirect_deposit(String direct_deposit) {
+		this.direct_deposit = direct_deposit;
+	}
+	public String getPayment_way() {
+		return payment_way;
+	}
+	public void setPayment_way(String payment_way) {
+		this.payment_way = payment_way;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 
 	@Override
 	public String toString() {
@@ -171,7 +198,10 @@ public class OrderDto {
 				+ order_date + ", receive_name=" + receive_name + ", receive_phone=" + receive_phone + ", receive_home="
 				+ receive_home + ", receive_addr=" + receive_addr + ", delivery_msg=" + delivery_msg + ", isbn=" + isbn
 				+ ", member_number=" + member_number + ", maybe_date=" + maybe_date + ", goods_name=" + goods_name
-				+ ", goods_account=" + goods_account + ", status=" + status + ", title=" + title + "]";
+				+ ", goods_account=" + goods_account + ", status=" + status + ", title=" + title + ", credit_card="
+				+ credit_card + ", phone_payment=" + phone_payment + ", realtime_account_transfer="
+				+ realtime_account_transfer + ", direct_deposit=" + direct_deposit + ", payment_way=" + payment_way
+				+ ", author=" + author + ", publisher=" + publisher + "]";
 	}
 
 }

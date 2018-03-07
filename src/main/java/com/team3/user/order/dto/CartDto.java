@@ -15,23 +15,6 @@ public class CartDto {
 	private String name;
 	private int point;
 	
-	public CartDto() {}
-	
-	public CartDto(String id, String isbn, int cart_amount, Date cart_day, int state, String title, String image_path,
-			String publisher, int price, String name, int point) {
-		super();
-		this.id = id;
-		this.isbn = isbn;
-		this.cart_amount = cart_amount;
-		this.cart_day = cart_day;
-		this.state = state;
-		this.title = title;
-		this.image_path = image_path;
-		this.publisher = publisher;
-		this.price = price;
-		this.name = name;
-		this.point = point;
-	}
 	public String getId() {
 		return id;
 	}

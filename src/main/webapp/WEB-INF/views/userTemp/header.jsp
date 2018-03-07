@@ -107,6 +107,7 @@
 						<ul class="ul-iy">
 							<li><a href="adminBookSearch.do">도서관리</a></li>
 							<li><a href="adminMemberManage.do">회원관리</a></li>
+							<li><a href="adminMap.do">영업점관리</a></li>
 							<li><a href="adminSales.do?value=1">매출관리</a></li>
 							<li><a href="adminFaqMain.do">고객문의관리</a></li>
 							<li><a href="adminOrderSearch.do">주문관리</a></li>
@@ -136,7 +137,7 @@
 		<div class="leftMenu-iy">
 			<ul class="ul-iy">
 				<li id="all-main-iy">
-					<a href="bookList.do?path=전체&category_path=전체" style="position: relative;">전체</a>
+					<a href="bookList.do?category_path=전체" style="position: relative;">전체</a>
 					<div class="all-mainMenu-iy">
 						<div>
 							<h3 class="h2-hr">소설</h3>
@@ -174,13 +175,13 @@
 						<div>
 							<h3 class="h2-hr">문학</h3>
 							<p>
-								<a href="bookList.do?path=시&category_path=시">시</a>
+								<a href="bookList.do?category_path=시">시</a>
 							</p>
 							<p>
-								<a href="bookList.do?path=에세이&category_path=에세이">에세이</a>
+								<a href="bookList.do?category_path=에세이">에세이</a>
 							</p>
 							<p>
-								<a href="bookList.do?path=기행&category_path=기행">기행</a>
+								<a href="bookList.do?category_path=기행">기행</a>
 							</p>
 						</div>
 						<div>
@@ -259,16 +260,16 @@
 					</ul>
 				</li>
 				<li>
-					<a href="bookList.do?path=문학&category_path=문학">문학</a>
+					<a href="bookList.do?category_path=문학">문학</a>
 					<ul class="ul-iy">
 						<li>
-							<a href="bookList.do?path=시&category_path=시">시</a>
+							<a href="bookList.do?category_path=시">시</a>
 						</li>
 						<li>
-							<a href="bookList.do?path=에세이&category_path=에세이">에세이</a>
+							<a href="bookList.do?category_path=에세이">에세이</a>
 						</li>
 						<li>
-							<a href="bookList.do?path=기행&category_path=기행">기행</a>
+							<a href="bookList.do?category_path=기행">기행</a>
 						</li>
 					</ul>
 				</li>

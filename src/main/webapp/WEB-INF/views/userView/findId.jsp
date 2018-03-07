@@ -1,3 +1,7 @@
+<!-- 
+아이디 찾기 페이지
+작성자 : 김미화
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -94,8 +98,6 @@
 				<div class="fi_input_mh">
 					<div class="input_title_mh">
 						<div>이름</div>
-						<div>생년월일</div>
-						<div>휴대폰 번호</div>
 						<div style="line-height: 70px;">이메일 주소</div>
 					</div>
 
@@ -104,40 +106,7 @@
 							<input type="text" name="name" /> &nbsp;&nbsp; <span
 								style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 실명</span>
 						</div>
-						<div>
-							<select>
-								<option>년도</option>
-								<c:forEach var="i" begin="1974" end="2018">
-									<option value="${i }"><c:out value="${i }"></c:out></option>
-								</c:forEach>
-							</select> <span>년</span> &nbsp;&nbsp; <select>
-								<option value="">월</option>
-								<c:forEach var="i" begin="1" end="12">
-									<option value="${i }"><c:out value="${i }"></c:out></option>
-								</c:forEach>
-							</select> <span>월</span> &nbsp;&nbsp; <select>
-								<option>일</option>
-								<c:forEach var="i" begin="1" end="31">
-									<option value="${i }"><c:out value="${i }"></c:out></option>
-								</c:forEach>
-							</select> <span>일</span> &nbsp;&nbsp; <span
-								style="color: #3C7B5e; font-size: 12px;">신분증 상의 생년월일</span>
-						</div>
-						<div>
-							<select>
-								<option>선택</option>
-								<option value="010">010</option>
-								<option value="011">011</option>
-								<option value="016">016</option>
-								<option value="017">017</option>
-								<option value="018">018</option>
-								<option value="019">019</option>
-							</select> &nbsp; <span>-</span> &nbsp; <input class="phone_m" type="text"
-								name="phon_middle" maxlength="4" size="3" /> &nbsp; <span>-</span>
-							&nbsp; <input class="phone_e" type="text" name="phon_end"
-								maxlength="4" size="3" /> &nbsp;&nbsp; <span
-								style="color: #3C7B5e; font-size: 12px;">가입 시 등록된 번호</span>
-						</div>
+						
 						<div class="input_email_mh">
 							<input type="text" name="email"> &nbsp; &nbsp; <span>@</span>
 							&nbsp; <input type="text" name="email_address"

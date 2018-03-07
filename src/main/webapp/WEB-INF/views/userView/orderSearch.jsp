@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
@@ -20,18 +30,76 @@
 			$(location).attr('href', url);
 		})
 		
-		var list_id=$('input[type="hidden"]').val();
-		if(list_id=="") list_id="0";
-		$("#array option:selected").removeAttr("selected"); 
- 		$("#array").val(list_id).attr("selected", "selected");
- 		
+		var dateValueList=$('input[name="dateValueList"]').val();
+		if(dateValueList !=null){
+			var fromYear="";
+			var fromMonth="";
+			var fromDay="";
+			var toYear="";
+			var toMonth="";
+			var toDay="";
+			
+			if(dateValueList!="0"){
+				var str1=dateValueList.split("/");
+				var from_date=str1[0];
+				var to_date=str1[1];
+				var str2=from_date.split(".");
+				var str3=to_date.split(".");
+				fromYear=str2[0];
+				fromMonth=str2[1];
+				fromDay=str2[2];
+				toYear=str3[0];
+				toMonth=str3[1];
+				toDay=str3[2];
+				
+				
+			}else if(dateValueList=="0"){
+				var today = new Date();
+				var yyyy = today.getFullYear();
+				var mm = today.getMonth()+1;
+				var dd = today.getDate();
+				if(dd<10) {
+					dd='0'+dd
+				} 
+				if(mm<10) {
+					mm='0'+mm
+				} 
+				
+				fromYear=yyyy-1;
+				fromMonth=mm;
+				fromDay=dd;
+				toYear=yyyy;
+				toMonth=mm;
+				toDay=dd;
+			}
+			
+			$("#fromYear option:selected").removeAttr("selected"); 
+			$("#fromYear").val(fromYear).attr("selected", "selected");
+			
+			$("#fromMonth option:selected").removeAttr("selected"); 
+			$("#fromMonth").val(fromMonth).attr("selected", "selected");
+			
+			$("#fromDay option:selected").removeAttr("selected"); 
+			$("#fromDay").val(fromDay).attr("selected", "selected");
+			
+			$("#toYear option:selected").removeAttr("selected"); 
+			$("#toYear").val(toYear).attr("selected", "selected");
+			
+			$("#toMonth option:selected").removeAttr("selected"); 
+			$("#toMonth").val(toMonth).attr("selected", "selected");
+			
+			$("#toDay option:selected").removeAttr("selected"); 
+			$("#toDay").val(toDay).attr("selected", "selected");
+		}
+		
  		$(".block_btn_hy").click(function() {
 			var dateValue=$(this).val();
 			var url="orderSearch.do?dateValue="+dateValue;
 			$(location).attr('href', url);
-			
 		});
- 		
+		
+		
+
  		$("#button").click(function() {
 			var fromYear=$("#fromYear").val();
 			var fromMonth=$("#fromMonth").val();
@@ -47,26 +115,49 @@
 			$(location).attr('href', url);
 		})
 		
-		$("#change_exchange").click(function(){
-			var order_number=$(this).parents().find("#order_number").text();
-			var url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=1";
-			$(location).attr('href', url);
+		$(".change_exchange").click(function(){
+			var order_number=$(this).parent().parent().find(".order_number").children().text();
+			var status=$(this).parent().parent().find(".status").text();
+			var url="";
+			if(status=="환불요청"){
+				alert("이미 환불요청된 주문입니다. 교환요청으로 변경하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=21&pageStatus=1";
+				$(location).attr('href', url);
+			}else if(status=="입금대기중"){
+				alert("입금을 하지 않은 상태이므로 요청이 불가합니다.");
+			}else if(status=="교환요청"){
+				alert("이미 교환요청된 주문입니다. 환불요청으로 변경하겠습니다.");
+				url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=1";
+				$(location).attr('href', url);
+			}else if(status=="출고완료" || status=="배송중"){
+				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+			}else{
+				alert("환불요청을 진행하겠습니다.")
+				url="statusChange.do?order_number="+order_number+"&status=11&pageStatus=1";
+				$(location).attr('href', url);
+			}
 				
 		});
 	 		
- 		$("#change_cancel").click(function(){
- 			var status=$(this).parents().find("#status").text();
- 			alert(status);
- 			var order_number=$(this).parents().find("#order_number").text();
- 			if(status=="1"){
- 				var url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
- 				alert(url);
-				//$(location).attr('href', url);
- 			}else{
-				var url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
-				alert(url);
+ 		$(".change_cancel").click(function(){
+ 			var order_number=$(this).parent().parent().find(".order_number").children().text();
+ 			var status=$(this).parent().parent().find(".status").text();
+ 			var url="";
+ 			if(status=="입금대기중"){
+ 				alert("상품 주문을 취소하겠습니다.");
+ 				url="orderDelete.do?order_number="+order_number+"&pageStatus=1";
 				$(location).attr('href', url);
- 				
+ 			}else if(status=="취소요청"){
+ 				alert("이미 취소요청된 주문입니다. 다시 주문하시려면 취소/반품/교환 목록으로 가세요");
+ 			}else if(status=="환불요청" || status=="교환요청"){
+ 				alert("배송을 처음부터 다시 시작하겠습니다.");
+ 				url="statusChange.do?order_number="+order_number+"&status=1&pageStatus=1";
+ 				$(location).attr('href', url);
+ 			}else if(status=="출고완료" || status=="배송중"){
+ 				alert("현재 배송중인 상품이므로 요청이 불가합니다.");
+ 			}else{
+ 				url="statusChange.do?order_number="+order_number+"&status=31&pageStatus=1";
+				$(location).attr('href', url);
  			}
  		});
 		
@@ -82,6 +173,8 @@
 		<div class="category_mh">
 			<div>
 			<input type="hidden" name="listId" value="${list_id }"/>
+			<input type="hidden" name="dateValueList" value="${dateValueList}"/>
+			<input type="hidden" name="dateValue" value="${dateValue}"/>
 				<!-- 주문관리 -->
 				<div class="orderManager_mh">
 					<div class="title_mh">
@@ -124,13 +217,13 @@
 					<div class="sub_mh">
 						<p class="faq_sc">FAQ</p> 
 						<ul>
-							<li><a href="CustomerService_faq.do">회원</a></li>
-							<li><a href="CustomerService_faq.do">상품</a></li>
-							<li><a href="CustomerService_faq.do">입금/결제</a></li>
-							<li><a href="CustomerService_faq.do">취소/교환/환불</a></li>
-							<li><a href="CustomerService_faq.do">주문</a></li>
-							<li><a href="CustomerService_faq.do">배송</a></li>
-							<li><a href="CustomerService_faq.do">적립</a></li>
+							<li><a href="CustomerService_faq.do?up_category=회원">회원</a></li>
+							<li><a href="CustomerService_faq.do?up_category=상품">상품</a></li>
+							<li><a href="CustomerService_faq.do?up_category=입금/결제">입금/결제</a></li>
+							<li><a href="CustomerService_faq.do?up_category=취소/교환/환불">취소/교환/환불</a></li>
+							<li><a href="CustomerService_faq.do?up_category=주문">주문</a></li>
+							<li><a href="CustomerService_faq.do?up_category=배송">배송</a></li>
+							<li><a href="CustomerService_faq.do?up_category=적립">적립</a></li>
 						</ul>
 	
 						<p class="consulting_sc">1:1 상담</p>
@@ -187,7 +280,7 @@
 					</div>
 					<div class="info_head_hy">
 						<div>포인트</div>
-						<div class="info_box_hy"><span><a href="">${point }</a></span></div>
+						<div class="info_box_hy"><span><a href="userPoint.do">${point }p</a></span></div>
 					</div>
 				</div>
 			</div>
@@ -206,12 +299,12 @@
 					<div style="margin-top: 5px;">
 						<span class="block_day_hy">
 							<span><select id="fromYear" name="fromYear" ><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="selected">2018</option></select></span>
-							<span><select id="fromMonth" name="fromMonth"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
-							<span><select id="fromDay" name="fromDay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected="selected">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span> 
+							<span><select id="fromMonth" name="fromMonth"><option value="01" selected="selected">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">5</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
+							<span><select id="fromDay" name="fromDay"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">6</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected="selected">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span> 
 							<span>-</span>
 							<span><select id="toYear" name="toYear"><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="selected">2018</option></select></span>
-							<span><select id="toMonth" name="toMonth"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
-							<span><select id="toDay" name="toDay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23" selected="selected">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span>
+							<span><select id="toMonth" name="toMonth"><option value="01" selected="selected">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></span>
+							<span><select id="toDay" name="toDay"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23" selected="selected">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></span>
 							<span><button class="block_btn_hy" id="button">조회</button></span>
 						</span>
 					</div>
@@ -244,14 +337,14 @@
 						<div class="list_hy">
 							<c:forEach var="orderSearchList" items="${orderSearchList}">
 								<div class="search_list_con_hy table_jm">
-									<div id="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
+									<div class="order_number"><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.order_number }</a></div>
 									<div><a href="detailOrder.do?order_number=${orderSearchList.order_number}">${orderSearchList.title }</a></div>
 									<div>${orderSearchList.goods_account }권</div><!-- search_list_size_hy -->
 									<div class=""><fmt:formatDate value="${orderSearchList.order_date}" pattern="yyyy.MM.dd"/></div>
 									<div class=""><fmt:formatDate value="${orderSearchList.maybe_date}" pattern="yyyy.MM.dd"/></div>
-									<div id="status">${orderSearchList.status }</div>
-									<div class=""><strong>${orderSearchList.total_price }원</strong></div>
-									<div class=""><button class="block_btn_hy" id="change_exchange">환불</button><button class="block_btn_hy" id="change_cancel">취소</button></div>
+									<div class="status">${orderSearchList.status }</div>
+									<div class=""><strong><fmt:formatNumber value="${orderSearchList.total_price }" pattern="#,###,###"/>원</strong></div>
+									<div class=""><button class="block_btn_hy change_exchange">환불</button><button class="block_btn_hy change_cancel" >취소</button></div>
 								</div>
 							</c:forEach>
 						</div>
@@ -273,15 +366,15 @@
 					</c:if>
 			
 					<c:if test="${startPage> pageBlock }">
-						<a href="orderSearch.do?orderSearch_pageNumber=${startPage-pageBlock }&list_id=${list_id}">[이전]</a>
+						<a href="orderSearch.do?orderSearch_pageNumber=${startPage-pageBlock }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">[이전]</a>
 					</c:if>
 				
-					<c:forEach var="i" begin="${startPage}" end="${endPage }">
-						<a href="orderSearch.do?orderSearch_pageNumber=${i }&list_id=${list_id}">${i }</a>
+					<c:forEach var="i" begin="${startPage}" end="${endPage }"> 
+						<a href="orderSearch.do?orderSearch_pageNumber=${i }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">${i }</a>
 					</c:forEach>
 				
 					<c:if test="${endPage< pageCount }">
-						<a href="orderSearch.do?orderSearch_pageNumber=${startPage + pageBlock }&list_id=${list_id}">[다음]</a>
+						<a href="orderSearch.do?orderSearch_pageNumber=${startPage + pageBlock }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">[다음]</a>
 					</c:if>
 				
 				</c:if>

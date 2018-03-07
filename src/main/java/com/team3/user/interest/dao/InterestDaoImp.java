@@ -30,17 +30,21 @@ public class InterestDaoImp implements InterestDao {
 		for(int i=0;i<strArr.length; i++) {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
-			hMap.put("str", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
-			chk=sqlSession.update("nearestUp",hMap);
-			LogAspect.logger.info(LogAspect.logMsg + "chk값 : " + chk);
+			hMap.put("isbn", strArr[i]);
+			hMap.put("state", 0);
+			hMap.put("sta", 1);
+			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
+			if(dto==null) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}else if(dto!=null && dto.getState()!=0) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}
 			if(chk==0) {
 				check=0;
 			}else {
 				check=1;
 			}
 		}
-		LogAspect.logger.info(LogAspect.logMsg + "check값이 왜 0임" +check);
 		return check;
 	}
 	
@@ -52,7 +56,8 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("str", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
+			hMap.put("state", 0);
+			hMap.put("sta", 1);
 			chk=sqlSession.delete("nearestDel",hMap);
 			if(chk==0) {
 				check=0;
@@ -77,17 +82,21 @@ public class InterestDaoImp implements InterestDao {
 		for(int i=0;i<strArr.length; i++) {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
-			hMap.put("str", strArr[i]);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
-			chk=sqlSession.update("nearestUp",hMap);
-			LogAspect.logger.info(LogAspect.logMsg + "chk값 : " + chk);
+			hMap.put("isbn", strArr[i]);
+			hMap.put("state", 0);
+			hMap.put("sta", 2);
+			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
+			if(dto==null) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}else if(dto!=null && dto.getState()!=0) {
+				chk=sqlSession.update("nearestUp",hMap);
+			}
 			if(chk==0) {
 				check=0;
 			}else {
 				check=1;
 			}
 		}
-		LogAspect.logger.info(LogAspect.logMsg + "check값이 왜 0임" +check);
 		return check;
 	}
 	
@@ -99,6 +108,8 @@ public class InterestDaoImp implements InterestDao {
 			Map<String, Object> hMap=new HashMap<String, Object>();
 			hMap.put("id", id);
 			hMap.put("str", strArr[i]);
+			hMap.put("state", 0);
+			hMap.put("sta", 2);
 			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
 			chk=sqlSession.delete("nearestDel",hMap);
 			if(chk==0) {
@@ -149,5 +160,10 @@ public class InterestDaoImp implements InterestDao {
 	@Override
 	public List<InterestDto> scrollSelect(String id) {
 		return sqlSession.selectList("scrollSelect", id);
+	}
+
+	@Override
+	public InterestDto scrollRecommend() {
+		return sqlSession.selectOne("scrollRecommend");
 	}
 }

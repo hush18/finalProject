@@ -23,11 +23,11 @@ public class BookDto {
 	}
 	
 	//리뷰평점 가져오기
-	private long grade;
-	public long getGrade() {
+	private float grade;
+	public float getGrade() {
 		return grade;
 	}
-	public void setGrade(long grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
 	

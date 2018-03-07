@@ -1,3 +1,7 @@
+<!-- 
+로그인 페이지
+작성자 : 김미화
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -35,7 +39,7 @@
 					<div class="input_on_mh">
 						<div>
 							<input type="text" name="id" value="아이디" /><br />
-							<input type="text" name="password" value="비밀번호"/><br />
+							<input type="text" name="password" value="비밀번호" onfocus="changePwd()"/><br />
 						</div>
 					</div>
 

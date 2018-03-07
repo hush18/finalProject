@@ -6,21 +6,21 @@
 	margin-bottom: 5px;
 }
 
-.even >td, .odd >td{
+.list >td{
 	text-align: center;
 	vertical-align: middle;
 	line-height: normal;
 	padding-top: 12px !important;
 }
-.even >td:last-child, .odd >td:last-child{
+.list >td:last-child{
 	padding-top: 8px !important;
 }
 
-.even button, .odd button{
+.list button{
 	margin-bottom: 0px;
 }
 
-.even select, .odd select{
+.list select{
 	vertical-align: middle;
 }
 
@@ -86,7 +86,23 @@
 
 .text_left_hy{
 	text-align: left !important;
+	text-overflow:ellipsis; 
+	overflow: hidden;
 }
 .text_right_hy{
 	text-align: right !important;
+}
+
+a{
+	text-decoration: none;
+	color:#5cb38b;
+}
+
+a:hover{
+	text-decoration: none;
+	color:#5cb38b;
+	font-weight: bold;
+}
+.tb_hy{
+	word-break:break-all;
 }

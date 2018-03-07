@@ -1,4 +1,11 @@
 $(function () {
+		$.fn.generateStars = function() {
+		    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+		};
+	
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+	
 		if($("#view_jm").val()=="simply"){
 			$("#detail *").hide();
 			$("#simply_list_jm *").show();
@@ -141,7 +148,7 @@ $(function () {
 		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
-		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
+		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity+"&val=1");
 	}
 	
 	function wishList(isbn, mbId) {
@@ -150,7 +157,7 @@ $(function () {
 			return false;
 		}
 		var quantity = $("input[id='"+isbn+"']").val();
-		alert(isbn);
+		
 		$(location).attr("href", "wishListInsert.do?isbn="+isbn);
 	}
 	
@@ -176,7 +183,11 @@ $(function () {
 				}
 			})
 		}
-		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbnList="+isbnList);
+		if(isbnList==null||isbnList==""){
+			alert("체크된 상품이 없습니다.");
+			return false;
+		}
+		if(mbId!=null) $(location).attr("href", "wishListInsert.do?isbn="+isbnList);
 	}
 	
 	function cartAll(mbId) {
@@ -200,8 +211,15 @@ $(function () {
 				if($(this).prop("checked")==true) {
 					var isbn = $(this).val();
 					isbnList += isbn;
+					quantityList+="1/";
 				}
 			})
 		}
+		if(isbnList==null||isbnList==""){
+			alert("체크된 상품이 없습니다.");
+			return false;
+		}
+		
+		
 		if(mbId!=null) $(location).attr("href", "cart.do?isbnList="+isbnList+"&quantityList="+quantityList);
 	}

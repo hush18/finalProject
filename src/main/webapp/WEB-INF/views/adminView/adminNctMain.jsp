@@ -59,8 +59,7 @@
 								<div class="x_content" style="color:#000;">
 									<div class="button_div_ej">
 										<button type="button" class="btn btn-primary btn_ej" onclick="location.href='adminNctInsert.do'">추가</button>
-<!-- 										<button type="button" class="btn btn-primary btn_ej" style="display: inline-block;" id="list_ej">삭제</button> -->
-										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2" style="display: none;">삭제</button>
+										<button type="button" class="btn btn-primary btn_ej" data-toggle="modal" data-target=".bs-example-modal-lg" id="list_ej2">삭제</button>
 									</div>
 									<table id="datatable" class="table table-striped table-bordered jambo_table bulk_action" style="width: 100%;">
 										<thead>
@@ -139,7 +138,7 @@
 				</div>
 				<div class="modal-footer">
 					<button id="btn_no" type="button" class="btn" data-dismiss="modal" onclick="adminNctMain.do">NO</button>
-					<button type="button" class="btn btn-primary btn_ej" onclick="javascript:adminNctDelete('${pageNumber}')">YES</button>
+					<button type="button" class="btn btn-primary btn_ej" onclick="javascript:adminNctDelete()">YES</button>
 				</div>
 			</div>
 		</div>

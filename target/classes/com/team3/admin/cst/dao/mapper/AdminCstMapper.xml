@@ -9,15 +9,15 @@
 	</select>
 	
 	<select id="cstList" resultType="com.team3.admin.cst.dto.AdminCstDto">
-  		<![CDATA[select * from(select rownum rnum, a.* from counsel a)]]>
+  		select * from counsel order by write_date desc
   	</select>
   	
   	<update id="cstInsert" parameterType="com.team3.admin.cst.dto.AdminCstDto">
-  		<![CDATA[update counsel set admin_content=#{admin_content}, reply_check='O', Awrite_date=sysdate where counsel_number=#{counsel_number}]]>
+  		<![CDATA[update counsel set admin_content=#{admin_content}, reply_check='O', admin_write_date=sysdate where counsel_number=#{counsel_number}]]>
   	</update>
   	
   	<update id="cstUpdate" parameterType="com.team3.admin.cst.dto.AdminCstDto">
-  		<![CDATA[update counsel set admin_content=#{admin_content}, Awrite_date=sysdate where counsel_number=#{counsel_number}]]>
+  		<![CDATA[update counsel set admin_content=#{admin_content}, admin_write_date=sysdate where counsel_number=#{counsel_number}]]>
   	</update>
   	
   	<delete id="cstDeleteOk" parameterType="String">

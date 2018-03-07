@@ -19,5 +19,5 @@ public interface BookDao {
 	public List<BookDto> getBookTitleList(String category);
 	public List<BookDto> searchList(Map<String, String> dataMap);
 	public List<BookDto> searchBook(Map<String, String> dataMap);
-	public long getGrade(String isbn);
+	public float getGrade(String isbn);
 }

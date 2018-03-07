@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("mbId"); 
+	if(id==null){%>
+	<script type="text/javascript">
+		alert("로그인을 해주세요");
+		$(location).attr('href', "loginMember.do");
+	</script>
+	<% 
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
@@ -13,20 +23,32 @@
 <link href="css/user/cart.css" type="text/css" rel="stylesheet" />
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <script type="text/javascript">
+	$(function() {
+		$(".wishList_mh > .title_mh").trigger('click');
+		
+		$("#array").change(function(){
+			var url="cart.do?list_id="+$(this).val();
+			$(location).attr('href', url);
+		})
+	})
 	
 </script>
 </head>
 
 <body>
-	<c:if test="${check==0 }">
+	<c:if test="${check<1}">
 		<script type="text/javascript">
 			alert("장바구니에 중복된 도서가 추가될 수 없습니다.");
 			history.back();
 		</script>
 	</c:if>
+	<c:if test="${check==1}">
+		<script type="text/javascript">
+			alert("장바구니에 담았습니다.");
+		</script>
+	</c:if>	
 	<c:if test="${value<1}">
 		<script type="text/javascript">
-			alert("삭제에 실패한 도서가 있습니다.");
 			location.href="cart.do";
 		</script>
 	</c:if>
@@ -82,13 +104,13 @@
 							<div class="sub_mh">
 								<p class="faq_sc">FAQ</p>
 								<ul>
-									<li><a href="CustomerService_faq.do">회원</a></li>
-									<li><a href="CustomerService_faq.do">상품</a></li>
-									<li><a href="CustomerService_faq.do">입금/결제</a></li>
-									<li><a href="CustomerService_faq.do">취소/교환/환불</a></li>
-									<li><a href="CustomerService_faq.do">주문</a></li>
-									<li><a href="CustomerService_faq.do">배송</a></li>
-									<li><a href="CustomerService_faq.do">적립</a></li>
+									<li><a href="CustomerService_faq.do?up_category=회원">회원</a></li>
+									<li><a href="CustomerService_faq.do?up_category=상품">상품</a></li>
+									<li><a href="CustomerService_faq.do?up_category=입금/결제">입금/결제</a></li>
+									<li><a href="CustomerService_faq.do?up_category=취소/교환/환불">취소/교환/환불</a></li>
+									<li><a href="CustomerService_faq.do?up_category=주문">주문</a></li>
+									<li><a href="CustomerService_faq.do?up_category=배송">배송</a></li>
+									<li><a href="CustomerService_faq.do?up_category=적립">적립</a></li>
 								</ul>
 
 								<p class="consulting_sc">1:1 상담</p>
@@ -193,7 +215,7 @@
 										<input type="hidden" name="isbn_price" value="${price}" />
 
 										<div class="cart_list_size_hy">
-											<button id="cart_delete" class="block_btn_hy">취소</button>
+											<button class="block_btn_hy cart_delete">취소</button>
 										</div>
 										<input type="hidden" name="isbn" value="${cartList.isbn }" />
 									</div>
@@ -222,16 +244,16 @@
 
 						<c:if test="${startPage> pageBlock }">
 							<a
-								href="cart.do?cart_pageNumber=${startPage-pageBlock }&list_id=${list_id}">[이전]</a>
+								href="cart.do?cart_pageNumber=${startPage-pageBlock }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">[이전]</a>
 						</c:if>
 
 						<c:forEach var="i" begin="${startPage}" end="${endPage }">
-							<a href="cart.do?cart_pageNumber=${i }&list_id=${list_id}">${i }</a>
+							<a href="cart.do?cart_pageNumber=${i }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">${i }</a>
 						</c:forEach>
 
 						<c:if test="${endPage< pageCount }">
 							<a
-								href="cart.do?cart_pageNumber=${startPage + pageBlock }&list_id=${list_id}">[다음]</a>
+								href="cart.do?cart_pageNumber=${startPage + pageBlock }&list_id=${list_id}&dateValue=${dateValue}&dateValueList=${dateValueList}">[다음]</a>
 						</c:if>
 
 					</c:if>
@@ -261,7 +283,7 @@
 				</div>
 
 				<div class="main_order_hy">
-					<button class="btn-all">메인</button>
+					<button class="btn-all" onclick="window.location.href='userMain.do'">메인</button>
 					<button class="btn-all" id="order">주문하기</button>
 				</div>
 			</div>

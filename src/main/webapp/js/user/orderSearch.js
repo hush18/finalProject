@@ -2,15 +2,8 @@
  * 
  */
 
-$(function(){
-	$(".wishList_mh > .title_mh").trigger('click');
-	
-		//정렬 방식 변경 이벤트
-		$("#array").change(function(){
-			var url="cart.do?list_id="+$(this).val();
-			$(location).attr('href', url);
-		})
-		
+$(function(){	
+		//정렬방식 변경
 		var list_id=$('input[name="listId"]').val();
 		if(list_id=="") list_id="0";
 		$("#array option:selected").removeAttr("selected"); 
@@ -74,21 +67,17 @@ $(function(){
 			var isbnList="";
 			var amountList="";
 			$(".checkBook_sc:checked").each(function() {
-				/*var isbn="";
-				var amount="";*/
 				var amount=$(this).parent().parent().children().find('input[name="cart_amount"]').val();
 				amountList+=amount+",";
 				
 				var isbn=$(this).parent().parent().children().find(".quantity_up_jm").children("input").val();
-				isbnList+=isbn;
+				isbnList+=isbn+",";
 			})
 			if(isbnList==""){
 				alert("선택된 상품이 없습니다.");
 				return false;
 			}else{
-				alert(isbnList);
-				alert(amountList);
-				var url="payment.do?isbn="+isbnList+"&quantity="+amountList;
+				var url="payment.do?isbn="+isbnList+"&quantity="+amountList+"&val=2";
 				$(location).attr('href', url);
 			}
 		})
@@ -118,9 +107,9 @@ $(function(){
 			
 		})
 	
-		
-		$("#cart_delete").click(function(){
-			var isbn=$(this).parents().find(".quantity_up_jm").children().val();
+		//장바구니 삭제
+		$(".cart_delete").click(function(){
+			var isbn=$(this).parent().parent().find(".quantity_hy").find(".quantity_up_jm").children().val();
 			var list_id=$('input[name="listId"]').val();
 			var cart_pageNumber=$('input[name="cart_pageNumber"]').val();
 			
@@ -128,6 +117,7 @@ $(function(){
 			$(location).attr('href', url);
 		})
 		
+		//장바구니 선택삭제
 		$("#selectDelete").click(function() {
 			var isbnList="";
 			$(".checkBook_sc:checked").each(function(){
@@ -136,7 +126,6 @@ $(function(){
 			});
 			var list_id=$('input[name="listId"]').val();
 			var cart_pageNumber=$('input[name="cart_pageNumber"]').val();
-			alert(isbnList);
 			var url="cartListDelete.do?isbnList="+isbnList+"&list_id="+list_id+"&cart_pageNumber="+cart_pageNumber;
 			$(location).attr('href', url);
 		})

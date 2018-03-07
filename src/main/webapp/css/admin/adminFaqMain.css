@@ -21,7 +21,7 @@
 
 .btn_ej:focus{
 	color: #fff;
-    background-color: #429F6B;
+    background-color: #5cb38b;
     border-color: #429F6B;
     font-weight: bold;
 }
@@ -109,6 +109,11 @@
 	vertical-align: middle !important;
 }
 
+.topten_ej{
+    margin: 0 -10px 0 14px;
+    border-color: #5cb38b;
+}
+    
 #ftr{
 	background-color: #fff;
 	color: #000;

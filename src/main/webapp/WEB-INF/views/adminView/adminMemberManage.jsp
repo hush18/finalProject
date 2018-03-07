@@ -1,4 +1,5 @@
 <!-- 
+회원관리 페이지
 작성자 : 김미화
  -->
  
@@ -45,7 +46,6 @@
 												<th>이메일</th>
 												<th>이름</th>
 												<th>포인트</th>
-												<th>차단횟수</th>
 												<th>휴면상태</th>
 												<th style="width: 80px;">회원삭제</th>
 											</tr>
@@ -58,7 +58,6 @@
 												<td>${memberList.email }</td>
 												<td>${memberList.name }</td>
 												<td>${memberList.point }</td>
-												<td>${memberList.block_count }</td>
 												<td>
 													<c:if test="${memberList.diap eq '1' }">
 														-
@@ -68,7 +67,7 @@
 													</c:if>
 												</td>
 												<td>
-													<button type="button" class="btn btn-success btn-xs" onclick="deleteForm('${memberList.member_number}')" style="margin-left: 15px;">
+													<button type="button" class="btn btn-success btn-xs" onclick="deleteForm('${memberList.id}','${memberList.member_number }')" style="margin-left: 15px;">
 														삭제
 													</button>
 												</td>
@@ -183,8 +182,9 @@
 			TableManageButtons.init();
 		});
 		
-		function deleteForm(member_number){
-			var url="adminMemberDelete.do?member_number="+member_number;
+		function deleteForm(id, member_num){
+			//alert(id);
+			var url="adminMemberDelete.do?id="+id+"&member_num="+member_num;
 			window.open(url,"","width=600, height=450, location=1, top=100px, left=500px");
 		}
 	</script>

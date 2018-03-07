@@ -14,12 +14,19 @@
 			});
 	}
 </script>
+<style type="text/css">
+	.search_btn_mh{
+		height: 25px; background-color: #5cb38b; cursor: pointer;
+		 border-radius: 3px; color: white; border: none; padding: 3px 0.5em;
+	}
+	.search_btn_mh:hover{ font-weight: bold;}
+</style>
 </head>
 <body BGCOLOR="#FFFFFF" onunload="closeWin()" style="background-image: url('images/mainPage/popup01.jpg'); background-repeat: no-repeat; background-size: cover;">
 	<form name="event_Fcondo" style="padding-top: 260px;">
 		<input type="checkbox" name="event">
 		<font size=2>오늘하루 이 창을 열지않음</font>
-		<input type=button value="닫기" onclick="self.close()">
+		<input type=button value="닫기" onclick="self.close()"  class="search_btn_mh"/>
 	</form>
 </body>
 </html>

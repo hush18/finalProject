@@ -8,6 +8,11 @@
 <link type="text/css" rel="stylesheet" href="css/user/sideCategory.css" />
 <link type="text/css" rel="stylesheet" href="css/user/myPage.css" />
 <script type="text/javascript">
+
+	$(function(){
+		$(".orderManager_mh > .title_mh").trigger('click');
+	});
+	
 	function deleteMember() {
 		window
 				.open("deleteAccount.do", "",
@@ -74,13 +79,13 @@
 				<div class="info-box-iy">
 					<p>
 						<strong>주소</strong>
-						${memberDto.member_address} ${memberDto.member_detail_address}
+						${memberDto.member_zipcode } ${memberDto.member_address} ${memberDto.member_detail_address}
 					</p>
 				</div>
 				<div class="info-box-iy">
 					<p>
 						<strong>이메일</strong>
-						${memberDto.member_address} ${memberDto.email}
+						${memberDto.email}
 					</p>
 				</div>
 			</div>

@@ -7,7 +7,7 @@ public class ReviewDto {
 	private String isbn;			// VARCHAR2(100) not null,
 	private String id;				// VARCHAR2(200),
 	private String content;			// VARCHAR2(500),
-	private long grade;				// NUMBER(8),
+	private float grade;				// NUMBER(8),
 	private Date writer_date;		// TIMESTAMP NOT NULL
 	
 	public long getReview_number() {
@@ -34,10 +34,10 @@ public class ReviewDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public long getGrade() {
+	public float getGrade() {
 		return grade;
 	}
-	public void setGrade(long grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
 	public Date getWriter_date() {

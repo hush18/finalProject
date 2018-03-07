@@ -1,3 +1,7 @@
+<!-- 
+작성자 : 최은지
+ -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,7 +17,6 @@
 </head>
 <body>
 <div class="widthline">
-<form action="CustomerService_cstOk.do" method="post">
 		<div class="boss_ej">
 			<div class="url_ej">홈 > 고객센터 > 1:1 상담하기</div>
 			<div class="sub_boss_ej" style="display:flex;">
@@ -60,13 +63,13 @@
 								<div class="sub_mh">
 									<p class="faq_sc">FAQ</p>
 									<ul>
-										<li><a href="CustomerService_faq.do">회원</a></li>
-										<li><a href="CustomerService_faq.do">상품</a></li>
-										<li><a href="CustomerService_faq.do">입금/결제</a></li>
-										<li><a href="CustomerService_faq.do">취소/교환/환불</a></li>
-										<li><a href="CustomerService_faq.do">주문</a></li>
-										<li><a href="CustomerService_faq.do">배송</a></li>
-										<li><a href="CustomerService_faq.do">적립</a></li>
+										<li><a href="CustomerService_faq.do?up_category=회원">회원</a></li>
+										<li><a href="CustomerService_faq.do?up_category=상품">상품</a></li>
+										<li><a href="CustomerService_faq.do?up_category=입금/결제">입금/결제</a></li>
+										<li><a href="CustomerService_faq.do?up_category=취소/교환/환불">취소/교환/환불</a></li>
+										<li><a href="CustomerService_faq.do?up_category=주문">주문</a></li>
+										<li><a href="CustomerService_faq.do?up_category=배송">배송</a></li>
+										<li><a href="CustomerService_faq.do?up_category=적립">적립</a></li>
 									</ul>
 
 									<p class="consulting_sc">1:1 상담</p>
@@ -106,26 +109,28 @@
 					</div>
 				</div>
 				<div class="content_ej">
+				<form action="CustomerService_faq.do" method="get" onsubmit="return up_search(this)">
 					<div class="search_ej">
 							<div class="search_choice_ej">
-								<select>
-									<option>FAQ 분류</option>
-									<option>회원</option>
-									<option>상품</option>
-									<option>입금/결제</option>
-									<option>취소/교환/환불</option>
-									<option>주문</option>
-									<option>배송</option>
-									<option>적립</option>
+								<select name="up_category">
+									<option value="default">FAQ 분류</option>
+									<option value="회원">회원</option>
+									<option value="상품">상품</option>
+									<option value="입금/결제">입금/결제</option>
+									<option value="취소/교환/환불">취소/교환/환불</option>
+									<option value="주문">주문</option>
+									<option value="배송">배송</option>
+									<option value="적립">적립</option>
 								</select>
 							</div>
 
 							<div class="search_sub_ej">
-								<input type="text" name="search" size="40"/> 
-								<a href="#" class="btn-all btn_ej">검색</a>
+								<input type="text" name="search" size="40" />
+								<button type="submit" class="btn-all btn_ej" style="height: 27px; padding-top: 0px;">검색</button>
 							</div>
-					</div>
-					
+						</div>
+					</form>
+					<form action="CustomerService_cstOk.do" method="post" onsubmit="return userCst(this)">
 					<div class="FAQ_TOP_ej">
 						<div class="FAQ_TOP_1_ej">
 							<h3>1:1 상담</h3>
@@ -142,25 +147,25 @@
 									
 									<div class="consulting_sub2_ej">
 										<div>
-											<input type="radio" name="consulting" value="member">회원
+											<input type="radio" name="up_category" value="회원">회원
 										</div>
 										<div>
-											<input type="radio" name="consulting" value="product">상품
+											<input type="radio" name="up_category" value="상품">상품
 										</div>
 										<div>
-											<input type="radio" name="consulting" value="payment">입금/결제
+											<input type="radio" name="up_category" value="입금/결제">입금/결제
 										</div>
 										<div>
-											<input type="radio" name="consulting" value="cancel">취소/교환/환불
+											<input type="radio" name="up_category" value="취소/교환/환불">취소/교환/환불
 										</div>
 										<div>
-											<input type="radio" name="consulting" value="order">주문
+											<input type="radio" name="up_category" value="주문">주문
 										</div>
 										<div>
-											<input type="radio" name="consulting" value="delivery">배송
+											<input type="radio" name="up_category" value="배송">배송
 										</div>
 										<div>
-											<input type="radio" name="consulting" value="saving">적립
+											<input type="radio" name="up_category" value="적립">적립
 										</div>
 									</div>
 								</div>
@@ -169,90 +174,90 @@
 										세부 유형&nbsp;&nbsp;&nbsp;&nbsp;|
 									</div>
 									
-									<div class="consulting_sub2_1_ej" id="member">
+									<div class="consulting_sub2_1_ej" id="회원">
 										<div>
-											<input type="radio" name="consulting2">회원가입
+											<input type="radio" name="down_category" value="회원가입">회원가입
 										</div>
 										<div>
-											<input type="radio" name="consulting2">회원정보확인
+											<input type="radio" name="down_category" value="회원정보확인">회원정보확인
 										</div>
 										<div>
-											<input type="radio" name="consulting2">회원정보수정
+											<input type="radio" name="down_category" value="회원정보수정">회원정보수정
 										</div>
 										<div>
-											<input type="radio" name="consulting2">회원탈퇴
+											<input type="radio" name="down_category" value="회원탈퇴">회원탈퇴
 										</div>
 										<div>
-											<input type="radio" name="consulting2">휴먼계정
-										</div>
-									</div>
-									<div class="consulting_sub2_1_ej" id="product">
-										<div>
-											<input type="radio" name="consulting2">상품불량
-										</div>
-										<div>
-											<input type="radio" name="consulting2">입고/품절/절판
-										</div>
-										<div>
-											<input type="radio" name="consulting2">상품정보/가격
+											<input type="radio" name="down_category" value="휴먼계정">휴먼계정
 										</div>
 									</div>
-									<div class="consulting_sub2_1_ej" id="payment">
+									<div class="consulting_sub2_1_ej" id="상품">
 										<div>
-											<input type="radio" name="consulting2">신용카드
+											<input type="radio" name="down_category" value="상품불량">상품불량
 										</div>
 										<div>
-											<input type="radio" name="consulting2">핸드폰 결제
+											<input type="radio" name="down_category" value="입고/품절/절판">입고/품절/절판
 										</div>
 										<div>
-											<input type="radio" name="consulting2">실시간 계좌이체
-										</div>
-										<div>
-											<input type="radio" name="consulting2">직접 입금
+											<input type="radio" name="down_category" value="상품정보/가격">상품정보/가격
 										</div>
 									</div>
-									<div class="consulting_sub2_1_ej" id="cancel">
+									<div class="consulting_sub2_1_ej" id="입금">
 										<div>
-											<input type="radio" name="consulting2">취소/교환/환불 문의
+											<input type="radio" name="down_category" value="신용카드">신용카드
 										</div>
 										<div>
-											<input type="radio" name="consulting2">취소/교환/환불 신청
+											<input type="radio" name="down_category" value="핸드폰결제">핸드폰결제
 										</div>
 										<div>
-											<input type="radio" name="consulting2">취소/교환/환불 취소
-										</div>
-									</div>
-									<div class="consulting_sub2_1_ej" id="order">
-										<div>
-											<input type="radio" name="consulting2">주문조회
+											<input type="radio" name="down_category" value="실시간계좌이체">실시간계좌이체
 										</div>
 										<div>
-											<input type="radio" name="consulting2">주문변경
-										</div>
-										<div>
-											<input type="radio" name="consulting2">주문취소
+											<input type="radio" name="down_category" value="직접입금">직접입금
 										</div>
 									</div>
-									<div class="consulting_sub2_1_ej" id="delivery">
+									<div class="consulting_sub2_1_ej" id="취소">
 										<div>
-											<input type="radio" name="consulting2">배송문의
+											<input type="radio" name="down_category" value="취소/교환/환불 문의">취소/교환/환불 문의
 										</div>
 										<div>
-											<input type="radio" name="consulting2">배송/출고예정일
+											<input type="radio" name="down_category" value="취소/교환/환불 신청">취소/교환/환불 신청
+										</div>
+										<div>
+											<input type="radio" name="down_category" value="취소/교환/환불 취소">취소/교환/환불 취소
 										</div>
 									</div>
-									<div class="consulting_sub2_1_ej" id="saving">
+									<div class="consulting_sub2_1_ej" id="주문">
 										<div>
-											<input type="radio" name="consulting2">포인트문의
+											<input type="radio" name="down_category" value="주문조회">주문조회
 										</div>
 										<div>
-											<input type="radio" name="consulting2">포인트적립										
+											<input type="radio" name="down_category" value="주문변경">주문변경
 										</div>
 										<div>
-											<input type="radio" name="consulting2">포인트사용
+											<input type="radio" name="down_category" value="주문취소">주문취소
+										</div>
+									</div>
+									<div class="consulting_sub2_1_ej" id="배송">
+										<div>
+											<input type="radio" name="down_category" value="배송문의">배송문의
 										</div>
 										<div>
-											<input type="radio" name="consulting2">포인트소멸
+											<input type="radio" name="down_category" value="배송/출고예정일">배송/출고예정일
+										</div>
+									</div>
+									<div class="consulting_sub2_1_ej" id="적립">
+										<div>
+											<input type="radio" name="down_category" value="포인트문의">포인트문의
+										</div>
+										<div>
+											<input type="radio" name="down_category" value="포인트적립">포인트적립										
+										</div>
+										<div>
+											<input type="radio" name="down_category" value="포인트사용">포인트사용
+										</div>
+										<div>
+											<input type="radio" name="down_category" value="포인트소멸">포인트소멸
 										</div>
 									</div>
 								</div>
@@ -278,7 +283,7 @@
 									</div>
 									
 									<div class="consulting_sub3_ej">
-										<input type="text" name="up_category" size="20" readonly>
+										<input type="text" name="counsel_product" size="20" readonly style="cursor: not-allowed;">
 										<a id="questionSearch" class="consulting_abtn1_ej">조회</a>
 									</div>
 								</div>
@@ -289,7 +294,7 @@
 									</div>
 									
 									<div class="consulting_sub3_ej">
-										<input type="text" name="down_category" size="20" readonly>
+										<input type="text" name="order_number" size="20" readonly style="cursor: not-allowed;">
 										<a id="orderSearch" class="consulting_abtn1_ej">조회</a>
 									</div>
 								</div>
@@ -311,8 +316,8 @@
 										</div>
 									</div>
 									<div class="consulting_sub2_2_ej">
-										<input type="radio" name="emailing"> 이메일 허용
-										<input type="radio" name="emailing"> 허용 안함
+										<input type="radio" name="emailing" value="1"> 이메일 허용
+										<input type="radio" name="emailing" value="0"> 허용 안함
 										<input type="text" name="email" size="30">
 									</div>
 								</div>
@@ -325,11 +330,10 @@
 							</div>
 						</div>
 					</div>
-					
+					</form>
 				</div>
 			</div>
 		</div>
-		</form>
 	</div>
 </body>
 </html>

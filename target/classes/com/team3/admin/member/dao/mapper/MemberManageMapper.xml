@@ -13,16 +13,27 @@
 		update member set diap='0'
 	</update>
 	
+	<update id="diapChecking">
+		update member set diap='1'
+	</update>
+	
 	<select id="getPassword" resultType="com.team3.user.member.dto.MemberDto">
 		<![CDATA[
 			select * from member where member_number<1000
 		]]>
 	</select>
-
-	<delete id="adminMemberDelete" parameterType="int">
+	
+	<delete id="adminOrderDelete" parameterType="String">
+		delete from cart where id=#{id}
+	</delete>
+	
+	<delete id="adminCartDelete" parameterType="String">
+		delete from order_delivery where id=#{id}
+	</delete>
+	
+	<delete id="adminMemberDelete" parameterType="String">
 		<![CDATA[
-			delete from member
-			where member_number=#{member_number}
+			delete from member where id=#{id}
 		]]>
 	</delete>
 

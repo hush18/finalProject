@@ -1,13 +1,10 @@
 $(function () {
-		$( ".star_rating a" ).click(function() {
-		    $(this).parent().children("a").removeClass("on");
-		    $(this).addClass("on").prevAll("a").addClass("on");
-		    
-		    var onCount = $(this).parent().find(".on").length;
-		    $("input[name='grade']").val(onCount);
-		    
-		    return false;
-		});
+		$.fn.generateStars = function() {
+		    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+		};
+	
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
 		
 		$(".quantity_up_jm").click(function() {
 			var target = $(this).children("input").val();
@@ -86,25 +83,22 @@ $(function () {
 		var grade = data[0].grade;
 		var content = data[0].content;
 		var writer_date = data[0].writer_date;
+		if(grade==1||grade==2||grade==3||grade==4||grade==5){
+			grade+=".0";
+		}
+		
+		var count = $(".info_review_centent_table").length;
 		
 		//alert(writer_date+", "+id+", "+grade+", "+content);
 		
 		var reviewList = document.getElementsByClassName("info_review_centent_table")[0];
-		
-		var gradeText="";
-		for(var i=0; i<grade; i++){
-			gradeText+="<label class='on'>★</label>";
-		}
-		for(var i=grade;i<5;i++){
-			gradeText+="<label class=''>★</label>";
-		}
 		
 		var newReviewText = "<div class='info_review_centent_table'>"+
 								"<div>"+
 									"<div class=''>"+id+"</div>"+
 									"<div style='word-break: break-all; overflow: hidden; white-space: pre-line;' class='test'>"+content+"</div>"+
 									"<div>"+
-										"<p class='star_rating'>"+gradeText+"</p>"+
+										"<span class='star-prototype starAdd"+count+"'>"+grade+"</span>"+
 									"</div>"+
 									"<div>"+writer_date+"</div>"+
 								"</div>"+
@@ -130,6 +124,7 @@ $(function () {
 		$("#page_ul_jm").html(pageText);
 		
 		paging(1);
+		$(".starAdd"+count).generateStars();
 	}
 	
 	
@@ -150,7 +145,7 @@ $(function () {
 		}
 		var quantity = $("input[id='"+isbn+"']").val();
 		
-		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity);
+		$(location).attr("href", "payment.do?isbn="+isbn+"&quantity="+quantity+"&val=1");
 	}
 	
 	function wishList(isbn,mbId) {
