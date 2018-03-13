@@ -1,14 +1,13 @@
 package com.team3.admin.faq.dto;
 
 public class AdminFaqDto {
-	private int faq_number;
-	private String title;
-	private String content;
-	private String up_category;
-	private String down_category;
-	private int count;
-	private int rnum;
-	private String is_top_ten;
+	private int faq_number;			// 고유번호
+	private String title;			// 제목
+	private String content;			// 내용
+	private String up_category;		// 상위유형
+	private String down_category;	// 하위유형
+	private int rnum;				// 가상번호
+	private String is_top_ten;		// top10
 	
 	public int getFaq_number() {
 		return faq_number;
@@ -40,12 +39,6 @@ public class AdminFaqDto {
 	public void setDown_category(String down_category) {
 		this.down_category = down_category;
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -62,7 +55,7 @@ public class AdminFaqDto {
 	@Override
 	public String toString() {
 		return "AdminFaqDto [faq_number=" + faq_number + ", title=" + title + ", content=" + content + ", up_category="
-				+ up_category + ", down_category=" + down_category + ", count=" + count + ", rnum=" + rnum
-				+ ", is_top_ten=" + is_top_ten + "]";
+				+ up_category + ", down_category=" + down_category + ", rnum=" + rnum + ", is_top_ten=" + is_top_ten
+				+ "]";
 	}
 }

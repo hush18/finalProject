@@ -1,3 +1,7 @@
+<!-- 
+결제 페이지
+작성자 : 김용기
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -491,7 +495,13 @@
 			</div>
 			<div class="btn_div_yk">
 				<button id="payment_submit" class="btn_submit" style="width: 190px; height: 60px;" >결제하기</button>
-				<button class="btn_reset_yk" style="width: 190px; height: 60px;">취소</button>
+				<button type="button" class="btn_reset_yk" style="width: 190px; height: 60px;">취소</button>
+				<script type="text/javascript">
+					$("button[type='button'][class='btn_reset_yk']").click(function () {
+						var con=confirm("정말 취소하시겠습니까? \n작성한 내용은 저장되지 않습니다. ")
+						if(con) location.href="userMain.do"
+					});
+				</script>
 			</div>
 		</form>
 	</div>

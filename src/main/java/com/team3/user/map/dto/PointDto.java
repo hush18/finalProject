@@ -1,7 +1,9 @@
 package com.team3.user.map.dto;
-
+/**
+ * 이름 : 김용기
+ * 내용 : 포인트  Dto 클래스
+ */
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class PointDto {
 	private String id;

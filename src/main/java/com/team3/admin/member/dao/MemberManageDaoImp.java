@@ -39,6 +39,8 @@ public class MemberManageDaoImp implements MemberManageDao {
 	public int adminMemberDelete(String id) {
 		sqlSession.delete("adminOrderDelete", id);
 		sqlSession.delete("adminCartDelete", id);
+		sqlSession.delete("adminMemberAddressDelete", id);
+		
 		return sqlSession.delete("adminMemberDelete", id);
 	}
 

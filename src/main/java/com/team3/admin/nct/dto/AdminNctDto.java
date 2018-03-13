@@ -3,11 +3,11 @@ package com.team3.admin.nct.dto;
 import java.util.Date;
 
 public class AdminNctDto {
-	private int notice_number;
-	private String title;
-	private String content;
-	private Date write_date;
-	private int rnum;
+	private int notice_number;	// 고유번호
+	private String title;		// 제목
+	private String content;		// 내용
+	private Date write_date;	// 등록일
+	private int rnum;			// 가상번호
 	
 	public int getNotice_number() {
 		return notice_number;

@@ -1,3 +1,6 @@
+<!-- 
+	작성자: 맹인영
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -58,6 +61,10 @@
 	<!---728x90--->
 </div>
 
+<!-- 
+	스크롤배너
+	작성자: 허승찬
+ -->
 <div id="serviceWrap">
 	<div class="recommend_sc">
 		<label>추천도서</label> 

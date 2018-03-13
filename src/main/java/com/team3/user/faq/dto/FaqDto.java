@@ -1,14 +1,13 @@
 package com.team3.user.faq.dto;
 
 public class FaqDto {
-	private int faq_number;
-	private int rNum;
-	private String title;
-	private String content;
-	private String up_category;
-	private String down_category;
-	private int count;
-	private String is_top_ten;
+	private int faq_number;			// 고유번호
+	private int rNum;				// 가상번호
+	private String title;			// 제목
+	private String content;			// 내용
+	private String up_category;		// 상위유형
+	private String down_category;	// 하위유형	
+	private String is_top_ten;		// TOP10
 
 	public int getFaq_number() {
 		return faq_number;
@@ -58,14 +57,6 @@ public class FaqDto {
 		this.down_category = down_category;
 	}
 
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 	public String getIs_top_ten() {
 		return is_top_ten;
 	}
@@ -77,8 +68,8 @@ public class FaqDto {
 	@Override
 	public String toString() {
 		return "FaqDto [faq_number=" + faq_number + ", rNum=" + rNum + ", title=" + title + ", content=" + content
-				+ ", up_category=" + up_category + ", down_category=" + down_category + ", count=" + count
-				+ ", is_top_ten=" + is_top_ten + "]";
+				+ ", up_category=" + up_category + ", down_category=" + down_category + ", is_top_ten=" + is_top_ten
+				+ "]";
 	}
 
 }

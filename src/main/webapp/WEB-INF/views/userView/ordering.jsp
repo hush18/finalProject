@@ -1,3 +1,6 @@
+<!-- 
+	작성자 : 신호용
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,7 +19,7 @@
 	}
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>주문중인 상품 조회</title>
 <script type="text/javascript" src="js/user/orderSearch.js"></script>
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link href="css/user/sideCategory.css" type="text/css" rel="stylesheet"/>
@@ -163,7 +166,7 @@
 		</div>
 		<div class="con_hy">
 			<div class="con_info_hy">
-				<div><h2 class="h2_hy">아이디님의 정보</h2></div>
+				<div><h2 class="h2_hy">(<%=id %>)님의 정보</h2></div>
 				<div class="con_info1_hy">
 					<div class="info_head_hy">
 						<div>진행중 주문 건</div>

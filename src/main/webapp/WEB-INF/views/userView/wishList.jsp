@@ -9,8 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>위시리스트</title>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <link type = "text/css" rel = "stylesheet" href = "css/user/nearestList.css">
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type = "text/css" rel="stylesheet" href="css/user/sideCategory.css"/>
@@ -169,7 +167,7 @@
 		</div>
 		<div class="main_sc">
 			<div class="bar_sc">
-				<div class="bar_ea_sc">총 개수:0개</div>
+				<div class="bar_ea_sc">총 개수:${count}개</div>
 				<button class="delete_sc" value="${mbId}">삭제</button>
 				<button class="cart_sc" value="${mbId}">장바구니 담기</button>
 				<div class="bar_check_sc">

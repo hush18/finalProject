@@ -1,6 +1,5 @@
 package com.team3.admin.map.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.team3.admin.map.dto.MapDto;
 import com.team3.user.member.dto.MemberDto;
-
+/**
+ * 이름 : 김용기
+ * 내용 : 관리자 영업점관련  Dao Class
+ */
 @Component
 public class AdminMapDaoImp implements AdminMapDao {
 

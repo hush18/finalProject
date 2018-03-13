@@ -9,8 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>최근 본 상품</title>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
 <link type = "text/css" rel = "stylesheet" href = "css/user/nearestList.css">
 <script type="text/javascript" src="js/user/sideCategory.js"></script>
 <link type = "text/css" rel="stylesheet" href="css/user/sideCategory.css"/>

@@ -1,15 +1,18 @@
 package com.team3.admin.map.dto;
-
+/**
+ * 이름 : 김용기
+ * 내용 : 관리자 영업점 DTO Class
+ */
 public class MapDto {
-	private String store_name;
-	private String lat;
-	private String lng;
-	private String phone_fax;
-	private String address;
-	private String business_hours;
-	private String directions;
-	private String store_explanation;
-	private String img_path;
+	private String store_name;	//영업점 이름
+	private String lat;			//위도
+	private String lng;			//경도
+	private String phone_fax;	//전화번호/팩스
+	private String address;		//주소
+	private String business_hours;//영업시간
+	private String directions;	//찾아오는길
+	private String store_explanation;//영업점 설명
+	private String img_path;	//이미지경로
 	
 	public String getStore_name() {
 		return store_name;

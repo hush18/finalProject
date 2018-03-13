@@ -18,15 +18,18 @@
 		<![CDATA[select count(*) from book where title like '%'||#{search}||'%']]>
 	</select>
 	
-	<select id="cstOrNumberList" parameterType="String" resultType="com.team3.user.cst.dto.CstOrderDto">
-		select goods,order_account,order_number from order_delivery where id=#{id}
+	<select id="cstOrNumberList" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstOrderDto">
+		select goods,order_account,order_number from order_delivery where id=#{id} and order_date>=SYSDATE-#{date}
+	</select>
+	
+	<select id="cstOrNumberList2" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstOrderDto">
+		select goods,order_account,order_number from order_delivery where id=#{id} and order_date>=add_months(SYSDATE,-#{date})
 	</select>
 	
 	<select id="cstOrderList" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstOrderDto">
-		SELECT o.order_date, b.title, b.price FROM book b, order_delivery o WHERE b.isbn = #{goods} and order_number=#{order_number} AND o.order_date>=SYSDATE-#{date}
-	</select>
-	
-	<select id="cstOrderList2" parameterType="java.util.Map" resultType="com.team3.user.cst.dto.CstOrderDto">
-		SELECT o.order_date, b.title, b.price FROM book b, order_delivery o WHERE b.isbn = #{goods} and order_number=#{order_number} AND o.order_date>=add_months(SYSDATE,-#{date})
+		SELECT o.order_date, b.title, b.price FROM book b, order_delivery o WHERE b.isbn = #{goods} and order_number=#{order_number}
 	</select>
   </mapper>
+  
+  
+  

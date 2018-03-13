@@ -49,40 +49,44 @@ public interface ServiceInterface {
 	public void diapOK(ModelAndView mav);
 	public void loginMember(ModelAndView mav);
 	
-	//~~
-	public void getMainList(ModelAndView mav);
-	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response);
-	public void zipcode(ModelAndView mav);
-	public void createMap(ModelAndView  mav);
-	public void readMap(ModelAndView mav);
-	public void updateMap(ModelAndView mav);
-	public void deleteMap(ModelAndView mav);
+	// 사용자 전체 스크롤배너 - 허승찬
+	public void scrollBanner(ModelAndView mav);
+	public void recommend(ModelAndView mav);
+	
+	// 사용자 최근본상품 - 허승찬
 	public void nearestList(ModelAndView mav);
 	public void nearestUp(ModelAndView mav);
 	public void nearestDel(ModelAndView mav);
+	public void nearestInsert(ModelAndView mav);
+	
+	// 사용자 위시리스트 - 허승찬
 	public void wishList(ModelAndView mav);
 	public void wishListUp(ModelAndView mav);
 	public void wishListDel(ModelAndView mav);
+	public void wishListInsert(ModelAndView mav);
+
+	//사용자 결제, 배송지 관리, 포인트 내역 출력 - 김용기
+	public void payment(ModelAndView mav);
+	public void paymentOk(ModelAndView mav);
+	public void addressList(ModelAndView mav);
+	public void addAddress(ModelAndView mav);
+	public void deleteAddress(ModelAndView mav);
+	public void userPoint(ModelAndView mav);
+	
+	//메인, 회원, 뉴스피드 - 맹인영
+	public void getMainList(ModelAndView mav);
+	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response);
+	public void zipcode(ModelAndView mav);
 	public int createAccountOk(ModelAndView mav);
 	public void myPage(ModelAndView mav);
 	public void updateAccount(ModelAndView mav);
 	public void updateAccountOk(ModelAndView mav);
 	public void deleteAccount(ModelAndView mav);
 	public void searchPwdOK(ModelAndView mav);
-	public void wishListInsert(ModelAndView mav);
-	public void nearestInsert(ModelAndView mav);
-	public void scrollBanner(ModelAndView mav);
 	public void userMapRead(ModelAndView mav);
-	public void payment(ModelAndView mav);
-	public void addressList(ModelAndView mav);
-	public void addAddress(ModelAndView mav);
-	public void deleteAddress(ModelAndView mav);
-	public void paymentOk(ModelAndView mav);
 	public void searchHeader(ModelAndView mav);
 	public void naverCreateAccount(ModelAndView mav) throws Throwable;
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable;
-	public void userPoint(ModelAndView mav);
-	public void recommend(ModelAndView mav);
 	
 	//관리자~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
@@ -129,8 +133,13 @@ public interface ServiceInterface {
 	public void adminMemberDelete(ModelAndView mav);
 	public void adminMemberDeleteOK(ModelAndView mav);
 	
-	//~~~
+	//관리자 매출관리 - 허승찬
 	public void adminSales(ModelAndView mav);
 	
+	//관리자 영업점 관리 - 김용기
+	public void createMap(ModelAndView  mav);
+	public void readMap(ModelAndView mav);
+	public void updateMap(ModelAndView mav);
+	public void deleteMap(ModelAndView mav);
 }
 

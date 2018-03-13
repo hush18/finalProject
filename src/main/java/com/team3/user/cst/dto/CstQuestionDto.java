@@ -1,10 +1,10 @@
 package com.team3.user.cst.dto;
 
 public class CstQuestionDto {
-	private String title;
-	private String name;
-	private String write_date;
-	private int price;
+	private String title;		// 상품명
+	private String name;		// 저자
+	private String write_date;	// 상품 등록일
+	private int price;			// 가격
 	
 	public String getTitle() {
 		return title;

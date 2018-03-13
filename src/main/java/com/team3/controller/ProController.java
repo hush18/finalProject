@@ -34,6 +34,7 @@ public class ProController {
 
 	// 여기부터 사용자
 	// 스크롤배너 최근본상품 출력!! 후에 본인 컨트롤러도 밑의 위시리스트 출력 처럼 리턴값을 바꿔주세요~~
+	//사용자 스크롤배너 - 허승찬
 	public ModelAndView scroll(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
@@ -44,7 +45,7 @@ public class ProController {
 		}
 		return mav;
 	}
-
+	//사용자 메인페이지 - 맹인영
 	@RequestMapping(value = "/userMain.do", method = RequestMethod.GET)
 	public ModelAndView userMain(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -53,7 +54,7 @@ public class ProController {
 		
 		return scroll(mav);
 	}
-
+	//사용자 마이페이지 - 맹인영
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
 	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -63,7 +64,7 @@ public class ProController {
 
 		return scroll(mav);
 	}
-
+	//사용자 포인트페이지 - 김용기
 	@RequestMapping(value = "/userPoint.do", method = RequestMethod.GET)
 	public ModelAndView userPoint(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -74,7 +75,7 @@ public class ProController {
 		return scroll(mav);
 		//return null;
 	}
-
+	//사용자 회원 수정 - 맹인영
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.GET)
 	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response) {
 
@@ -84,7 +85,7 @@ public class ProController {
 
 		return scroll(mav);
 	}
-
+	//사용자 회원 수정 - 맹인영
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.POST)
 	public ModelAndView updateAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 
@@ -94,35 +95,32 @@ public class ProController {
 
 		return mav;
 	}
-
+	//사용자 회원 삭제 - 맹인영
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.GET)
 	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response) {
 
 		return new ModelAndView("deleteAccount.empty");
 	}
-
+	//사용자 회원 삭제 - 맹인영
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
 	public ModelAndView deleteAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDto", memberDto);
 		mav.addObject("request", request);
 		service.deleteAccount(mav);
-
 		return mav;
 	}
 
-	// 위시리스트 출력
+	// 사용자 위시리스트 출력 - 허승찬
 	@RequestMapping(value = "/wishList.do", method = RequestMethod.GET)
 	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-
 		service.wishList(mav);
-
 		return scroll(mav);
 	}
 
-	// 위시리스트에서 장바구니 이동
+	// 사용자 위시리스트에서 장바구니 이동 - 허승찬
 	@RequestMapping(value = "/wishListUp.do", method = RequestMethod.GET)
 	public ModelAndView wishListUp(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -132,7 +130,7 @@ public class ProController {
 		return scroll(mav);
 	}
 
-	// 위시리스트에서 리스트 삭제
+	// 사용자 위시리스트에서 리스트 삭제 - 허승찬
 	@RequestMapping(value = "/wishListDel.do", method = RequestMethod.GET)
 	public ModelAndView wishListDel(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -141,11 +139,10 @@ public class ProController {
 		return scroll(mav);
 	}
 
-	// 위시리스트로 Insert
+	// 사용자 위시리스트로 Insert - 허승찬
 	@RequestMapping(value = "/wishListInsert.do", method = RequestMethod.GET)
 	public ModelAndView wishListInsert(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-		// String id=request.getSession("id");
 		mav.addObject("request", request);
 
 		service.wishListInsert(mav);
@@ -153,7 +150,7 @@ public class ProController {
 		return scroll(mav);
 	}
 
-	// 최근본상품 리스트 출력
+	// 사용자 최근본상품 리스트 출력 - 허승찬
 	@RequestMapping(value = "/nearestList.do", method = RequestMethod.GET)
 	public ModelAndView nearestList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -162,21 +159,19 @@ public class ProController {
 		service.nearestList(mav);
 
 		return scroll(mav);
-		// return new ModelAndView("nearestList.users");
 	}
 
-	// 최근본상품에서 장바구니로 이동
+	// 사용자 최근본상품에서 장바구니로 이동 - 허승찬
 	@RequestMapping(value = "/nearestUp.do", method = RequestMethod.GET)
 	public ModelAndView nearestUp(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 
 		service.nearestUp(mav);
-		// service.nearestInsert(mav);
 		return scroll(mav);
 	}
 
-	// 최근본상품에서 리스트 삭제
+	// 사용자 최근본상품에서 리스트 삭제 - 허승찬
 	@RequestMapping(value = "/nearestDel.do", method = RequestMethod.GET)
 	public ModelAndView nearestDel(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -196,7 +191,7 @@ public class ProController {
 
 		return scroll(mav);
 	}
-
+	//사용자 네이버 회원 가입 - 맹인영
 	@RequestMapping(value = "/naverCreateAccount.do", method = RequestMethod.GET)
 	public ModelAndView naverCreateAccount(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws Throwable {
@@ -207,7 +202,7 @@ public class ProController {
 
 		return mav;
 	}
-
+	//사용자 페이스북 회원 가입 - 맹인영
 	@RequestMapping(value = "/facebookCreateAccount.do", method = RequestMethod.GET)
 	public ModelAndView facebookCreateAccount(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws Throwable {
@@ -218,7 +213,7 @@ public class ProController {
 
 		return scroll(mav);
 	}
-
+	//사용자 회원 가입 - 맹인영
 	@RequestMapping(value = "/createAccount.do", method = RequestMethod.GET)
 	public ModelAndView createAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -226,25 +221,24 @@ public class ProController {
 		mav.setViewName("createAccount.users");
 		return scroll(mav);
 	}
-
+	//사용자 회원 가입 - 맹인영
 	@RequestMapping(value = "/createAccount.do", method = RequestMethod.POST)
 	public ModelAndView createAccount(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("memberDto", memberDto);
 		int check = service.createAccountOk(mav);
-		
-		
-		// LogAspect.logger.info(LogAspect.logMsg + request.getParameter("id"));
-		// LogAspect.logger.info(LogAspect.logMsg + "멤버 디티오 : " + memberDto);
 		return mav;
 	}
 	
 	// 휴면계정 - 김미화
 	@RequestMapping(value = "/diap.do", method = RequestMethod.GET)
 	public ModelAndView diap(HttpServletRequest request, HttpServletResponse response) {
-
-		return new ModelAndView("diap.users");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		mav.setViewName("diap.users");
+		
+		return scroll(mav);
 	}
 	
 	// 아이디찾기 - 김미화
@@ -261,7 +255,7 @@ public class ProController {
 		return new ModelAndView("findPwd.empty");
 	}
 	
-	//사용자 장바구니 페이지
+	//사용자 장바구니 페이지 - 신호용
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public ModelAndView cart(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -272,7 +266,7 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	//사용자 장바구니 삭제
+	//사용자 장바구니 삭제 - 신호용
 	@RequestMapping(value="/cartListDelete.do", method=RequestMethod.GET)
 	public ModelAndView cartListDelete(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -283,7 +277,7 @@ public class ProController {
 		return scroll(mav);
 	}
 		
-	//사용자 주문조회 페이지
+	//사용자 주문조회 페이지 - 신호용
 	@RequestMapping(value="/orderSearch.do", method=RequestMethod.GET)
 	public ModelAndView orderSearch(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -294,7 +288,7 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	//사용자 주문상태 수정
+	//사용자 주문상태 수정 - 신호용
 	@RequestMapping(value="/statusChange.do", method=RequestMethod.GET)
 	public ModelAndView statusChange(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -305,7 +299,7 @@ public class ProController {
 		return mav;
 	}
 	
-	//사용자 주문삭제
+	//사용자 주문삭제 - 신호용
 	@RequestMapping(value="/orderDelete.do", method=RequestMethod.GET)
 	public ModelAndView orderDelete(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -316,7 +310,7 @@ public class ProController {
 		return mav;
 	}
 	
-	//사용자 교환환불 페이지
+	//사용자 교환환불 페이지 - 신호용
 	@RequestMapping(value="/cancel.do", method=RequestMethod.GET)
 	public ModelAndView cancel(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -327,7 +321,7 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	//사용자 주문중인상품 페이지
+	//사용자 주문중인상품 페이지 - 신호용
 	@RequestMapping(value="/ordering.do", method=RequestMethod.GET)
 	public ModelAndView ordering(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -338,7 +332,7 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	//사용자 배송중인 상품 페이지
+	//사용자 배송중인 상품 페이지 - 신호용
 	@RequestMapping(value="/delivery.do", method=RequestMethod.GET)
 	public ModelAndView delivery(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -349,7 +343,7 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	//사용자 구매내역(배송완료) 페이지
+	//사용자 구매내역(배송완료) 페이지 - 신호용
 	@RequestMapping(value="/buyList.do", method=RequestMethod.GET)
 	public ModelAndView buyList(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -360,7 +354,7 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	//사용자 주문상세정보 페이지
+	//사용자 주문상세정보 페이지 - 신호용
 	@RequestMapping(value="/detailOrder.do", method=RequestMethod.GET)
 	public ModelAndView detailOrder(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -435,7 +429,7 @@ public class ProController {
 		service.cstProduct(mav);
 		return mav;
 	}
-
+	//사용자 영업점 - 김용기
 	@RequestMapping(value = "/Map.do", method = RequestMethod.GET)
 	public ModelAndView Map(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -444,7 +438,7 @@ public class ProController {
 		service.userMapRead(mav);
 		return scroll(mav);
 	}
-
+	//사용자 회사 소개 - 김용기
 	@RequestMapping(value = "/Introduction.do", method = RequestMethod.GET)
 	public ModelAndView Introduction(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -496,20 +490,21 @@ public class ProController {
 		return scroll(mav);
 	}
 	
-	
+	//사용자 이벤트 팝업 창 - 맹인영
 	@RequestMapping(value = "/eventPopup.do", method = RequestMethod.GET)
 	public ModelAndView popup(HttpServletRequest request, HttpServletResponse response) {
 
 		return new ModelAndView("event_popup.empty");
 	}
-
+	
+	//사용자 뉴스피드 - 맹인영
 	@RequestMapping(value = "/newsfeed.do", method = RequestMethod.GET)
 	public ModelAndView newsfeed(HttpServletRequest request, HttpServletResponse response) {
 		service.newsfeedParsing(request, response);
 		
 		return null;
 	}
-
+	//사용자 결제 - 김용기
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
@@ -519,7 +514,7 @@ public class ProController {
 		
 		return scroll(mav);
 	}
-	
+	//사용자 결제 완료 - 김용기
 	@RequestMapping(value="/paymentOk.do", method=RequestMethod.POST)
 	public ModelAndView paymentOk(HttpServletRequest request, HttpServletResponse response,PaymentPointDto paymentPointDto,OrderDto orderDto) {
 		ModelAndView mav=new ModelAndView();
@@ -530,7 +525,7 @@ public class ProController {
 		service.paymentOk(mav);
 		return mav;
 	}
-
+	//사용자 결제 관련 배송지 목록 - 김용기
 	@RequestMapping(value = "/addressList.do", method = RequestMethod.GET)
 	public ModelAndView addressList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -550,7 +545,7 @@ public class ProController {
 		
 		return mav;
 	}
-	
+	//사용자 결제 관련 배송지 추가 - 김용기
 	@RequestMapping(value="/addAddress.do",method=RequestMethod.GET)
 	public ModelAndView addAddress(HttpServletRequest request, HttpServletResponse response,MemberAddressDto memberAddressDto) {
 		ModelAndView mav = new ModelAndView();
@@ -560,6 +555,7 @@ public class ProController {
 		service.addAddress(mav);
 		return mav;
 	}
+	//사용자 결제 관련 배송지 삭제 - 김용기
 	@RequestMapping(value="/addressDelete.do",method=RequestMethod.GET)
 	public ModelAndView addressDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -588,7 +584,7 @@ public class ProController {
 
 		return mav;
 	}
-
+	//주소 검색 - 맹인영
 	@RequestMapping(value = "/zipcode.do", method = RequestMethod.GET)
 	public ModelAndView zipcode(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -766,7 +762,7 @@ public class ProController {
 		service.memberManage(mav);
 		return mav;
 	}
-
+	//관리자 영업점 리스트 출력(한 페이지에 추가, 수정, 삭제 가능) - 김용기
 	@RequestMapping(value = "adminMap.do", method = RequestMethod.GET)
 	public ModelAndView adminMap(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -774,7 +770,7 @@ public class ProController {
 		return mav;
 	}
 	
-	//관리자 교환환불 페이지
+	//관리자 교환환불 페이지 - 신호용
 	@RequestMapping(value = "adminChange.do", method = RequestMethod.GET)
 	public ModelAndView adminChange(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
@@ -784,7 +780,7 @@ public class ProController {
 		return mav;
 	}
 
-	//관리자 구매내역(배송완료) 페이지
+	//관리자 구매내역(배송완료) 페이지 - 신호용
 	@RequestMapping(value = "adminDelivery.do", method = RequestMethod.GET)
 	public ModelAndView adminDelivery(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
@@ -794,7 +790,7 @@ public class ProController {
 		return mav;
 	}
 
-	//관리자 주문조회 페이지
+	//관리자 주문조회 페이지 - 신호용
 	@RequestMapping(value = "adminOrderSearch.do", method = RequestMethod.GET)
 	public ModelAndView adminOrderSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
@@ -804,7 +800,7 @@ public class ProController {
 		return mav;
 	}
 	
-	//관리자 주문 상세정보 페이지
+	//관리자 주문 상세정보 페이지 - 신호용
 	@RequestMapping(value = "adminDetail.do", method = RequestMethod.GET)
 	public ModelAndView adminDetail(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
@@ -815,7 +811,7 @@ public class ProController {
 		return mav;
 	}
 	
-	//관리자 주문상태 수정
+	//관리자 주문상태 수정 - 신호용
 	@RequestMapping(value="/adminStatusChange.do", method=RequestMethod.GET)
 	public ModelAndView adminStatusChange(HttpServletRequest request,HttpServletResponse response) {
 		
@@ -825,7 +821,7 @@ public class ProController {
 		
 		return mav;
 	}
-
+	// 관리자 매출관리 - 허승찬
 	@RequestMapping(value = "adminSales.do", method = RequestMethod.GET)
 	public ModelAndView adminSales(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -1024,7 +1020,7 @@ public class ProController {
 
 		return mav;
 	}
-
+	//관리자 영업점 추가 - 김용기
 	@RequestMapping(value = "adminMapOk.do", method = RequestMethod.POST)
 	public ModelAndView adminMapInsert(HttpServletRequest request, HttpServletResponse response, MapDto mapDto)
 			throws Exception {
@@ -1035,7 +1031,7 @@ public class ProController {
 		service.createMap(mav);
 		return mav;
 	}
-
+	//관리자 영업점 수정 - 김용기
 	@RequestMapping(value = "adminMapUpdate.do", method = RequestMethod.POST)
 	public ModelAndView adminMapUpdate(HttpServletRequest request, HttpServletResponse response, MapDto mapDto) {
 		ModelAndView mav = new ModelAndView();
@@ -1045,7 +1041,7 @@ public class ProController {
 		service.updateMap(mav);
 		return mav;
 	}
-
+	//관리자 영업점 삭제 - 김용기
 	@RequestMapping(value = "adminMapDelete.do", method = RequestMethod.POST)
 	public ModelAndView adminMapDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();

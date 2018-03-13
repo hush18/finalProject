@@ -209,6 +209,7 @@ $(function() {
 			$("input[name='receive_addr']").attr("value",receive_addr)
 		}
 		
+		
 		$("input[name='title']").attr("value",$("div[id='title']").text());
 		$("form[name='order']").submit();
 	});

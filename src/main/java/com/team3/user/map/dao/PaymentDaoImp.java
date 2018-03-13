@@ -15,13 +15,13 @@ import com.team3.user.map.dto.PaymentPointDto;
 import com.team3.user.map.dto.PointDto;
 import com.team3.user.member.dto.MemberAddressDto;
 import com.team3.user.order.dto.OrderDto;
-
 /**
  * 이름 : 김용기
  * 날짜 : 2018. 2. 28.
  * 시간 : 오후 10:25:08
  * 내용 : 결제 Dao Class 
  */
+
 @Component
 public class PaymentDaoImp implements PaymentDao {
 	@Autowired
@@ -50,8 +50,8 @@ public class PaymentDaoImp implements PaymentDao {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public int paymentOk(PaymentPointDto paymentPointDto, OrderDto orderDto, HashMap<String, Object>map, HashMap<String, Object>cartMap) {
-		int check=sqlSessionTemplate.insert("paymentOk_paypoint",paymentPointDto);
-		check=sqlSessionTemplate.insert("paymentOk_order",orderDto);
+		int check=sqlSessionTemplate.insert("paymentOk_order",orderDto);
+		check=sqlSessionTemplate.insert("paymentOk_paypoint",paymentPointDto);
 		check=sqlSessionTemplate.insert("com.team3.user.map.dao.mapper.insert_sales",map);
 		check=sqlSessionTemplate.update("com.team3.user.map.dao.mapper.update_member",map);
 		

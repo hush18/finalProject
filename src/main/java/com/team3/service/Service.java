@@ -172,7 +172,7 @@ public class Service implements ServiceInterface {
 		searchDtoUtil(response, bookTitleList, null);
 	}
 	
-	//사용자 지정도서 검색기능 - 심제민
+	//사용자 저자 검색기능 - 심제민
 	@Override
 	public void searchWriter(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -349,8 +349,6 @@ public class Service implements ServiceInterface {
 			dataMap.put("sortValue", sortValue);
 			
 			bookListSearch = bookDao.getBookList(dataMap);
-			LogAspect.logger.info(LogAspect.logMsg+pageMap.get("startRow"));
-			LogAspect.logger.info(LogAspect.logMsg+pageMap.get("endRow"));
 			bookList = new ArrayList<BookDto>();
 			for (int i = pageMap.get("startRow") - 1; i < pageMap.get("endRow"); i++) {
 				BookDto bookDto = bookListSearch.get(i);
@@ -631,7 +629,8 @@ public class Service implements ServiceInterface {
 
 		mav.addObject("check", check);
 	}
-
+	
+	//사용자 메인리스트 - 맹인영
 	@Override
 	public void getMainList(ModelAndView mav) {
 		List<BookDto> bestBookList = bookDao.getMainList();
@@ -639,8 +638,6 @@ public class Service implements ServiceInterface {
 		List<BookDto> newBookList = bookDao.getMainList();
 		List<AdminNctDto> nctList = adminNctDao.getNctList();
 		List<AdminFaqDto> faqList = adminFaqDao.getFaqList();
-
-		// LogAspect.logger.info(LogAspect.logMsg + "메인에 뿌려줄 리스트 : " + bookList);
 
 		mav.addObject("bestBookList", bestBookList);
 		mav.addObject("hotBookList", hotBookList);
@@ -665,6 +662,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("loginMember.users");
 	}
 
+	//사용자 네이버 회원 가입 - 맹인영
 	@Override
 	public void naverCreateAccount(ModelAndView mav) throws Throwable {
 		Map<String, Object> map = mav.getModelMap();
@@ -692,7 +690,8 @@ public class Service implements ServiceInterface {
 		mav.setViewName("createAccount.users");
 
 	}
-
+	
+	//사용자 페이스북 회원 가입 - 맹인영
 	@Override
 	public void facebookCreateAccount(ModelAndView mav) throws Throwable {
 		Map<String, Object> map = mav.getModelMap();
@@ -717,7 +716,8 @@ public class Service implements ServiceInterface {
 		mav.setViewName("createAccount.users");
 
 	}
-
+	
+	//사용자 마이페이지 - 맹인영
 	@Override
 	public void myPage(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -729,7 +729,8 @@ public class Service implements ServiceInterface {
 		mav.addObject("memberDto", memberDto);
 		mav.setViewName("myPage.users");
 	}
-
+	
+	//사용자 회원 수정 - 맹인영
 	@Override
 	public void updateAccount(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -741,7 +742,8 @@ public class Service implements ServiceInterface {
 		mav.addObject("memberDto", memberDto);
 		mav.setViewName("updateAccount.users");
 	}
-
+	
+	//사용자 회원 수정 - 맹인영
 	@Override
 	public void updateAccountOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -754,6 +756,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("updateAccountOk.users");
 	}
 
+	//사용자 회원 삭제 - 맹인영
 	@Override
 	public void deleteAccount(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -772,6 +775,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("deleteAccountOk.users");
 	}
 
+	//사용자 뉴스피드 - 맹인영
 	@Override
 	public String newsfeedParsing(HttpServletRequest request, HttpServletResponse response) {
 		String url = "http://rss.donga.com/book.xml";
@@ -807,10 +811,8 @@ public class Service implements ServiceInterface {
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		String email = req.getParameter("email") + "@" + req.getParameter("emailAddress");
-		LogAspect.logger.info(LogAspect.logMsg + id + "\t" + name + "\t" + email);
 
 		MemberDto memberDto = memberDao.memberSelect(id);
-		/* LogAspect.logger.info(LogAspect.logMsg+memberDto.toString()); */
 
 		if (memberDto != null) {
 			if (email.equals(memberDto.getEmail()) && name.equals(memberDto.getName())) {
@@ -908,7 +910,6 @@ public class Service implements ServiceInterface {
 		adminFaqDto.setContent(content);
 
 		int check = adminFaqDao.faqInsert(adminFaqDto);
-		LogAspect.logger.info(LogAspect.logMsg + check);
 
 		mav.addObject("check", check);
 		mav.setViewName("adminFaqInsertOk.admin");
@@ -918,7 +919,6 @@ public class Service implements ServiceInterface {
 	@Override
 	public void adminFaqMain(ModelAndView mav) {
 		int count = adminFaqDao.faqCount();
-		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
 
 		List<AdminFaqDto> adminFaqList = new ArrayList<AdminFaqDto>();
 		if (count > 0) {
@@ -967,7 +967,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("adminFaqUpdateOk.admin");
 	}
 
-	// 관리자 고객센터 1:1문의 삭제 - 최은지
+	// 관리자 고객센터 FAQ 삭제 - 최은지
 	@Override
 	public void adminFaqDeleteOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1000,7 +1000,6 @@ public class Service implements ServiceInterface {
 		adminNctDto.setWrite_date(new Date());
 
 		int check = adminNctDao.nctInsert(adminNctDto);
-		LogAspect.logger.info(LogAspect.logMsg + check);
 
 		mav.addObject("check", check);
 
@@ -1011,7 +1010,6 @@ public class Service implements ServiceInterface {
 	@Override
 	public void adminNctMain(ModelAndView mav) {
 		int count = adminNctDao.nctCount();
-		LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
 
 		List<AdminNctDto> adminNctList = new ArrayList<AdminNctDto>();
 		if (count > 0) {
@@ -1039,7 +1037,6 @@ public class Service implements ServiceInterface {
 		for (int i = 0; i < checkSize; i++) {
 			check = adminNctDao.nctDeleteOk(st.nextToken());
 		}
-		LogAspect.logger.info(LogAspect.logMsg + "page" + request.getParameter("pageNumber"));
 		mav.addObject("check", check);
 
 		mav.setViewName("adminNctDeleteOk.admin");
@@ -1076,7 +1073,6 @@ public class Service implements ServiceInterface {
 		int check = adminNctDao.nctUpdateOk(adminNctDto);
 
 		mav.addObject("check", check);
-		LogAspect.logger.info(LogAspect.logMsg + "check: " + check);
 
 		mav.setViewName("adminNctUpdateOk.admin");
 	}
@@ -1116,7 +1112,6 @@ public class Service implements ServiceInterface {
 		adminCstDto.setAdmin_content(content);
 
 		int check = adminCstDao.cstInsertOk(adminCstDto);
-		LogAspect.logger.info(LogAspect.logMsg + check);
 
 		mav.addObject("check", check);
 
@@ -1135,7 +1130,6 @@ public class Service implements ServiceInterface {
 
 		mav.addObject("check", check);
 
-		LogAspect.logger.info(LogAspect.logMsg + "check: " + check);
 
 		mav.setViewName("adminCstUpdateOk.admin");
 	}
@@ -1187,7 +1181,7 @@ public class Service implements ServiceInterface {
 
 		mav.setViewName("adminFaqTopInsert.admin");
 	}
-
+	//관리자 영업점 생성 - 김용기
 	@Override
 	public void createMap(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1200,14 +1194,12 @@ public class Service implements ServiceInterface {
 		mapDto.setDirections(mapDto.getDirections().replace("\r\n", "<br>"));
 		mapDto.setStore_explanation(mapDto.getStore_explanation().replace("\r\n", "<br>"));
 
-		LogAspect.logger.info(LogAspect.logMsg + mapDto.toString());
 		int check = adminMapDao.mapInsert(mapDto);
-		LogAspect.logger.info(LogAspect.logMsg + check);
 
 		mav.addObject("check", check);
 		mav.setViewName("adminMapOk.admin");
 	}
-
+	//영업점 추가시 이미지파일 추가 메소드 - 김용기
 	public void addfile(List<MultipartFile> fileList, MapDto mapDto) {
 		for (int i = 0; i < fileList.size(); i++) {
 			long fileSize = fileList.get(i).getSize();
@@ -1237,7 +1229,7 @@ public class Service implements ServiceInterface {
 			}
 		}
 	}
-
+	//관리자 영업점 리스트 가져와서 출력 - 김용기
 	@Override
 	public void readMap(ModelAndView mav) {
 		List<MapDto> mapList = adminMapDao.mapRead();
@@ -1245,7 +1237,7 @@ public class Service implements ServiceInterface {
 		mav.addObject("mapList", mapList);
 		mav.setViewName("adminMap.admin");
 	}
-
+	//관리자 영업점 수정 - 김용기
 	@Override
 	public void updateMap(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1261,7 +1253,6 @@ public class Service implements ServiceInterface {
 		int check = 0;
 
 		check = adminMapDao.mapUpdate(mapDto);
-		LogAspect.logger.info(LogAspect.logMsg + check);
 		if (check > 0&&mapDto.getImg_path()!=null) {
 			deleteFile(oldPathList);
 		}
@@ -1271,7 +1262,7 @@ public class Service implements ServiceInterface {
 	}
 	
 	
-	// 파일삭제 메소드
+	// 파일삭제 메소드 - 영업점 삭제, 영업점 수정 시 이미지 파일을 삭제
 	public void deleteFile(String[] oldPathList) {
 		String realPath = Service.class.getResource("").getPath()
 				.replace("apache-tomcat-8.0.47/wtpwebapps", "workspace")
@@ -1280,11 +1271,11 @@ public class Service implements ServiceInterface {
 		for (int i = 0; i < oldPathList.length; i++) {
 			File file = new File(realPath + "/adminImg", oldPathList[i]);
 			if (file.delete()) {
-				LogAspect.logger.info(LogAspect.logMsg + oldPathList[i] + "파일삭제 완료");
+				
 			}
 		}
 	}
-
+	//관리자 영업점 삭제 - 김용기
 	@Override
 	public void deleteMap(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1301,7 +1292,6 @@ public class Service implements ServiceInterface {
 		infoMap.put("password", password);
 		infoMap.put("name", name);
 		infoMap.put("store_name", store_name);
-		LogAspect.logger.info(LogAspect.logMsg + infoMap.toString());
 		MemberDto memberDto = adminMapDao.getMemberInfo(infoMap);
 
 		String[] oldPathList = request.getParameter("hidden_path").split(",");
@@ -1312,13 +1302,12 @@ public class Service implements ServiceInterface {
 			if (Integer.parseInt(memberDto.getMember_number()) > 0
 					&& Integer.parseInt(memberDto.getMember_number()) < 100
 					&& memberDto.getName().equals(infoMap.get("name"))) {
-				LogAspect.logger.info(LogAspect.logMsg + "앙삭제띠");
 				check = adminMapDao.mapDelete(infoMap.get("store_name"));
 			} else {
-				LogAspect.logger.info(LogAspect.logMsg + "이름이 틀려서 삭제실패띠");
+				
 			}
 		} else {
-			LogAspect.logger.info(LogAspect.logMsg + "아이디 비밀번호 불일치");
+			
 		}
 		if (check > 0) {
 			deleteFile(oldPathList);
@@ -1327,7 +1316,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("adminMapDelete.admin");
 	}
 
-	// 최근본상품 리스트 출력
+	// 사용자 최근본상품 리스트 출력 - 허승찬
 	@Override
 	public void nearestList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1337,8 +1326,6 @@ public class Service implements ServiceInterface {
 			String id = (String) session.getAttribute("mbId");
 			List<InterestDto> interestList = interestDao.nearestSelect(id);
 			int count = interestList.size();
-			LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
-			LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
 			mav.addObject("interestList", interestList);
 			mav.addObject("count", count);
 			mav.addObject("id", id);
@@ -1346,7 +1333,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("nearestList.users");
 	}
 
-	// 최근본상품에서 장바구니로 이동
+	// 사용자 최근본상품에서 장바구니로 이동 - 허승찬
 	@Override
 	public void nearestUp(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1359,7 +1346,6 @@ public class Service implements ServiceInterface {
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
-				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestUp(id, strArr);
@@ -1368,7 +1354,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("nearestUp.users");
 	}
 
-	// 최근본상품에서 리스트 삭제
+	// 사용자 최근본상품에서 리스트 삭제 - 허승찬
 	@Override
 	public void nearestDel(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1381,7 +1367,6 @@ public class Service implements ServiceInterface {
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
-				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
 			check = interestDao.nearestDel(id, strArr);
@@ -1391,7 +1376,7 @@ public class Service implements ServiceInterface {
 
 	}
 
-	// 위시리스트 출력
+	// 사용자 위시리스트 출력 - 허승찬
 	@Override
 	public void wishList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1401,8 +1386,6 @@ public class Service implements ServiceInterface {
 			String id = (String) session.getAttribute("mbId");
 			List<InterestDto> interestList = interestDao.wishListSelect(id);
 			int count = interestList.size();
-			LogAspect.logger.info(LogAspect.logMsg + "count: " + count);
-			LogAspect.logger.info(LogAspect.logMsg + interestList.toString());
 			mav.addObject("interestList", interestList);
 			mav.addObject("count", count);
 			mav.addObject("id", id);
@@ -1411,7 +1394,7 @@ public class Service implements ServiceInterface {
 
 	}
 
-	// 위시리스트에서 장바구니 이동
+	// 사용자 위시리스트에서 장바구니 이동  - 허승찬
 	@Override
 	public void wishListUp(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1423,7 +1406,6 @@ public class Service implements ServiceInterface {
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
-				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListUp(id, strArr);
@@ -1432,7 +1414,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("wishListUp.users");
 	}
 
-	// 위시리스트에서 리스트 삭제
+	// 사용자 위시리스트에서 리스트 삭제 - 허승찬
 	@Override
 	public void wishListDel(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1444,7 +1426,6 @@ public class Service implements ServiceInterface {
 			String isbn = request.getParameter("isbn");
 			String[] strArr = isbn.split("/");
 			for (int i = 0; i < strArr.length; i++) {
-				LogAspect.logger.info(LogAspect.logMsg + strArr[i]);
 				strArr[i] += "/";
 			}
 			check = interestDao.wishListDel(id, strArr);
@@ -1459,9 +1440,7 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 
-		// LogAspect.logger.info(LogAspect.logMsg + "맴버 디티오 : " + memberDto);
 		int check = memberDao.insertAccount(memberDto);
-		LogAspect.logger.info(LogAspect.logMsg + "인서트 체크 값 : " + check);
 		
 		mav.setViewName("createAccount.users");
 		mav.addObject("check", check);
@@ -1498,7 +1477,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("searchPwdOK.empty");
 	}
 
-	// 위시리스트로 Insert
+	// 사용자 위시리스트로 Insert - 허승찬
 	@Override
 	public void wishListInsert(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1509,7 +1488,6 @@ public class Service implements ServiceInterface {
 
 		String[] strArr = isbn.split("/");
 		for (int i = 0; i < strArr.length; i++) {
-			LogAspect.logger.info(LogAspect.logMsg + strArr[i] + "확인");
 			strArr[i] += "/";
 		}
 		int check = interestDao.wishListInsert(id, strArr);
@@ -1519,7 +1497,7 @@ public class Service implements ServiceInterface {
 
 	}
 
-	// 최근본상품 Insert
+	// 사용자 최근본상품 Insert - 허승찬
 	@Override
 	public void nearestInsert(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1529,7 +1507,8 @@ public class Service implements ServiceInterface {
 		String id = (String) session.getAttribute("mbId");
 		interestDao.nearestInsert(id, isbn);
 	}
-
+	
+	// 사용자 스크롤배너 - 허승찬
 	@Override
 	public void scrollBanner(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -1539,13 +1518,11 @@ public class Service implements ServiceInterface {
 		if(session.getAttribute("mbId")!=null) {
 			String id=(String) session.getAttribute("mbId");
 			List<InterestDto> scrollList=interestDao.scrollSelect(id);
-			LogAspect.logger.info(LogAspect.logMsg + "리스트 출력!!!" + scrollList);
-			int scrollCount=scrollList.size();
-			if(scrollList.size() > 2) scrollCount=2;
 			mav.addObject("scrollList", scrollList);
 		}
 	}
-
+	
+	//관리자 매출관리 - 허승찬
 	@Override
 	public void adminSales(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1557,12 +1534,12 @@ public class Service implements ServiceInterface {
 		mav.addObject("salesList", salesList);
 		mav.setViewName("adminSales.admin");
 	}
-
+	
+	//사용자 영업점 리스트 출력 - 김용기
 	@Override
 	public void userMapRead(ModelAndView mav) {
 		List<MapDto> mapList = adminMapDao.mapRead();
 
-		LogAspect.logger.info(LogAspect.logMsg + mapList.size());
 		for (int i = 0; i < mapList.size(); i++) {
 			mapList.get(i).setDirections(mapList.get(i).getDirections().replace("\r\n", "<br>"));
 			mapList.get(i).setStore_explanation(mapList.get(i).getStore_explanation().replace("\r\n", "<br>"));
@@ -1604,7 +1581,6 @@ public class Service implements ServiceInterface {
 				e.printStackTrace();
 			}
 		}
-		LogAspect.logger.info(LogAspect.logMsg + "휴면해지했수꽈? " + check);
 		mav.addObject("check", check);
 		mav.setViewName("diapOK.empty");
 	}
@@ -1708,7 +1684,7 @@ public class Service implements ServiceInterface {
 		}
 
 	}
-
+	//사용자 결제 - 김용기
 	@Override
 	public void payment(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -1726,11 +1702,8 @@ public class Service implements ServiceInterface {
 		HttpSession session = request.getSession(); //세션받기 ID
 		MemberDto memberDto=memberDao.updateAccount(session);
 		
-		LogAspect.logger.info(LogAspect.logMsg +isbnList.length);
-		
 		if(request.getParameter("val").equals("1")) {
 			int quantity=Integer.parseInt(request.getParameter("quantity").split(",")[0]);
-			LogAspect.logger.info(LogAspect.logMsg +isbn+"\t"+quantity);
 			
 			BookDto bookDto=paymentDao.selectBook(isbnList[0]);
 			mav.addObject("bookDto",bookDto);
@@ -1877,8 +1850,6 @@ public class Service implements ServiceInterface {
 				}
 			}
 			
-			LogAspect.logger.info(LogAspect.logMsg + cstList.toString());
-			
 			mav.addObject("pageNumber",pageNumber);
 			mav.addObject("boardSize",boardSize);
 			mav.addObject("cstList",cstList);
@@ -2007,7 +1978,7 @@ public class Service implements ServiceInterface {
 		}
 		
 		if(id!=null) {
-			List<CstOrderDto> cstOrNumberList = cstDao.cstOrNumberList(id);
+			List<CstOrderDto> cstOrNumberList = cstDao.cstOrNumberList(id,date);
 			List<CstOrderDto> cstOrderList = new ArrayList<CstOrderDto>(); 
 			CstOrderDto cstOrderDto = new CstOrderDto();
 			String[] goods = null;
@@ -2019,7 +1990,7 @@ public class Service implements ServiceInterface {
 					account = cstOrNumberList.get(i).getOrder_account().split("/");
 					order_number = cstOrNumberList.get(i).getOrder_number();
 					for(int j=0; j<goods.length; j++) {
-						cstOrderDto = cstDao.cstOrderList(goods[j]+"/",order_number,date);
+						cstOrderDto = cstDao.cstOrderList(goods[j]+"/",order_number);
 						cstOrderDto.setOrder_account(account[j]);
 						cstOrderList.add(cstOrderDto); 
 					}
@@ -2031,7 +2002,7 @@ public class Service implements ServiceInterface {
 		}
 	}
 		
-
+	//결제 후  메소드 - 김용기
 	@Override
 	public void paymentOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -2056,9 +2027,6 @@ public class Service implements ServiceInterface {
 			orderDto.setOrder_status(1);
 		}
 		
-		LogAspect.logger.info(LogAspect.logMsg+paymentPointDto.toString());
-		LogAspect.logger.info(LogAspect.logMsg+orderDto.toString());
-		
 		HashMap<String, Object>hmap=new HashMap<String, Object>();
 		hmap.put("total_price", orderDto.getTotal_price());
 		hmap.put("point_history",paymentPointDto.getPoint_history());
@@ -2068,8 +2036,6 @@ public class Service implements ServiceInterface {
 		hmap.put("goods",orderDto.getGoods());
 		
 		String[] goods=((String)hmap.get("goods")).split("/");
-		if(flag==1)
-			LogAspect.logger.info(LogAspect.logMsg+goods.length);
 		
 		HashMap<String, Object> cartMap=new HashMap<String, Object>();
 		ArrayList<String>isbnList=null;
@@ -2083,11 +2049,11 @@ public class Service implements ServiceInterface {
 		cartMap.put("isbnList", isbnList);
 		
 		int check=paymentDao.paymentOk(paymentPointDto,orderDto,hmap,cartMap);
-		LogAspect.logger.info(LogAspect.logMsg+"paymentOk check : "+check);
 		mav.addObject("check",check);
 		mav.setViewName("paymentOk.users");
 	}
-
+	
+	//사용자 주소 검색 - 김용기
 	@Override
 	public void addressList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -2101,7 +2067,8 @@ public class Service implements ServiceInterface {
 		mav.addObject("size", memberAddressDtoList.size());
 		mav.setViewName("addressList.empty");
 	}
-
+	
+	//사용자 주소  등록 - 김용기
 	@Override
 	public void addAddress(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -2115,7 +2082,7 @@ public class Service implements ServiceInterface {
 		mav.addObject("check", check);
 		mav.setViewName("addAddress.empty");
 	}
-
+	//결제 시 배송지 삭제 - 김용기
 	@Override
 	public void deleteAddress(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -2123,13 +2090,12 @@ public class Service implements ServiceInterface {
 		String member_zipcode = request.getParameter("check");
 
 		int check = paymentDao.deleteMemeberAddress(member_zipcode);
-		LogAspect.logger.info(LogAspect.logMsg + "check : " + check);
 
 		mav.addObject("check", check);
 		mav.setViewName("addressDelete.empty");
 	}
 
-	//사용자 리스트 출력 코드중복
+	//사용자 리스트 출력 코드중복 - 신호용
 	public void orderUtil(List<OrderDto> OrderList) {
 		for(int i=0; i<OrderList.size(); i++) {
 			OrderDto orderDto=OrderList.get(i);
@@ -2158,7 +2124,7 @@ public class Service implements ServiceInterface {
 		}
 	}
 
-	//주문상태 변환
+	//주문상태 변환 - 신호용
 	public String status(int order_status) {
 		String status=null;
 		switch (order_status) {
@@ -2181,7 +2147,7 @@ public class Service implements ServiceInterface {
 		return status;
 	}
 	
-	//페이지 기법
+	//페이지 기법 - 신호용
 	public ArrayList<Integer> pageRow(String pageNumber){
 		ArrayList<Integer> pageRow = new ArrayList<Integer>();
 		
@@ -2192,14 +2158,13 @@ public class Service implements ServiceInterface {
 		int endRow=currentPage*pageSize;
 		
 		pageRow.add(pageSize);
-		
 		pageRow.add(startRow);
 		pageRow.add(endRow);
 		
 		return pageRow;
 	}
 	
-	//Count들 출력
+	//Count들 출력 - 신호용
 	public ArrayList<Integer> getCount(String id){
 		ArrayList<Integer> getCount=new ArrayList<Integer>();
 		
@@ -2218,7 +2183,7 @@ public class Service implements ServiceInterface {
 		return getCount;
 	}
 	
-	//사용자 주문 배송 조회페이지
+	//사용자 주문 배송 조회페이지 - 신호용
 	@Override
 	public void orderSearch(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2270,7 +2235,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("orderSearch.users");
 	}
 	
-	//사용자 주문중인 상품 페이지
+	//사용자 주문중인 상품 페이지 - 신호용
 	@Override
 	public void ordering(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2282,16 +2247,11 @@ public class Service implements ServiceInterface {
 			
 			ArrayList<Integer> getCount=getCount(id);
 			
-			String ordering_pageNumber=request.getParameter("ordering_pageNumber");
-			if(request.getParameter("ordering_pageNumber")==null) {
-				ordering_pageNumber="1";
-			}
-			
+			String ordering_pageNumber=request.getParameter("ordering_pageNumber")==null ? "1":request.getParameter("ordering_pageNumber");
+						
 			ArrayList<Integer> pageRow = pageRow(ordering_pageNumber);
 			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");			
 			int list_id=Integer.parseInt(list_value);
 			
 			List<OrderDto> orderingList=null;
@@ -2313,7 +2273,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("ordering.users");
 	}
 
-	//사용자 배달중인 상품 페이지
+	//사용자 배달중인 상품 페이지 - 신호용
 	@Override
 	public void delivery(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2325,16 +2285,11 @@ public class Service implements ServiceInterface {
 			
 			ArrayList<Integer> getCount=getCount(id);
 			
-			String delivery_pageNumber=request.getParameter("delivery_pageNumber");
-			if(request.getParameter("delivery_pageNumber")==null) {
-				delivery_pageNumber="1";
-			}
+			String delivery_pageNumber=request.getParameter("delivery_pageNumber")==null ? "1":request.getParameter("delivery_pageNumber");
 			
 			ArrayList<Integer> pageRow = pageRow(delivery_pageNumber);
 			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");
 			int list_id=Integer.parseInt(list_value);
 			
 			List<OrderDto> deliveryList=null;
@@ -2356,7 +2311,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("delivery.users");
 	}
 
-	//사용자 교환환불 페이지
+	//사용자 교환환불 페이지 - 신호용
 	public void cancel(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
@@ -2367,16 +2322,11 @@ public class Service implements ServiceInterface {
 			
 			ArrayList<Integer> getCount=getCount(id);
 			
-			String cancel_pageNumber=request.getParameter("cancel_pageNumber");
-			if(request.getParameter("cancel_pageNumber")==null) {
-				cancel_pageNumber="1";
-			}
+			String cancel_pageNumber=request.getParameter("cancel_pageNumber")==null ? "1":request.getParameter("cancel_pageNumber");
 			
 			ArrayList<Integer> pageRow = pageRow(cancel_pageNumber);
 			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");			
 			int list_id=Integer.parseInt(list_value);
 			
 			String dateValue=null;
@@ -2409,7 +2359,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("cancel.users");
 	}
 
-	//사용자 구매내역 페이지
+	//사용자 구매내역 페이지 - 신호용
 	@Override
 	public void buyList(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2421,19 +2371,14 @@ public class Service implements ServiceInterface {
 			
 			ArrayList<Integer> getCount=getCount(id);
 			
-			String buyList_pageNumber=request.getParameter("buyList_pageNumber");
-			if(request.getParameter("buyList_pageNumber")==null) {
-				buyList_pageNumber="1";
-			}
+			String buyList_pageNumber=request.getParameter("buyList_pageNumber")==null ? "1":request.getParameter("buyList_pageNumber");
 			
 			ArrayList<Integer> pageRow = pageRow(buyList_pageNumber);
-
-			int buyListCount=orderDao.getBuyListCount(id);
 			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");
 			int list_id=Integer.parseInt(list_value);
+			
+			int buyListCount=orderDao.getBuyListCount(id);
 			
 			String dateValue=null;
 			String dateValueList=null;
@@ -2466,7 +2411,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("buyList.users");
 	}
 
-	//사용자 장바구니 페이지
+	//사용자 장바구니 페이지 - 신호용
 	@Override
 	public void cart(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2477,23 +2422,13 @@ public class Service implements ServiceInterface {
 			String id=(String) session.getAttribute("mbId");
 			
 			int value=2;
-			String isbnList=request.getParameter("isbnList");
-			if(isbnList==null) {
-				isbnList=request.getParameter("isbn");
-			}
-			String[] isbnArr=null;
-			if(isbnList!=null) {
-				isbnArr=isbnList.split("/");
-			}
+			String isbnList=request.getParameter("isbnList")==null ? request.getParameter("isbn") : request.getParameter("isbnList");
+			
+			String[] isbnArr=isbnList!=null ? isbnList.split("/") : null;
 		
-			String quantityList=request.getParameter("quantityList");
-			if(quantityList==null) {
-				quantityList=request.getParameter("quantity");
-			}
-			String[] quantityArr=null;
-			if(quantityList!=null) {
-				quantityArr=quantityList.split("/");
-			}
+			String quantityList=request.getParameter("quantityList")==null ? request.getParameter("quantity") : request.getParameter("quantityList");
+			
+			String[] quantityArr=quantityList!=null ? quantityList.split("/") : null;
 			
 			int check=2;
 			if(isbnArr!=null && quantityArr!=null) {
@@ -2503,21 +2438,16 @@ public class Service implements ServiceInterface {
 				}
 			}
 			
-			String cart_pageNumber=request.getParameter("cart_pageNumber");
-			if(request.getParameter("cart_pageNumber")==null) {
-				cart_pageNumber="1";
-			}
+			String cart_pageNumber=request.getParameter("cart_pageNumber")==null ? "1":request.getParameter("cart_pageNumber");
 			
 			ArrayList<Integer> pageRow = pageRow(cart_pageNumber);
 			
-			int cartCount=orderDao.getCartCount(id);
-			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");			
 			int list_id=Integer.parseInt(list_value);
 			
+			int cartCount=orderDao.getCartCount(id);
 			int point=orderDao.getPoint(id);
+			
 			List<CartDto> cartList=null;
 			if(cartCount >0) {
 				cartList=orderDao.cartList(pageRow.get(1), pageRow.get(2), list_id, id);
@@ -2535,7 +2465,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("cart.users");
 	}
 
-	//사용자 장바구니 삭제
+	//사용자 장바구니 삭제 - 신호용
 	@Override
 	public void cartListDelete(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2557,32 +2487,22 @@ public class Service implements ServiceInterface {
 				}
 			}
 			
-			String cart_pageNumber=request.getParameter("cart_pageNumber");
-			if(request.getParameter("cart_pageNumber")==null) {
-				cart_pageNumber="1";
-			}
+			String cart_pageNumber=request.getParameter("cart_pageNumber")==null ? "1":request.getParameter("cart_pageNumber");
 			
-			int pageSize=10;
+			ArrayList<Integer> pageRow = pageRow(cart_pageNumber);
 			
-			int currentPage=Integer.parseInt(cart_pageNumber);
-			int startRow=(currentPage-1)*pageSize+1;
-			int endRow=currentPage*pageSize;
+			String list_value=request.getParameter("list_id")==null ? "0":request.getParameter("list_id");
+			int list_id=Integer.parseInt(list_value);
 			
 			int cartCount=orderDao.getCartCount(id);
-			
-			String list_value=request.getParameter("list_id");
-			if(list_value==null) list_value="0";
-			
-			int list_id=Integer.parseInt(list_value);
 			int point=orderDao.getPoint(id);
 			List<CartDto> cartList=null;
 			if(cartCount >0) {
-				cartList=orderDao.cartList(startRow, endRow, list_id, id);
+				cartList=orderDao.cartList(pageRow.get(1), pageRow.get(2), list_id, id);
 			}		
 			
-	
 			mav.addObject("cart_pageNumber", cart_pageNumber);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageSize", pageRow.get(0));
 			mav.addObject("cartList", cartList);
 			mav.addObject("list_id", list_id);
 			mav.addObject("cartCount", cartCount);
@@ -2592,7 +2512,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("cart.users");
 	}
 
-	//사용자 주문상태 수정
+	//사용자 주문상태 수정 - 신호용
 	@Override
 	public void statusChange(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2625,7 +2545,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("returnPoint.users");
 	}
 
-	//사용자 주문 삭제
+	//사용자 주문 삭제 - 신호용
 	@Override
 	public void orderDelete(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2658,7 +2578,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("returnPoint.users");
 	}
 
-	//사용자 주문상세정보
+	//사용자 주문상세정보 - 신호용
 	@Override
 	public void detailOrder(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2729,7 +2649,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("detailOrder.users");
 	}
 	
-	//관리자 리스트출력 중복코드
+	//관리자 리스트출력 중복코드 - 신호용
 	public void adminOrderUtil(List<OrderDto> adminOrderList) {
 		for(int i=0; i<adminOrderList.size(); i++) {
 			OrderDto adminOrderDto=adminOrderList.get(i);
@@ -2760,7 +2680,7 @@ public class Service implements ServiceInterface {
 		}
 	}
 	
-	//결제방법 변환
+	//결제방법 변환 - 신호용
 	public String getPayment_way(OrderDto adminOrderDto) {
 		String payment_way="";
 		if(adminOrderDto.getCredit_card()!=null) payment_way="신용카드";
@@ -2774,8 +2694,6 @@ public class Service implements ServiceInterface {
 	//관리자 주문조회
 	@Override
 	public void adminOrderSearch(ModelAndView mav) {
-		Map<String, Object> map=mav.getModelMap();
-		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		int count=adminOrderDao.getAdminOrderCount();
 		
@@ -2790,11 +2708,9 @@ public class Service implements ServiceInterface {
 		mav.setViewName("adminOrderSearch.admin");
 	}
 	
-	//관리자 교환환불
+	//관리자 교환환불 - 신호용
 	@Override
 	public void adminChange(ModelAndView mav) {
-		Map<String, Object> map=mav.getModelMap();
-		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		int count=adminOrderDao.getAdminChangeCount();
 		
@@ -2809,15 +2725,11 @@ public class Service implements ServiceInterface {
 		mav.setViewName("adminChange.admin");
 	}
 	
-	//관리자 구매내역(배송완료)
+	//관리자 구매내역(배송완료) - 신호용
 	@Override
 	public void adminDelivery(ModelAndView mav) {
-		Map<String, Object> map=mav.getModelMap();
-		HttpServletRequest request=(HttpServletRequest) map.get("request");
-		
 	
 		int count=adminOrderDao.getAdminDeliveryCount();
-		LogAspect.logger.info(LogAspect.logMsg + "count:" + count);
 		
 		List<OrderDto> adminDeliveryList=null;
 		if(count >0) {
@@ -2830,7 +2742,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("adminDelivery.admin");
 	}
 	
-	//관리자 주문상세정보
+	//관리자 주문상세정보 - 신호용
 	@Override
 	public void adminDetail(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
@@ -2886,7 +2798,7 @@ public class Service implements ServiceInterface {
 		mav.setViewName("adminDetail.admin");
 	}
 	
-	//관리자 주문상태변경
+	//관리자 주문상태변경 - 신호용
 	public void adminStatusChange(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
@@ -2920,9 +2832,9 @@ public class Service implements ServiceInterface {
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		
 		InterestDto scrollDto=interestDao.scrollRecommend();
-		LogAspect.logger.info(LogAspect.logMsg + "리스트 출력!!!" + scrollDto);
 		mav.addObject("scrollDto", scrollDto);
 	}	
+	//사용자 포인트 출력 - 김용기
 	@Override
 	public void userPoint(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();

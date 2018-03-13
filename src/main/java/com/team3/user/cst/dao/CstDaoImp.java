@@ -39,23 +39,23 @@ public class CstDaoImp implements CstDao {
 	}
 
 	@Override
-	public List<CstOrderDto> cstOrNumberList(String id) {
-		return sqlSession.selectList("cstOrNumberList",id);
+	public List<CstOrderDto> cstOrNumberList(String id, String date) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("date", date);
+		if(date.equals("7") || date.equals("15")) {
+			return sqlSession.selectList("cstOrNumberList",map);
+		}else {
+			return sqlSession.selectList("cstOrNumberList2",map);
+		}
 	}
 
 	@Override
-	public CstOrderDto cstOrderList(String goods, String order_number, String date) {
+	public CstOrderDto cstOrderList(String goods, String order_number) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("goods", goods);
 		map.put("order_number", order_number);
-		map.put("date", date);
-		System.out.println(date);
-		if(date.equals("7") || date.equals("15")) {
-			System.out.println(date+"1");
-			return sqlSession.selectOne("cstOrderList",map);
-		}else {
-			System.out.println(date+"2");
-			return sqlSession.selectOne("cstOrderList2",map);
-		}
+		
+		return sqlSession.selectOne("cstOrderList",map);
 	}
 }

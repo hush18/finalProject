@@ -31,6 +31,10 @@
 		delete from order_delivery where id=#{id}
 	</delete>
 	
+	<delete id="adminMemberAddressDelete" parameterType="String">
+		delete from member_address where id=#{id}
+	</delete>
+	
 	<delete id="adminMemberDelete" parameterType="String">
 		<![CDATA[
 			delete from member where id=#{id}

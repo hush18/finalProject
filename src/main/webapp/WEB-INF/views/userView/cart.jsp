@@ -1,3 +1,6 @@
+<!-- 
+작성자 : 신호용
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -152,7 +155,7 @@
 
 			<div class="con_hy">
 				<div>
-					<h2 class="h2_hy">장바구니</h2>
+					<h2 class="h2_hy">(<%=id %>)님의 장바구니</h2>
 					<div class="downList_hy">
 						<select class="downList_sel_hy" id="array">
 							<option value="0" selected="selected">최근등록 순</option>

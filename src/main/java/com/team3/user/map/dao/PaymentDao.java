@@ -13,7 +13,7 @@ import com.team3.user.order.dto.OrderDto;
  * 이름 : 김용기
  * 날짜 : 2018. 2. 28.
  * 시간 : 오후 10:24:28
- * 내용 : 결제  Dao Service
+ * 내용 : 결제  Dao Interface
  */
 public interface PaymentDao {
 	public BookDto selectBook(String isbn);

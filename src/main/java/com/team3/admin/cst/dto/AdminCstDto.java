@@ -3,20 +3,20 @@ package com.team3.admin.cst.dto;
 import java.util.Date;
 
 public class AdminCstDto {
-	private int counsel_number;
-	private String id;
-	private String title;
-	private String counsel_product;
-	private String order_number;
-	private String content;
-	private String email;
-	private String up_category;
-	private String down_category;
-	private Date write_date;
-	private String reply_check;
-	private int rnum;
-	private String admin_content;
-	private Date admin_write_date;
+	private int counsel_number;		// 고유번호
+	private String id;				// 사용자 id
+	private String title;			// 제목
+	private String counsel_product;	// 문의상품명
+	private String order_number;	// 주문상품명
+	private String content;			// 내용
+	private String email;			// email
+	private String up_category;		// 상위유형
+	private String down_category;	// 하위유형
+	private Date write_date;		// 등록일
+	private String reply_check;		// 답변여부
+	private int rnum;				// 가상번호
+	private String admin_content;	// 관리자 답변 내용
+	private Date admin_write_date;	// 관리자 답변 등록일
 	
 	public int getCounsel_number() {
 		return counsel_number;

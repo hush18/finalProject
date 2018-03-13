@@ -3,13 +3,13 @@ package com.team3.user.cst.dto;
 import java.util.Date;
 
 public class CstOrderDto {
-	private String goods;
-	private String order_account;
-	private long price;
-	private String id;
-	private Date order_date;
-	private String title;
-	private String order_number;
+	private String goods;			// 주문 상품 번호
+	private String order_account;	// 주문 상품 개수
+	private long price;				// 가격
+	private String id;				// 사용자 id
+	private Date order_date;		// 구입한 날짜
+	private String title;			// 상품명
+	private String order_number;	// 고유번호
 	
 	public String getGoods() {
 		return goods;

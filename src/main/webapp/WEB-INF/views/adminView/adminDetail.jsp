@@ -1,9 +1,12 @@
+<!-- 
+작성자 : 신호용
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
 <link rel="icon" href="images/favicon.ico" type="image/ico" />
-<title>㈜산책 주문관리</title>
+<title>㈜산책 주문 상세 정보</title>
 <!-- iCheck -->
 <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <!-- bootstrap-progressbar -->

@@ -10,6 +10,6 @@ public interface CstDao {
 	public int userInsert(CstDto cstDto);
 	public List<CstQuestionDto> cstProductList(String search,int startNum,int endNum);
 	public int cstProductCount(String search);
-	public List<CstOrderDto> cstOrNumberList(String id);
-	public CstOrderDto cstOrderList(String goods,String order_number,String date);
+	public List<CstOrderDto> cstOrNumberList(String id, String date);
+	public CstOrderDto cstOrderList(String goods,String order_number);
 }

@@ -3,16 +3,16 @@ package com.team3.user.cstList.dto;
 import java.util.Date;
 
 public class CstListDto {
-	private int counsel_number;
-	private String id;
-	private String title;
-	private String content;
-	private String up_category;
-	private String down_category;
-	private Date write_date;
-	private String reply_check;
-	private String admin_content;
-	private Date admin_write_date;
+	private int counsel_number;		// 고유번호
+	private String id;				// 사용자 id
+	private String title;			// 제목
+	private String content;			// 내용
+	private String up_category;		// 상위유형
+	private String down_category;	// 하위유형
+	private Date write_date;		// 등록일
+	private String reply_check;		// 답변여부
+	private String admin_content;	// 관리자 답변 내용
+	private Date admin_write_date;	// 관리자 답변 날짜
 
 	public Date getAdmin_write_date() {
 		return admin_write_date;

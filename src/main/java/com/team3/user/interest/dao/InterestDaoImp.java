@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.team3.aop.LogAspect;
 import com.team3.user.interest.dto.InterestDto;
 
 @Component
@@ -110,7 +109,6 @@ public class InterestDaoImp implements InterestDao {
 			hMap.put("str", strArr[i]);
 			hMap.put("state", 0);
 			hMap.put("sta", 2);
-			LogAspect.logger.info(LogAspect.logMsg + hMap.toString() + strArr.length + "이건출력됨");
 			chk=sqlSession.delete("nearestDel",hMap);
 			if(chk==0) {
 				check=0;
@@ -130,7 +128,6 @@ public class InterestDaoImp implements InterestDao {
 			hMap.put("id", id);
 			hMap.put("isbn", strArr[i]);
 			hMap.put("state", 2);
-			LogAspect.logger.info(LogAspect.logMsg + "이게 찍히는거냐?" + hMap.toString());
 			InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
 			if(dto==null) {
 				chk=sqlSession.insert("wishListInsert",hMap);
@@ -147,7 +144,6 @@ public class InterestDaoImp implements InterestDao {
 		hMap.put("isbn", isbn);
 		hMap.put("state", 1);
 		int check=0;
-		LogAspect.logger.info(LogAspect.logMsg + hMap.toString());
 		InterestDto dto=sqlSession.selectOne("selectInsert", hMap);
 		if(dto==null) {
 			check=sqlSession.insert("nearestInsert",hMap);
